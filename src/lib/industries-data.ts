@@ -1,33 +1,21 @@
 import type { Industry } from "@/types";
 
-export const industries: Industry[] = [
-  {
-    slug: "professional-services",
-    title: "Professional Services",
-    description: "Knowledge management, client intelligence, and firm analytics for law firms, consultancies, and accounting practices.",
-    icon: "briefcase",
-    lottie: "https://assets-v2.lottiefiles.com/a/2ca3b0dc-1165-11ee-a42a-1bb603ea05bf/mWA5LyrC45.json",
-    subIndustries: [
-      {
-        slug: "legal",
-        title: "Legal",
-        description: "Matter management, client intelligence, and compliance for law firms.",
-        parentSlug: "professional-services",
-      },
-      {
-        slug: "accounting",
-        title: "Accounting & CPA",
-        description: "Client analytics, engagement tracking, and practice management.",
-        parentSlug: "professional-services",
-      },
-    ],
-  },
+export interface IndustryWithCta extends Industry {
+  ctaText?: string;
+  ctaHref?: string;
+  ctaSubtext?: string;
+}
+
+export const industries: IndustryWithCta[] = [
   {
     slug: "healthcare",
     title: "Healthcare",
     description: "Operational visibility, multi-location analytics, and compliance for healthcare organizations and medical practices.",
     icon: "heart",
-    lottie: "/animations/healthcare.json",
+    lottie: "https://assets-v2.lottiefiles.com/a/af48f918-9287-11ee-bb1c-a3b82955ab60/nqEGHcwwS8.json",
+    ctaText: "Get Your Price Benchmark",
+    ctaHref: "/assessments/healthcare-benchmark",
+    ctaSubtext: "See how your pricing compares to competitors",
   },
   {
     slug: "commercial-real-estate",
@@ -41,7 +29,10 @@ export const industries: Industry[] = [
     title: "Manufacturing",
     description: "Sales intelligence, production visibility, and operational analytics for scale-up manufacturers.",
     icon: "factory",
-    lottie: "/animations/manufacturing.json",
+    lottie: "https://assets-v2.lottiefiles.com/a/20d6948e-118a-11ee-823d-0b503ca393bf/7EfiHzAhW4.json",
+    ctaText: "Take the Readiness Assessment",
+    ctaHref: "/assessments/manufacturing",
+    ctaSubtext: "5-minute assessment for scale-up manufacturers",
   },
 ];
 
@@ -50,24 +41,6 @@ export const industryContent: Record<string, {
   solutions: { title: string; description: string }[];
   useCases: { title: string; description: string }[];
 }> = {
-  "professional-services": {
-    challenges: [
-      "Knowledge trapped in individual inboxes and documents",
-      "Client relationships not visible across the firm",
-      "Manual tracking of matter status and profitability",
-      "Difficulty identifying cross-selling opportunities",
-    ],
-    solutions: [
-      { title: "Knowledge Management", description: "Centralize firm knowledge and make it searchable across all matters." },
-      { title: "Client Intelligence", description: "360-degree view of client relationships across all partners and practices." },
-      { title: "Firm Analytics", description: "Track utilization, profitability, and pipeline in real-time." },
-    ],
-    useCases: [
-      { title: "Matter Profitability", description: "See which matters are profitable and which are draining resources." },
-      { title: "Client Expansion", description: "Identify which clients are good candidates for additional services." },
-      { title: "Resource Planning", description: "Forecast workload and staff needs based on pipeline." },
-    ],
-  },
   "healthcare": {
     challenges: [
       "Data siloed across multiple facilities and systems",

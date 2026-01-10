@@ -6,12 +6,12 @@ import { motion } from "framer-motion";
 import { CTA } from "@/components/sections";
 import { Button, Card } from "@/components/ui";
 import { LottieWrapper, FloatingNodes } from "@/components/animations";
-import { industries, industryContent, getIndustryBySlug } from "@/lib/industries-data";
+import { industries, industryContent, getIndustryBySlug, type IndustryWithCta } from "@/lib/industries-data";
 
 export default function IndustryPage() {
   const params = useParams();
   const slug = params.slug as string;
-  const industry = getIndustryBySlug(slug);
+  const industry = getIndustryBySlug(slug) as IndustryWithCta | undefined;
   const content = industryContent[slug];
   const [lottieData, setLottieData] = useState<object | null>(null);
 
@@ -111,8 +111,12 @@ export default function IndustryPage() {
                 <Button variant="primary" size="lg" href="/contact">
                   Schedule Consultation
                 </Button>
-                <Button variant="secondary" size="lg" href="/assessments/data-ai-readiness">
-                  Take Assessment
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  href={industry.ctaHref || "/assessments/data-ai-readiness"}
+                >
+                  {industry.ctaText || "Take Assessment"}
                 </Button>
               </motion.div>
             </div>
@@ -286,21 +290,31 @@ export default function IndustryPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {industry.subIndustries.map((sub, index) => (
-                <motion.div
-                  key={sub.slug}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-6 rounded-xl bg-white border border-black/10"
-                >
-                  <h3 className="text-xl font-semibold text-text-primary mb-2">
-                    {sub.title}
-                  </h3>
-                  <p className="text-text-secondary">{sub.description}</p>
-                </motion.div>
-              ))}
+              {industry.subIndustries.map((sub, index) => {
+                const subHref = `/industries/${sub.parentSlug}/${sub.slug}`;
+                return (
+                  <motion.a
+                    key={sub.slug}
+                    href={subHref}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="p-6 rounded-xl bg-white border border-black/10 hover:border-teal-500/30 hover:shadow-lg transition-all group"
+                  >
+                    <h3 className="text-xl font-semibold text-text-primary mb-2 group-hover:text-teal-500 transition-colors">
+                      {sub.title}
+                    </h3>
+                    <p className="text-text-secondary">{sub.description}</p>
+                    <span className="inline-flex items-center gap-1 text-teal-500 font-medium text-sm mt-4 group-hover:gap-2 transition-all">
+                      Learn more
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                  </motion.a>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -309,9 +323,12 @@ export default function IndustryPage() {
       {/* CTA */}
       <CTA
         title={`Ready to transform ${industry.title.toLowerCase()}?`}
-        description="Schedule a consultation to discuss your specific challenges and goals."
+        description={industry.ctaSubtext || "Schedule a consultation to discuss your specific challenges and goals."}
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "Take Assessment", href: "/assessments/data-ai-readiness" }}
+        secondaryCta={{
+          label: industry.ctaText || "Take Assessment",
+          href: industry.ctaHref || "/assessments/data-ai-readiness",
+        }}
         variant="gradient"
       />
     </>

@@ -8,15 +8,15 @@ export default function Footer() {
   return (
     <footer className="bg-[#F8F9FA] border-t border-black/10">
       <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
           {/* Brand Column */}
-          <div className="lg:col-span-2">
+          <div className="col-span-2">
             <Link href="/" className="inline-block mb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/logo-black.png"
+                src="/images/DataBender_mainLogo.png"
                 alt="Databender"
-                className="h-10 w-auto"
+                className="h-12 w-auto"
               />
             </Link>
             <p className="text-text-secondary mb-6 max-w-sm">
@@ -59,6 +59,23 @@ export default function Footer() {
             <h3 className="text-text-primary font-semibold mb-4">Industries</h3>
             <ul className="space-y-3">
               {footerNavigation.industries.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources Links */}
+          <div>
+            <h3 className="text-text-primary font-semibold mb-4">Resources</h3>
+            <ul className="space-y-3">
+              {footerNavigation.resources.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

@@ -149,3 +149,11 @@ export interface BadgeProps {
   size?: "sm" | "md";
   className?: string;
 }
+
+// Chat types
+export interface ChatMessage {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  timestamp?: Date;
+}
