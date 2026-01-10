@@ -1,0 +1,1077 @@
+[
+  {
+    "id": "hero-section",
+    "elType": "section",
+    "settings": {
+      "layout": "full_width",
+      "height": "min-height",
+      "custom_height": {"unit": "vh", "size": 60},
+      "content_position": "middle",
+      "background_background": "gradient",
+      "background_color": "#0a1628",
+      "background_color_b": "#1a365d",
+      "background_gradient_type": "linear",
+      "background_gradient_angle": {"unit": "deg", "size": 135},
+      "background_overlay_background": "classic",
+      "background_overlay_color": "rgba(0,0,0,0.3)",
+      "padding": {"unit": "px", "top": "100", "right": "0", "bottom": "100", "left": "0"}
+    },
+    "elements": [
+      {
+        "id": "hero-column",
+        "elType": "column",
+        "settings": {"_column_size": 100, "content_position": "center"},
+        "elements": [
+          {
+            "id": "hero-eyebrow",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "INDUSTRY EXPERTISE",
+              "header_size": "h6",
+              "align": "center",
+              "title_color": "#64B5F6",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 14},
+              "typography_font_weight": "600",
+              "typography_letter_spacing": {"unit": "px", "size": 4},
+              "_animation": "fadeInDown"
+            }
+          },
+          {
+            "id": "hero-title",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Experience in Your Industry",
+              "header_size": "h1",
+              "align": "center",
+              "title_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 64},
+              "typography_font_size_tablet": {"unit": "px", "size": 48},
+              "typography_font_size_mobile": {"unit": "px", "size": 36},
+              "typography_font_weight": "700",
+              "typography_line_height": {"unit": "em", "size": 1.1},
+              "_margin": {"unit": "px", "top": "20", "right": "0", "bottom": "30", "left": "0"},
+              "_animation": "fadeInUp",
+              "_animation_delay": 200
+            }
+          },
+          {
+            "id": "hero-subtitle",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p style=\"max-width: 700px; margin: 0 auto;\">We've solved data problems across <strong>healthcare, legal, real estate, and manufacturing</strong>. That cross-industry experience means we bring proven approaches—not experiments.</p>",
+              "align": "center",
+              "text_color": "rgba(255,255,255,0.85)",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 20},
+              "typography_line_height": {"unit": "em", "size": 1.6},
+              "_animation": "fadeInUp",
+              "_animation_delay": 400
+            }
+          },
+          {
+            "id": "hero-cta",
+            "elType": "widget",
+            "widgetType": "button",
+            "settings": {
+              "text": "Find Your Industry",
+              "link": {"url": "#industries"},
+              "align": "center",
+              "button_type": "default",
+              "size": "lg",
+              "icon": {"value": "fas fa-arrow-down", "library": "fa-solid"},
+              "icon_align": "right",
+              "background_color": "#3B82F6",
+              "border_radius": {"unit": "px", "top": "8", "right": "8", "bottom": "8", "left": "8"},
+              "text_padding": {"unit": "px", "top": "18", "right": "40", "bottom": "18", "left": "40"},
+              "button_text_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 16},
+              "typography_font_weight": "600",
+              "hover_animation": "grow",
+              "background_hover_color": "#2563EB",
+              "_margin": {"unit": "px", "top": "40", "right": "0", "bottom": "0", "left": "0"},
+              "_animation": "fadeInUp",
+              "_animation_delay": 600
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cross-pollination",
+    "elType": "section",
+    "settings": {
+      "layout": "boxed",
+      "background_background": "classic",
+      "background_color": "#F8FAFC",
+      "padding": {"unit": "px", "top": "100", "right": "0", "bottom": "100", "left": "0"}
+    },
+    "elements": [
+      {
+        "id": "cross-col",
+        "elType": "column",
+        "settings": {"_column_size": 100},
+        "elements": [
+          {
+            "id": "cross-title",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Best Practices That Travel",
+              "header_size": "h2",
+              "align": "center",
+              "title_color": "#1E293B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 42},
+              "typography_font_weight": "700",
+              "_animation": "fadeIn"
+            }
+          },
+          {
+            "id": "cross-desc",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p style=\"max-width: 800px; margin: 0 auto;\">Working across industries gives us perspective others don't have. We bring healthcare's compliance rigor to professional services. We bring manufacturing's operational visibility to real estate. This cross-pollination means you benefit from approaches proven elsewhere.</p>",
+              "align": "center",
+              "text_color": "#64748B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 18},
+              "typography_line_height": {"unit": "em", "size": 1.7},
+              "_margin": {"unit": "px", "top": "20", "right": "0", "bottom": "50", "left": "0"},
+              "_animation": "fadeIn",
+              "_animation_delay": 200
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cross-pollination-cards",
+    "elType": "section",
+    "settings": {
+      "layout": "boxed",
+      "background_background": "classic",
+      "background_color": "#F8FAFC",
+      "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "100", "left": "0"},
+      "structure": "40"
+    },
+    "elements": [
+      {
+        "id": "cross-card-1",
+        "elType": "column",
+        "settings": {"_column_size": 25, "background_background": "classic", "background_color": "#FFFFFF", "border_radius": {"unit": "px", "top": "12", "right": "12", "bottom": "12", "left": "12"}, "box_shadow_box_shadow_type": "yes", "box_shadow_box_shadow": {"horizontal": 0, "vertical": 4, "blur": 20, "spread": 0, "color": "rgba(0,0,0,0.08)"}, "padding": {"unit": "px", "top": "30", "right": "25", "bottom": "30", "left": "25"}, "_animation": "fadeInUp"},
+        "elements": [
+          {
+            "id": "cross-icon-1",
+            "elType": "widget",
+            "widgetType": "icon",
+            "settings": {
+              "selected_icon": {"value": "fas fa-heartbeat", "library": "fa-solid"},
+              "align": "center",
+              "primary_color": "#EF4444",
+              "icon_size": {"unit": "px", "size": 40}
+            }
+          },
+          {
+            "id": "cross-label-1",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Healthcare",
+              "header_size": "h4",
+              "align": "center",
+              "title_color": "#1E293B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 18},
+              "typography_font_weight": "600",
+              "_margin": {"unit": "px", "top": "15", "right": "0", "bottom": "10", "left": "0"}
+            }
+          },
+          {
+            "id": "cross-text-1",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p>Compliance rigor<br>Data governance<br>Patient-centric thinking</p>",
+              "align": "center",
+              "text_color": "#64748B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 14},
+              "typography_line_height": {"unit": "em", "size": 1.8}
+            }
+          }
+        ]
+      },
+      {
+        "id": "cross-card-2",
+        "elType": "column",
+        "settings": {"_column_size": 25, "background_background": "classic", "background_color": "#FFFFFF", "border_radius": {"unit": "px", "top": "12", "right": "12", "bottom": "12", "left": "12"}, "box_shadow_box_shadow_type": "yes", "box_shadow_box_shadow": {"horizontal": 0, "vertical": 4, "blur": 20, "spread": 0, "color": "rgba(0,0,0,0.08)"}, "padding": {"unit": "px", "top": "30", "right": "25", "bottom": "30", "left": "25"}, "_animation": "fadeInUp", "_animation_delay": 100},
+        "elements": [
+          {
+            "id": "cross-icon-2",
+            "elType": "widget",
+            "widgetType": "icon",
+            "settings": {
+              "selected_icon": {"value": "fas fa-balance-scale", "library": "fa-solid"},
+              "align": "center",
+              "primary_color": "#8B5CF6",
+              "icon_size": {"unit": "px", "size": 40}
+            }
+          },
+          {
+            "id": "cross-label-2",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Professional Services",
+              "header_size": "h4",
+              "align": "center",
+              "title_color": "#1E293B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 18},
+              "typography_font_weight": "600",
+              "_margin": {"unit": "px", "top": "15", "right": "0", "bottom": "10", "left": "0"}
+            }
+          },
+          {
+            "id": "cross-text-2",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p>Knowledge management<br>Utilization tracking<br>Client intelligence</p>",
+              "align": "center",
+              "text_color": "#64748B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 14},
+              "typography_line_height": {"unit": "em", "size": 1.8}
+            }
+          }
+        ]
+      },
+      {
+        "id": "cross-card-3",
+        "elType": "column",
+        "settings": {"_column_size": 25, "background_background": "classic", "background_color": "#FFFFFF", "border_radius": {"unit": "px", "top": "12", "right": "12", "bottom": "12", "left": "12"}, "box_shadow_box_shadow_type": "yes", "box_shadow_box_shadow": {"horizontal": 0, "vertical": 4, "blur": 20, "spread": 0, "color": "rgba(0,0,0,0.08)"}, "padding": {"unit": "px", "top": "30", "right": "25", "bottom": "30", "left": "25"}, "_animation": "fadeInUp", "_animation_delay": 200},
+        "elements": [
+          {
+            "id": "cross-icon-3",
+            "elType": "widget",
+            "widgetType": "icon",
+            "settings": {
+              "selected_icon": {"value": "fas fa-building", "library": "fa-solid"},
+              "align": "center",
+              "primary_color": "#10B981",
+              "icon_size": {"unit": "px", "size": 40}
+            }
+          },
+          {
+            "id": "cross-label-3",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Real Estate",
+              "header_size": "h4",
+              "align": "center",
+              "title_color": "#1E293B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 18},
+              "typography_font_weight": "600",
+              "_margin": {"unit": "px", "top": "15", "right": "0", "bottom": "10", "left": "0"}
+            }
+          },
+          {
+            "id": "cross-text-3",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p>Portfolio thinking<br>Multi-location visibility<br>Investor-grade reporting</p>",
+              "align": "center",
+              "text_color": "#64748B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 14},
+              "typography_line_height": {"unit": "em", "size": 1.8}
+            }
+          }
+        ]
+      },
+      {
+        "id": "cross-card-4",
+        "elType": "column",
+        "settings": {"_column_size": 25, "background_background": "classic", "background_color": "#FFFFFF", "border_radius": {"unit": "px", "top": "12", "right": "12", "bottom": "12", "left": "12"}, "box_shadow_box_shadow_type": "yes", "box_shadow_box_shadow": {"horizontal": 0, "vertical": 4, "blur": 20, "spread": 0, "color": "rgba(0,0,0,0.08)"}, "padding": {"unit": "px", "top": "30", "right": "25", "bottom": "30", "left": "25"}, "_animation": "fadeInUp", "_animation_delay": 300},
+        "elements": [
+          {
+            "id": "cross-icon-4",
+            "elType": "widget",
+            "widgetType": "icon",
+            "settings": {
+              "selected_icon": {"value": "fas fa-industry", "library": "fa-solid"},
+              "align": "center",
+              "primary_color": "#F59E0B",
+              "icon_size": {"unit": "px", "size": 40}
+            }
+          },
+          {
+            "id": "cross-label-4",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Manufacturing",
+              "header_size": "h4",
+              "align": "center",
+              "title_color": "#1E293B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 18},
+              "typography_font_weight": "600",
+              "_margin": {"unit": "px", "top": "15", "right": "0", "bottom": "10", "left": "0"}
+            }
+          },
+          {
+            "id": "cross-text-4",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p>Operational visibility<br>Production metrics<br>Efficiency focus</p>",
+              "align": "center",
+              "text_color": "#64748B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 14},
+              "typography_line_height": {"unit": "em", "size": 1.8}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "industries-section",
+    "elType": "section",
+    "settings": {
+      "layout": "boxed",
+      "background_background": "classic",
+      "background_color": "#FFFFFF",
+      "padding": {"unit": "px", "top": "100", "right": "0", "bottom": "50", "left": "0"},
+      "html_tag": "div",
+      "css_classes": "industries"
+    },
+    "elements": [
+      {
+        "id": "industries-header-col",
+        "elType": "column",
+        "settings": {"_column_size": 100},
+        "elements": [
+          {
+            "id": "industries-title",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Choose Your Industry",
+              "header_size": "h2",
+              "align": "center",
+              "title_color": "#1E293B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 42},
+              "typography_font_weight": "700",
+              "_animation": "fadeIn"
+            }
+          },
+          {
+            "id": "industries-subtitle",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p>Select your industry to see how we address your specific challenges</p>",
+              "align": "center",
+              "text_color": "#64748B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 18},
+              "_margin": {"unit": "px", "top": "15", "right": "0", "bottom": "60", "left": "0"},
+              "_animation": "fadeIn",
+              "_animation_delay": 200
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "industry-cards-row-1",
+    "elType": "section",
+    "settings": {
+      "layout": "boxed",
+      "background_background": "classic",
+      "background_color": "#FFFFFF",
+      "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "30", "left": "0"},
+      "gap": "extended",
+      "structure": "20"
+    },
+    "elements": [
+      {
+        "id": "professional-services-card",
+        "elType": "column",
+        "settings": {
+          "_column_size": 50,
+          "background_background": "gradient",
+          "background_color": "#7C3AED",
+          "background_color_b": "#4F46E5",
+          "background_gradient_angle": {"unit": "deg", "size": 135},
+          "border_radius": {"unit": "px", "top": "16", "right": "16", "bottom": "16", "left": "16"},
+          "box_shadow_box_shadow_type": "yes",
+          "box_shadow_box_shadow": {"horizontal": 0, "vertical": 10, "blur": 40, "spread": 0, "color": "rgba(124,58,237,0.3)"},
+          "padding": {"unit": "px", "top": "50", "right": "40", "bottom": "50", "left": "40"},
+          "_animation": "fadeInLeft"
+        },
+        "elements": [
+          {
+            "id": "ps-icon",
+            "elType": "widget",
+            "widgetType": "icon",
+            "settings": {
+              "selected_icon": {"value": "fas fa-balance-scale", "library": "fa-solid"},
+              "align": "left",
+              "primary_color": "rgba(255,255,255,0.9)",
+              "icon_size": {"unit": "px", "size": 48}
+            }
+          },
+          {
+            "id": "ps-title",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Professional Services",
+              "header_size": "h3",
+              "align": "left",
+              "title_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 28},
+              "typography_font_weight": "700",
+              "_margin": {"unit": "px", "top": "25", "right": "0", "bottom": "8", "left": "0"}
+            }
+          },
+          {
+            "id": "ps-subtitle",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "For law firms and consultancies",
+              "header_size": "h4",
+              "align": "left",
+              "title_color": "rgba(255,255,255,0.8)",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 16},
+              "typography_font_weight": "500",
+              "_margin": {"unit": "px", "top": "0", "right": "0", "bottom": "25", "left": "0"}
+            }
+          },
+          {
+            "id": "ps-challenges",
+            "elType": "widget",
+            "widgetType": "icon-list",
+            "settings": {
+              "icon_list": [
+                {"text": "Finding firm knowledge across documents", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "Preserving institutional memory", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "Tracking utilization and profitability", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "Client intelligence and cross-sell", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}}
+              ],
+              "space_between": {"unit": "px", "size": 12},
+              "icon_color": "rgba(255,255,255,0.9)",
+              "icon_size": {"unit": "px", "size": 14},
+              "text_color": "rgba(255,255,255,0.95)",
+              "text_indent": {"unit": "px", "size": 10},
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 15}
+            }
+          },
+          {
+            "id": "ps-button",
+            "elType": "widget",
+            "widgetType": "button",
+            "settings": {
+              "text": "Explore Professional Services",
+              "link": {"url": "/industries/professional-services/"},
+              "align": "left",
+              "size": "md",
+              "icon": {"value": "fas fa-arrow-right", "library": "fa-solid"},
+              "icon_align": "right",
+              "background_color": "rgba(255,255,255,0.15)",
+              "border_border": "solid",
+              "border_width": {"unit": "px", "top": "2", "right": "2", "bottom": "2", "left": "2"},
+              "border_color": "rgba(255,255,255,0.3)",
+              "border_radius": {"unit": "px", "top": "8", "right": "8", "bottom": "8", "left": "8"},
+              "text_padding": {"unit": "px", "top": "15", "right": "25", "bottom": "15", "left": "25"},
+              "button_text_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 14},
+              "typography_font_weight": "600",
+              "hover_animation": "grow",
+              "background_hover_color": "rgba(255,255,255,0.25)",
+              "_margin": {"unit": "px", "top": "30", "right": "0", "bottom": "0", "left": "0"}
+            }
+          }
+        ]
+      },
+      {
+        "id": "healthcare-card",
+        "elType": "column",
+        "settings": {
+          "_column_size": 50,
+          "background_background": "gradient",
+          "background_color": "#DC2626",
+          "background_color_b": "#B91C1C",
+          "background_gradient_angle": {"unit": "deg", "size": 135},
+          "border_radius": {"unit": "px", "top": "16", "right": "16", "bottom": "16", "left": "16"},
+          "box_shadow_box_shadow_type": "yes",
+          "box_shadow_box_shadow": {"horizontal": 0, "vertical": 10, "blur": 40, "spread": 0, "color": "rgba(220,38,38,0.3)"},
+          "padding": {"unit": "px", "top": "50", "right": "40", "bottom": "50", "left": "40"},
+          "_animation": "fadeInRight"
+        },
+        "elements": [
+          {
+            "id": "hc-icon",
+            "elType": "widget",
+            "widgetType": "icon",
+            "settings": {
+              "selected_icon": {"value": "fas fa-heartbeat", "library": "fa-solid"},
+              "align": "left",
+              "primary_color": "rgba(255,255,255,0.9)",
+              "icon_size": {"unit": "px", "size": 48}
+            }
+          },
+          {
+            "id": "hc-title",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Healthcare & Dental",
+              "header_size": "h3",
+              "align": "left",
+              "title_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 28},
+              "typography_font_weight": "700",
+              "_margin": {"unit": "px", "top": "25", "right": "0", "bottom": "8", "left": "0"}
+            }
+          },
+          {
+            "id": "hc-subtitle",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "For practices and DSOs",
+              "header_size": "h4",
+              "align": "left",
+              "title_color": "rgba(255,255,255,0.8)",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 16},
+              "typography_font_weight": "500",
+              "_margin": {"unit": "px", "top": "0", "right": "0", "bottom": "25", "left": "0"}
+            }
+          },
+          {
+            "id": "hc-challenges",
+            "elType": "widget",
+            "widgetType": "icon-list",
+            "settings": {
+              "icon_list": [
+                {"text": "Multi-location visibility", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "Per-location profitability analysis", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "Revenue cycle visibility", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "HIPAA-compliant data infrastructure", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}}
+              ],
+              "space_between": {"unit": "px", "size": 12},
+              "icon_color": "rgba(255,255,255,0.9)",
+              "icon_size": {"unit": "px", "size": 14},
+              "text_color": "rgba(255,255,255,0.95)",
+              "text_indent": {"unit": "px", "size": 10},
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 15}
+            }
+          },
+          {
+            "id": "hc-button",
+            "elType": "widget",
+            "widgetType": "button",
+            "settings": {
+              "text": "Explore Healthcare & Dental",
+              "link": {"url": "/industries/healthcare-dental/"},
+              "align": "left",
+              "size": "md",
+              "icon": {"value": "fas fa-arrow-right", "library": "fa-solid"},
+              "icon_align": "right",
+              "background_color": "rgba(255,255,255,0.15)",
+              "border_border": "solid",
+              "border_width": {"unit": "px", "top": "2", "right": "2", "bottom": "2", "left": "2"},
+              "border_color": "rgba(255,255,255,0.3)",
+              "border_radius": {"unit": "px", "top": "8", "right": "8", "bottom": "8", "left": "8"},
+              "text_padding": {"unit": "px", "top": "15", "right": "25", "bottom": "15", "left": "25"},
+              "button_text_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 14},
+              "typography_font_weight": "600",
+              "hover_animation": "grow",
+              "background_hover_color": "rgba(255,255,255,0.25)",
+              "_margin": {"unit": "px", "top": "30", "right": "0", "bottom": "0", "left": "0"}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "industry-cards-row-2",
+    "elType": "section",
+    "settings": {
+      "layout": "boxed",
+      "background_background": "classic",
+      "background_color": "#FFFFFF",
+      "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "100", "left": "0"},
+      "gap": "extended",
+      "structure": "20"
+    },
+    "elements": [
+      {
+        "id": "cre-card",
+        "elType": "column",
+        "settings": {
+          "_column_size": 50,
+          "background_background": "gradient",
+          "background_color": "#059669",
+          "background_color_b": "#047857",
+          "background_gradient_angle": {"unit": "deg", "size": 135},
+          "border_radius": {"unit": "px", "top": "16", "right": "16", "bottom": "16", "left": "16"},
+          "box_shadow_box_shadow_type": "yes",
+          "box_shadow_box_shadow": {"horizontal": 0, "vertical": 10, "blur": 40, "spread": 0, "color": "rgba(5,150,105,0.3)"},
+          "padding": {"unit": "px", "top": "50", "right": "40", "bottom": "50", "left": "40"},
+          "_animation": "fadeInLeft",
+          "_animation_delay": 200
+        },
+        "elements": [
+          {
+            "id": "cre-icon",
+            "elType": "widget",
+            "widgetType": "icon",
+            "settings": {
+              "selected_icon": {"value": "fas fa-building", "library": "fa-solid"},
+              "align": "left",
+              "primary_color": "rgba(255,255,255,0.9)",
+              "icon_size": {"unit": "px", "size": 48}
+            }
+          },
+          {
+            "id": "cre-title",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Commercial Real Estate",
+              "header_size": "h3",
+              "align": "left",
+              "title_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 28},
+              "typography_font_weight": "700",
+              "_margin": {"unit": "px", "top": "25", "right": "0", "bottom": "8", "left": "0"}
+            }
+          },
+          {
+            "id": "cre-subtitle",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "For property managers and investors",
+              "header_size": "h4",
+              "align": "left",
+              "title_color": "rgba(255,255,255,0.8)",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 16},
+              "typography_font_weight": "500",
+              "_margin": {"unit": "px", "top": "0", "right": "0", "bottom": "25", "left": "0"}
+            }
+          },
+          {
+            "id": "cre-challenges",
+            "elType": "widget",
+            "widgetType": "icon-list",
+            "settings": {
+              "icon_list": [
+                {"text": "Portfolio-wide performance analytics", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "Lease management intelligence", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "Unified visibility across properties", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "Investor reporting in minutes", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}}
+              ],
+              "space_between": {"unit": "px", "size": 12},
+              "icon_color": "rgba(255,255,255,0.9)",
+              "icon_size": {"unit": "px", "size": 14},
+              "text_color": "rgba(255,255,255,0.95)",
+              "text_indent": {"unit": "px", "size": 10},
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 15}
+            }
+          },
+          {
+            "id": "cre-button",
+            "elType": "widget",
+            "widgetType": "button",
+            "settings": {
+              "text": "Explore Commercial Real Estate",
+              "link": {"url": "/industries/commercial-real-estate/"},
+              "align": "left",
+              "size": "md",
+              "icon": {"value": "fas fa-arrow-right", "library": "fa-solid"},
+              "icon_align": "right",
+              "background_color": "rgba(255,255,255,0.15)",
+              "border_border": "solid",
+              "border_width": {"unit": "px", "top": "2", "right": "2", "bottom": "2", "left": "2"},
+              "border_color": "rgba(255,255,255,0.3)",
+              "border_radius": {"unit": "px", "top": "8", "right": "8", "bottom": "8", "left": "8"},
+              "text_padding": {"unit": "px", "top": "15", "right": "25", "bottom": "15", "left": "25"},
+              "button_text_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 14},
+              "typography_font_weight": "600",
+              "hover_animation": "grow",
+              "background_hover_color": "rgba(255,255,255,0.25)",
+              "_margin": {"unit": "px", "top": "30", "right": "0", "bottom": "0", "left": "0"}
+            }
+          }
+        ]
+      },
+      {
+        "id": "manufacturing-card",
+        "elType": "column",
+        "settings": {
+          "_column_size": 50,
+          "background_background": "gradient",
+          "background_color": "#D97706",
+          "background_color_b": "#B45309",
+          "background_gradient_angle": {"unit": "deg", "size": 135},
+          "border_radius": {"unit": "px", "top": "16", "right": "16", "bottom": "16", "left": "16"},
+          "box_shadow_box_shadow_type": "yes",
+          "box_shadow_box_shadow": {"horizontal": 0, "vertical": 10, "blur": 40, "spread": 0, "color": "rgba(217,119,6,0.3)"},
+          "padding": {"unit": "px", "top": "50", "right": "40", "bottom": "50", "left": "40"},
+          "_animation": "fadeInRight",
+          "_animation_delay": 200
+        },
+        "elements": [
+          {
+            "id": "mfg-icon",
+            "elType": "widget",
+            "widgetType": "icon",
+            "settings": {
+              "selected_icon": {"value": "fas fa-industry", "library": "fa-solid"},
+              "align": "left",
+              "primary_color": "rgba(255,255,255,0.9)",
+              "icon_size": {"unit": "px", "size": 48}
+            }
+          },
+          {
+            "id": "mfg-title",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Manufacturing",
+              "header_size": "h3",
+              "align": "left",
+              "title_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 28},
+              "typography_font_weight": "700",
+              "_margin": {"unit": "px", "top": "25", "right": "0", "bottom": "8", "left": "0"}
+            }
+          },
+          {
+            "id": "mfg-subtitle",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "For scale-up manufacturers",
+              "header_size": "h4",
+              "align": "left",
+              "title_color": "rgba(255,255,255,0.8)",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 16},
+              "typography_font_weight": "500",
+              "_margin": {"unit": "px", "top": "0", "right": "0", "bottom": "25", "left": "0"}
+            }
+          },
+          {
+            "id": "mfg-challenges",
+            "elType": "widget",
+            "widgetType": "icon-list",
+            "settings": {
+              "icon_list": [
+                {"text": "Unified data from CRM, ERP, inventory", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "Production visibility and traceability", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "Trusted reporting that saves hours", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}},
+                {"text": "PE-ready metrics and dashboards", "selected_icon": {"value": "fas fa-check", "library": "fa-solid"}}
+              ],
+              "space_between": {"unit": "px", "size": 12},
+              "icon_color": "rgba(255,255,255,0.9)",
+              "icon_size": {"unit": "px", "size": 14},
+              "text_color": "rgba(255,255,255,0.95)",
+              "text_indent": {"unit": "px", "size": 10},
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 15}
+            }
+          },
+          {
+            "id": "mfg-button",
+            "elType": "widget",
+            "widgetType": "button",
+            "settings": {
+              "text": "Explore Manufacturing",
+              "link": {"url": "/industries/manufacturing/"},
+              "align": "left",
+              "size": "md",
+              "icon": {"value": "fas fa-arrow-right", "library": "fa-solid"},
+              "icon_align": "right",
+              "background_color": "rgba(255,255,255,0.15)",
+              "border_border": "solid",
+              "border_width": {"unit": "px", "top": "2", "right": "2", "bottom": "2", "left": "2"},
+              "border_color": "rgba(255,255,255,0.3)",
+              "border_radius": {"unit": "px", "top": "8", "right": "8", "bottom": "8", "left": "8"},
+              "text_padding": {"unit": "px", "top": "15", "right": "25", "bottom": "15", "left": "25"},
+              "button_text_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 14},
+              "typography_font_weight": "600",
+              "hover_animation": "grow",
+              "background_hover_color": "rgba(255,255,255,0.25)",
+              "_margin": {"unit": "px", "top": "30", "right": "0", "bottom": "0", "left": "0"}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dont-see-section",
+    "elType": "section",
+    "settings": {
+      "layout": "boxed",
+      "background_background": "classic",
+      "background_color": "#F1F5F9",
+      "padding": {"unit": "px", "top": "80", "right": "0", "bottom": "80", "left": "0"}
+    },
+    "elements": [
+      {
+        "id": "dont-see-col",
+        "elType": "column",
+        "settings": {"_column_size": 100},
+        "elements": [
+          {
+            "id": "dont-see-title",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Don't See Your Industry?",
+              "header_size": "h2",
+              "align": "center",
+              "title_color": "#1E293B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 36},
+              "typography_font_weight": "700",
+              "_animation": "fadeIn"
+            }
+          },
+          {
+            "id": "dont-see-text",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p style=\"max-width: 700px; margin: 0 auto;\">Our core capabilities—<strong>data integration, business intelligence, and AI</strong>—apply across industries. If you're dealing with scattered data, lack of visibility, or want to use AI effectively, we can help.</p>",
+              "align": "center",
+              "text_color": "#64748B",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 18},
+              "typography_line_height": {"unit": "em", "size": 1.7},
+              "_margin": {"unit": "px", "top": "20", "right": "0", "bottom": "30", "left": "0"},
+              "_animation": "fadeIn",
+              "_animation_delay": 200
+            }
+          },
+          {
+            "id": "dont-see-industries",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p style=\"display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;\"><span style=\"background: #E2E8F0; padding: 8px 16px; border-radius: 20px; font-size: 14px; color: #475569;\">Financial Services</span><span style=\"background: #E2E8F0; padding: 8px 16px; border-radius: 20px; font-size: 14px; color: #475569;\">Non-Profit</span><span style=\"background: #E2E8F0; padding: 8px 16px; border-radius: 20px; font-size: 14px; color: #475569;\">Education</span><span style=\"background: #E2E8F0; padding: 8px 16px; border-radius: 20px; font-size: 14px; color: #475569;\">Retail & E-commerce</span><span style=\"background: #E2E8F0; padding: 8px 16px; border-radius: 20px; font-size: 14px; color: #475569;\">Logistics & Distribution</span></p>",
+              "align": "center",
+              "_margin": {"unit": "px", "top": "0", "right": "0", "bottom": "35", "left": "0"},
+              "_animation": "fadeIn",
+              "_animation_delay": 300
+            }
+          },
+          {
+            "id": "dont-see-cta",
+            "elType": "widget",
+            "widgetType": "button",
+            "settings": {
+              "text": "Contact Us to Discuss",
+              "link": {"url": "/contact/"},
+              "align": "center",
+              "size": "md",
+              "icon": {"value": "fas fa-comments", "library": "fa-solid"},
+              "icon_align": "left",
+              "background_color": "#1E293B",
+              "border_radius": {"unit": "px", "top": "8", "right": "8", "bottom": "8", "left": "8"},
+              "text_padding": {"unit": "px", "top": "16", "right": "32", "bottom": "16", "left": "32"},
+              "button_text_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 15},
+              "typography_font_weight": "600",
+              "hover_animation": "grow",
+              "background_hover_color": "#334155",
+              "_animation": "fadeInUp",
+              "_animation_delay": 400
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cta-section",
+    "elType": "section",
+    "settings": {
+      "layout": "full_width",
+      "height": "min-height",
+      "custom_height": {"unit": "vh", "size": 50},
+      "content_position": "middle",
+      "background_background": "gradient",
+      "background_color": "#1E40AF",
+      "background_color_b": "#1E3A8A",
+      "background_gradient_type": "linear",
+      "background_gradient_angle": {"unit": "deg", "size": 135},
+      "padding": {"unit": "px", "top": "80", "right": "0", "bottom": "80", "left": "0"}
+    },
+    "elements": [
+      {
+        "id": "cta-col",
+        "elType": "column",
+        "settings": {"_column_size": 100, "content_position": "center"},
+        "elements": [
+          {
+            "id": "cta-title",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Not Sure Where to Start?",
+              "header_size": "h2",
+              "align": "center",
+              "title_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 42},
+              "typography_font_weight": "700",
+              "_animation": "fadeIn"
+            }
+          },
+          {
+            "id": "cta-subtitle",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p style=\"max-width: 600px; margin: 0 auto;\">Take our quick assessment and we'll recommend the right approach for your industry and situation.</p>",
+              "align": "center",
+              "text_color": "rgba(255,255,255,0.9)",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 18},
+              "typography_line_height": {"unit": "em", "size": 1.6},
+              "_margin": {"unit": "px", "top": "20", "right": "0", "bottom": "40", "left": "0"},
+              "_animation": "fadeIn",
+              "_animation_delay": 200
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cta-buttons",
+    "elType": "section",
+    "settings": {
+      "layout": "boxed",
+      "background_background": "gradient",
+      "background_color": "#1E40AF",
+      "background_color_b": "#1E3A8A",
+      "background_gradient_type": "linear",
+      "background_gradient_angle": {"unit": "deg", "size": 135},
+      "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "100", "left": "0"},
+      "structure": "20"
+    },
+    "elements": [
+      {
+        "id": "cta-btn-col-1",
+        "elType": "column",
+        "settings": {"_column_size": 50},
+        "elements": [
+          {
+            "id": "cta-btn-1",
+            "elType": "widget",
+            "widgetType": "button",
+            "settings": {
+              "text": "Take Assessment",
+              "link": {"url": "/assessments/"},
+              "align": "right",
+              "size": "lg",
+              "icon": {"value": "fas fa-clipboard-check", "library": "fa-solid"},
+              "icon_align": "left",
+              "background_color": "#FFFFFF",
+              "border_radius": {"unit": "px", "top": "8", "right": "8", "bottom": "8", "left": "8"},
+              "text_padding": {"unit": "px", "top": "18", "right": "36", "bottom": "18", "left": "36"},
+              "button_text_color": "#1E40AF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 16},
+              "typography_font_weight": "600",
+              "hover_animation": "grow",
+              "background_hover_color": "#F1F5F9",
+              "_animation": "fadeInUp",
+              "_animation_delay": 300
+            }
+          }
+        ]
+      },
+      {
+        "id": "cta-btn-col-2",
+        "elType": "column",
+        "settings": {"_column_size": 50},
+        "elements": [
+          {
+            "id": "cta-btn-2",
+            "elType": "widget",
+            "widgetType": "button",
+            "settings": {
+              "text": "Schedule Consultation",
+              "link": {"url": "/contact/"},
+              "align": "left",
+              "size": "lg",
+              "icon": {"value": "fas fa-calendar-alt", "library": "fa-solid"},
+              "icon_align": "left",
+              "background_color": "transparent",
+              "border_border": "solid",
+              "border_width": {"unit": "px", "top": "2", "right": "2", "bottom": "2", "left": "2"},
+              "border_color": "rgba(255,255,255,0.5)",
+              "border_radius": {"unit": "px", "top": "8", "right": "8", "bottom": "8", "left": "8"},
+              "text_padding": {"unit": "px", "top": "18", "right": "36", "bottom": "18", "left": "36"},
+              "button_text_color": "#FFFFFF",
+              "typography_typography": "custom",
+              "typography_font_size": {"unit": "px", "size": 16},
+              "typography_font_weight": "600",
+              "hover_animation": "grow",
+              "background_hover_color": "rgba(255,255,255,0.1)",
+              "_animation": "fadeInUp",
+              "_animation_delay": 400
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

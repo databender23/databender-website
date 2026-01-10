@@ -1,0 +1,299 @@
+DATABENDER HOMEPAGE - GUTENBERG BLOCK CONTENT
+=============================================
+
+This file contains homepage content formatted for WordPress Gutenberg Block Editor.
+Copy each section and paste into the Block Editor.
+
+Page ID: 2
+URL: databender.co
+Last Updated: 2026-01-09
+
+=============================================
+SECTION 1: HERO
+=============================================
+
+Block Type: Cover or Group with Background
+Settings: Full width, light gradient background
+
+--- Headline (Heading Block - H1) ---
+Boutique Strategy. Enterprise Delivery.
+
+--- Subheadline (Paragraph Block - Large) ---
+Senior-led expertise backed by a 200-person delivery team. The strategic thinking of a boutique consultancy with the execution capacity of a large firm—at mid-market prices.
+
+--- Supporting Text (Paragraph Block) ---
+We help growing companies turn scattered data into clear answers. Whether you need to clean up messy data, see what's happening across your business, or use AI to work smarter—we build it and we run it.
+
+--- Buttons Block (2 buttons) ---
+Button 1 (Primary): "Take the Free Assessment"
+  - Link: /assessments/data-ai-readiness/
+  - Style: Filled, brand color (#1A9988)
+
+Button 2 (Secondary): "Schedule a Consultation"
+  - Link: /contact/
+  - Style: Outline, brand color
+
+
+=============================================
+SECTION 2: WHAT WE DO
+=============================================
+
+Block Type: Group (Full width, white background)
+
+--- Section Heading (H2, centered) ---
+Three capabilities. One partner.
+
+--- Columns Block (3 columns, equal width) ---
+
+COLUMN 1 - Data Management:
+  Icon: Database icon or emoji
+  Heading (H3): Data Management
+  Tagline (Paragraph, brand color): Get your data in order
+  Description: Connect scattered systems. Clean messy records. Build a foundation you can trust.
+
+COLUMN 2 - Business Intelligence:
+  Icon: Chart icon or emoji
+  Heading (H3): Business Intelligence
+  Tagline (Paragraph, brand color): See what's happening
+  Description: Dashboards that answer real questions. Reports that run themselves. Visibility across your whole operation.
+
+COLUMN 3 - AI & Automation:
+  Icon: Robot/AI icon or emoji
+  Heading (H3): AI & Automation
+  Tagline (Paragraph, brand color): Work smarter with AI
+  Description: AI that actually answers correctly. Automation that saves real hours. Intelligence that improves over time.
+
+--- Link (Paragraph, centered) ---
+See All Capabilities -> /services/
+
+
+=============================================
+SECTION 3: WHY DATABENDER
+=============================================
+
+Block Type: Group (Full width, dark background #1a1a1a)
+
+--- Section Heading (H2, centered, white) ---
+Why companies choose us
+
+--- Columns Block (4 columns or 2x2 grid) ---
+
+CARD 1 - Senior + Scale:
+  Heading (H3, brand color): Senior + Scale
+  Text (white): Senior experts guide your project. A 200-person team delivers it.
+
+CARD 2 - AI That Works:
+  Heading (H3, brand color): AI That Works
+  Text (white): AI analytics that actually answer correctly—because we build the foundation first.
+
+CARD 3 - From Insight to Action:
+  Heading (H3, brand color): From Insight to Action
+  Text (white): We don't stop at dashboards. We build systems that put your data to work.
+
+CARD 4 - Regulated-Ready:
+  Heading (H3, brand color): Regulated-Ready
+  Text (white): HIPAA, GDPR, SOC 2. Compliance built in from day one.
+
+
+=============================================
+SECTION 4: INDUSTRIES
+=============================================
+
+Block Type: Group (Full width, white background)
+
+--- Section Heading (H2, centered) ---
+Experience in your industry
+
+--- Supporting Text (Paragraph, centered) ---
+We've solved data problems across healthcare, legal, real estate, and manufacturing. That cross-industry experience means we bring proven approaches—not experiments.
+
+--- Columns Block (4 columns) or Cards ---
+
+CARD 1 - Professional Services:
+  Heading (H3): Professional Services
+  Subtitle (brand color): For law firms and consultancies
+  Description: Knowledge management, client intelligence, firm analytics
+  Link: /industries/professional-services/
+
+CARD 2 - Healthcare & Dental:
+  Heading (H3): Healthcare & Dental
+  Subtitle (brand color): For practices and DSOs
+  Description: Operational visibility, multi-location analytics, compliance
+  Link: /industries/healthcare-dental/
+
+CARD 3 - Commercial Real Estate:
+  Heading (H3): Commercial Real Estate
+  Subtitle (brand color): For property managers
+  Description: Portfolio intelligence, unified visibility across properties
+  Link: /industries/commercial-real-estate/
+
+CARD 4 - Manufacturing:
+  Heading (H3): Manufacturing
+  Subtitle (brand color): For scale-up manufacturers
+  Description: Sales intelligence, operational visibility, unified data
+  Link: /industries/manufacturing/
+
+--- Link (Paragraph, centered) ---
+See How We Help Your Industry -> /industries/
+
+
+=============================================
+SECTION 5: RESULTS
+=============================================
+
+Block Type: Group (Full width, light gray background)
+
+--- Section Heading (H2, centered) ---
+Results that matter
+
+--- Columns Block (4 columns) - Metrics ---
+
+METRIC 1:
+  Large Number (brand color, bold): 125x
+  Label: Cost savings
+  Detail (small, gray): AI data cleanup
+
+METRIC 2:
+  Large Number (brand color, bold): +21%
+  Label: More qualified leads
+  Detail (small, gray): Custom ML scoring
+
+METRIC 3:
+  Large Number (brand color, bold): 3 wks
+  Label: Time to value
+  Detail (small, gray): 1.69M records cleaned
+
+METRIC 4:
+  Large Number (brand color, bold): 100%
+  Label: Decision coverage
+  Detail (small, gray): Every decision documented
+
+--- Case Study Cards (Columns Block, 2 columns) ---
+
+CASE STUDY 1 - AI Entity Resolution:
+  Heading (H3): AI Entity Resolution
+  Quote Block: "What would cost $25,000+ in analyst time, AI completed for ~$200—with every decision documented for audit."
+  Link: Read Case Study -> /case-studies/ai-entity-resolution/
+
+CASE STUDY 2 - Custom Lead Scoring:
+  Heading (H3): Custom Lead Scoring
+  Quote Block: "Generic tools said home value mattered most. Our model discovered home equity, urgency, and local sales history are what actually predict conversions."
+  Link: Read Case Study -> /case-studies/custom-lead-scoring/
+
+
+=============================================
+SECTION 6: ASSESSMENT CTA
+=============================================
+
+Block Type: Cover or Group (Full width, brand color background #1A9988)
+
+--- Section Heading (H2, centered, white) ---
+Not sure where to start?
+
+--- Supporting Text (Paragraph, centered, white) ---
+Take our free 2-minute assessment. We'll analyze your situation and show you exactly where to focus first.
+
+--- Button (centered) ---
+Button: "Take the Free Assessment"
+  - Link: /assessments/data-ai-readiness/
+  - Style: White background, brand color text
+
+
+=============================================
+SECTION 7: ABOUT (BRIEF)
+=============================================
+
+Block Type: Group (Full width, white background)
+
+--- Section Heading (H2, centered) ---
+Who we are
+
+--- Text (Paragraph, centered) ---
+Databender is a data analytics and AI consultancy that makes enterprise-grade capabilities accessible to growing businesses. We're not a body shop sending junior consultants. Every engagement is led by senior experts who understand both the technology and your business.
+
+--- Link (Paragraph, centered) ---
+Learn More About Us -> /about/
+
+
+=============================================
+SECTION 8: FOOTER CTAs
+=============================================
+
+Block Type: Group (Full width, light gray background)
+
+--- Columns Block (2 columns) ---
+
+COLUMN 1 - Ready to talk?:
+  Heading (H3): Ready to talk?
+  Text: Schedule a 30-minute consultation. No pitch decks—just a conversation about your situation.
+  Button (Primary): "Schedule Consultation" -> /contact/
+
+COLUMN 2 - Stay informed:
+  Heading (H3): Stay informed
+  Text: Get practical insights for data-driven businesses. No spam, just useful content.
+  Button (Outline): "Subscribe to Newsletter" -> /newsletter/
+
+
+=============================================
+META INFORMATION
+=============================================
+
+Page Title: Databender | Data Analytics & AI Solutions for Growing Businesses
+
+Meta Description: Senior-led data expertise backed by a 200-person delivery team. Data management, business intelligence, and AI solutions at mid-market prices.
+
+Focus Keyphrase: data analytics consulting
+
+Primary Keywords:
+- Data analytics consulting
+- Business intelligence solutions
+- AI data solutions
+- Data management services
+
+Brand Color: #1A9988 (teal)
+Dark Background: #1a1a1a
+Light Background: #f8f9fa
+
+
+=============================================
+IMPLEMENTATION NOTES FOR ELEMENTOR
+=============================================
+
+If using Elementor instead of Gutenberg:
+
+1. HERO SECTION
+   - Use "Hero" widget or "Section" with full width
+   - Add Heading widget (H1)
+   - Add Text Editor widget for subheadline
+   - Add Text Editor widget for supporting text
+   - Add Button Group or two Button widgets side by side
+
+2. CAPABILITY CARDS
+   - Use "Icon Box" widgets in 3-column layout
+   - Or use "Inner Section" with custom styling
+
+3. WHY DATABENDER
+   - Create Section with dark background
+   - Use Icon List or Info Box widgets for each differentiator
+
+4. INDUSTRY CARDS
+   - Use "Cards" addon or create with Inner Sections
+   - Make entire card clickable (link wrapper)
+
+5. METRICS
+   - Use "Counter" widgets for animated numbers
+   - Or static Text widgets with custom styling
+
+6. CASE STUDY CARDS
+   - Use "Testimonial" widget style or custom Inner Sections
+   - Include blockquote styling
+
+7. CTA SECTIONS
+   - Use "Call to Action" widget
+   - Or Section with centered content and button
+
+Remember to:
+- Set proper spacing (padding/margins)
+- Use consistent typography
+- Test responsive design on mobile
+- Add hover effects to cards and buttons
