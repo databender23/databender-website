@@ -88,9 +88,9 @@ interface Props {
   service: ConsolidatedService;
 }
 
-const DATA_MANAGEMENT_LOTTIE_URL = "https://assets10.lottiefiles.com/packages/lf20_ygtui7kv.json";
-const ANALYTICS_BI_LOTTIE_URL = "https://assets4.lottiefiles.com/packages/lf20_i2eyukor.json";
-const AI_SERVICES_LOTTIE_URL = "https://assets-v2.lottiefiles.com/a/59ea6c8a-117d-11ee-a15a-df64f6c6e90c/NfQGGpThH1.json";
+const DATA_MANAGEMENT_LOTTIE_URL = "/animations/data-management.json";
+const ANALYTICS_BI_LOTTIE_URL = "/animations/analytics-bi.json";
+const AI_SERVICES_LOTTIE_URL = "/animations/ai-services.json";
 
 export default function ServicePageClient({ service }: Props) {
   const [lottieData, setLottieData] = useState<object | null>(null);
@@ -117,8 +117,12 @@ export default function ServicePageClient({ service }: Props) {
 
   // Set speed for specific animations
   useEffect(() => {
-    if (lottieRef.current && service.slug === "analytics-bi") {
-      lottieRef.current.setSpeed(0.5);
+    if (lottieRef.current) {
+      if (service.slug === "data-ai-strategy") {
+        lottieRef.current.setSpeed(1.3);
+      } else if (service.slug === "analytics-bi") {
+        lottieRef.current.setSpeed(0.5);
+      }
     }
   }, [lottieData, service.slug]);
 

@@ -25,7 +25,7 @@ export default function Card({
       )}
       {children}
       {href && (
-        <div className="mt-4 flex items-center text-teal-500 font-medium text-sm">
+        <div className="mt-auto pt-4 flex items-center text-teal-500 font-medium text-sm">
           Learn more
           <svg
             className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
@@ -48,6 +48,8 @@ export default function Card({
   const cardStyles = `
     group
     block
+    h-full
+    flex flex-col
     p-6
     rounded-xl
     bg-white
@@ -67,6 +69,7 @@ export default function Card({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
+        className="h-full"
       >
         <Link href={href} className={cardStyles}>
           {cardContent}

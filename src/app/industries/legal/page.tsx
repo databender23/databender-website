@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button, Card } from "@/components/ui";
 import { EmailCaptureForm } from "@/components/forms";
+import { LottieWrapper } from "@/components/animations";
 import { legalAudits, legalGuides } from "@/lib/lead-magnets-data";
+
+const LEGAL_LOTTIE_URL = "/animations/legal.json";
 
 // Icon components
 const IconClock = () => (
@@ -42,64 +45,96 @@ const iconMap: Record<string, React.FC> = {
 
 export default function LegalIndustryPage() {
   const [selectedAudit, setSelectedAudit] = useState<string | null>(null);
+  const [lottieData, setLottieData] = useState<object | null>(null);
+
+  // Load Lottie animation
+  useEffect(() => {
+    fetch(LEGAL_LOTTIE_URL)
+      .then((res) => res.json())
+      .then((data) => setLottieData(data))
+      .catch(() => setLottieData(null));
+  }, []);
 
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
+        <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-6 relative z-10 pt-24">
-          <div className="max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-2 mb-4"
-            >
-              <Link
-                href="/industries"
-                className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left side - Text */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 mb-4"
               >
-                Industries
-              </Link>
-              <span className="text-text-muted">/</span>
-              <span className="text-teal-500 text-sm font-medium">Legal</span>
-            </motion.div>
+                <Link
+                  href="/industries"
+                  className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
+                >
+                  Industries
+                </Link>
+                <span className="text-text-muted">/</span>
+                <span className="text-teal-500 text-sm font-medium">Legal</span>
+              </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
-            >
-              Data & AI Solutions for Law Firms
-            </motion.h1>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+              >
+                Data & AI Solutions for Law Firms
+              </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
-            >
-              Transform how your firm manages knowledge, wins new business, and
-              multiplies associate productivity. Custom solutions for firms that
-              want results, not more software.
-            </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+              >
+                Transform how your firm manages knowledge, wins new business, and
+                multiplies associate productivity. Custom solutions for firms that
+                want results, not more software.
+              </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-wrap gap-4"
-            >
-              <Button variant="primary" size="lg" href="#audits">
-                Request a Custom Audit
-              </Button>
-              <Button variant="secondary" size="lg" href="#guides">
-                Download Free Guides
-              </Button>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-wrap gap-4"
+              >
+                <Button variant="primary" size="lg" href="#audits">
+                  Request a Custom Audit
+                </Button>
+                <Button variant="secondary" size="lg" href="#guides">
+                  Download Free Guides
+                </Button>
+              </motion.div>
+            </div>
+
+            {/* Right side - Lottie Animation */}
+            {lottieData && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex justify-center items-center"
+              >
+                <div className="w-full max-w-md">
+                  <LottieWrapper
+                    animationData={lottieData}
+                    loop={true}
+                    playOnView={true}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </motion.div>
+            )}
           </div>
         </div>
       </section>

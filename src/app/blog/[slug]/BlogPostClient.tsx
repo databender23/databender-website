@@ -95,7 +95,7 @@ export default function BlogPostClient({ post }: Props) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="max-w-3xl mx-auto prose prose-invert prose-lg prose-headings:text-text-primary prose-p:text-text-secondary prose-a:text-teal-500 prose-a:no-underline hover:prose-a:underline prose-strong:text-text-primary prose-blockquote:border-teal-500 prose-blockquote:text-text-secondary"
+            className="max-w-3xl mx-auto prose-blog"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </div>

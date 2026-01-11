@@ -260,7 +260,7 @@ export const tierDescriptions = {
     description: "You have some data capabilities in place. Now it's time to connect systems and improve visibility.",
     nextSteps: [
       "Integrate ERP with CRM and production systems",
-      "Implement self-service dashboards for key stakeholders",
+      "Implement self-service dashboards for team leads and decision-makers",
       "Develop demand forecasting capabilities",
     ],
   },

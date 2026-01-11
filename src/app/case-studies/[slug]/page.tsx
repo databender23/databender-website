@@ -4,74 +4,12 @@ import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Hero, CTA, Stats } from "@/components/sections";
 import { Button, Badge } from "@/components/ui";
-
-const caseStudyContent: Record<string, {
-  title: string;
-  industry: string;
-  services: string[];
-  challenge: string;
-  solution: string;
-  approach: string[];
-  results: { value: number; suffix?: string; prefix?: string; label: string }[];
-  quote: string;
-  images: string[];
-}> = {
-  "ai-entity-resolution": {
-    title: "AI Entity Resolution for Mineral Rights",
-    industry: "Energy",
-    services: ["AI Data Cleanup", "Data Integration"],
-    challenge: "A mineral rights company needed to resolve 1.69 million ownership records across multiple legacy systems. Manual review would have taken months and cost over $25,000 in analyst time. Accuracy was critical for legal and financial decisions.",
-    solution: "We deployed AI-powered entity resolution that learned the company's specific data patterns and business rules. The system processed records at machine speed while documenting every decision for audit compliance.",
-    approach: [
-      "Analyzed data patterns and identified key matching criteria",
-      "Trained AI models on sample datasets with expert validation",
-      "Processed 1.69M records with human-level accuracy",
-      "Generated comprehensive audit trail for every decision",
-      "Delivered results in 3 weeks vs estimated 6+ months manual",
-    ],
-    results: [
-      { value: 125, suffix: "x", label: "Cost savings vs manual" },
-      { value: 1.69, suffix: "M", label: "Records processed" },
-      { value: 3, label: "Weeks to completion" },
-      { value: 100, suffix: "%", label: "Decision documentation" },
-    ],
-    quote: "What would cost $25,000+ in analyst time, AI completed for ~$200—with every decision documented for audit.",
-    images: [
-      "/images/case-studies/entity-resolution-1-1.png",
-      "/images/case-studies/entity-resolution-2-1.png",
-    ],
-  },
-  "custom-lead-scoring": {
-    title: "Custom Lead Scoring for Home Services",
-    industry: "Home Services",
-    services: ["AI Insights", "Predictive Analytics"],
-    challenge: "A growing roofing company was using generic CRM lead scoring that wasn't identifying the right leads. Their sales team was wasting time on low-quality prospects while high-value opportunities slipped through.",
-    solution: "We built a custom ML scoring model trained on their actual conversion data. The model discovered patterns that generic tools missed—factors like home equity, urgency signals, and local sales history that actually predicted conversions.",
-    approach: [
-      "Analyzed historical conversion data to identify real predictors",
-      "Built custom ML model trained on company-specific patterns",
-      "Discovered that home equity and urgency signals outperformed generic metrics",
-      "Integrated scoring into existing CRM workflow",
-      "Provided ongoing model refinement as new data accumulated",
-    ],
-    results: [
-      { value: 21, suffix: "%", prefix: "+", label: "More qualified leads" },
-      { value: 35, suffix: "%", label: "Reduction in wasted calls" },
-      { value: 2, suffix: "x", label: "Conversion rate improvement" },
-      { value: 4, label: "Weeks to deployment" },
-    ],
-    quote: "Generic tools said home value mattered most. Our model discovered home equity, urgency, and local sales history are what actually predict conversions.",
-    images: [
-      "/images/case-studies/lead-scoring-1-1.png",
-      "/images/case-studies/lead-scoring-2-1.png",
-    ],
-  },
-};
+import { getCaseStudyBySlug } from "@/lib/case-studies-data";
 
 export default function CaseStudyPage() {
   const params = useParams();
   const slug = params.slug as string;
-  const study = caseStudyContent[slug];
+  const study = getCaseStudyBySlug(slug);
 
   if (!study) {
     return (
@@ -89,7 +27,7 @@ export default function CaseStudyPage() {
       <Hero
         subtitle="Case Study"
         title={study.title}
-        description={study.challenge}
+        description={study.challengeBrief}
         primaryCta={{ label: "Get Similar Results", href: "/contact" }}
         secondaryCta={{ label: "View All Case Studies", href: "/case-studies" }}
       />
@@ -153,8 +91,33 @@ export default function CaseStudyPage() {
         </section>
       )}
 
-      {/* Solution */}
+      {/* The Situation */}
       <section className="section">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            >
+              The Challenge
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-text-secondary text-lg leading-relaxed"
+            >
+              {study.challenge}
+            </motion.p>
+          </div>
+        </div>
+      </section>
+
+      {/* Solution */}
+      <section className="section bg-[#F8F9FA]">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl">
             <motion.p
@@ -179,7 +142,7 @@ export default function CaseStudyPage() {
       </section>
 
       {/* Approach */}
-      <section className="section bg-[#F8F9FA]">
+      <section className="section">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl">
             <motion.p
@@ -188,7 +151,7 @@ export default function CaseStudyPage() {
               viewport={{ once: true }}
               className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
             >
-              Our Approach
+              What We Built
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -197,7 +160,7 @@ export default function CaseStudyPage() {
               transition={{ delay: 0.1 }}
               className="text-3xl md:text-4xl font-bold text-text-primary mb-8"
             >
-              How we did it
+              Our approach
             </motion.h2>
 
             <ol className="space-y-4">
@@ -247,6 +210,12 @@ export default function CaseStudyPage() {
             <p className="text-2xl md:text-3xl text-text-primary font-medium leading-relaxed">
               &quot;{study.quote}&quot;
             </p>
+            {(study.quoteAuthor || study.quoteRole) && (
+              <footer className="mt-6 text-text-muted">
+                {study.quoteAuthor && <span className="font-semibold">{study.quoteAuthor}</span>}
+                {study.quoteRole && <span>, {study.quoteRole}</span>}
+              </footer>
+            )}
           </motion.blockquote>
         </div>
       </section>
@@ -256,7 +225,7 @@ export default function CaseStudyPage() {
         title="Ready for results like these?"
         description="Let's discuss how we can help your business achieve similar outcomes."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "Take Assessment", href: "/assessments/data-ai-readiness" }}
+        secondaryCta={{ label: "See More Case Studies", href: "/case-studies" }}
         variant="gradient"
       />
     </>

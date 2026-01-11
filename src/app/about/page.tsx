@@ -1,9 +1,21 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Hero, CTA } from "@/components/sections";
+import { CTA } from "@/components/sections";
+import { Button } from "@/components/ui";
+import { LottieWrapper } from "@/components/animations";
 
 export default function AboutPage() {
+  const [lottieData, setLottieData] = useState<object | null>(null);
+
+  useEffect(() => {
+    fetch("/animations/wavey-birdie.json")
+      .then((res) => res.json())
+      .then((data) => setLottieData(data))
+      .catch(() => setLottieData(null));
+  }, []);
+
   const differentiators = [
     {
       title: "Senior-Led, Not Junior-Staffed",
@@ -24,10 +36,10 @@ export default function AboutPage() {
   ];
 
   const whatWeDo = [
-    "Connect scattered data systems into unified views",
+    "Connect your CRM, ERP, and everything else into one view",
     "Clean messy data at scale using AI",
-    "Build dashboards that answer real questions",
-    "Create AI analytics that actually work",
+    "Build dashboards that answer what leadership actually asks",
+    "Deploy AI that works on your data, not demo data",
     "Provide ongoing support without adding headcount",
   ];
 
@@ -41,12 +53,74 @@ export default function AboutPage() {
 
   return (
     <>
-      <Hero
-        subtitle="About Databender"
-        title="Boutique strategy. Enterprise delivery."
-        description="We're a data analytics and AI consultancy that makes enterprise-grade capabilities accessible to growing businesses."
-        primaryCta={{ label: "Talk to Us", href: "/contact" }}
-      />
+      {/* Hero with Lottie */}
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
+        <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
+        <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              >
+                About Databender
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+              >
+                Boutique strategy. Enterprise delivery.
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+              >
+                We&apos;re a data analytics and AI consultancy that makes enterprise-grade capabilities accessible to growing businesses.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-wrap gap-4"
+              >
+                <Button variant="primary" size="lg" href="/contact">
+                  Talk to Us
+                </Button>
+              </motion.div>
+            </div>
+
+            {lottieData && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex justify-center items-center"
+              >
+                <div className="w-full max-w-md">
+                  <LottieWrapper
+                    animationData={lottieData}
+                    loop={true}
+                    playOnView={true}
+                    speed={0.5}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* Mission */}
       <section className="section">
@@ -76,7 +150,7 @@ export default function AboutPage() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-lg"
             >
-              Growing companies deserve the same data capabilities as the Fortune 500—without the year-long timelines or impersonal engagement. We bring sophisticated solutions with the hands-on attention that only comes from a team that actually cares about your outcomes.
+              You shouldn't need a Fortune 500 budget to get Fortune 500-grade data infrastructure. We build sophisticated solutions in months, not years—with the hands-on attention that only comes from a team small enough to care about your outcomes.
             </motion.p>
           </div>
         </div>
@@ -198,7 +272,7 @@ export default function AboutPage() {
       {/* CTA */}
       <CTA
         title="Ready to work together?"
-        description="Let's have a conversation about your data challenges. No pitch decks, no pressure—just a discussion about how we can help."
+        description="30 minutes. We'll talk about your situation and whether we can help. If we can't, we'll tell you."
         primaryCta={{ label: "Schedule a Call", href: "/contact" }}
         secondaryCta={{ label: "Take Assessment", href: "/assessments/data-ai-readiness" }}
         variant="gradient"

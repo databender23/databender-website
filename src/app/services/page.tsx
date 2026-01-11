@@ -1,9 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Hero, CTA } from "@/components/sections";
+import { CTA } from "@/components/sections";
 import { Button, Badge } from "@/components/ui";
+import { LottieWrapper } from "@/components/animations";
 import {
   services,
   serviceCategories,
@@ -45,16 +47,87 @@ const ServiceIcon = ({ icon }: { icon: string }) => {
 
 export default function ServicesPage() {
   const serviceKeys = ["data-ai-strategy", "analytics-bi", "ai-services"] as const;
+  const [lottieData, setLottieData] = useState<object | null>(null);
+
+  useEffect(() => {
+    fetch("/animations/assistant-bot.json")
+      .then((res) => res.json())
+      .then((data) => setLottieData(data))
+      .catch(() => setLottieData(null));
+  }, []);
 
   return (
     <>
-      <Hero
-        subtitle="Our Services"
-        title="Everything you need to turn data into results"
-        description="From cleaning up scattered systems to AI that works—we build complete solutions, not pieces."
-        primaryCta={{ label: "Take Free Assessment", href: "/assessments/data-ai-readiness" }}
-        secondaryCta={{ label: "Talk to an Expert", href: "/contact" }}
-      />
+      {/* Hero with Lottie */}
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
+        <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
+        <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              >
+                Our Services
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+              >
+                Everything you need to turn data into results
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+              >
+                From cleaning up scattered systems to AI that works—we build complete solutions, not pieces.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-wrap gap-4"
+              >
+                <Button variant="primary" size="lg" href="/assessments/data-ai-readiness">
+                  Take Free Assessment
+                </Button>
+                <Button variant="secondary" size="lg" href="/contact">
+                  Talk to an Expert
+                </Button>
+              </motion.div>
+            </div>
+
+            {lottieData && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex justify-center items-center"
+              >
+                <div className="w-full max-w-md">
+                  <LottieWrapper
+                    animationData={lottieData}
+                    loop={true}
+                    playOnView={true}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* Foundation Services Flow */}
       <section className="section bg-[#F8F9FA]">
@@ -138,7 +211,7 @@ export default function ServicesPage() {
               transition={{ delay: 0.1 }}
               className="text-text-secondary text-lg max-w-2xl mx-auto"
             >
-              Three comprehensive offerings that work together to transform your data operations
+              Three offerings that work together. Pick one or use all three.
             </motion.p>
           </div>
 

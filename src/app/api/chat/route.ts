@@ -33,7 +33,7 @@ Visual dashboards, real-time visibility, and predictive insights:
 - Managed Data Pipelines: Reliable, automated data flows
 - Custom Analytical Applications: Purpose-built tools for your workflows
 
-### AI Services
+### AI Services & Automation
 AI enablement, knowledge management, and natural language interfaces:
 - Natural Language BI: Ask questions in plain English, get accurate answers
 - Local LLM Integrations: AI that stays on your servers for privacy

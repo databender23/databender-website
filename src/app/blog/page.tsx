@@ -1,14 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Hero, CTA } from "@/components/sections";
+import { CTA } from "@/components/sections";
 import { Badge } from "@/components/ui";
+import { LottieWrapper } from "@/components/animations";
 import { blogPosts, blogCategories } from "@/lib/blog-data";
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [lottieData, setLottieData] = useState<object | null>(null);
+
+  useEffect(() => {
+    fetch("/animations/man-robot-workplace.json")
+      .then((res) => res.json())
+      .then((data) => setLottieData(data))
+      .catch(() => setLottieData(null));
+  }, []);
 
   const filteredPosts = selectedCategory === "All"
     ? blogPosts
@@ -24,11 +33,62 @@ export default function BlogPage() {
 
   return (
     <>
-      <Hero
-        subtitle="Blog"
-        title="Insights & Ideas"
-        description="Practical insights on data management, AI implementation, and business intelligence from our team."
-      />
+      {/* Hero with Lottie */}
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
+        <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
+        <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              >
+                Blog
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+              >
+                Insights & Ideas
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+              >
+                Practical insights on data management, AI implementation, and business intelligence from our team.
+              </motion.p>
+            </div>
+
+            {lottieData && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex justify-center items-center"
+              >
+                <div className="w-full max-w-md">
+                  <LottieWrapper
+                    animationData={lottieData}
+                    loop={true}
+                    playOnView={true}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </div>
+      </section>
 
       <section className="section">
         <div className="container mx-auto px-6">

@@ -85,7 +85,7 @@ export default function Features({
           className={`grid grid-cols-1 ${gridCols[columns]} gap-6`}
         >
           {features.map((feature, index) => (
-            <motion.div key={index} variants={itemVariants}>
+            <motion.div key={index} variants={itemVariants} className="h-full">
               <Card
                 title={feature.title}
                 description={feature.description}

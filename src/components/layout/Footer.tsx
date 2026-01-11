@@ -6,8 +6,8 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#F8F9FA] border-t border-black/10">
-      <div className="container mx-auto px-6 py-16">
+    <footer className="bg-white">
+      <div className="container mx-auto px-6 pt-20 pb-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="col-span-2">
@@ -27,7 +27,7 @@ export default function Footer() {
                 href="https://linkedin.com/company/databender"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 flex items-center justify-center rounded-lg bg-black/5 text-text-secondary hover:bg-teal-500/10 hover:text-teal-500 transition-colors"
+                className="text-text-secondary hover:text-text-primary transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -45,7 +45,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
+                    className="text-text-secondary hover:text-text-primary transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -62,7 +62,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
+                    className="text-text-secondary hover:text-text-primary transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
+                    className="text-text-secondary hover:text-text-primary transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -96,7 +96,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
+                    className="text-text-secondary hover:text-text-primary transition-colors text-sm"
                   >
                     {link.label}
                   </Link>

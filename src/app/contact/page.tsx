@@ -67,7 +67,7 @@ export default function ContactPage() {
       <Hero
         subtitle="Contact Us"
         title="Let's talk about your data"
-        description="Schedule a consultation or send us a message. No pitch decks—just a conversation about your situation."
+        description="Schedule a 30-minute call or send us a message. We'll talk about your situation and whether we can help."
       />
 
       <section className="section">

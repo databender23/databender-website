@@ -17,46 +17,46 @@ export const services: ConsolidatedService[] = [
     slug: "data-ai-strategy",
     title: "Data & AI Strategy",
     shortTitle: "Data & AI Strategy",
-    description: "Build a solid data foundation, assess AI readiness, and create actionable roadmaps for adoption.",
-    longDescription: "Success with AI starts with clean, connected data and a clear strategy. We help you build the foundation—connecting systems, cleaning data, assessing readiness—and chart the path forward with realistic roadmaps and responsible AI practices.",
+    description: "Connect your systems, clean your data, and map out AI adoption that actually sticks.",
+    longDescription: "AI projects fail when the data isn't ready. We connect your systems, clean the messy records, assess what's realistic, and build roadmaps that account for how your team actually works.",
     icon: "database",
     category: "data-ai-strategy",
     subServices: [
       {
         title: "Data Foundation",
-        description: "Build the infrastructure for everything else. A solid foundation that scales as you grow—data warehouse, pipelines, and governance built right.",
+        description: "Data warehouse, pipelines, and governance, built so you're not redoing it in a year. The infrastructure that makes everything else possible.",
         icon: "database",
       },
       {
         title: "Data Integration",
-        description: "Connect all your systems into one unified view. Stop switching between tabs and spreadsheets to get answers. Real-time sync across CRM, ERP, and everything else.",
+        description: "Connect CRM, ERP, and everything else into one view. No more switching tabs to piece together answers.",
         icon: "link",
       },
       {
         title: "AI-Powered Data Cleanup",
-        description: "Intelligent data cleaning that improves over time. Fix duplicates, standardize formats, and resolve entities at 125x less cost than manual review.",
+        description: "Fix duplicates, standardize formats, resolve conflicting records at 125x less cost than manual review. The cleanup learns from your corrections.",
         icon: "sparkles",
       },
       {
         title: "AI Readiness Assessment",
-        description: "Comprehensive evaluation of your data infrastructure, team capabilities, and organizational readiness. We identify gaps and quick wins before you invest in AI.",
+        description: "We evaluate your data, your team, and your org. You get a clear picture of what's realistic and where the quick wins are before you invest.",
         icon: "eye",
       },
       {
         title: "AI Roadmapping",
-        description: "Strategic planning that prioritizes AI initiatives based on ROI, feasibility, and business impact. Clear milestones, resource requirements, and success metrics.",
+        description: "Which AI projects will actually pay off? We prioritize by ROI and feasibility, then map out what gets delivered each quarter.",
         icon: "trending-up",
       },
       {
         title: "AI Governance & Compliance",
-        description: "Responsible AI frameworks for regulated industries. Bias monitoring, audit trails, explainability requirements, and compliance documentation for healthcare, legal, and finance.",
+        description: "Bias monitoring, audit trails, explainability: the controls your compliance team needs. Built for healthcare, legal, and finance from day one.",
         icon: "book",
       },
     ],
     benefits: [
       { title: "Single Source of Truth", description: "All your data in one place, consistent and reliable." },
       { title: "Avoid Costly Mistakes", description: "Strategic planning prevents failed AI projects and wasted investment." },
-      { title: "Actionable Roadmap", description: "Clear path from current state to AI-enabled operations." },
+      { title: "Clear Roadmap", description: "A path from where you are to AI-enabled operations, with quarterly milestones." },
     ],
   },
   {
@@ -64,18 +64,18 @@ export const services: ConsolidatedService[] = [
     title: "Analytics & BI",
     shortTitle: "Analytics & BI",
     description: "Visual dashboards, real-time visibility, and predictive insights for your whole operation.",
-    longDescription: "You shouldn't have to ask someone to pull a report. You shouldn't wait until month-end to know how you're doing. We build dashboards and analytics that give you visibility into your whole operation—including predictions about what's coming next.",
+    longDescription: "You shouldn't have to ask someone to pull a report. You shouldn't wait until month-end to know how you're doing. We build dashboards and analytics that give you visibility into your whole operation, including predictions about what's coming next.",
     icon: "chart-bar",
     category: "analytics-bi",
     subServices: [
       {
         title: "Dashboards",
-        description: "Visual dashboards that answer your real questions. See what's happening across your business at a glance—KPIs, trends, and drill-downs.",
+        description: "Visual dashboards that answer your questions. See what's happening across your business at a glance: KPIs, trends, and drill-downs.",
         icon: "chart-bar",
       },
       {
         title: "Agentic Research",
-        description: "AI agents that autonomously gather, analyze, and synthesize information from multiple sources—turning hours of research into minutes.",
+        description: "AI agents that autonomously gather, analyze, and synthesize information from multiple sources, turning hours of research into minutes.",
         icon: "sparkles",
       },
       {
@@ -95,7 +95,7 @@ export const services: ConsolidatedService[] = [
       },
       {
         title: "Custom Analytical Applications",
-        description: "Purpose-built tools for your specific workflows. From interactive calculators to specialized reporting apps—analytics tailored to how your team actually works.",
+        description: "Purpose-built tools for your specific workflows. From interactive calculators to specialized reporting apps, analytics tailored to how your team actually works.",
         icon: "cpu",
       },
     ],
@@ -107,10 +107,10 @@ export const services: ConsolidatedService[] = [
   },
   {
     slug: "ai-services",
-    title: "AI Services",
-    shortTitle: "AI Services",
-    description: "AI enablement, knowledge management, and natural language interfaces that actually work.",
-    longDescription: "AI isn't magic—it's only as good as the data and implementation underneath. We build AI that works: natural language queries, automated insights, knowledge management, and custom AI enablement tailored to your business.",
+    title: "AI Services & Automation",
+    shortTitle: "AI Services & Automation",
+    description: "Natural language queries, knowledge management, and AI automation, built on your data.",
+    longDescription: "We build AI that works because we build it on clean data. Natural language queries your team can actually use. Knowledge systems that surface what's buried in documents. Automation that handles the repetitive stuff.",
     icon: "sparkles",
     category: "ai-services",
     subServices: [
@@ -131,7 +131,7 @@ export const services: ConsolidatedService[] = [
       },
       {
         title: "AI Enablement",
-        description: "Custom AI solutions for your specific workflows. From document processing to decision automation—AI built for how you actually work.",
+        description: "Custom AI solutions for your specific workflows. From document processing to decision automation, AI built for how you actually work.",
         icon: "cpu",
       },
       {
@@ -146,7 +146,7 @@ export const services: ConsolidatedService[] = [
       },
       {
         title: "Conversational AI",
-        description: "Internal assistants and customer-facing chatbots powered by your data. LLM-based systems that understand context and provide helpful, accurate responses.",
+        description: "Internal assistants and customer-facing chatbots powered by your data. They answer questions, route requests, and handle the repetitive inquiries so your team doesn't have to.",
         icon: "chat",
       },
       {
@@ -166,33 +166,33 @@ export const services: ConsolidatedService[] = [
 export const serviceCategories = {
   "data-ai-strategy": {
     title: "Data & AI Strategy",
-    subtitle: "Build the foundation",
-    description: "Build a solid data foundation, assess AI readiness, and create actionable roadmaps.",
+    subtitle: "Get the data right",
+    description: "Connect your systems, clean your data, and map out AI adoption that sticks.",
     position: "Start here",
-    message: "Clean, connected data and a clear strategy are the foundation for AI success.",
+    message: "AI projects fail on bad data. This is where you fix that.",
   },
   "analytics-bi": {
     title: "Analytics & BI",
     subtitle: "See what's happening",
-    description: "Visual dashboards, real-time visibility, and predictive insights for your whole operation.",
+    description: "Dashboards, operational visibility, and predictive insights for your whole operation.",
     position: "See clearly",
-    message: "Once your data is ready, you can finally see what's happening across your business.",
+    message: "Stop waiting for reports. See what's happening now, and what's coming next.",
   },
   "ai-services": {
-    title: "AI Services",
+    title: "AI Services & Automation",
     subtitle: "Work smarter with AI",
-    description: "AI enablement, knowledge management, and natural language interfaces that actually work.",
+    description: "Natural language queries, knowledge management, and AI automation built on your data.",
     position: "Work smarter",
-    message: "With clean data and clear visibility, AI can actually deliver on its promises.",
+    message: "AI that works because it's built on clean data and designed for how your team operates.",
   },
 };
 
 export const serviceDecisionHelper = [
-  { problem: "Data scattered across systems with no single source of truth", service: "data-ai-strategy" },
-  { problem: "Need a roadmap for AI adoption", service: "data-ai-strategy" },
-  { problem: "Can't get answers without waiting for reports", service: "analytics-bi" },
-  { problem: "Need real-time visibility into operations", service: "analytics-bi" },
-  { problem: "Want to automate repetitive tasks with AI", service: "ai-services" },
+  { problem: "Data in too many places, no single source of truth", service: "data-ai-strategy" },
+  { problem: "Need a realistic roadmap for AI adoption", service: "data-ai-strategy" },
+  { problem: "Can't get answers without waiting for someone to pull a report", service: "analytics-bi" },
+  { problem: "Need to see operations in real time, not last month", service: "analytics-bi" },
+  { problem: "Want AI to handle the repetitive tasks", service: "ai-services" },
   { problem: "Knowledge trapped in documents and people's heads", service: "ai-services" },
 ];
 

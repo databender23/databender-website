@@ -10,6 +10,7 @@ interface LottieWrapperProps {
   autoplay?: boolean;
   playOnHover?: boolean;
   playOnView?: boolean;
+  speed?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -20,6 +21,7 @@ export default function LottieWrapper({
   autoplay = true,
   playOnHover = false,
   playOnView = false,
+  speed = 1,
   className = "",
   style,
 }: LottieWrapperProps) {
@@ -41,6 +43,13 @@ export default function LottieWrapper({
     mediaQuery.addEventListener("change", handler);
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
+
+  // Set animation speed
+  useEffect(() => {
+    if (lottieRef.current && speed !== 1) {
+      lottieRef.current.setSpeed(speed);
+    }
+  }, [animationData, speed]);
 
   // Handle play on view
   useEffect(() => {

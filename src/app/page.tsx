@@ -81,21 +81,21 @@ export default function HomePage() {
     {
       title: "Get your data in order",
       description:
-        "Connect scattered systems. Clean messy records. Build a foundation you can trust.",
+        "Connect siloed systems. Clean messy records. Build a single source of truth you can rely on.",
       icon: <DataIcon />,
       href: "/services",
     },
     {
       title: "See what's happening",
       description:
-        "Dashboards that answer real questions. Reports that run themselves. Visibility across your whole operation.",
+        "Dashboards that answer what your CFO asks. Reports that update themselves. Visibility across your whole operation.",
       icon: <ChartIcon />,
       href: "/services",
     },
     {
       title: "Work smarter with AI",
       description:
-        "AI that actually answers correctly. Automation that saves real hours. Intelligence that improves over time.",
+        "AI that gives accurate answers. Automation that frees up hours each week. Systems that learn from your corrections.",
       icon: <AIIcon />,
       href: "/services",
     },
@@ -105,25 +105,25 @@ export default function HomePage() {
     {
       title: "Senior + Scale",
       description:
-        "Senior experts guide your project. A 200-person team delivers it. Direct access to experienced consultants backed by capacity to execute quickly.",
+        "Senior consultants lead your project. A 200-person team delivers it. You get direct access to experts, backed by the capacity to move fast.",
       icon: <UsersIcon />,
     },
     {
       title: "AI That Works",
       description:
-        "AI analytics that actually answer correctly—because we build the foundation first. Most AI projects fail because the data isn't ready.",
+        "AI analytics that give accurate answers—because we fix the data first. Most AI projects fail on bad data. Ours don't.",
       icon: <LightbulbIcon />,
     },
     {
       title: "From Insight to Action",
       description:
-        "We don't stop at dashboards. We automate decisions, trigger workflows, and integrate insights into your daily operations.",
+        "We don't stop at dashboards. We wire insights into your daily operations—automated alerts, triggered workflows, decisions that happen without you.",
       icon: <CogIcon />,
     },
     {
       title: "Regulated-Ready",
       description:
-        "HIPAA, GDPR, SOC 2. Compliance built in from day one. If your industry requires it, we know how to build it right.",
+        "HIPAA, GDPR, SOC 2—compliance built in from day one. We've done this in healthcare, legal, and finance. We know what auditors look for.",
       icon: <ShieldIcon />,
     },
   ];
@@ -167,7 +167,7 @@ export default function HomePage() {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
-    fetch("https://assets2.lottiefiles.com/packages/lf20_qp1q7mct.json")
+    fetch("/animations/hero-data.json")
       .then((response) => response.json())
       .then((data) => setAnimationData(data))
       .catch((error) => console.error("Failed to load Lottie animation:", error));
@@ -175,7 +175,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (lottieRef.current) {
-      lottieRef.current.setSpeed(0.30);
+      lottieRef.current.setSpeed(0.20);
     }
   }, [animationData]);
 
@@ -287,7 +287,7 @@ export default function HomePage() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-lg max-w-2xl mx-auto"
             >
-              We&apos;ve solved data problems across healthcare, legal, real estate, and manufacturing. That cross-industry experience means we bring proven approaches—not experiments.
+              We&apos;ve solved these problems in healthcare, legal, real estate, and manufacturing. That means faster implementation and fewer surprises.
             </motion.p>
           </div>
 

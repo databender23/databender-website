@@ -7,7 +7,7 @@ export const mainNavigation: NavItem[] = [
     children: [
       { label: "Data & AI Strategy", href: "/services/data-ai-strategy" },
       { label: "Analytics & BI", href: "/services/analytics-bi" },
-      { label: "AI Services", href: "/services/ai-services" },
+      { label: "AI Services & Automation", href: "/services/ai-services" },
     ],
   },
   {
@@ -25,14 +25,9 @@ export const mainNavigation: NavItem[] = [
     href: "/resources",
     children: [
       { label: "Case Studies", href: "/case-studies" },
-      { label: "Data & AI Readiness Assessment", href: "/assessments/data-ai-readiness" },
-      { label: "Manufacturing Assessment", href: "/assessments/manufacturing" },
-      { label: "Healthcare Benchmark", href: "/assessments/healthcare-benchmark" },
+      { label: "Assessments", href: "/assessments" },
+      { label: "Blog", href: "/blog" },
     ],
-  },
-  {
-    label: "Blog",
-    href: "/blog",
   },
   {
     label: "About",
@@ -44,7 +39,7 @@ export const footerNavigation = {
   services: [
     { label: "Data & AI Strategy", href: "/services/data-ai-strategy" },
     { label: "Analytics & BI", href: "/services/analytics-bi" },
-    { label: "AI Services", href: "/services/ai-services" },
+    { label: "AI Services & Automation", href: "/services/ai-services" },
     { label: "All Services", href: "/services" },
   ],
   industries: [
@@ -54,10 +49,8 @@ export const footerNavigation = {
     { label: "Manufacturing", href: "/industries/manufacturing" },
   ],
   resources: [
-    { label: "Data & AI Assessment", href: "/assessments/data-ai-readiness" },
-    { label: "Manufacturing Assessment", href: "/assessments/manufacturing" },
-    { label: "Healthcare Benchmark", href: "/assessments/healthcare-benchmark" },
     { label: "Case Studies", href: "/case-studies" },
+    { label: "Assessments", href: "/assessments" },
     { label: "Blog", href: "/blog" },
   ],
   company: [

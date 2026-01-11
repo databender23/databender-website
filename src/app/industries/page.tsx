@@ -1,13 +1,20 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Hero, CTA } from "@/components/sections";
+import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
+import { LottieWrapper } from "@/components/animations";
 import { industries } from "@/lib/industries-data";
 
 const IndustryIcon = ({ icon }: { icon: string }) => {
   const icons: Record<string, React.ReactNode> = {
+    scale: (
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+      </svg>
+    ),
     briefcase: (
       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -34,15 +41,87 @@ const IndustryIcon = ({ icon }: { icon: string }) => {
 };
 
 export default function IndustriesPage() {
+  const [lottieData, setLottieData] = useState<object | null>(null);
+
+  useEffect(() => {
+    fetch("/animations/data-viz.json")
+      .then((res) => res.json())
+      .then((data) => setLottieData(data))
+      .catch(() => setLottieData(null));
+  }, []);
+
   return (
     <>
-      <Hero
-        subtitle="Industries We Serve"
-        title="Experience in your industry"
-        description="We've solved data problems across healthcare, legal, real estate, and manufacturing. That cross-industry experience means we bring proven approaches—not experiments."
-        primaryCta={{ label: "Take Free Assessment", href: "/assessments/data-ai-readiness" }}
-        secondaryCta={{ label: "Talk to an Expert", href: "/contact" }}
-      />
+      {/* Hero with Lottie */}
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
+        <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
+        <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              >
+                Industries We Serve
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+              >
+                Experience in your industry
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+              >
+                We&apos;ve solved data problems across healthcare, legal, real estate, and manufacturing. That cross-industry experience means we bring proven approaches—not experiments.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-wrap gap-4"
+              >
+                <Button variant="primary" size="lg" href="/assessments/data-ai-readiness">
+                  Take Free Assessment
+                </Button>
+                <Button variant="secondary" size="lg" href="/contact">
+                  Talk to an Expert
+                </Button>
+              </motion.div>
+            </div>
+
+            {lottieData && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex justify-center items-center"
+              >
+                <div className="w-full max-w-md">
+                  <LottieWrapper
+                    animationData={lottieData}
+                    loop={true}
+                    playOnView={true}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* Industries Grid */}
       <section className="section">

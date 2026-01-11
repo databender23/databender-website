@@ -460,7 +460,7 @@ export default function HealthcareBenchmarkPage() {
 
       {/* CTA */}
       <CTA
-        title="Need a comprehensive pricing analysis?"
+        title="Need a full pricing analysis?"
         description="Our Price Transparency solutions help healthcare organizations optimize pricing, ensure compliance, and improve competitive positioning."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "Learn More", href: "/industries/healthcare" }}

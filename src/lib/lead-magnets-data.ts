@@ -35,7 +35,7 @@ export const legalAudits: Audit[] = [
   {
     slug: "associate-efficiency",
     title: "Associate Efficiency Audit",
-    description: "Discover how your associates spend their time and identify opportunities to increase leverage without increasing headcount.",
+    description: "Discover how your associates spend their time and identify opportunities to get more output without increasing headcount.",
     deliverable: "Custom report showing time allocation patterns, efficiency benchmarks vs. peer firms, and specific AI opportunities.",
     targetAudience: "Managing Partners, COOs at firms with 20-75 attorneys",
     icon: "clock",
@@ -52,7 +52,7 @@ export const legalAudits: Audit[] = [
     slug: "institutional-memory",
     title: "Institutional Memory Audit",
     description: "Assess how much knowledge walks out the door when partners retire and identify preservation strategies.",
-    deliverable: "Knowledge risk assessment with actionable preservation roadmap.",
+    deliverable: "Knowledge risk assessment with a clear preservation roadmap.",
     targetAudience: "Managing Partners at firms facing partner succession",
     icon: "brain",
   },
@@ -75,7 +75,7 @@ export const legalGuides: Guide[] = [
     topics: [
       "AI-assisted research and drafting workflows",
       "Knowledge management that actually works",
-      "Measuring and improving associate leverage",
+      "Measuring and improving associate productivity",
       "Change management for traditional firms",
     ],
     targetAudience: "Managing Partners, Practice Group Leaders",
