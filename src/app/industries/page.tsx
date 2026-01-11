@@ -113,7 +113,7 @@ export default function IndustriesPage() {
                   <LottieWrapper
                     animationData={lottieData}
                     loop={true}
-                    playOnView={true}
+                    autoplay={true}
                     className="w-full h-auto"
                   />
                 </div>
@@ -202,7 +202,7 @@ export default function IndustriesPage() {
               transition={{ delay: 0.1 }}
               className="text-text-secondary text-lg mb-8"
             >
-              Our data management, business intelligence, and AI capabilities apply across industries. The patterns we&apos;ve learned solving problems in healthcare often apply to manufacturing. Insights from real estate projects inform how we approach professional services. Let&apos;s talk about your specific situation.
+              Our data management, business intelligence, and AI capabilities apply across industries. Let&apos;s talk about your specific situation.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

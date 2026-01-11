@@ -153,7 +153,7 @@ export default function AssessmentsPage() {
                   <LottieWrapper
                     animationData={lottieData}
                     loop={true}
-                    playOnView={true}
+                    autoplay={true}
                     className="w-full h-auto"
                   />
                 </div>

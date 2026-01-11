@@ -1,10 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import { Hero, Features, Stats, CTA } from "@/components/sections";
-import { Card, Button } from "@/components/ui";
-import { ROICalculator } from "@/components/interactive";
+import { Hero, Features, CTA } from "@/components/sections";
+import { Button, Badge } from "@/components/ui";
+import Link from "next/link";
+import { caseStudies } from "@/lib/case-studies-data";
+import { blogPosts } from "@/lib/blog-data";
+import { testimonials } from "@/lib/case-studies-data";
 import { useState, useEffect, useRef } from "react";
 
 // Icons for features
@@ -51,30 +54,393 @@ const CogIcon = () => (
   </svg>
 );
 
-// Industry icons
-const BriefcaseIcon = () => (
-  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-  </svg>
-);
 
-const HeartIcon = () => (
-  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-  </svg>
-);
+// Featured Content Carousel Component with Stats
+function FeaturedCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isInView, setIsInView] = useState(false);
 
-const BuildingIcon = () => (
-  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-  </svg>
-);
 
-const FactoryIcon = () => (
-  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-  </svg>
-);
+  // Combine case studies and blog posts into featured items
+  const featuredItems = [
+    ...caseStudies.slice(0, 2).map((study) => ({
+      type: "case-study" as const,
+      slug: study.slug,
+      title: study.title,
+      description: study.challengeBrief,
+      image: study.thumbnail,
+      badge: study.industry,
+      highlight: study.resultHighlight,
+      href: `/case-studies/${study.slug}`,
+    })),
+    ...blogPosts.slice(0, 3).map((post) => ({
+      type: "blog" as const,
+      slug: post.slug,
+      title: post.title,
+      description: post.excerpt,
+      image: post.featuredImage,
+      badge: post.category,
+      highlight: `${post.readingTime} min read`,
+      href: `/blog/${post.slug}`,
+    })),
+  ];
+
+  // Auto-rotate
+  useEffect(() => {
+    if (!isInView || isPaused) return;
+
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % featuredItems.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [isInView, isPaused, featuredItems.length]);
+
+  const currentItem = featuredItems[currentIndex];
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  const goToPrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? featuredItems.length - 1 : prev - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % featuredItems.length);
+  };
+
+  return (
+    <motion.section
+      className="section bg-[#F8F9FA]"
+      onViewportEnter={() => setIsInView(true)}
+      onViewportLeave={() => setIsInView(false)}
+      viewport={{ amount: 0.3 }}
+    >
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-10">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-text-primary"
+          >
+            See how we deliver results
+          </motion.h2>
+        </div>
+
+        <div
+          className="relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 min-h-[400px]">
+            {/* Main Featured Item */}
+            <div className="lg:col-span-3">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentItem.slug}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  className="h-full"
+                >
+                  <Link
+                    href={currentItem.href}
+                    className="group block h-full rounded-2xl overflow-hidden bg-white border border-black/10 hover:border-teal-500/50 transition-all duration-300"
+                  >
+                    {currentItem.image && (
+                      <div className="aspect-[16/9] overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={currentItem.image}
+                          alt={currentItem.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className={`px-2 py-1 rounded text-xs font-semibold uppercase tracking-wide ${
+                          currentItem.type === "case-study"
+                            ? "bg-teal-500/10 text-teal-600"
+                            : "bg-purple-500/10 text-purple-600"
+                        }`}>
+                          {currentItem.type === "case-study" ? "Case Study" : "Blog"}
+                        </span>
+                        <Badge variant="outline">{currentItem.badge}</Badge>
+                      </div>
+
+                      <h3 className="text-xl md:text-2xl font-bold text-text-primary mb-3 group-hover:text-teal-500 transition-colors">
+                        {currentItem.title}
+                      </h3>
+
+                      <p className="text-text-secondary mb-4 line-clamp-2">
+                        {currentItem.description}
+                      </p>
+
+                      <div className="flex items-center justify-between">
+                        <span className={`font-semibold ${
+                          currentItem.type === "case-study" ? "text-gradient text-lg" : "text-text-muted text-sm"
+                        }`}>
+                          {currentItem.highlight}
+                        </span>
+                        <span className="flex items-center gap-2 text-teal-500 font-medium text-sm group-hover:gap-3 transition-all">
+                          Read more
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Sidebar with thumbnails */}
+            <div className="lg:col-span-2 flex flex-col gap-3">
+              {featuredItems.map((item, index) => (
+                <button
+                  key={item.slug}
+                  onClick={() => goToSlide(index)}
+                  className={`flex items-center gap-4 p-3 rounded-xl text-left transition-all duration-300 ${
+                    index === currentIndex
+                      ? "bg-teal-500/10 border-2 border-teal-500"
+                      : "bg-white border-2 border-transparent hover:border-black/10"
+                  }`}
+                >
+                  {item.image && (
+                    <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <span className={`text-xs font-semibold uppercase tracking-wide ${
+                      item.type === "case-study" ? "text-teal-600" : "text-purple-600"
+                    }`}>
+                      {item.type === "case-study" ? "Case Study" : "Blog"}
+                    </span>
+                    <h4 className={`font-medium text-sm line-clamp-2 ${
+                      index === currentIndex ? "text-text-primary" : "text-text-secondary"
+                    }`}>
+                      {item.title}
+                    </h4>
+                  </div>
+                  {index === currentIndex && (
+                    <div className="w-1 h-8 bg-teal-500 rounded-full flex-shrink-0" />
+                  )}
+                </button>
+              ))}
+
+              {/* Navigation */}
+              <div className="flex items-center justify-between mt-auto pt-4 border-t border-black/10">
+                <div className="flex gap-2">
+                  <button
+                    onClick={goToPrev}
+                    className="w-10 h-10 rounded-full bg-white border border-black/10 flex items-center justify-center text-text-secondary hover:text-teal-500 hover:border-teal-500 transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={goToNext}
+                    className="w-10 h-10 rounded-full bg-white border border-black/10 flex items-center justify-center text-text-secondary hover:text-teal-500 hover:border-teal-500 transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="flex gap-4">
+                  <Link href="/case-studies" className="text-sm text-text-muted hover:text-teal-500 transition-colors">
+                    All Case Studies
+                  </Link>
+                  <Link href="/blog" className="text-sm text-text-muted hover:text-teal-500 transition-colors">
+                    All Posts
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div className="mt-6 flex gap-1">
+            {featuredItems.map((_, index) => (
+              <div
+                key={index}
+                className="h-1 flex-1 rounded-full bg-black/20 overflow-hidden cursor-pointer"
+                onClick={() => goToSlide(index)}
+              >
+                <motion.div
+                  className="h-full bg-teal-500"
+                  initial={{ width: "0%" }}
+                  animate={{
+                    width: index === currentIndex ? "100%" : index < currentIndex ? "100%" : "0%",
+                  }}
+                  transition={{
+                    duration: index === currentIndex && !isPaused ? 5 : 0.3,
+                    ease: "linear",
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+// Social Proof Carousel Component
+function SocialProofSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    if (!isInView || isPaused || isExpanded) return;
+
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+
+    return () => clearInterval(timer);
+  }, [isInView, isPaused, isExpanded]);
+
+  // Reset expanded state when slide changes
+  useEffect(() => {
+    setIsExpanded(false);
+  }, [currentSlide]);
+
+  const currentTestimonial = testimonials[currentSlide];
+  const isLongQuote = currentTestimonial.quote.length > 200;
+
+  return (
+    <motion.section
+      className="section"
+      onViewportEnter={() => setIsInView(true)}
+      onViewportLeave={() => setIsInView(false)}
+      viewport={{ amount: 0.3 }}
+    >
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-10">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+          >
+            Client Success
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl md:text-4xl font-bold text-text-primary"
+          >
+            What our clients say
+          </motion.h2>
+        </div>
+
+        <div
+          className="max-w-4xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="bg-[#F8F9FA] rounded-2xl p-8 md:p-12 text-center"
+            >
+              <div className="w-12 h-12 rounded-full bg-teal-500/10 flex items-center justify-center mx-auto mb-6">
+                <svg className="w-6 h-6 text-teal-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+              </div>
+
+              <p className="text-xl md:text-2xl font-semibold text-text-primary mb-6 leading-relaxed">
+                &quot;{currentTestimonial.highlight}&quot;
+              </p>
+
+              <motion.div
+                initial={false}
+                animate={{ height: "auto" }}
+                className="overflow-hidden"
+              >
+                <p className="text-text-secondary mb-4 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                  {isExpanded || !isLongQuote
+                    ? currentTestimonial.quote
+                    : currentTestimonial.quote.substring(0, 200) + "..."}
+                </p>
+
+                {isLongQuote && (
+                  <button
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="text-teal-500 hover:text-teal-600 text-sm font-medium mb-4 inline-flex items-center gap-1 transition-colors"
+                  >
+                    {isExpanded ? (
+                      <>
+                        Show less
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                        </svg>
+                      </>
+                    ) : (
+                      <>
+                        Read full testimonial
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                )}
+              </motion.div>
+
+              <div className="pt-4">
+                <p className="font-semibold text-text-primary">{currentTestimonial.name}</p>
+                <p className="text-sm text-text-muted">
+                  {currentTestimonial.title}
+                  {currentTestimonial.company && `, ${currentTestimonial.company}`}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation dots */}
+          <div className="flex justify-center gap-2 mt-6">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  currentSlide === index
+                    ? "bg-teal-500 w-8"
+                    : "bg-black/20 hover:bg-black/40"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
 
 export default function HomePage() {
   const capabilities = [
@@ -128,40 +494,6 @@ export default function HomePage() {
     },
   ];
 
-  const industries = [
-    {
-      title: "Professional Services",
-      description: "Knowledge management, client intelligence, firm analytics for law firms and consultancies.",
-      icon: <BriefcaseIcon />,
-      href: "/industries/professional-services",
-    },
-    {
-      title: "Healthcare",
-      description: "Operational visibility, multi-location analytics, and compliance for healthcare organizations.",
-      icon: <HeartIcon />,
-      href: "/industries/healthcare",
-    },
-    {
-      title: "Commercial Real Estate",
-      description: "Portfolio intelligence and unified visibility for property managers.",
-      icon: <BuildingIcon />,
-      href: "/industries/commercial-real-estate",
-    },
-    {
-      title: "Manufacturing",
-      description: "Sales intelligence and operational visibility for scale-up manufacturers.",
-      icon: <FactoryIcon />,
-      href: "/industries/manufacturing",
-    },
-  ];
-
-  const stats = [
-    { value: 125, suffix: "x", label: "Cost savings vs manual review" },
-    { value: 21, suffix: "%", prefix: "+", label: "More qualified leads" },
-    { value: 3, label: "Weeks to value" },
-    { value: 100, suffix: "%", label: "Decision coverage" },
-  ];
-
   // Lottie animation setup
   const [animationData, setAnimationData] = useState(null);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
@@ -181,7 +513,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* 1. Hero Section */}
       <Hero
         subtitle="Data Analytics & AI Solutions"
         title="Boutique Strategy. Enterprise Delivery."
@@ -205,7 +537,7 @@ export default function HomePage() {
         }
       />
 
-      {/* What We Do Section */}
+      {/* 2. What We Do Section */}
       <Features
         subtitle="What We Do"
         title="Three capabilities. One partner."
@@ -213,10 +545,13 @@ export default function HomePage() {
         columns={3}
       />
 
-      {/* Why Databender Section */}
-      <section className="section bg-[#F8F9FA]">
+      {/* 3. Results & Case Studies */}
+      <FeaturedCarousel />
+
+      {/* 4. Why Us Section */}
+      <section className="section">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -236,7 +571,7 @@ export default function HomePage() {
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {differentiators.map((item, index) => (
               <motion.div
                 key={index}
@@ -244,231 +579,25 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-white border border-black/10"
+                className="p-6 rounded-xl bg-[#F8F9FA] border border-black/10 text-center"
               >
-                <div className="w-12 h-12 mb-4 flex items-center justify-center rounded-lg bg-teal-500/10 text-teal-500">
+                <div className="w-12 h-12 mb-4 mx-auto flex items-center justify-center rounded-lg bg-teal-500/10 text-teal-500">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-text-primary mb-2">
+                <h3 className="text-lg font-semibold text-text-primary mb-2">
                   {item.title}
                 </h3>
-                <p className="text-text-secondary">{item.description}</p>
+                <p className="text-text-secondary text-sm">{item.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Industries Section */}
-      <section className="section">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
-            >
-              Industries
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl font-bold text-text-primary mb-4"
-            >
-              Experience in your industry
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-text-secondary text-lg max-w-2xl mx-auto"
-            >
-              We&apos;ve solved these problems in healthcare, legal, real estate, and manufacturing. That means faster implementation and fewer surprises.
-            </motion.p>
-          </div>
+      {/* 5. Social Proof */}
+      <SocialProofSection />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {industries.map((industry, index) => (
-              <Card
-                key={index}
-                title={industry.title}
-                description={industry.description}
-                icon={industry.icon}
-                href={industry.href}
-              />
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button variant="secondary" href="/industries">
-              See How We Help Your Industry
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Results Section */}
-      <Stats
-        subtitle="Results"
-        title="Results that matter"
-        stats={stats}
-      />
-
-      {/* ROI Calculator */}
-      <section className="section bg-[#F8F9FA]">
-        <div className="container mx-auto px-6">
-          <ROICalculator />
-        </div>
-      </section>
-
-      {/* Case Studies Preview */}
-      <section className="section">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="p-8 rounded-xl bg-[#F8F9FA] border border-black/10"
-            >
-              <h3 className="text-xl font-semibold text-text-primary mb-4">
-                AI Entity Resolution
-              </h3>
-              <p className="text-text-secondary mb-6 text-lg italic">
-                &quot;What would cost $25,000+ in analyst time, AI completed for ~$200—with every decision documented for audit.&quot;
-              </p>
-              <Button variant="ghost" href="/case-studies/ai-entity-resolution">
-                Read Case Study
-              </Button>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="p-8 rounded-xl bg-[#F8F9FA] border border-black/10"
-            >
-              <h3 className="text-xl font-semibold text-text-primary mb-4">
-                Custom Lead Scoring
-              </h3>
-              <p className="text-text-secondary mb-6 text-lg italic">
-                &quot;Generic tools said home value mattered most. Our model discovered home equity, urgency, and local sales history are what actually predict conversions.&quot;
-              </p>
-              <Button variant="ghost" href="/case-studies/custom-lead-scoring">
-                Read Case Study
-              </Button>
-            </motion.div>
-          </div>
-
-          <div className="text-center mt-12">
-            <Button variant="secondary" href="/case-studies">
-              See All Case Studies
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Assessment CTA */}
-      <section className="section bg-gradient-to-br from-teal-500/10 via-white to-white">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mb-6">
-              Not sure where to start?
-            </h2>
-            <p className="text-text-secondary text-lg md:text-xl mb-8">
-              Take our free 2-minute assessment. We&apos;ll analyze your situation and show you exactly where to focus first.
-            </p>
-            <ul className="text-left max-w-md mx-auto mb-8 space-y-3">
-              <li className="flex items-start gap-3 text-text-secondary">
-                <svg className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Personalized recommendations based on your answers
-              </li>
-              <li className="flex items-start gap-3 text-text-secondary">
-                <svg className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Clarity on your biggest data gaps
-              </li>
-              <li className="flex items-start gap-3 text-text-secondary">
-                <svg className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Suggested next steps—no obligation
-              </li>
-            </ul>
-            <Button
-              variant="primary"
-              size="lg"
-              href="/assessments/data-ai-readiness"
-              icon={
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              }
-            >
-              Take the Free Assessment
-            </Button>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* About Brief */}
-      <section className="section">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
-            >
-              About Us
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl font-bold text-text-primary mb-6"
-            >
-              Who we are
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-text-secondary text-lg mb-8 whitespace-pre-line"
-            >
-              Databender is an AI and data consultancy that helps organizations do more with the teams they already have.{'\n\n'}We design and build data platforms, automation pipelines, and AI-powered tools that eliminate busywork, improve compliance, and enable better decisions — turning AI into an everyday operational advantage.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <Button variant="secondary" href="/about">
-                Learn More About Us
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
+      {/* 6. Final CTA */}
       <CTA
         title="Ready to transform your data?"
         description="Schedule a 30-minute consultation. No pitch decks—just a conversation about your situation."

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
@@ -72,9 +72,11 @@ const resourceCategories = [
 ];
 
 export default function ResourcesPage() {
-  const recentPosts = blogPosts.slice(0, 3);
-  const featuredCaseStudies = caseStudies.filter((cs) => cs.featured).slice(0, 2);
   const [lottieData, setLottieData] = useState<object | null>(null);
+  const [caseStudyIndex, setCaseStudyIndex] = useState(0);
+  const [blogIndex, setBlogIndex] = useState(0);
+  const [caseStudyPaused, setCaseStudyPaused] = useState(false);
+  const [blogPaused, setBlogPaused] = useState(false);
 
   useEffect(() => {
     fetch("/animations/student.json")
@@ -82,6 +84,24 @@ export default function ResourcesPage() {
       .then((data) => setLottieData(data))
       .catch(() => setLottieData(null));
   }, []);
+
+  // Auto-rotate case studies
+  useEffect(() => {
+    if (caseStudyPaused) return;
+    const timer = setInterval(() => {
+      setCaseStudyIndex((prev) => (prev + 1) % caseStudies.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [caseStudyPaused]);
+
+  // Auto-rotate blog posts
+  useEffect(() => {
+    if (blogPaused) return;
+    const timer = setInterval(() => {
+      setBlogIndex((prev) => (prev + 1) % blogPosts.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [blogPaused]);
 
   return (
     <>
@@ -146,7 +166,7 @@ export default function ResourcesPage() {
                   <LottieWrapper
                     animationData={lottieData}
                     loop={true}
-                    playOnView={true}
+                    autoplay={true}
                     className="w-full h-auto"
                   />
                 </div>
@@ -191,10 +211,10 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Featured Case Studies */}
+      {/* Featured Case Studies Carousel */}
       <section className="section">
         <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center justify-between mb-8">
             <div>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -202,7 +222,7 @@ export default function ResourcesPage() {
                 viewport={{ once: true }}
                 className="text-3xl md:text-4xl font-bold text-text-primary mb-2"
               >
-                Featured Case Studies
+                Case Studies
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -219,44 +239,125 @@ export default function ResourcesPage() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {featuredCaseStudies.map((caseStudy, index) => (
-              <motion.div
-                key={caseStudy.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link
-                  href={`/case-studies/${caseStudy.slug}`}
-                  className="group block p-8 rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full"
+          <div
+            className="relative"
+            onMouseEnter={() => setCaseStudyPaused(true)}
+            onMouseLeave={() => setCaseStudyPaused(false)}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+              {/* Main Featured Item */}
+              <div className="lg:col-span-3">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={caseStudies[caseStudyIndex].slug}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <Link
+                      href={`/case-studies/${caseStudies[caseStudyIndex].slug}`}
+                      className="group block rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300 overflow-hidden"
+                    >
+                      {caseStudies[caseStudyIndex].thumbnail && (
+                        <div className="aspect-video overflow-hidden">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={caseStudies[caseStudyIndex].thumbnail}
+                            alt={caseStudies[caseStudyIndex].title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                      )}
+                      <div className="p-6">
+                        <span className="inline-block px-3 py-1 text-sm bg-teal-500/10 text-teal-500 rounded-full mb-3">
+                          {caseStudies[caseStudyIndex].industry}
+                        </span>
+                        <h3 className="text-xl font-bold text-text-primary mb-3 group-hover:text-teal-500 transition-colors">
+                          {caseStudies[caseStudyIndex].title}
+                        </h3>
+                        <p className="text-text-secondary mb-4">
+                          {caseStudies[caseStudyIndex].challengeBrief}
+                        </p>
+                        <span className="text-2xl font-bold text-gradient">
+                          {caseStudies[caseStudyIndex].resultHighlight}
+                        </span>
+                      </div>
+                    </Link>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Sidebar Navigation */}
+              <div className="lg:col-span-2 flex flex-col gap-3">
+                {caseStudies.map((cs, index) => (
+                  <button
+                    key={cs.slug}
+                    onClick={() => setCaseStudyIndex(index)}
+                    className={`flex items-center gap-4 p-3 rounded-xl text-left transition-all duration-300 ${
+                      index === caseStudyIndex
+                        ? "bg-teal-500/10 border-2 border-teal-500"
+                        : "bg-[#F8F9FA] border-2 border-transparent hover:border-black/10"
+                    }`}
+                  >
+                    {cs.thumbnail && (
+                      <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={cs.thumbnail}
+                          alt={cs.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-teal-600">
+                        {cs.industry}
+                      </span>
+                      <h4 className={`font-medium text-sm line-clamp-2 ${
+                        index === caseStudyIndex ? "text-text-primary" : "text-text-secondary"
+                      }`}>
+                        {cs.title}
+                      </h4>
+                    </div>
+                    {index === caseStudyIndex && (
+                      <div className="w-1 h-8 bg-teal-500 rounded-full flex-shrink-0" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Progress bar */}
+            <div className="mt-6 flex gap-1">
+              {caseStudies.map((_, index) => (
+                <div
+                  key={index}
+                  className="h-1 flex-1 rounded-full bg-black/10 overflow-hidden cursor-pointer"
+                  onClick={() => setCaseStudyIndex(index)}
                 >
-                  <span className="inline-block px-3 py-1 text-sm bg-teal-500/10 text-teal-500 rounded-full mb-4">
-                    {caseStudy.industry}
-                  </span>
-                  <h3 className="text-xl font-bold text-text-primary mb-3 group-hover:text-teal-500 transition-colors">
-                    {caseStudy.title}
-                  </h3>
-                  <p className="text-text-secondary mb-4">
-                    {caseStudy.challengeBrief}
-                  </p>
-                  <div className="flex items-center gap-4">
-                    <span className="text-2xl font-bold text-teal-500">
-                      {caseStudy.resultHighlight}
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+                  <motion.div
+                    className="h-full bg-teal-500"
+                    initial={{ width: "0%" }}
+                    animate={{
+                      width: index === caseStudyIndex ? "100%" : index < caseStudyIndex ? "100%" : "0%",
+                    }}
+                    transition={{
+                      duration: index === caseStudyIndex && !caseStudyPaused ? 5 : 0.3,
+                      ease: "linear",
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Recent Blog Posts */}
+      {/* Blog Posts Carousel */}
       <section className="section bg-[#F8F9FA]">
         <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center justify-between mb-8">
             <div>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -264,7 +365,7 @@ export default function ResourcesPage() {
                 viewport={{ once: true }}
                 className="text-3xl md:text-4xl font-bold text-text-primary mb-2"
               >
-                Latest from the Blog
+                Blog
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -281,31 +382,119 @@ export default function ResourcesPage() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {recentPosts.map((post, index) => (
-              <motion.div
-                key={post.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="group block p-6 rounded-2xl bg-white border border-black/10 hover:border-teal-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full"
+          <div
+            className="relative"
+            onMouseEnter={() => setBlogPaused(true)}
+            onMouseLeave={() => setBlogPaused(false)}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+              {/* Main Featured Item */}
+              <div className="lg:col-span-3">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={blogPosts[blogIndex].slug}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <Link
+                      href={`/blog/${blogPosts[blogIndex].slug}`}
+                      className="group block rounded-2xl bg-white border border-black/10 hover:border-teal-500/50 transition-all duration-300 overflow-hidden"
+                    >
+                      {blogPosts[blogIndex].featuredImage && (
+                        <div className="aspect-video overflow-hidden">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={blogPosts[blogIndex].featuredImage}
+                            alt={blogPosts[blogIndex].title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                      )}
+                      <div className="p-6">
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="inline-block px-3 py-1 text-xs bg-purple-500/10 text-purple-600 rounded-full">
+                            {blogPosts[blogIndex].category}
+                          </span>
+                          <span className="text-text-muted text-sm">
+                            {blogPosts[blogIndex].readingTime} min read
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-bold text-text-primary mb-3 group-hover:text-teal-500 transition-colors">
+                          {blogPosts[blogIndex].title}
+                        </h3>
+                        <p className="text-text-secondary line-clamp-2">
+                          {blogPosts[blogIndex].excerpt}
+                        </p>
+                      </div>
+                    </Link>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Sidebar Navigation */}
+              <div className="lg:col-span-2 flex flex-col gap-3">
+                {blogPosts.map((post, index) => (
+                  <button
+                    key={post.slug}
+                    onClick={() => setBlogIndex(index)}
+                    className={`flex items-center gap-4 p-3 rounded-xl text-left transition-all duration-300 ${
+                      index === blogIndex
+                        ? "bg-purple-500/10 border-2 border-purple-500"
+                        : "bg-white border-2 border-transparent hover:border-black/10"
+                    }`}
+                  >
+                    {post.featuredImage && (
+                      <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={post.featuredImage}
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-purple-600">
+                        {post.category}
+                      </span>
+                      <h4 className={`font-medium text-sm line-clamp-2 ${
+                        index === blogIndex ? "text-text-primary" : "text-text-secondary"
+                      }`}>
+                        {post.title}
+                      </h4>
+                    </div>
+                    {index === blogIndex && (
+                      <div className="w-1 h-8 bg-purple-500 rounded-full flex-shrink-0" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Progress bar */}
+            <div className="mt-6 flex gap-1">
+              {blogPosts.map((_, index) => (
+                <div
+                  key={index}
+                  className="h-1 flex-1 rounded-full bg-black/20 overflow-hidden cursor-pointer"
+                  onClick={() => setBlogIndex(index)}
                 >
-                  <span className="inline-block px-3 py-1 text-xs bg-black/5 text-text-muted rounded-full mb-4">
-                    {post.category}
-                  </span>
-                  <h3 className="text-lg font-bold text-text-primary mb-2 group-hover:text-teal-500 transition-colors line-clamp-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-text-secondary text-sm line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                </Link>
-              </motion.div>
-            ))}
+                  <motion.div
+                    className="h-full bg-purple-500"
+                    initial={{ width: "0%" }}
+                    animate={{
+                      width: index === blogIndex ? "100%" : index < blogIndex ? "100%" : "0%",
+                    }}
+                    transition={{
+                      duration: index === blogIndex && !blogPaused ? 5 : 0.3,
+                      ease: "linear",
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

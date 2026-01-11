@@ -111,7 +111,7 @@ export default function AboutPage() {
                   <LottieWrapper
                     animationData={lottieData}
                     loop={true}
-                    playOnView={true}
+                    autoplay={true}
                     speed={0.5}
                     className="w-full h-auto"
                   />

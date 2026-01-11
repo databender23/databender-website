@@ -129,7 +129,7 @@ export default function LegalIndustryPage() {
                   <LottieWrapper
                     animationData={lottieData}
                     loop={true}
-                    playOnView={true}
+                    autoplay={true}
                     className="w-full h-auto"
                   />
                 </div>
