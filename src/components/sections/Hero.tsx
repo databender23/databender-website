@@ -34,7 +34,7 @@ export default function Hero({
   media,
 }: HeroProps) {
   return (
-    <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-0">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
 
@@ -56,7 +56,7 @@ export default function Hero({
       />
 
       <div className={`container mx-auto px-6 relative z-10 ${centered ? "text-center" : ""}`}>
-        <div className={`${media ? "grid grid-cols-1 lg:grid-cols-5 gap-12 items-center" : ""}`}>
+        <div className={`${media ? "grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center" : ""}`}>
           <div className={`max-w-4xl ${centered ? "mx-auto" : ""} ${media ? "lg:col-span-3" : ""}`}>
             {subtitle && (
               <motion.p
@@ -128,7 +128,7 @@ export default function Hero({
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex lg:col-span-2 items-center justify-center"
+              className="flex lg:col-span-2 items-center justify-center order-first lg:order-last max-w-xs mx-auto lg:max-w-none"
             >
               {media}
             </motion.div>

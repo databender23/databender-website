@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { mainNavigation } from "@/lib/navigation";
 import Button from "@/components/ui/Button";
@@ -81,17 +80,19 @@ export default function Header() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-2 w-64 bg-white border border-black/10 rounded-lg shadow-xl overflow-hidden"
+                      className="absolute top-full left-0 pt-2 w-64"
                     >
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block px-4 py-3 text-text-secondary hover:text-text-primary hover:bg-black/5 transition-colors"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                      <div className="bg-white border border-black/10 rounded-lg shadow-xl overflow-hidden">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="block px-4 py-3 text-text-secondary hover:text-text-primary hover:bg-black/5 transition-colors"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>

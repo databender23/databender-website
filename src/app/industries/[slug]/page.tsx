@@ -3,10 +3,11 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { CTA } from "@/components/sections";
-import { Button, Card } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { LottieWrapper, FloatingNodes } from "@/components/animations";
-import { industries, industryContent, getIndustryBySlug, type IndustryWithCta } from "@/lib/industries-data";
+import { industryContent, getIndustryBySlug, type IndustryWithCta } from "@/lib/industries-data";
 
 export default function IndustryPage() {
   const params = useParams();
@@ -48,6 +49,11 @@ export default function IndustryPage() {
       { title: "Analytics & Reporting", description: "Get real-time visibility into what matters." },
       { title: "AI & Automation", description: "Automate manual processes and surface insights." },
     ],
+    benefits: [
+      { title: "Trusted Data", description: "One source of truth you can actually rely on." },
+      { title: "Faster Decisions", description: "Answers in seconds, not days of chasing spreadsheets." },
+      { title: "Less Manual Work", description: "Automate the repetitive stuff so your team can focus." },
+    ],
     useCases: [
       { title: "Operational Visibility", description: "See what's happening across your organization in real-time." },
       { title: "Performance Analytics", description: "Track KPIs and identify opportunities for improvement." },
@@ -75,14 +81,20 @@ export default function IndustryPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left side - Text */}
             <div>
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+                className="flex items-center gap-2 mb-4"
               >
-                Industry Solutions
-              </motion.p>
+                <Link
+                  href="/industries"
+                  className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
+                >
+                  Industries
+                </Link>
+                <span className="text-text-muted">/</span>
+                <span className="text-teal-500 text-sm font-medium">{industry.title}</span>
+              </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -232,15 +244,80 @@ export default function IndustryPage() {
                 <h3 className="text-xl font-semibold text-text-primary mb-3">
                   {solution.title}
                 </h3>
-                <p className="text-text-secondary">{solution.description}</p>
+                <p
+                  className="text-text-secondary"
+                  dangerouslySetInnerHTML={{ __html: solution.description }}
+                />
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Benefits */}
+      {pageContent.benefits && pageContent.benefits.length > 0 && (
+        <section className="section">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              >
+                What You Get
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-3xl md:text-4xl font-bold text-text-primary"
+              >
+                The outcomes that matter
+              </motion.h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {pageContent.benefits.map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6 rounded-xl bg-gradient-to-br from-teal-500/5 to-teal-500/10 border border-teal-500/20"
+                >
+                  <div className="flex items-start gap-3">
+                    <svg
+                      className="w-6 h-6 text-teal-500 flex-shrink-0 mt-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    <div>
+                      <h3 className="text-lg font-semibold text-text-primary mb-1">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-text-secondary text-sm">{benefit.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Use Cases */}
-      <section className="section">
+      <section className="section bg-[#F8F9FA]">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <motion.p
@@ -258,17 +335,25 @@ export default function IndustryPage() {
               transition={{ delay: 0.1 }}
               className="text-3xl md:text-4xl font-bold text-text-primary"
             >
-              What you can achieve
+              What this looks like in practice
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {pageContent.useCases.map((useCase, index) => (
-              <Card
+              <motion.div
                 key={index}
-                title={useCase.title}
-                description={useCase.description}
-              />
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 rounded-xl bg-white border border-black/10"
+              >
+                <h3 className="text-xl font-semibold text-text-primary mb-3">
+                  {useCase.title}
+                </h3>
+                <p className="text-text-secondary">{useCase.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -322,7 +407,7 @@ export default function IndustryPage() {
 
       {/* CTA */}
       <CTA
-        title={`Ready to transform ${industry.title.toLowerCase()}?`}
+        title="Ready to see what's possible?"
         description={industry.ctaSubtext || "Schedule a consultation to discuss your specific challenges and goals."}
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{

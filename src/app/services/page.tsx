@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
-import { Button, Badge } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { LottieWrapper } from "@/components/animations";
 import {
   services,
@@ -59,18 +59,18 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero with Lottie */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center overflow-hidden py-12 sm:py-0">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
             <div>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+                className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
               >
                 Our Services
               </motion.p>
@@ -79,7 +79,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
               >
                 Everything you need to turn data into results
               </motion.h1>
@@ -88,7 +88,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+                className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
               >
                 From cleaning up scattered systems to AI that works—we build complete solutions, not pieces.
               </motion.p>
@@ -97,7 +97,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="flex flex-wrap gap-4"
+                className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
               >
                 <Button variant="primary" size="lg" href="/assessments/data-ai-readiness">
                   Take Free Assessment
@@ -113,9 +113,9 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center"
+                className="flex justify-center items-center mt-8 lg:mt-0"
               >
-                <div className="w-full max-w-md">
+                <div className="w-full max-w-xs sm:max-w-md">
                   <LottieWrapper
                     animationData={lottieData}
                     loop={true}
@@ -131,8 +131,8 @@ export default function ServicesPage() {
 
       {/* Foundation Services Flow */}
       <section className="section bg-[#F8F9FA]">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-8">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -146,13 +146,13 @@ export default function ServicesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-2xl md:text-3xl font-bold text-text-primary"
+              className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary"
             >
               Build, See, Automate
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {serviceKeys.map((categoryKey, index) => {
               const category = serviceCategories[categoryKey];
               return (
@@ -164,10 +164,10 @@ export default function ServicesPage() {
                   transition={{ delay: index * 0.1 }}
                   className="text-center"
                 >
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/10 text-teal-500 mb-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/10 text-teal-500 mb-3 sm:mb-4">
                     <span className="text-xl font-bold">{index + 1}</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-text-primary mb-2">
+                  <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2">
                     {category.title}
                   </h3>
                   <p className="text-teal-500 font-medium text-sm mb-2">
@@ -182,7 +182,7 @@ export default function ServicesPage() {
           </div>
 
           {/* Arrow connections */}
-          <div className="hidden md:flex justify-center items-center gap-4 mt-8">
+          <div className="hidden md:flex justify-center items-center gap-4 mt-6 sm:mt-8">
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-teal-500/50 to-teal-500/50" />
             <svg className="w-6 h-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -194,13 +194,13 @@ export default function ServicesPage() {
 
       {/* Foundation Service Cards */}
       <section className="section">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-text-primary mb-4"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-3 sm:mb-4"
             >
               Core Services
             </motion.h2>
@@ -209,13 +209,13 @@ export default function ServicesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-text-secondary text-lg max-w-2xl mx-auto"
+              className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto"
             >
               Three offerings that work together. Pick one or use all three.
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {services
               .filter((s) => serviceKeys.includes(s.slug as typeof serviceKeys[number]))
               .map((service, index) => (
@@ -228,20 +228,20 @@ export default function ServicesPage() {
               >
                 <Link
                   href={`/services/${service.slug}`}
-                  className="group block p-8 rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full"
+                  className="group block p-5 sm:p-8 rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full"
                 >
-                  <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-teal-500/10 text-teal-500 mb-6">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-xl bg-teal-500/10 text-teal-500 mb-4 sm:mb-6">
                     <ServiceIcon icon={service.icon} />
                   </div>
-                  <h3 className="text-2xl font-bold text-text-primary mb-3 group-hover:text-teal-500 transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold text-text-primary mb-2 sm:mb-3 group-hover:text-teal-500 transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-text-secondary mb-6 leading-relaxed">
+                  <p className="text-text-secondary text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
                     {service.description}
                   </p>
 
                   {/* Sub-services preview */}
-                  <div className="space-y-2 mb-6">
+                  <div className="space-y-2 mb-4 sm:mb-6">
                     {service.subServices.slice(0, 4).map((sub) => (
                       <div key={sub.title} className="flex items-center gap-2 text-sm text-text-secondary">
                         <svg className="w-4 h-4 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -252,7 +252,7 @@ export default function ServicesPage() {
                     ))}
                   </div>
 
-                  <span className="inline-flex items-center text-teal-500 font-medium group-hover:gap-2 transition-all">
+                  <span className="inline-flex items-center text-teal-500 font-medium group-hover:gap-2 transition-all min-h-[44px]">
                     Learn more
                     <svg
                       className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1"
@@ -277,13 +277,13 @@ export default function ServicesPage() {
 
       {/* Decision Helper */}
       <section className="section bg-[#F8F9FA]">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-text-primary mb-4"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-3 sm:mb-4"
             >
               Not sure where to start?
             </motion.h2>
@@ -292,7 +292,7 @@ export default function ServicesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-text-secondary text-lg"
+              className="text-text-secondary text-base sm:text-lg"
             >
               Match your challenge to the right solution
             </motion.p>
@@ -312,13 +312,13 @@ export default function ServicesPage() {
                   >
                     <Link
                       href={`/services/${service?.slug || item.service}`}
-                      className="flex items-center justify-between p-4 hover:bg-black/5 transition-colors border-b border-black/5 last:border-0"
+                      className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:py-4 hover:bg-black/5 transition-colors border-b border-black/5 last:border-0 min-h-[48px] gap-2 sm:gap-4"
                     >
-                      <span className="text-text-secondary">{item.problem}</span>
-                      <span className="flex items-center gap-2 text-teal-500 font-medium">
+                      <span className="text-text-secondary text-sm sm:text-base">{item.problem}</span>
+                      <span className="flex items-center gap-2 text-teal-500 font-medium text-sm sm:text-base whitespace-nowrap">
                         {service?.shortTitle || item.service}
                         <svg
-                          className="w-4 h-4"
+                          className="w-4 h-4 flex-shrink-0"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -338,8 +338,8 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          <div className="text-center mt-12">
-            <p className="text-text-secondary mb-4">
+          <div className="text-center mt-8 sm:mt-12">
+            <p className="text-text-secondary text-sm sm:text-base mb-4">
               Still not sure? Take our free assessment.
             </p>
             <Button variant="primary" href="/assessments/data-ai-readiness">
@@ -351,8 +351,8 @@ export default function ServicesPage() {
 
       {/* CTA */}
       <CTA
-        title="Ready to get started?"
-        description="Schedule a 30-minute consultation. No pitch decks—just a conversation about your situation."
+        title="Ready to see what's possible?"
+        description="30 minutes. We'll talk about your situation and see if we can help."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "Take Assessment First", href: "/assessments/data-ai-readiness" }}
         variant="gradient"

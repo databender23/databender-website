@@ -1,7 +1,14 @@
 'use client'
 
+import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { useReducedMotion } from 'framer-motion'
+
+// Seeded random for consistent animation values
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed) * 10000
+  return x - Math.floor(x)
+}
 
 interface ServiceAnimationProps {
   service: string
@@ -104,6 +111,17 @@ function AIDataCleanupAnimation({ reduced }: { reduced?: boolean }) {
     { x: 160, y: 30 }, { x: 160, y: 50 }, { x: 160, y: 70 },
   ]
 
+  // Pre-compute random rotations with seeded values
+  const rotations = useMemo(() => {
+    const seed = 42
+    return messyPositions.map((_, i) => ({
+      initial: seededRandom(seed + i * 3) * 30 - 15,
+      mid1: seededRandom(seed + i * 3 + 1) * 30 - 15,
+      mid2: seededRandom(seed + i * 3 + 2) * 30 - 15,
+    }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <svg viewBox="0 0 200 140" className="w-full h-full">
       {/* Messy side label */}
@@ -134,11 +152,11 @@ function AIDataCleanupAnimation({ reduced }: { reduced?: boolean }) {
           height="12"
           rx="2"
           fill="#ef4444"
-          initial={{ rotate: Math.random() * 30 - 15 }}
+          initial={{ rotate: rotations[i].initial }}
           animate={reduced ? {} : {
             x: [pos.x, pos.x, cleanPositions[i].x],
             y: [pos.y, pos.y, cleanPositions[i].y],
-            rotate: [Math.random() * 30 - 15, Math.random() * 30 - 15, 0],
+            rotate: [rotations[i].mid1, rotations[i].mid2, 0],
             fill: ['#ef4444', '#fbbf24', '#14b8a6'],
           }}
           transition={{

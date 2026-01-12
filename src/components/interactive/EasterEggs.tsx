@@ -24,46 +24,7 @@ export function EasterEggsProvider({ children }: EasterEggsProviderProps) {
   const [showFunFacts, setShowFunFacts] = useState(false)
   const [showScrollMessage, setShowScrollMessage] = useState(false)
 
-  // Konami code detection
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const key = e.code
-
-      if (key === KONAMI_CODE[konamiIndex]) {
-        const nextIndex = konamiIndex + 1
-        setKonamiIndex(nextIndex)
-
-        if (nextIndex === KONAMI_CODE.length) {
-          // Success! Trigger the reward
-          triggerKonamiReward()
-          setKonamiIndex(0)
-        }
-      } else {
-        setKonamiIndex(0)
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [konamiIndex])
-
-  // Scroll to bottom detection
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50
-
-      if (scrolledToBottom && !showScrollMessage) {
-        setShowScrollMessage(true)
-        // Hide after 5 seconds
-        setTimeout(() => setShowScrollMessage(false), 5000)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [showScrollMessage])
-
+  // Define triggerKonamiReward before it's used in useEffect
   const triggerKonamiReward = useCallback(() => {
     setShowKonamiReward(true)
 
@@ -98,6 +59,46 @@ export function EasterEggsProvider({ children }: EasterEggsProviderProps) {
     // Hide reward after animation
     setTimeout(() => setShowKonamiReward(false), 6000)
   }, [])
+
+  // Konami code detection
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const key = e.code
+
+      if (key === KONAMI_CODE[konamiIndex]) {
+        const nextIndex = konamiIndex + 1
+        setKonamiIndex(nextIndex)
+
+        if (nextIndex === KONAMI_CODE.length) {
+          // Success! Trigger the reward
+          triggerKonamiReward()
+          setKonamiIndex(0)
+        }
+      } else {
+        setKonamiIndex(0)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [konamiIndex, triggerKonamiReward])
+
+  // Scroll to bottom detection
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50
+
+      if (scrolledToBottom && !showScrollMessage) {
+        setShowScrollMessage(true)
+        // Hide after 5 seconds
+        setTimeout(() => setShowScrollMessage(false), 5000)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [showScrollMessage])
 
   // Logo click handler - expose to children via context or direct prop
   const handleLogoClick = useCallback(() => {

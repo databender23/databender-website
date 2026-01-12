@@ -37,7 +37,8 @@ export default function LottieWrapper({
   // Check for reduced motion preference
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
+    // Schedule state update to avoid synchronous setState in effect
+    requestAnimationFrame(() => setPrefersReducedMotion(mediaQuery.matches));
 
     const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener("change", handler);

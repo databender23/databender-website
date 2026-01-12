@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { Button } from "@/components/ui";
 import { CTA } from "@/components/sections";
 import {
@@ -20,15 +19,30 @@ interface ResultsData {
   };
 }
 
-export default function ManufacturingResultsPage() {
-  const [results, setResults] = useState<ResultsData | null>(null);
+// Helper to read from sessionStorage without triggering lint warnings
+function getStoredResults(): ResultsData | null {
+  if (typeof window === "undefined") return null;
+  const stored = sessionStorage.getItem("manufacturingAssessmentResults");
+  if (!stored) return null;
+  try {
+    return JSON.parse(stored);
+  } catch {
+    return null;
+  }
+}
 
-  useEffect(() => {
-    const stored = sessionStorage.getItem("manufacturingAssessmentResults");
-    if (stored) {
-      setResults(JSON.parse(stored));
-    }
-  }, []);
+// Subscribe function for useSyncExternalStore (no-op for sessionStorage)
+function subscribe(): () => void {
+  return () => {};
+}
+
+export default function ManufacturingResultsPage() {
+  // Use useSyncExternalStore to read from sessionStorage without lint warnings
+  const results = useSyncExternalStore(
+    subscribe,
+    getStoredResults,
+    () => null // Server snapshot
+  );
 
   if (!results) {
     return (
@@ -248,7 +262,7 @@ export default function ManufacturingResultsPage() {
 
       {/* CTA */}
       <CTA
-        title="Ready to accelerate your data journey?"
+        title="Ready to see what's possible?"
         description="Schedule a consultation to discuss your assessment results and create a roadmap for growth."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "View Services", href: "/services" }}

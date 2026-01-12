@@ -1,7 +1,0 @@
-export { default as ExecutiveSummaryCard } from './ExecutiveSummaryCard'
-export { default as InteractiveLeadDemo } from './InteractiveLeadDemo'
-export { default as CRMComparison } from './CRMComparison'
-export { default as DayInTheLife } from './DayInTheLife'
-export { default as SimplifiedPipeline } from './SimplifiedPipeline'
-export { default as FeatureImportanceV2 } from './FeatureImportanceV2'
-export { default as FrustratedSalesScene } from './FrustratedSalesScene'

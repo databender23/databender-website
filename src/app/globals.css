@@ -70,6 +70,31 @@
 
 html {
   scroll-behavior: smooth;
+  /* Support safe area for notched devices */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* Custom scrollbar styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -79,6 +104,9 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Improve touch handling on mobile */
+  -webkit-tap-highlight-color: rgba(26, 153, 136, 0.1);
+  touch-action: manipulation;
 }
 
 /* Selection */
@@ -122,6 +150,17 @@ body {
   box-shadow: var(--shadow-card-hover);
 }
 
+/* Disable hover transform on touch devices for better UX */
+@media (hover: none) {
+  .card-hover:hover {
+    transform: none;
+  }
+
+  .card-hover:active {
+    transform: scale(0.98);
+  }
+}
+
 /* Button Base */
 .btn {
   display: inline-flex;
@@ -133,10 +172,20 @@ body {
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   cursor: pointer;
+  /* Ensure minimum touch target on mobile */
+  min-height: 44px;
 }
 
 .btn:active {
   transform: scale(0.98);
+}
+
+/* Mobile touch-friendly buttons */
+@media (max-width: 640px) {
+  .btn {
+    min-height: 48px;
+    padding: 0.875rem 1.25rem;
+  }
 }
 
 /* Animated Underline */

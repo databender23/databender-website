@@ -98,8 +98,8 @@ export default function AssessmentsPage() {
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -113,7 +113,7 @@ export default function AssessmentsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
               >
                 Where do you stand?
               </motion.h1>
@@ -122,7 +122,7 @@ export default function AssessmentsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+                className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
               >
                 Free diagnostic tools to understand your data maturity and identify opportunities. No sales pitch at the end. Just practical guidance.
               </motion.p>
@@ -165,14 +165,14 @@ export default function AssessmentsPage() {
 
       {/* Assessment Selection */}
       <section id="assessments" className="section">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           {/* Industry Filter */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
             {industries.map((industry) => (
               <button
                 key={industry.value}
                 onClick={() => setSelectedIndustry(industry.value)}
-                className={`px-6 py-3 rounded-full font-medium transition-all ${
+                className={`px-4 sm:px-6 py-3 rounded-full font-medium transition-all min-h-[48px] ${
                   selectedIndustry === industry.value
                     ? "bg-teal-500 text-white"
                     : "bg-[#F8F9FA] text-text-secondary hover:bg-black/10"
@@ -184,7 +184,7 @@ export default function AssessmentsPage() {
           </div>
 
           {/* Assessments Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
             {filteredAssessments.map((assessment, index) => (
               <motion.div
                 key={assessment.slug}
@@ -195,13 +195,13 @@ export default function AssessmentsPage() {
               >
                 <Link
                   href={assessment.href}
-                  className="group block p-8 rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full"
+                  className="group block p-5 sm:p-8 rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full"
                 >
-                  <div className="w-16 h-16 flex items-center justify-center rounded-xl bg-teal-500/10 text-teal-500 mb-6">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-xl bg-teal-500/10 text-teal-500 mb-4 sm:mb-6">
                     <AssessmentIcon icon={assessment.icon} />
                   </div>
 
-                  <div className="flex items-center gap-2 mb-4">
+                  <div className="flex items-center gap-2 mb-3 sm:mb-4">
                     <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -214,15 +214,15 @@ export default function AssessmentsPage() {
                     )}
                   </div>
 
-                  <h3 className="text-xl font-bold text-text-primary mb-3 group-hover:text-teal-500 transition-colors">
+                  <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2 sm:mb-3 group-hover:text-teal-500 transition-colors">
                     {assessment.title}
                   </h3>
 
-                  <p className="text-text-secondary mb-6">
+                  <p className="text-text-secondary text-sm sm:text-base mb-4 sm:mb-6">
                     {assessment.description}
                   </p>
 
-                  <span className="inline-flex items-center text-teal-500 font-medium">
+                  <span className="inline-flex items-center text-teal-500 font-medium min-h-[44px]">
                     Start Assessment
                     <svg
                       className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1"
@@ -262,18 +262,18 @@ export default function AssessmentsPage() {
 
       {/* What to Expect */}
       <section className="section bg-[#F8F9FA]">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-text-primary mb-8 text-center"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-6 sm:mb-8 text-center"
             >
               What to Expect
             </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
               {[
                 {
                   number: "1",

@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Hero, CTA, Stats } from "@/components/sections";
 import { Button, Badge } from "@/components/ui";
+import { CaseStudyDiagram } from "@/components/case-studies";
 import { getCaseStudyBySlug } from "@/lib/case-studies-data";
 
 export default function CaseStudyPage() {
@@ -45,7 +46,7 @@ export default function CaseStudyPage() {
       </section>
 
       {/* Case Study Visuals */}
-      {study.images && study.images.length > 0 && (
+      {(study.diagramType || (study.images && study.images.length > 0)) && (
         <section className="section bg-[#F8F9FA]">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
@@ -68,25 +69,36 @@ export default function CaseStudyPage() {
               </motion.h2>
             </div>
 
-            <div className="space-y-8">
-              {study.images.map((image, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="rounded-xl overflow-hidden shadow-xl border border-black/10"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={image}
-                    alt={`${study.title} - Page ${index + 1}`}
-                    className="w-full h-auto"
-                  />
-                </motion.div>
-              ))}
-            </div>
+            {study.diagramType ? (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="rounded-xl overflow-hidden shadow-xl border border-black/10 bg-white p-8"
+              >
+                <CaseStudyDiagram type={study.diagramType} interactive={true} />
+              </motion.div>
+            ) : (
+              <div className="space-y-8">
+                {study.images?.map((image, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="rounded-xl overflow-hidden shadow-xl border border-black/10"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={image}
+                      alt={`${study.title} - Page ${index + 1}`}
+                      className="w-full h-auto"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}

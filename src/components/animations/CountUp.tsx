@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 
@@ -25,7 +25,6 @@ export default function CountUp({
   className = "",
   glowOnComplete = true,
 }: CountUpProps) {
-  const [count, setCount] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [displayValue, setDisplayValue] = useState("0");
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -36,10 +35,37 @@ export default function CountUp({
     triggerOnce: true,
   });
 
+  // Define startCountUp before it's used in useEffect
+  const startCountUp = useCallback(() => {
+    const startTime = Date.now();
+    const durationMs = duration * 1000;
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / durationMs, 1);
+
+      // Easing function (ease out cubic)
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = eased * end;
+
+      setDisplayValue(current.toFixed(decimals));
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setDisplayValue(end.toFixed(decimals));
+        setIsComplete(true);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [duration, end, decimals]);
+
   // Check for reduced motion preference
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
+    // Schedule state update to avoid synchronous setState in effect
+    requestAnimationFrame(() => setPrefersReducedMotion(mediaQuery.matches));
 
     const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener("change", handler);
@@ -50,8 +76,11 @@ export default function CountUp({
   useEffect(() => {
     if (!inView || hasAnimated.current || prefersReducedMotion) {
       if (prefersReducedMotion) {
-        setDisplayValue(end.toFixed(decimals));
-        setIsComplete(true);
+        // Schedule state updates to avoid synchronous setState in effect
+        requestAnimationFrame(() => {
+          setDisplayValue(end.toFixed(decimals));
+          setIsComplete(true);
+        });
       }
       return;
     }
@@ -79,33 +108,7 @@ export default function CountUp({
     } else {
       startCountUp();
     }
-  }, [inView, end, decimals, scramble, prefersReducedMotion]);
-
-  const startCountUp = () => {
-    const startTime = Date.now();
-    const durationMs = duration * 1000;
-
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / durationMs, 1);
-
-      // Easing function (ease out cubic)
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = eased * end;
-
-      setCount(current);
-      setDisplayValue(current.toFixed(decimals));
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setDisplayValue(end.toFixed(decimals));
-        setIsComplete(true);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  };
+  }, [inView, end, decimals, scramble, prefersReducedMotion, startCountUp]);
 
   return (
     <span ref={ref} className={`relative inline-block ${className}`}>

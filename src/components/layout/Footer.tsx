@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { footerNavigation } from "@/lib/navigation";
 
 export default function Footer() {

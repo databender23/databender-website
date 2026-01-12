@@ -39,8 +39,8 @@ export default function BlogPage() {
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -54,7 +54,7 @@ export default function BlogPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
               >
                 Insights & Ideas
               </motion.h1>
@@ -63,7 +63,7 @@ export default function BlogPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+                className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
               >
                 Practical insights on data management, AI implementation, and business intelligence from our team.
               </motion.p>
@@ -91,14 +91,14 @@ export default function BlogPage() {
       </section>
 
       <section className="section">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           {/* Category Filter */}
-          <div className="flex flex-wrap gap-3 mb-12 justify-center">
+          <div className="flex flex-wrap gap-2 sm:gap-3 mb-8 sm:mb-12 justify-center">
             {blogCategories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-4 py-2.5 sm:py-2 rounded-full text-sm font-medium transition-all min-h-[44px] ${
                   selectedCategory === category
                     ? "bg-teal-500 text-white"
                     : "bg-black/5 text-text-secondary hover:bg-black/10 hover:text-text-primary"
@@ -110,7 +110,7 @@ export default function BlogPage() {
           </div>
 
           {/* Blog Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {filteredPosts.map((post, index) => (
               <motion.article
                 key={post.slug}
@@ -121,10 +121,10 @@ export default function BlogPage() {
               >
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="group block h-full p-6 rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300"
+                  className="group block h-full p-4 sm:p-6 rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300"
                 >
                   {post.featuredImage && (
-                    <div className="aspect-video rounded-lg bg-white mb-4 overflow-hidden">
+                    <div className="aspect-video rounded-lg bg-white mb-3 sm:mb-4 overflow-hidden">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={post.featuredImage}
@@ -134,20 +134,20 @@ export default function BlogPage() {
                     </div>
                   )}
 
-                  <div className="flex flex-wrap gap-2 mb-3">
+                  <div className="flex flex-wrap gap-2 mb-2 sm:mb-3">
                     <Badge variant="teal">{post.category}</Badge>
                     {post.featured && <Badge variant="outline">Featured</Badge>}
                   </div>
 
-                  <h2 className="text-xl font-bold text-text-primary mb-2 group-hover:text-teal-500 transition-colors line-clamp-2">
+                  <h2 className="text-lg sm:text-xl font-bold text-text-primary mb-2 group-hover:text-teal-500 transition-colors line-clamp-2">
                     {post.title}
                   </h2>
 
-                  <p className="text-text-secondary text-sm mb-4 line-clamp-3">
+                  <p className="text-text-secondary text-sm mb-3 sm:mb-4 line-clamp-3">
                     {post.excerpt}
                   </p>
 
-                  <div className="flex items-center justify-between text-sm text-text-muted">
+                  <div className="flex items-center justify-between text-xs sm:text-sm text-text-muted">
                     <span>{formatDate(post.publishedAt)}</span>
                     <span>{post.readingTime} min read</span>
                   </div>

@@ -71,17 +71,17 @@ export default function ContactPage() {
       />
 
       <section className="section">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
             {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <h2 className="text-2xl font-bold text-text-primary mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4 sm:mb-6">
                 Send us a message
               </h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Input
                     label="First Name"
@@ -136,7 +136,7 @@ export default function ContactPage() {
                 <Button
                   variant="primary"
                   disabled={isSubmitting}
-                  className="w-full md:w-auto"
+                  className="w-full sm:w-auto min-h-[48px] text-base"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
@@ -149,38 +149,38 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <h2 className="text-2xl font-bold text-text-primary mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4 sm:mb-6">
                 Schedule a consultation
               </h2>
-              <p className="text-text-secondary mb-8">
+              <p className="text-text-secondary mb-6 sm:mb-8">
                 Prefer to talk? Schedule a 30-minute consultation. We&apos;ll discuss your current situation, challenges, and potential solutions—no obligations.
               </p>
 
-              <div className="p-6 rounded-xl bg-[#F8F9FA] border border-black/10 mb-8">
-                <h3 className="text-lg font-semibold text-text-primary mb-4">
+              <div className="p-4 sm:p-6 rounded-xl bg-[#F8F9FA] border border-black/10 mb-6 sm:mb-8">
+                <h3 className="text-base sm:text-lg font-semibold text-text-primary mb-3 sm:mb-4">
                   What to expect
                 </h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3 text-text-secondary">
-                    <svg className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <ul className="space-y-2 sm:space-y-3">
+                  <li className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base text-text-secondary">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     30-minute focused conversation
                   </li>
-                  <li className="flex items-start gap-3 text-text-secondary">
-                    <svg className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <li className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base text-text-secondary">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     Understand your current challenges
                   </li>
-                  <li className="flex items-start gap-3 text-text-secondary">
-                    <svg className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <li className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base text-text-secondary">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     Get initial recommendations
                   </li>
-                  <li className="flex items-start gap-3 text-text-secondary">
-                    <svg className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <li className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base text-text-secondary">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     No pressure, no obligations
@@ -188,7 +188,7 @@ export default function ContactPage() {
                 </ul>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <div>
                   <h3 className="text-sm font-medium text-text-muted mb-1">Email</h3>
                   <a

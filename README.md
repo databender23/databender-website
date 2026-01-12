@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DataBender Marketing Website
 
-## Getting Started
+Marketing website for DataBender, a boutique data analytics and AI consulting firm.
 
-First, run the development server:
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **UI**: React 19, Tailwind CSS 4
+- **Animations**: Framer Motion, Lottie
+- **AI Chat**: Claude API (Anthropic)
+- **Email**: Resend
+
+## Quick Start
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Run production server
+npm run start
+
+# Lint code
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── src/
+│   ├── app/                    # Next.js pages and API routes
+│   │   ├── api/               # API endpoints (chat, contact, etc.)
+│   │   ├── blog/              # Blog pages
+│   │   ├── case-studies/      # Interactive case study pages
+│   │   ├── industries/        # Industry-specific pages
+│   │   ├── services/          # Service pages
+│   │   └── assessments/       # Self-assessment tools
+│   ├── components/            # React components
+│   │   ├── ui/               # Base components (Button, Card, etc.)
+│   │   ├── sections/         # Page sections (Hero, CTA, Features)
+│   │   ├── layout/           # Header, Footer
+│   │   └── case-study-diagrams/  # Interactive diagram system
+│   ├── lib/                   # Data and utilities
+│   └── types/                 # TypeScript definitions
+├── public/
+│   ├── images/               # Static images
+│   └── animations/           # Lottie JSON files
+├── docs/                      # Development documentation
+└── CLAUDE.md                  # AI assistant instructions
+```
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Create a `.env.local` file:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+ANTHROPIC_API_KEY=         # Required for AI chatbot
+RESEND_API_KEY=            # Optional: email notifications
+CHAT_NOTIFY_EMAIL=         # Optional: email for chat digests
+NEXT_PUBLIC_BOOKING_URL=   # Calendar booking link
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Key Features
 
-## Deploy on Vercel
+- **AI-Powered Chat**: Claude-based chatbot for visitor engagement
+- **Interactive Case Studies**: Custom visualizations and diagrams
+- **Self-Assessment Tools**: Lead qualification assessments
+- **Mobile-Optimized**: Responsive design with touch-friendly interactions
+- **Performance**: Static generation where possible, dynamic where needed
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Design System
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Primary Color**: Teal (`#1A9988`)
+- **Typography**: Inter font family
+- **Defined in**: `src/app/globals.css` using Tailwind's `@theme`
+
+## Development Notes
+
+- See `CLAUDE.md` for detailed architecture and patterns
+- Case studies have custom pages in `src/app/case-studies/[name]/`
+- Blog content is in `src/lib/blog-data.ts`
+- Navigation structure is in `src/lib/navigation.ts`
+
+## Cleanup
+
+Files staged for deletion are in `/to_delete/`. See `to_delete/README.md` for details.
+
+To remove:
+```bash
+rm -rf to_delete/
+```
+
+## License
+
+Proprietary - DataBender LLC

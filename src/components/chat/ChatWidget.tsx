@@ -147,7 +147,7 @@ export default function ChatWidget() {
                 </svg>
               </button>
               <p className="text-sm text-text-primary pr-4">
-                Have questions about our services? I'm here to help!
+                Have questions about our services? I&apos;m here to help!
               </p>
               {/* Arrow pointing to button */}
               <div className="absolute -bottom-2 right-8 w-4 h-4 bg-white border-r border-b border-gray-200 transform rotate-45" />

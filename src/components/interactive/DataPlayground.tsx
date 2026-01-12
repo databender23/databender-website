@@ -1,7 +1,13 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+
+// Seeded random for consistent sparkle positions
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed) * 10000
+  return x - Math.floor(x)
+}
 
 const SAMPLE_DATA = `John smith
 j. smith
@@ -10,15 +16,52 @@ john.smith@email
 Smith, J.
 JOHN SMITH`
 
-const CLEANED_DATA = `John Smith
-John Smith
-John Smith
-john.smith@email.com
-John Smith
-John Smith`
+// Reference data for comparison (not currently used but kept for documentation)
+// const CLEANED_DATA = `John Smith
+// John Smith
+// John Smith
+// john.smith@email.com
+// John Smith
+// John Smith`
 
 interface DataPlaygroundProps {
   className?: string
+}
+
+// Helper functions defined outside component to avoid dependency issues
+const titleCase = (str: string): string => {
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
+const simulateCleanup = (lines: string[]): string[] => {
+  return lines.map(line => {
+    // Simple simulation - in real app this would call an API
+    const cleaned = line.trim()
+
+    // Handle "Last, First" format
+    if (cleaned.includes(',') && !cleaned.includes('@')) {
+      const [last, first] = cleaned.split(',').map(s => s.trim())
+      return titleCase(first || '') + ' ' + titleCase(last || '')
+    }
+
+    // Handle "F. Last" format
+    if (/^[a-zA-Z]\.\s+\w+$/i.test(cleaned)) {
+      const parts = cleaned.split(/\.\s+/)
+      return 'John ' + titleCase(parts[1] || '')
+    }
+
+    // Handle email - just fix obvious issues
+    if (cleaned.includes('@') && !cleaned.includes('.com')) {
+      return cleaned + '.com'
+    }
+
+    // Default: just title case
+    return titleCase(cleaned)
+  })
 }
 
 export function DataPlayground({ className = '' }: DataPlaygroundProps) {
@@ -46,41 +89,6 @@ export function DataPlayground({ className = '' }: DataPlaygroundProps) {
     setShowSparkles(true)
     setTimeout(() => setShowSparkles(false), 2000)
   }, [inputData])
-
-  const simulateCleanup = (lines: string[]): string[] => {
-    return lines.map(line => {
-      // Simple simulation - in real app this would call an API
-      const cleaned = line.trim()
-
-      // Handle "Last, First" format
-      if (cleaned.includes(',') && !cleaned.includes('@')) {
-        const [last, first] = cleaned.split(',').map(s => s.trim())
-        return titleCase(first || '') + ' ' + titleCase(last || '')
-      }
-
-      // Handle "F. Last" format
-      if (/^[a-zA-Z]\.\s+\w+$/i.test(cleaned)) {
-        const parts = cleaned.split(/\.\s+/)
-        return 'John ' + titleCase(parts[1] || '')
-      }
-
-      // Handle email - just fix obvious issues
-      if (cleaned.includes('@') && !cleaned.includes('.com')) {
-        return cleaned + '.com'
-      }
-
-      // Default: just title case
-      return titleCase(cleaned)
-    })
-  }
-
-  const titleCase = (str: string): string => {
-    return str
-      .toLowerCase()
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ')
-  }
 
   const loadSampleData = () => {
     setInputData(SAMPLE_DATA)
@@ -226,6 +234,15 @@ function ProcessingSpinner() {
 }
 
 function SparkleOverlay() {
+  // Pre-compute sparkle positions with seeded random for consistency
+  const sparklePositions = useMemo(() => {
+    const seed = 42
+    return Array.from({ length: 8 }, (_, i) => ({
+      left: seededRandom(seed + i * 2) * 80 + 10,
+      top: seededRandom(seed + i * 2 + 1) * 80 + 10,
+    }))
+  }, [])
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -233,14 +250,12 @@ function SparkleOverlay() {
       exit={{ opacity: 0 }}
       className="absolute inset-0 pointer-events-none overflow-hidden"
     >
-      {[...Array(8)].map((_, i) => (
+      {sparklePositions.map((pos, i) => (
         <motion.div
           key={i}
           initial={{
             opacity: 0,
             scale: 0,
-            x: Math.random() * 100 + '%',
-            y: Math.random() * 100 + '%'
           }}
           animate={{
             opacity: [0, 1, 0],
@@ -253,8 +268,8 @@ function SparkleOverlay() {
           }}
           className="absolute w-2 h-2 bg-teal-400 rounded-full shadow-lg shadow-teal-400/50"
           style={{
-            left: `${Math.random() * 80 + 10}%`,
-            top: `${Math.random() * 80 + 10}%`,
+            left: `${pos.left}%`,
+            top: `${pos.top}%`,
           }}
         />
       ))}

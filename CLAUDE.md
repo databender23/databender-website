@@ -26,12 +26,25 @@ This is the DataBender marketing website built with Next.js 16 (App Router), Rea
   - `chat/` - AI chatbot widget components
   - `animations/` - Lottie and animation wrappers
   - `forms/` - Form components (EmailCaptureForm)
+  - `case-studies/` - Shared case study components
+  - `case-study-diagrams/` - Interactive diagram system for case studies
 - `src/lib/` - Data and utilities:
   - `services-data.ts` - Service definitions and content
   - `industries-data.ts` - Industry pages data
+  - `case-studies-data.ts` - Case study definitions and testimonials
   - `navigation.ts` - Main and footer navigation structure
   - `chat-logger.ts` - Chat conversation logging
 - `src/types/` - TypeScript type definitions
+
+### Non-Production Directories
+
+These folders contain reference materials, not production code:
+
+- `docs/` - Development documentation and planning notes
+- `src/content/` - Strategy and planning documents (75+ markdown files)
+- `ai_document/` - Sample PDFs for document intelligence R&D (~38 MB)
+- `lead_scoring/` - Historical sales analysis and modeling reports (~13 MB)
+- `to_delete/` - Files staged for deletion (see `to_delete/README.md`)
 
 ### Design System
 
@@ -70,6 +83,16 @@ NEXT_PUBLIC_BOOKING_URL=   # Calendar booking link for chatbot
 - `/industries/legal` - Custom Legal page (not dynamic, has special content)
 - `/blog/[slug]` - Blog posts
 - `/resources/guides/[slug]` - Lead magnet guides
+- `/case-studies/[slug]` - Dynamic case study pages (uses `case-studies-data.ts`)
+
+### Case Study Pages
+
+Case studies have custom interactive pages in `src/app/case-studies/`:
+- `agentic-document-intelligence/` - Document AI processing case study
+- `army-of-ai-agents/` - AI entity resolution case study
+- `what-predicts-lead-conversion/` - Lead scoring ML case study
+
+Each has its own `components/` folder for page-specific interactive elements.
 
 ### Blog Post Formatting
 

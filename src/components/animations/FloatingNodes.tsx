@@ -3,6 +3,12 @@
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 
+// Seeded random for consistent node positions
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+
 interface Node {
   id: number;
   x: number;
@@ -43,18 +49,20 @@ export default function FloatingNodes({
 
   // Generate nodes on client-side only to avoid hydration mismatch
   useEffect(() => {
+    const seed = 42; // Consistent seed for deterministic generation
     const generatedNodes: Node[] = Array.from({ length: nodeCount }, (_, i) => ({
       id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: 2 + Math.random() * 2,
-      duration: 20 + Math.random() * 15,
-      delay: Math.random() * 5,
-      offsetX: (Math.random() - 0.5) * 10,
-      offsetY: (Math.random() - 0.5) * 10,
+      x: seededRandom(seed + i * 6) * 100,
+      y: seededRandom(seed + i * 6 + 1) * 100,
+      size: 2 + seededRandom(seed + i * 6 + 2) * 2,
+      duration: 20 + seededRandom(seed + i * 6 + 3) * 15,
+      delay: seededRandom(seed + i * 6 + 4) * 5,
+      offsetX: (seededRandom(seed + i * 6 + 5) - 0.5) * 10,
+      offsetY: (seededRandom(seed + i * 6 + 6) - 0.5) * 10,
       isSpecial: i === 0,
     }));
-    setNodes(generatedNodes);
+    // Schedule state update to avoid synchronous setState in effect
+    requestAnimationFrame(() => setNodes(generatedNodes));
 
     // Generate connections
     if (showConnections) {
@@ -78,16 +86,19 @@ export default function FloatingNodes({
           }
         }
       }
-      setConnections(lines);
+      // Schedule state update to avoid synchronous setState in effect
+      requestAnimationFrame(() => setConnections(lines));
     }
 
-    setIsMounted(true);
+    // Schedule state update to avoid synchronous setState in effect
+    requestAnimationFrame(() => setIsMounted(true));
   }, [nodeCount, showConnections]);
 
   // Check for reduced motion preference
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
+    // Schedule state update to avoid synchronous setState in effect
+    requestAnimationFrame(() => setPrefersReducedMotion(mediaQuery.matches));
 
     const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener("change", handler);
@@ -98,10 +109,11 @@ export default function FloatingNodes({
   useEffect(() => {
     if (prefersReducedMotion) return;
 
+    // Use a fixed interval (30s) to avoid Math.random during effect setup
     const interval = setInterval(() => {
       setSpecialNodeActive(true);
       setTimeout(() => setSpecialNodeActive(false), 800);
-    }, 25000 + Math.random() * 15000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, [prefersReducedMotion]);

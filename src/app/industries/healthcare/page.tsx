@@ -29,8 +29,8 @@ export default function HealthcareIndustryPage() {
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
-        <div className="container mx-auto px-6 relative z-10 pt-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-20 sm:pt-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -51,16 +51,16 @@ export default function HealthcareIndustryPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
               >
-                AI for Healthcare That Stays In-House
+                Healthcare
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+                className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
               >
                 Get paid what you&apos;re worth, stop drowning in paperwork, and use AI
                 without putting patient data at risk. Built for healthcare organizations
@@ -71,12 +71,12 @@ export default function HealthcareIndustryPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="flex flex-wrap gap-4"
+                className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
               >
-                <Button variant="primary" size="lg" href="/contact">
+                <Button variant="primary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
                   Schedule Consultation
                 </Button>
-                <Button variant="secondary" size="lg" href="#price-transparency">
+                <Button variant="secondary" size="lg" href="#price-transparency" className="w-full sm:w-auto min-h-[48px]">
                   Access Price Transparency Data
                 </Button>
               </motion.div>
@@ -105,27 +105,27 @@ export default function HealthcareIndustryPage() {
 
       {/* Challenges Section */}
       <section className="section bg-[#F8F9FA]">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-3xl">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
             >
-              Sound Familiar?
+              Common Challenges
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl font-bold text-text-primary mb-8"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-6 sm:mb-8"
             >
-              The problems nobody has solved for you yet
+              Sound familiar?
             </motion.h2>
 
-            <ul className="space-y-4">
+            <ul className="space-y-3 sm:space-y-4">
               {content.challenges.map((challenge, index) => (
                 <motion.li
                   key={index}
@@ -148,7 +148,7 @@ export default function HealthcareIndustryPage() {
                       d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                     />
                   </svg>
-                  <span className="text-text-secondary text-lg">{challenge}</span>
+                  <span className="text-text-secondary text-base sm:text-lg">{challenge}</span>
                 </motion.li>
               ))}
             </ul>
@@ -158,28 +158,28 @@ export default function HealthcareIndustryPage() {
 
       {/* Solutions Section */}
       <section className="section">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-16">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
             >
-              What We Build
+              Our Solutions
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl font-bold text-text-primary"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary"
             >
-              Solutions that actually work in healthcare
+              How we help
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {content.solutions.map((solution, index) => (
               <motion.div
                 key={index}
@@ -187,12 +187,12 @@ export default function HealthcareIndustryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-[#F8F9FA] border border-black/10"
+                className="p-5 sm:p-6 rounded-xl bg-[#F8F9FA] border border-black/10"
               >
-                <h3 className="text-xl font-semibold text-text-primary mb-3">
+                <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2 sm:mb-3">
                   {solution.title}
                 </h3>
-                <p className="text-text-secondary">{solution.description}</p>
+                <p className="text-text-secondary text-sm sm:text-base">{solution.description}</p>
               </motion.div>
             ))}
           </div>
@@ -201,15 +201,15 @@ export default function HealthcareIndustryPage() {
 
       {/* Legacy Systems Section */}
       <section id="legacy-systems" className="section bg-[#F8F9FA] scroll-mt-24">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div>
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
                 >
                   Legacy Systems Modernization
                 </motion.p>
@@ -218,7 +218,7 @@ export default function HealthcareIndustryPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
-                  className="text-3xl md:text-4xl font-bold text-text-primary mb-6"
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
                   Your EHR Isn&apos;t Going Anywhere. That&apos;s Fine.
                 </motion.h2>
@@ -227,7 +227,7 @@ export default function HealthcareIndustryPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="space-y-4 text-text-secondary text-lg"
+                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
                     Nobody wants a three-year EHR migration. The disruption, the training,
@@ -247,12 +247,12 @@ export default function HealthcareIndustryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="bg-white p-8 rounded-2xl border border-black/10"
+                className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
               >
-                <h3 className="text-xl font-bold text-text-primary mb-6">
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
                   How we connect legacy systems
                 </h3>
-                <ul className="space-y-4">
+                <ul className="space-y-3 sm:space-y-4">
                   {[
                     {
                       title: "HL7 & FHIR Integration",
@@ -300,15 +300,15 @@ export default function HealthcareIndustryPage() {
 
       {/* Price Transparency Section */}
       <section id="price-transparency" className="section scroll-mt-24">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div>
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
                 >
                   Competitive Intelligence
                 </motion.p>
@@ -317,7 +317,7 @@ export default function HealthcareIndustryPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
-                  className="text-3xl md:text-4xl font-bold text-text-primary mb-6"
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
                   Know What Everyone Else Gets Paid
                 </motion.h2>
@@ -326,7 +326,7 @@ export default function HealthcareIndustryPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="space-y-4 text-text-secondary text-lg"
+                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
                     Every hospital and insurer now publishes their negotiated rates.
@@ -345,12 +345,12 @@ export default function HealthcareIndustryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="bg-white p-8 rounded-2xl border border-black/10"
+                className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
               >
-                <h3 className="text-xl font-bold text-text-primary mb-6">
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
                   What you get
                 </h3>
-                <ul className="space-y-4">
+                <ul className="space-y-3 sm:space-y-4">
                   {[
                     {
                       title: "Competitor Rate Benchmarks",
@@ -369,7 +369,7 @@ export default function HealthcareIndustryPage() {
                       description: "Understand where you stand on price across your service lines"
                     },
                   ].map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
+                    <li key={index} className="flex items-start gap-2 sm:gap-3">
                       <svg
                         className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
                         fill="none"
@@ -390,8 +390,8 @@ export default function HealthcareIndustryPage() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-8">
-                  <Button variant="primary" href="/assessments/healthcare-benchmark">
+                <div className="mt-6 sm:mt-8">
+                  <Button variant="primary" href="/assessments/healthcare-benchmark" className="w-full sm:w-auto min-h-[48px]">
                     Get Your Market Benchmark
                   </Button>
                 </div>
@@ -403,9 +403,9 @@ export default function HealthcareIndustryPage() {
 
       {/* AI Without Risk Section */}
       <section id="ai-compliance" className="section bg-[#F8F9FA] scroll-mt-24">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -413,11 +413,11 @@ export default function HealthcareIndustryPage() {
                 transition={{ delay: 0.1 }}
                 className="order-2 lg:order-1"
               >
-                <div className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-8 rounded-2xl border border-teal-500/20">
-                  <h3 className="text-xl font-bold text-text-primary mb-6">
+                <div className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-8 rounded-2xl border border-teal-500/20">
+                  <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
                     How it works
                   </h3>
-                  <ul className="space-y-4">
+                  <ul className="space-y-3 sm:space-y-4">
                     {[
                       {
                         title: "Your servers, your data",
@@ -436,7 +436,7 @@ export default function HealthcareIndustryPage() {
                         description: "Inspect, tune, or retrain. No vendor lock-in, no black boxes."
                       },
                     ].map((item, index) => (
-                      <li key={index} className="flex items-start gap-3">
+                      <li key={index} className="flex items-start gap-2 sm:gap-3">
                         <svg
                           className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
                           fill="none"
@@ -451,8 +451,8 @@ export default function HealthcareIndustryPage() {
                           />
                         </svg>
                         <div>
-                          <span className="font-medium text-text-primary">{item.title}</span>
-                          <p className="text-text-secondary text-sm">{item.description}</p>
+                          <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
+                          <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
                         </div>
                       </li>
                     ))}
@@ -465,7 +465,7 @@ export default function HealthcareIndustryPage() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
                 >
                   HIPAA-Compliant AI
                 </motion.p>
@@ -474,7 +474,7 @@ export default function HealthcareIndustryPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
-                  className="text-3xl md:text-4xl font-bold text-text-primary mb-6"
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
                   Yes, You Can Use AI. No, Your Data Doesn&apos;t Leave.
                 </motion.h2>
@@ -483,7 +483,7 @@ export default function HealthcareIndustryPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="space-y-4 text-text-secondary text-lg"
+                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
                     Every other AI tool wants your data in their cloud. For healthcare,
@@ -507,13 +507,13 @@ export default function HealthcareIndustryPage() {
 
       {/* Benefits Section */}
       <section className="section">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-16">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
             >
               What You Get
             </motion.p>
@@ -522,13 +522,13 @@ export default function HealthcareIndustryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl font-bold text-text-primary"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary"
             >
               The outcomes that matter
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {content.benefits.map((benefit, index) => (
               <motion.div
                 key={index}
@@ -536,11 +536,11 @@ export default function HealthcareIndustryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-gradient-to-br from-teal-500/5 to-teal-500/10 border border-teal-500/20"
+                className="p-5 sm:p-6 rounded-xl bg-gradient-to-br from-teal-500/5 to-teal-500/10 border border-teal-500/20"
               >
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-2 sm:gap-3">
                   <svg
-                    className="w-6 h-6 text-teal-500 flex-shrink-0 mt-0.5"
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-teal-500 flex-shrink-0 mt-0.5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -553,10 +553,10 @@ export default function HealthcareIndustryPage() {
                     />
                   </svg>
                   <div>
-                    <h3 className="text-lg font-semibold text-text-primary mb-1">
+                    <h3 className="text-base sm:text-lg font-semibold text-text-primary mb-1">
                       {benefit.title}
                     </h3>
-                    <p className="text-text-secondary text-sm">{benefit.description}</p>
+                    <p className="text-text-secondary text-xs sm:text-sm">{benefit.description}</p>
                   </div>
                 </div>
               </motion.div>
@@ -567,28 +567,28 @@ export default function HealthcareIndustryPage() {
 
       {/* Use Cases Section */}
       <section className="section bg-[#F8F9FA]">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-16">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
             >
-              Real Applications
+              Use Cases
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl font-bold text-text-primary"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary"
             >
               What this looks like in practice
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {content.useCases.map((useCase, index) => (
               <motion.div
                 key={index}
@@ -596,12 +596,12 @@ export default function HealthcareIndustryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-[#F8F9FA] border border-black/10"
+                className="p-5 sm:p-6 rounded-xl bg-[#F8F9FA] border border-black/10"
               >
-                <h3 className="text-xl font-semibold text-text-primary mb-3">
+                <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2 sm:mb-3">
                   {useCase.title}
                 </h3>
-                <p className="text-text-secondary">{useCase.description}</p>
+                <p className="text-text-secondary text-sm sm:text-base">{useCase.description}</p>
               </motion.div>
             ))}
           </div>

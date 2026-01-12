@@ -68,8 +68,7 @@ export const industryContent: Record<string, {
       { title: "Modern Data Layer, Legacy Systems Intact", description: "You don't need to rip and replace your EHR. We build a modern data layer on top of what you have, connecting systems that were never designed to work together." },
       { title: "Document Intelligence", description: "AI reads insurance cards, referrals, and clinical documents. Extracts what matters, routes it where it belongs. No more manual data entry from paper." },
       { title: "Research Without the Reading", description: "AI agents scan clinical literature, synthesize findings, and surface relevant protocols. Hours of research condensed into minutes." },
-      { title: "Ask Questions, Get Answers", description: "Your admin team asks in plain English: 'Which payer is slowest?' 'How did October compare to September?' Answers in seconds. No report requests." },
-      { title: "Find Anything Instantly", description: "Policies, protocols, procedures searchable like Google. Staff ask, AI answers with sources. Faster onboarding. Fewer mistakes." },
+      { title: "Answers Without Waiting", description: "Your team asks in plain English about operations or policies. 'Which payer is slowest?' 'What's our referral protocol?' AI searches your data and documents, answers with sources. No report requests. No policy hunting." },
     ],
     benefits: [
       { title: "Revenue You're Owed", description: "See where you're underpaid. Walk into payer negotiations with data, not guesses." },
@@ -132,13 +131,11 @@ export const industryContent: Record<string, {
     ],
     solutions: [
       { title: "AI That Protects Your Edge", description: "Your deal pipeline is competitive advantage. Our AI runs on your servers. Pricing models, target lists, and acquisition strategies stay inside your walls." },
-      { title: "Property Research at Scale", description: "Pull from tax records, ownership data, transaction history. We clean it, connect it, and make it searchable." },
-      { title: "Ownership Intelligence", description: "Track who actually owns what across LLCs, trusts, and holding companies. See ownership changes over time. Know who to call." },
-      { title: "Lease Abstraction at Scale", description: "AI reads every lease in the data room. Extracts terms, renewal dates, rent escalations, and gotchas. What took a paralegal a week takes an hour." },
-      { title: "Market Research on Autopilot", description: "AI agents gather comps, track transactions, and monitor market activity. Research that runs in the background, ready when you need it." },
-      { title: "Owner Motivation Scoring", description: "Hold period analysis, tax burden tracking, loan maturity dates. AI scores every property by likelihood to trade. Stop guessing, start timing." },
-      { title: "Tailored Outreach Campaigns", description: "Mass-mail with precision. Enrich each record with property-specific details for offers that feel personal, not generic." },
-      { title: "Lead Scoring", description: "When you can see the whole market, you have too many leads. Scoring tells you which opportunities to pursue first." },
+      { title: "Ownership Intelligence", description: "Pull from tax records, transaction history, and public filings. Track who really owns what through LLCs, trusts, and holding companies. See changes over time. Know who to call." },
+      { title: "Document Intelligence", description: "AI reads leases, rent rolls, and financials in the data room. Extracts terms, renewal dates, escalations, and red flags. What took a paralegal a week takes an hour." },
+      { title: "Market Intelligence", description: "AI agents gather comps, track transactions, and monitor market activity. Research that runs in the background, ready when you need it." },
+      { title: "Deal Scoring", description: "Hold period analysis, tax burden tracking, loan maturity dates. AI scores every property by likelihood to trade. When you have 10,000 targets, scoring tells you which 100 to call first." },
+      { title: "Personalized Outreach", description: "Mass-mail with precision. Enrich each record with property-specific details for offers that feel personal, not generic." },
     ],
     benefits: [
       { title: "Deal Flow You Control", description: "Stop waiting for brokers. Source your own off-market opportunities at scale." },

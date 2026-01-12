@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { Hero, Features, CTA } from "@/components/sections";
-import { Button, Badge } from "@/components/ui";
+import { Badge } from "@/components/ui";
 import Link from "next/link";
 import { caseStudies } from "@/lib/case-studies-data";
 import { blogPosts } from "@/lib/blog-data";
@@ -60,31 +60,45 @@ function FeaturedCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
 
   // Combine case studies and blog posts into featured items
-  const featuredItems = [
-    ...caseStudies.slice(0, 2).map((study) => ({
-      type: "case-study" as const,
-      slug: study.slug,
-      title: study.title,
-      description: study.challengeBrief,
-      image: study.thumbnail,
-      badge: study.industry,
-      highlight: study.resultHighlight,
-      href: `/case-studies/${study.slug}`,
-    })),
-    ...blogPosts.slice(0, 3).map((post) => ({
-      type: "blog" as const,
-      slug: post.slug,
-      title: post.title,
-      description: post.excerpt,
-      image: post.featuredImage,
-      badge: post.category,
-      highlight: `${post.readingTime} min read`,
-      href: `/blog/${post.slug}`,
-    })),
-  ];
+  // Build featured items: specific order for first two, then remaining shuffled
+  const allCaseStudyItems = caseStudies.map((study) => ({
+    type: "case-study" as const,
+    slug: study.slug,
+    title: study.title,
+    description: study.challengeBrief,
+    image: study.thumbnail,
+    badge: study.industry,
+    highlight: study.resultHighlight,
+    href: `/case-studies/${study.slug}`,
+  }));
+
+  const allBlogItems = blogPosts.map((post) => ({
+    type: "blog" as const,
+    slug: post.slug,
+    title: post.title,
+    description: post.excerpt,
+    image: post.featuredImage,
+    badge: post.category,
+    highlight: `${post.readingTime} min read`,
+    href: `/blog/${post.slug}`,
+  }));
+
+  const allItems = [...allCaseStudyItems, ...allBlogItems];
+
+  // First two in specific order
+  const prioritySlugs = ["ai-augmented-onshore-vs-offshore", "army-of-ai-agents"];
+  const priorityItems = prioritySlugs
+    .map((slug) => allItems.find((item) => item.slug === slug))
+    .filter(Boolean) as typeof allItems;
+
+  // Remaining items in original order
+  const remainingItems = allItems.filter((item) => !prioritySlugs.includes(item.slug));
+
+  const featuredItems = [...priorityItems, ...remainingItems];
 
   // Auto-rotate
   useEffect(() => {
@@ -96,6 +110,26 @@ function FeaturedCarousel() {
 
     return () => clearInterval(timer);
   }, [isInView, isPaused, featuredItems.length]);
+
+  // Scroll to keep current item visible
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const activeButton = container.children[currentIndex] as HTMLElement;
+      if (activeButton) {
+        const containerTop = container.scrollTop;
+        const containerBottom = containerTop + container.clientHeight;
+        const itemTop = activeButton.offsetTop;
+        const itemBottom = itemTop + activeButton.offsetHeight;
+
+        if (itemTop < containerTop) {
+          container.scrollTo({ top: itemTop, behavior: "smooth" });
+        } else if (itemBottom > containerBottom) {
+          container.scrollTo({ top: itemBottom - container.clientHeight, behavior: "smooth" });
+        }
+      }
+    }
+  }, [currentIndex]);
 
   const currentItem = featuredItems[currentIndex];
 
@@ -118,8 +152,8 @@ function FeaturedCarousel() {
       onViewportLeave={() => setIsInView(false)}
       viewport={{ amount: 0.3 }}
     >
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-10">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-8 sm:mb-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -135,9 +169,9 @@ function FeaturedCarousel() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 min-h-[400px]">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6">
             {/* Main Featured Item */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 order-1">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentItem.slug}
@@ -152,7 +186,7 @@ function FeaturedCarousel() {
                     className="group block h-full rounded-2xl overflow-hidden bg-white border border-black/10 hover:border-teal-500/50 transition-all duration-300"
                   >
                     {currentItem.image && (
-                      <div className="aspect-[16/9] overflow-hidden">
+                      <div className="aspect-[4/3] sm:aspect-[16/9] overflow-hidden">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={currentItem.image}
@@ -161,7 +195,7 @@ function FeaturedCarousel() {
                         />
                       </div>
                     )}
-                    <div className="p-6">
+                    <div className="p-4 sm:p-6">
                       <div className="flex items-center gap-3 mb-3">
                         <span className={`px-2 py-1 rounded text-xs font-semibold uppercase tracking-wide ${
                           currentItem.type === "case-study"
@@ -200,8 +234,9 @@ function FeaturedCarousel() {
               </AnimatePresence>
             </div>
 
-            {/* Sidebar with thumbnails */}
-            <div className="lg:col-span-2 flex flex-col gap-3">
+            {/* Sidebar with thumbnails - hidden on mobile for cleaner UX */}
+            <div className="hidden lg:flex lg:col-span-2 flex-col lg:max-h-[650px] order-3">
+              <div ref={scrollContainerRef} className="flex flex-col gap-3 overflow-y-auto pr-2 scrollbar-thin flex-1 min-h-0">
               {featuredItems.map((item, index) => (
                 <button
                   key={item.slug}
@@ -239,6 +274,7 @@ function FeaturedCarousel() {
                   )}
                 </button>
               ))}
+              </div>
 
               {/* Navigation */}
               <div className="flex items-center justify-between mt-auto pt-4 border-t border-black/10">
@@ -272,12 +308,47 @@ function FeaturedCarousel() {
             </div>
           </div>
 
-          {/* Progress bar */}
-          <div className="mt-6 flex gap-1">
+          {/* Mobile Navigation - only visible on mobile */}
+          <div className="flex lg:hidden items-center justify-between mt-4 pt-4 border-t border-black/10">
+            <div className="flex gap-3">
+              <button
+                onClick={goToPrev}
+                className="w-12 h-12 rounded-full bg-white border border-black/10 flex items-center justify-center text-text-secondary hover:text-teal-500 hover:border-teal-500 transition-colors active:scale-95"
+                aria-label="Previous item"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={goToNext}
+                className="w-12 h-12 rounded-full bg-white border border-black/10 flex items-center justify-center text-text-secondary hover:text-teal-500 hover:border-teal-500 transition-colors active:scale-95"
+                aria-label="Next item"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+            <div className="text-sm text-text-muted">
+              {currentIndex + 1} / {featuredItems.length}
+            </div>
+            <div className="flex gap-4">
+              <Link href="/case-studies" className="text-sm text-text-muted hover:text-teal-500 transition-colors">
+                Case Studies
+              </Link>
+              <Link href="/blog" className="text-sm text-text-muted hover:text-teal-500 transition-colors">
+                Blog
+              </Link>
+            </div>
+          </div>
+
+          {/* Progress bar - larger touch targets on mobile */}
+          <div className="mt-4 lg:mt-6 flex gap-1.5 lg:gap-1">
             {featuredItems.map((_, index) => (
               <div
                 key={index}
-                className="h-1 flex-1 rounded-full bg-black/20 overflow-hidden cursor-pointer"
+                className="h-2 lg:h-1 flex-1 rounded-full bg-black/20 overflow-hidden cursor-pointer"
                 onClick={() => goToSlide(index)}
               >
                 <motion.div
@@ -319,7 +390,8 @@ function SocialProofSection() {
 
   // Reset expanded state when slide changes
   useEffect(() => {
-    setIsExpanded(false);
+    // Schedule state update to avoid synchronous setState in effect
+    requestAnimationFrame(() => setIsExpanded(false));
   }, [currentSlide]);
 
   const currentTestimonial = testimonials[currentSlide];
@@ -332,8 +404,8 @@ function SocialProofSection() {
       onViewportLeave={() => setIsInView(false)}
       viewport={{ amount: 0.3 }}
     >
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-10">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-8 sm:mb-10">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -365,7 +437,7 @@ function SocialProofSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className="bg-[#F8F9FA] rounded-2xl p-8 md:p-12 text-center"
+              className="bg-[#F8F9FA] rounded-2xl p-6 sm:p-8 md:p-12 text-center"
             >
               <div className="w-12 h-12 rounded-full bg-teal-500/10 flex items-center justify-center mx-auto mb-6">
                 <svg className="w-6 h-6 text-teal-500" fill="currentColor" viewBox="0 0 24 24">
@@ -373,7 +445,7 @@ function SocialProofSection() {
                 </svg>
               </div>
 
-              <p className="text-xl md:text-2xl font-semibold text-text-primary mb-6 leading-relaxed">
+              <p className="text-lg sm:text-xl md:text-2xl font-semibold text-text-primary mb-4 sm:mb-6 leading-relaxed">
                 &quot;{currentTestimonial.highlight}&quot;
               </p>
 
@@ -422,16 +494,17 @@ function SocialProofSection() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Navigation dots */}
-          <div className="flex justify-center gap-2 mt-6">
+          {/* Navigation dots - larger touch targets on mobile */}
+          <div className="flex justify-center gap-3 sm:gap-2 mt-6">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                aria-label={`Go to testimonial ${index + 1}`}
+                className={`h-3 sm:h-2.5 rounded-full transition-all duration-300 ${
                   currentSlide === index
-                    ? "bg-teal-500 w-8"
-                    : "bg-black/20 hover:bg-black/40"
+                    ? "bg-teal-500 w-10 sm:w-8"
+                    : "bg-black/20 hover:bg-black/40 w-3 sm:w-2.5"
                 }`}
               />
             ))}
@@ -469,9 +542,9 @@ export default function HomePage() {
 
   const differentiators = [
     {
-      title: "Senior + Scale",
+      title: "AI-Augmented Team",
       description:
-        "Senior consultants lead your project. A 200-person team delivers it. You get direct access to experts, backed by the capacity to move fast.",
+        "Every consultant and developer has integrated AI into their workflow. Humans handle strategy and judgment. AI handles the grunt work. You get enterprise-quality delivery at a fraction of traditional consulting costs.",
       icon: <UsersIcon />,
     },
     {
@@ -507,7 +580,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (lottieRef.current) {
-      lottieRef.current.setSpeed(0.20);
+      lottieRef.current.setSpeed(0.25);
     }
   }, [animationData]);
 
@@ -550,8 +623,8 @@ export default function HomePage() {
 
       {/* 4. Why Us Section */}
       <section className="section">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 md:mb-12">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -571,23 +644,23 @@ export default function HomePage() {
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {differentiators.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-[#F8F9FA] border border-black/10 text-center"
+                transition={{ delay: index * 0.05 }}
+                className="p-5 sm:p-6 rounded-xl bg-[#F8F9FA] border border-black/10 text-center"
               >
-                <div className="w-12 h-12 mb-4 mx-auto flex items-center justify-center rounded-lg bg-teal-500/10 text-teal-500">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 mb-3 sm:mb-4 mx-auto flex items-center justify-center rounded-lg bg-teal-500/10 text-teal-500">
                   {item.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-text-primary mb-2">
+                <h3 className="text-base sm:text-lg font-semibold text-text-primary mb-2">
                   {item.title}
                 </h3>
-                <p className="text-text-secondary text-sm">{item.description}</p>
+                <p className="text-text-secondary text-sm leading-relaxed">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -599,8 +672,8 @@ export default function HomePage() {
 
       {/* 6. Final CTA */}
       <CTA
-        title="Ready to transform your data?"
-        description="Schedule a 30-minute consultation. No pitch decks—just a conversation about your situation."
+        title="Ready to see what's possible?"
+        description="30 minutes. We'll talk about your situation and see if we can help."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "Take Assessment First", href: "/assessments/data-ai-readiness" }}
         variant="gradient"

@@ -27,6 +27,15 @@ export interface CaseStudy {
   images: string[];
   thumbnail: string;
   featured: boolean;
+  diagramType?: 'entity-resolution' | 'lead-scoring' | 'document-intelligence';
+  heroMetric?: {
+    value: string;
+    label: string;
+    comparison?: {
+      before: string;
+      after: string;
+    };
+  };
 }
 
 export interface Testimonial {
@@ -70,103 +79,122 @@ export const serviceFilters = [
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "ai-entity-resolution",
-    title: "AI Entity Resolution for Mineral Rights",
+    slug: "army-of-ai-agents",
+    title: "An Army of AI Agents vs. 1.69M Broken Records",
     client: "Energy Sector Client",
     industry: "Energy",
     industryCategory: "Energy",
     services: ["AI Data Cleanup", "Data Integration"],
     challengeType: "Data Quality",
-    challengeBrief: "1.69 million records with complex ownership relationships needed resolution.",
-    challenge: "A mineral rights company needed to resolve 1.69 million ownership records across multiple legacy systems. Manual review would have taken months and cost over $25,000 in analyst time. Accuracy was critical for legal and financial decisions.",
-    solution: "We deployed AI-powered entity resolution that learned the company's specific data patterns and business rules. The system processed records at machine speed while documenting every decision for audit compliance.",
+    challengeBrief: "Offers going to wrong people. Competitors reaching real owners first. A data problem that would take 50 analysts months to fix.",
+    challenge: "A mineral rights company had 1.69 million ownership records with broken IDs—the same ID assigned to 670 different people, the same person scattered across multiple IDs. Manual review would take months. Accuracy was critical for legal and financial decisions.",
+    solution: "We deployed an army of AI agents that reason through data chaos like humans do—but at machine scale. 10 agents processing in parallel, understanding that 'Miller, John' and 'John Miller' are the same person without being told.",
     approach: [
-      "Analyzed data patterns and identified key matching criteria",
-      "Trained AI models on sample datasets with expert validation",
-      "Processed 1.69M records with human-level accuracy",
-      "Generated full audit trail for every decision",
-      "Delivered results in 3 weeks vs estimated 6+ months manual",
+      "Identified broken data patterns: collision IDs, unstable IDs, duplicates",
+      "Deployed 10 AI agents reasoning through matches in parallel",
+      "Processed 1.69M records with human-level reasoning at machine speed",
+      "Validated every decision with documented reasoning",
+      "Delivered in hours what would take 50 analysts months",
     ],
     results: [
       { value: 125, suffix: "x", label: "Cost savings vs manual" },
-      { value: 1.69, suffix: "M", label: "Records processed" },
-      { value: 3, label: "Weeks to completion" },
-      { value: 100, suffix: "%", label: "Decision documentation" },
+      { value: 1.25, suffix: "M", label: "Unique owners identified" },
+      { value: 10, label: "AI agents deployed" },
+      { value: 100, suffix: "%", label: "Decisions documented" },
     ],
     resultHighlight: "125x cost savings",
-    quote: "What would cost $25,000+ in analyst time, AI completed for ~$200—with every decision documented for audit.",
+    quote: "Before this, we were sending four mailers to the same person and missing actual property owners entirely. Now we know exactly who owns what before we reach out.",
     images: [
       "/images/case-studies/entity-resolution-1-1.png",
       "/images/case-studies/entity-resolution-2-1.png",
     ],
     thumbnail: "/images/case-studies/entity-resolution-1-1.png",
     featured: true,
+    diagramType: 'entity-resolution',
+    heroMetric: {
+      value: '125x',
+      label: 'Cost Savings',
+      comparison: {
+        before: '$25,000',
+        after: '$200',
+      },
+    },
   },
   {
-    slug: "custom-lead-scoring",
-    title: "Custom Lead Scoring for Home Services",
-    client: "Roofing Company",
+    slug: "what-predicts-lead-conversion",
+    title: "What Actually Predicts Lead Conversion?",
+    client: "Home Services Company",
     industry: "Home Services",
     industryCategory: "Home Services",
     services: ["AI Insights", "Predictive Analytics"],
     challengeType: "AI/Automation",
-    challengeBrief: "Generic CRM scoring wasn't identifying the right leads.",
-    challenge: "A growing roofing company was using generic CRM lead scoring that wasn't identifying the right leads. Their sales team was wasting time on low-quality prospects while high-value opportunities slipped through.",
-    solution: "We built a custom ML scoring model trained on their actual conversion data. The model discovered patterns that generic tools missed—factors like home equity, urgency signals, and local sales history that actually predicted conversions.",
+    challengeBrief: "3 years of sales data revealed surprising patterns about what makes leads convert.",
+    challenge: "Sales teams often assume that wealthier prospects make better leads. We analyzed 3 years of actual conversion data to test this assumption—and found the opposite.",
+    solution: "By training models on real outcomes instead of assumptions, we discovered that intent signals (urgency, financial capacity) outperform engagement metrics. Property value was actually a negative predictor.",
     approach: [
-      "Analyzed historical conversion data to identify real predictors",
-      "Built custom ML model trained on company-specific patterns",
-      "Discovered that home equity and urgency signals outperformed generic metrics",
-      "Integrated scoring into existing CRM workflow",
-      "Provided ongoing model refinement as new data accumulated",
+      "Analyzed 3 years of historical conversion data",
+      "Tested common assumptions against actual outcomes",
+      "Discovered urgency and financial capacity outperform property value",
+      "Built scoring around intent signals instead of engagement metrics",
+      "Achieved 31% higher success rate vs. standard CRM scoring",
     ],
     results: [
-      { value: 21, suffix: "%", prefix: "+", label: "More qualified leads" },
-      { value: 35, suffix: "%", label: "Reduction in wasted calls" },
-      { value: 2, suffix: "x", label: "Conversion rate improvement" },
-      { value: 4, label: "Weeks to deployment" },
+      { value: 31, suffix: "%", label: "Higher success rate vs. Salesforce" },
+      { value: 3, label: "Years of data analyzed" },
+      { value: 7, label: "Key predictors identified" },
+      { value: 1, prefix: "#", label: "Predictor: Project urgency" },
     ],
-    resultHighlight: "+21% qualified leads",
-    quote: "Generic tools said home value mattered most. Our model discovered home equity, urgency, and local sales history are what actually predict conversions.",
+    resultHighlight: "31% higher success rate",
+    quote: "The data showed property value was a negative predictor. What actually matters: urgency, financial capacity, and local success history.",
     images: [
       "/images/case-studies/lead-scoring-1-1.png",
       "/images/case-studies/lead-scoring-2-1.png",
     ],
     thumbnail: "/images/case-studies/lead-scoring-1-1.png",
     featured: true,
+    diagramType: 'lead-scoring',
+    heroMetric: {
+      value: '31%',
+      label: 'Higher Success Rate',
+    },
   },
   {
     slug: "agentic-document-intelligence",
-    title: "Agentic Document Intelligence for Medical Devices",
-    client: "Medical Device Manufacturer",
+    title: "Document Intelligence: AI That Knows Your Business",
+    client: "Medical Device Distributor",
     industry: "Healthcare",
     industryCategory: "Healthcare & Dental",
     services: ["AI & Automation", "Document Intelligence"],
     challengeType: "AI/Automation",
-    challengeBrief: "Manual document processing costing $10K+ with ongoing validation needs.",
-    challenge: "A medical device manufacturer spent $10,000 on traditional OCR to process regulatory documents—and still needed manual validation for every extraction. The documents were complex PDFs with tables, footnotes, and cross-references that broke standard extraction tools.",
-    solution: "We built an agentic document processing system where specialized AI agents work together: one orchestrates the workflow, others extract specific data types in parallel, and a validation agent checks everything before output. The system runs autonomously with no manual review required.",
+    challengeBrief: "Years of institutional knowledge locked in documents AI couldn't access.",
+    challenge: "A medical device distributor had decades of product knowledge scattered across thousands of documents from 70+ manufacturers. Every question meant digging through PDFs manually. AI tools like ChatGPT couldn't help—they couldn't access any of this institutional knowledge.",
+    solution: "We built Document Intelligence that transforms unstructured documents into an AI-ready knowledge base. Now AI can search, answer questions, power applications, and automate workflows—all using the organization's own data.",
     approach: [
-      "Designed multi-agent architecture with orchestrator, extractors, and validator",
-      "Built specialized extraction agents for tables, text, and cross-references",
-      "Implemented autonomous validation that catches errors before output",
-      "Created self-healing workflows that retry failed extractions",
-      "Deployed system that processes new documents automatically",
+      "AI reads and understands documents like humans do—no custom rules per format",
+      "Transforms scattered documents into a unified, searchable knowledge base",
+      "Enables AI-powered search: ask questions in plain English, get instant answers",
+      "Powers custom applications like mobile apps, dashboards, and chatbots",
+      "New documents automatically expand what AI knows—a living knowledge base",
     ],
     results: [
-      { value: 1000, suffix: "+", label: "PDFs processed" },
-      { value: 50, suffix: "%", label: "Cost reduction vs OCR" },
-      { value: 0, label: "Manual validation needed" },
-      { value: 99, suffix: "%", label: "Extraction accuracy" },
+      { value: 1000, suffix: "s", label: "Documents captured" },
+      { value: 70, suffix: "+", label: "Formats supported" },
+      { value: 2, suffix: "sec", label: "Average answer time" },
+      { value: 24, suffix: "/7", label: "AI availability" },
     ],
-    resultHighlight: "50% cost savings",
-    quote: "We spent $10K on OCR that still needed manual validation. The agentic approach cost half that—and runs itself.",
+    resultHighlight: "Instant AI access to institutional knowledge",
+    quote: "For the first time, we can ask AI questions about our own data. Twenty years of product knowledge, instantly accessible.",
     images: [
       "/images/case-studies/document-intelligence-1.png",
       "/images/case-studies/document-intelligence-2.png",
     ],
     thumbnail: "/images/case-studies/document-intelligence-1.png",
     featured: true,
+    diagramType: 'document-intelligence',
+    heroMetric: {
+      value: 'Instant',
+      label: 'AI Answers',
+    },
   },
 ];
 

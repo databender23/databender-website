@@ -6,8 +6,8 @@ import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Badge, Button } from "@/components/ui";
 import { LottieWrapper } from "@/components/animations";
+import { CaseStudyThumbnail } from "@/components/case-studies";
 import {
-  caseStudies,
   testimonials,
   industryFilters,
   challengeFilters,
@@ -232,14 +232,22 @@ export default function CaseStudiesPage() {
                     href={`/case-studies/${study.slug}`}
                     className="group block h-full p-6 rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
                   >
-                    {study.thumbnail && (
+                    {(study.diagramType || study.thumbnail) && (
                       <div className="aspect-video rounded-lg bg-white mb-4 overflow-hidden">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={study.thumbnail}
-                          alt={study.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
+                        {study.diagramType ? (
+                          <CaseStudyThumbnail
+                            type={study.diagramType}
+                            title={study.title}
+                            heroMetric={study.heroMetric}
+                          />
+                        ) : (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img
+                            src={study.thumbnail}
+                            alt={study.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        )}
                       </div>
                     )}
                     <div className="flex flex-wrap gap-2 mb-3">

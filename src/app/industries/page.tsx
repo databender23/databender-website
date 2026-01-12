@@ -58,8 +58,8 @@ export default function IndustriesPage() {
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -73,7 +73,7 @@ export default function IndustriesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
               >
                 Experience in your industry
               </motion.h1>
@@ -82,7 +82,7 @@ export default function IndustriesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+                className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
               >
                 We&apos;ve solved data problems across healthcare, legal, real estate, and manufacturing. That cross-industry experience means we bring proven approaches—not experiments.
               </motion.p>
@@ -91,12 +91,12 @@ export default function IndustriesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="flex flex-wrap gap-4"
+                className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
               >
-                <Button variant="primary" size="lg" href="/assessments/data-ai-readiness">
+                <Button variant="primary" size="lg" href="/assessments/data-ai-readiness" className="w-full sm:w-auto min-h-[48px]">
                   Take Free Assessment
                 </Button>
-                <Button variant="secondary" size="lg" href="/contact">
+                <Button variant="secondary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
                   Talk to an Expert
                 </Button>
               </motion.div>
@@ -125,8 +125,8 @@ export default function IndustriesPage() {
 
       {/* Industries Grid */}
       <section className="section">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
             {industries.map((industry, index) => (
               <motion.div
                 key={industry.slug}
@@ -137,23 +137,23 @@ export default function IndustriesPage() {
               >
                 <Link
                   href={`/industries/${industry.slug}`}
-                  className="group block p-8 rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full"
+                  className="group block p-5 sm:p-6 lg:p-8 rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full min-h-[48px]"
                 >
-                  <div className="w-16 h-16 flex items-center justify-center rounded-xl bg-teal-500/10 text-teal-500 mb-6">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-xl bg-teal-500/10 text-teal-500 mb-4 sm:mb-6">
                     <IndustryIcon icon={industry.icon} />
                   </div>
-                  <h2 className="text-2xl font-bold text-text-primary mb-3">
+                  <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-2 sm:mb-3">
                     {industry.title}
                   </h2>
-                  <p className="text-text-secondary mb-6">
+                  <p className="text-text-secondary text-sm sm:text-base mb-4 sm:mb-6">
                     {industry.description}
                   </p>
                   {industry.subIndustries && (
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                       {industry.subIndustries.map((sub) => (
                         <span
                           key={sub.slug}
-                          className="px-3 py-1 text-sm bg-white rounded-full text-text-muted"
+                          className="px-2.5 sm:px-3 py-1 text-xs sm:text-sm bg-white rounded-full text-text-muted"
                         >
                           {sub.title}
                         </span>
@@ -185,13 +185,13 @@ export default function IndustriesPage() {
 
       {/* Cross-Industry Value */}
       <section className="section bg-[#F8F9FA]">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-text-primary mb-6"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
             >
               Don&apos;t see your industry?
             </motion.h2>
@@ -200,7 +200,7 @@ export default function IndustriesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-text-secondary text-lg mb-8"
+              className="text-text-secondary text-base sm:text-lg mb-6 sm:mb-8"
             >
               Our data management, business intelligence, and AI capabilities apply across industries. Let&apos;s talk about your specific situation.
             </motion.p>
@@ -220,7 +220,7 @@ export default function IndustriesPage() {
 
       {/* CTA */}
       <CTA
-        title="Ready to solve your industry's data challenges?"
+        title="Ready to see what's possible?"
         description="Take our free assessment or schedule a consultation to discuss your specific needs."
         primaryCta={{ label: "Take Assessment", href: "/assessments/data-ai-readiness" }}
         secondaryCta={{ label: "Schedule Consultation", href: "/contact" }}

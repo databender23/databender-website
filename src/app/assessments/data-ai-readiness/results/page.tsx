@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
-import { Hero, CTA } from "@/components/sections";
-import { Button, Card } from "@/components/ui";
+import { CTA } from "@/components/sections";
+import { Card } from "@/components/ui";
 import { tierDescriptions } from "@/lib/assessment-scoring";
 import { services } from "@/lib/services-data";
 import type { AssessmentScores } from "@/types";
@@ -20,10 +20,35 @@ interface AssessmentResults {
   };
 }
 
+// Helper to read from sessionStorage without triggering lint warnings
+function getStoredResults(): AssessmentResults | null {
+  if (typeof window === "undefined") return null;
+  const stored = sessionStorage.getItem("assessmentResults");
+  if (!stored) return null;
+  try {
+    return JSON.parse(stored);
+  } catch {
+    return null;
+  }
+}
+
+// Subscribe function for useSyncExternalStore (no-op for sessionStorage)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function subscribe(_cb: () => void): () => void {
+  // sessionStorage doesn't have events, so no subscription needed
+  return () => {};
+}
+
 export default function ResultsPage() {
   const router = useRouter();
-  const [results, setResults] = useState<AssessmentResults | null>(null);
   const [hasConfettiFired, setHasConfettiFired] = useState(false);
+
+  // Use useSyncExternalStore to read from sessionStorage without lint warnings
+  const results = useSyncExternalStore(
+    subscribe,
+    getStoredResults,
+    () => null // Server snapshot
+  );
 
   const fireConfetti = useCallback(() => {
     if (hasConfettiFired) return;
@@ -56,16 +81,27 @@ export default function ResultsPage() {
     }, 200);
   }, [hasConfettiFired]);
 
+  // Fire confetti after results load
   useEffect(() => {
-    const stored = sessionStorage.getItem("assessmentResults");
-    if (stored) {
-      setResults(JSON.parse(stored));
-      // Fire confetti after a short delay for dramatic effect
-      setTimeout(fireConfetti, 800);
-    } else {
-      router.push("/assessments/data-ai-readiness");
+    if (results && !hasConfettiFired) {
+      const timer = setTimeout(fireConfetti, 800);
+      return () => clearTimeout(timer);
     }
-  }, [router, fireConfetti]);
+  }, [results, hasConfettiFired, fireConfetti]);
+
+  // Redirect if no results
+  useEffect(() => {
+    if (results === null && typeof window !== "undefined") {
+      // Small delay to allow initial render
+      const timer = setTimeout(() => {
+        const stored = sessionStorage.getItem("assessmentResults");
+        if (!stored) {
+          router.push("/assessments/data-ai-readiness");
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [results, router]);
 
   if (!results) {
     return (
@@ -239,7 +275,7 @@ export default function ResultsPage() {
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {suggestedServices.map((service, index) => (
+            {suggestedServices.map((service) => (
               service && (
                 <Card
                   key={service.slug}
@@ -255,7 +291,7 @@ export default function ResultsPage() {
 
       {/* CTA */}
       <CTA
-        title="Ready to take the next step?"
+        title="Ready to see what's possible?"
         description="Schedule a consultation to discuss your results and get a customized action plan."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "Explore Services", href: "/services" }}
