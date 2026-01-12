@@ -33,7 +33,7 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/main-logo.png"
+              src="/images/logo-color.png"
               alt="Databender"
               className="h-24 w-auto"
             />
