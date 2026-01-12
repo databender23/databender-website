@@ -1,11 +1,15 @@
-import { redirect } from "next/navigation";
-import { isAuthenticated } from "@/lib/admin/auth";
+export const metadata = {
+  title: "Admin | Databender",
+};
 
-export default async function AdminLayout({
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // Skip auth check for login page
-  return <>{children}</>;
+  return (
+    <div className="fixed inset-0 z-[9999] bg-gray-50 overflow-auto">
+      {children}
+    </div>
+  );
 }
