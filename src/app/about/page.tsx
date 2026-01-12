@@ -159,19 +159,19 @@ export default function AboutPage() {
             {[
               {
                 metric: "125x",
-                description: "Cost savings on AI entity resolution. 1.69 million records cleaned for $200 vs. $25,000 in analyst time.",
+                description: "Cost savings on AI entity resolution. 1.69 million broken records cleaned by an army of AI agents.",
               },
               {
-                metric: "+21%",
-                description: "More qualified leads with custom scoring vs. generic CRM tools. 754 additional qualified leads per month.",
+                metric: "31%",
+                description: "Higher success rate with custom lead scoring vs. generic CRM tools. Data-driven insights that challenge assumptions.",
+              },
+              {
+                metric: "Instant",
+                description: "AI answers from decades of institutional knowledge. Documents transformed into a searchable, AI-ready knowledge base.",
               },
               {
                 metric: "100+ TB",
                 description: "Healthcare pricing pipelines processing hospital data into actionable intelligence.",
-              },
-              {
-                metric: "30+",
-                description: "Data sources integrated in enterprise Snowflake implementations across global teams.",
               },
             ].map((item, index) => (
               <motion.div

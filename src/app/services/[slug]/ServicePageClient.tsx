@@ -302,7 +302,7 @@ export default function ServicePageClient({ service }: Props) {
 
       {/* CTA */}
       <CTA
-        title={`Ready to transform your ${service.title}?`}
+        title="Ready to see what's possible?"
         description="Schedule a consultation to discuss how we can help your business."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "Take Assessment", href: "/assessments/data-ai-readiness" }}

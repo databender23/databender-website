@@ -63,8 +63,8 @@ export const services: ConsolidatedService[] = [
     slug: "analytics-bi",
     title: "Analytics & BI",
     shortTitle: "Analytics & BI",
-    description: "Visual dashboards, real-time visibility, and predictive insights for your whole operation.",
-    longDescription: "You shouldn't have to ask someone to pull a report. You shouldn't wait until month-end to know how you're doing. We build dashboards and analytics that give you visibility into your whole operation, including predictions about what's coming next.",
+    description: "Real-time dashboards, natural language insights, and visibility into sales, marketing, and operations.",
+    longDescription: "Stop waiting for reports. We build tools for real-time visibility into your sales, marketing, and operations. Anyone on your team can ask questions in plain English and get answers instantly.",
     icon: "chart-bar",
     category: "analytics-bi",
     subServices: [
@@ -179,9 +179,9 @@ export const serviceCategories = {
   "analytics-bi": {
     title: "Analytics & BI",
     subtitle: "See what's happening",
-    description: "Dashboards, operational visibility, and predictive insights for your whole operation.",
+    description: "Real-time visibility into sales, marketing, and operations, plus natural language insights.",
     position: "See clearly",
-    message: "Stop waiting for reports. See what's happening now, and what's coming next.",
+    message: "Stop waiting for reports. Ask questions in plain English and see what's happening now.",
   },
   "ai-services": {
     title: "AI Services & Automation",

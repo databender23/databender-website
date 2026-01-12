@@ -8,6 +8,7 @@ import { Button } from "@/components/ui";
 import { LottieWrapper } from "@/components/animations";
 import { blogPosts } from "@/lib/blog-data";
 import { caseStudies } from "@/lib/case-studies-data";
+import { CaseStudyDiagram } from "@/components/case-studies/CaseStudyDiagrams";
 
 const ResourceIcon = ({ icon }: { icon: string }) => {
   const icons: Record<string, React.ReactNode> = {
@@ -73,10 +74,11 @@ const resourceCategories = [
 
 export default function ResourcesPage() {
   const [lottieData, setLottieData] = useState<object | null>(null);
-  const [caseStudyIndex, setCaseStudyIndex] = useState(0);
   const [blogIndex, setBlogIndex] = useState(0);
-  const [caseStudyPaused, setCaseStudyPaused] = useState(false);
   const [blogPaused, setBlogPaused] = useState(false);
+
+  // Get case studies with diagram types
+  const featuredStudies = caseStudies.filter(study => study.diagramType);
 
   useEffect(() => {
     fetch("/animations/student.json")
@@ -84,15 +86,6 @@ export default function ResourcesPage() {
       .then((data) => setLottieData(data))
       .catch(() => setLottieData(null));
   }, []);
-
-  // Auto-rotate case studies
-  useEffect(() => {
-    if (caseStudyPaused) return;
-    const timer = setInterval(() => {
-      setCaseStudyIndex((prev) => (prev + 1) % caseStudies.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [caseStudyPaused]);
 
   // Auto-rotate blog posts
   useEffect(() => {
@@ -211,7 +204,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Featured Case Studies Carousel */}
+      {/* Featured Case Studies Grid */}
       <section className="section">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between mb-8">
@@ -239,117 +232,68 @@ export default function ResourcesPage() {
             </Button>
           </div>
 
-          <div
-            className="relative"
-            onMouseEnter={() => setCaseStudyPaused(true)}
-            onMouseLeave={() => setCaseStudyPaused(false)}
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-              {/* Main Featured Item */}
-              <div className="lg:col-span-3">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={caseStudies[caseStudyIndex].slug}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <Link
-                      href={`/case-studies/${caseStudies[caseStudyIndex].slug}`}
-                      className="group block rounded-2xl bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 transition-all duration-300 overflow-hidden"
-                    >
-                      {caseStudies[caseStudyIndex].thumbnail && (
-                        <div className="aspect-video overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={caseStudies[caseStudyIndex].thumbnail}
-                            alt={caseStudies[caseStudyIndex].title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                      )}
-                      <div className="p-6">
-                        <span className="inline-block px-3 py-1 text-sm bg-teal-500/10 text-teal-500 rounded-full mb-3">
-                          {caseStudies[caseStudyIndex].industry}
-                        </span>
-                        <h3 className="text-xl font-bold text-text-primary mb-3 group-hover:text-teal-500 transition-colors">
-                          {caseStudies[caseStudyIndex].title}
-                        </h3>
-                        <p className="text-text-secondary mb-4">
-                          {caseStudies[caseStudyIndex].challengeBrief}
-                        </p>
-                        <span className="text-2xl font-bold text-gradient">
-                          {caseStudies[caseStudyIndex].resultHighlight}
-                        </span>
-                      </div>
-                    </Link>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Sidebar Navigation */}
-              <div className="lg:col-span-2 flex flex-col gap-3">
-                {caseStudies.map((cs, index) => (
-                  <button
-                    key={cs.slug}
-                    onClick={() => setCaseStudyIndex(index)}
-                    className={`flex items-center gap-4 p-3 rounded-xl text-left transition-all duration-300 ${
-                      index === caseStudyIndex
-                        ? "bg-teal-500/10 border-2 border-teal-500"
-                        : "bg-[#F8F9FA] border-2 border-transparent hover:border-black/10"
-                    }`}
-                  >
-                    {cs.thumbnail && (
-                      <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={cs.thumbnail}
-                          alt={cs.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-teal-600">
-                        {cs.industry}
-                      </span>
-                      <h4 className={`font-medium text-sm line-clamp-2 ${
-                        index === caseStudyIndex ? "text-text-primary" : "text-text-secondary"
-                      }`}>
-                        {cs.title}
-                      </h4>
-                    </div>
-                    {index === caseStudyIndex && (
-                      <div className="w-1 h-8 bg-teal-500 rounded-full flex-shrink-0" />
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Progress bar */}
-            <div className="mt-6 flex gap-1">
-              {caseStudies.map((_, index) => (
-                <div
-                  key={index}
-                  className="h-1 flex-1 rounded-full bg-black/10 overflow-hidden cursor-pointer"
-                  onClick={() => setCaseStudyIndex(index)}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {featuredStudies.map((study, index) => (
+              <motion.div
+                key={study.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link
+                  href={`/case-studies/${study.slug}`}
+                  className="group block h-full rounded-2xl overflow-hidden bg-[#F8F9FA] border border-black/10 hover:border-teal-500/50 hover:shadow-lg transition-all duration-300"
                 >
-                  <motion.div
-                    className="h-full bg-teal-500"
-                    initial={{ width: "0%" }}
-                    animate={{
-                      width: index === caseStudyIndex ? "100%" : index < caseStudyIndex ? "100%" : "0%",
-                    }}
-                    transition={{
-                      duration: index === caseStudyIndex && !caseStudyPaused ? 5 : 0.3,
-                      ease: "linear",
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
+                  {/* Animated Diagram */}
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    {study.diagramType && (
+                      <CaseStudyDiagram
+                        type={study.diagramType}
+                        compact={true}
+                        interactive={false}
+                        className="w-full h-full"
+                      />
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-5 sm:p-6">
+                    {/* Hero Metric Callout */}
+                    {study.heroMetric && (
+                      <div className="flex items-baseline gap-2 mb-3">
+                        <span className="text-2xl sm:text-3xl font-bold text-gradient">
+                          {study.heroMetric.value}
+                        </span>
+                        <span className="text-sm font-medium text-text-secondary">
+                          {study.heroMetric.label}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Industry Badge */}
+                    <div className="mb-3">
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-teal-500/10 text-teal-600">
+                        {study.industry}
+                      </span>
+                    </div>
+
+                    {/* Problem Statement */}
+                    <p className="text-text-secondary text-sm leading-relaxed mb-4 line-clamp-2">
+                      {study.challengeBrief}
+                    </p>
+
+                    {/* CTA */}
+                    <div className="flex items-center text-teal-500 font-medium text-sm group-hover:gap-2 transition-all">
+                      Read the story
+                      <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

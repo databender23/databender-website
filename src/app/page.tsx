@@ -6,8 +6,8 @@ import { Hero, Features, CTA } from "@/components/sections";
 import { Badge } from "@/components/ui";
 import Link from "next/link";
 import { caseStudies } from "@/lib/case-studies-data";
-import { blogPosts } from "@/lib/blog-data";
 import { testimonials } from "@/lib/case-studies-data";
+import { CaseStudyDiagram } from "@/components/case-studies/CaseStudyDiagrams";
 import { useState, useEffect, useRef } from "react";
 
 // Icons for features
@@ -55,319 +55,118 @@ const CogIcon = () => (
 );
 
 
-// Featured Content Carousel Component with Stats
-function FeaturedCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isInView, setIsInView] = useState(false);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-
-  // Combine case studies and blog posts into featured items
-  // Build featured items: specific order for first two, then remaining shuffled
-  const allCaseStudyItems = caseStudies.map((study) => ({
-    type: "case-study" as const,
-    slug: study.slug,
-    title: study.title,
-    description: study.challengeBrief,
-    image: study.thumbnail,
-    badge: study.industry,
-    highlight: study.resultHighlight,
-    href: `/case-studies/${study.slug}`,
-  }));
-
-  const allBlogItems = blogPosts.map((post) => ({
-    type: "blog" as const,
-    slug: post.slug,
-    title: post.title,
-    description: post.excerpt,
-    image: post.featuredImage,
-    badge: post.category,
-    highlight: `${post.readingTime} min read`,
-    href: `/blog/${post.slug}`,
-  }));
-
-  const allItems = [...allCaseStudyItems, ...allBlogItems];
-
-  // First two in specific order
-  const prioritySlugs = ["ai-augmented-onshore-vs-offshore", "army-of-ai-agents"];
-  const priorityItems = prioritySlugs
-    .map((slug) => allItems.find((item) => item.slug === slug))
-    .filter(Boolean) as typeof allItems;
-
-  // Remaining items in original order
-  const remainingItems = allItems.filter((item) => !prioritySlugs.includes(item.slug));
-
-  const featuredItems = [...priorityItems, ...remainingItems];
-
-  // Auto-rotate
-  useEffect(() => {
-    if (!isInView || isPaused) return;
-
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % featuredItems.length);
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, [isInView, isPaused, featuredItems.length]);
-
-  // Scroll to keep current item visible
-  useEffect(() => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const activeButton = container.children[currentIndex] as HTMLElement;
-      if (activeButton) {
-        const containerTop = container.scrollTop;
-        const containerBottom = containerTop + container.clientHeight;
-        const itemTop = activeButton.offsetTop;
-        const itemBottom = itemTop + activeButton.offsetHeight;
-
-        if (itemTop < containerTop) {
-          container.scrollTo({ top: itemTop, behavior: "smooth" });
-        } else if (itemBottom > containerBottom) {
-          container.scrollTo({ top: itemBottom - container.clientHeight, behavior: "smooth" });
-        }
-      }
-    }
-  }, [currentIndex]);
-
-  const currentItem = featuredItems[currentIndex];
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
-
-  const goToPrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? featuredItems.length - 1 : prev - 1));
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % featuredItems.length);
-  };
+// Results Grid - Show all case studies with animated diagrams
+function ResultsGrid() {
+  // Get case studies with diagram types (ordered by impact)
+  const featuredStudies = caseStudies.filter(study => study.diagramType);
 
   return (
-    <motion.section
-      className="section bg-[#F8F9FA]"
-      onViewportEnter={() => setIsInView(true)}
-      onViewportLeave={() => setIsInView(false)}
-      viewport={{ amount: 0.3 }}
-    >
+    <section className="section bg-[#F8F9FA]">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-8 sm:mb-10">
+        <div className="text-center mb-10 sm:mb-12">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+          >
+            Real Results
+          </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
             className="text-3xl md:text-4xl font-bold text-text-primary"
           >
             See how we deliver results
           </motion.h2>
         </div>
 
-        <div
-          className="relative"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6">
-            {/* Main Featured Item */}
-            <div className="lg:col-span-3 order-1">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentItem.slug}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  className="h-full"
-                >
-                  <Link
-                    href={currentItem.href}
-                    className="group block h-full rounded-2xl overflow-hidden bg-white border border-black/10 hover:border-teal-500/50 transition-all duration-300"
-                  >
-                    {currentItem.image && (
-                      <div className="aspect-[4/3] sm:aspect-[16/9] overflow-hidden">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={currentItem.image}
-                          alt={currentItem.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                    )}
-                    <div className="p-4 sm:p-6">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className={`px-2 py-1 rounded text-xs font-semibold uppercase tracking-wide ${
-                          currentItem.type === "case-study"
-                            ? "bg-teal-500/10 text-teal-600"
-                            : "bg-purple-500/10 text-purple-600"
-                        }`}>
-                          {currentItem.type === "case-study" ? "Case Study" : "Blog"}
-                        </span>
-                        <Badge variant="outline">{currentItem.badge}</Badge>
-                      </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {featuredStudies.map((study, index) => (
+            <motion.div
+              key={study.slug}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Link
+                href={`/case-studies/${study.slug}`}
+                className="group block h-full rounded-2xl overflow-hidden bg-white border border-black/10 hover:border-teal-500/50 hover:shadow-lg transition-all duration-300"
+              >
+                {/* Animated Diagram */}
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  {study.diagramType && (
+                    <CaseStudyDiagram
+                      type={study.diagramType}
+                      compact={true}
+                      interactive={false}
+                      className="w-full h-full"
+                    />
+                  )}
+                </div>
 
-                      <h3 className="text-xl md:text-2xl font-bold text-text-primary mb-3 group-hover:text-teal-500 transition-colors">
-                        {currentItem.title}
-                      </h3>
-
-                      <p className="text-text-secondary mb-4 line-clamp-2">
-                        {currentItem.description}
-                      </p>
-
-                      <div className="flex items-center justify-between">
-                        <span className={`font-semibold ${
-                          currentItem.type === "case-study" ? "text-gradient text-lg" : "text-text-muted text-sm"
-                        }`}>
-                          {currentItem.highlight}
-                        </span>
-                        <span className="flex items-center gap-2 text-teal-500 font-medium text-sm group-hover:gap-3 transition-all">
-                          Read more
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Sidebar with thumbnails - hidden on mobile for cleaner UX */}
-            <div className="hidden lg:flex lg:col-span-2 flex-col lg:max-h-[650px] order-3">
-              <div ref={scrollContainerRef} className="flex flex-col gap-3 overflow-y-auto pr-2 scrollbar-thin flex-1 min-h-0">
-              {featuredItems.map((item, index) => (
-                <button
-                  key={item.slug}
-                  onClick={() => goToSlide(index)}
-                  className={`flex items-center gap-4 p-3 rounded-xl text-left transition-all duration-300 ${
-                    index === currentIndex
-                      ? "bg-teal-500/10 border-2 border-teal-500"
-                      : "bg-white border-2 border-transparent hover:border-black/10"
-                  }`}
-                >
-                  {item.image && (
-                    <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover"
-                      />
+                {/* Content */}
+                <div className="p-5 sm:p-6">
+                  {/* Hero Metric Callout */}
+                  {study.heroMetric && (
+                    <div className="flex items-baseline gap-2 mb-3">
+                      <span className="text-2xl sm:text-3xl font-bold text-gradient">
+                        {study.heroMetric.value}
+                      </span>
+                      <span className="text-sm font-medium text-text-secondary">
+                        {study.heroMetric.label}
+                      </span>
                     </div>
                   )}
-                  <div className="flex-1 min-w-0">
-                    <span className={`text-xs font-semibold uppercase tracking-wide ${
-                      item.type === "case-study" ? "text-teal-600" : "text-purple-600"
-                    }`}>
-                      {item.type === "case-study" ? "Case Study" : "Blog"}
+
+                  {/* Industry Badge */}
+                  <div className="mb-3">
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-teal-500/10 text-teal-600">
+                      {study.industry}
                     </span>
-                    <h4 className={`font-medium text-sm line-clamp-2 ${
-                      index === currentIndex ? "text-text-primary" : "text-text-secondary"
-                    }`}>
-                      {item.title}
-                    </h4>
                   </div>
-                  {index === currentIndex && (
-                    <div className="w-1 h-8 bg-teal-500 rounded-full flex-shrink-0" />
-                  )}
-                </button>
-              ))}
-              </div>
 
-              {/* Navigation */}
-              <div className="flex items-center justify-between mt-auto pt-4 border-t border-black/10">
-                <div className="flex gap-2">
-                  <button
-                    onClick={goToPrev}
-                    className="w-10 h-10 rounded-full bg-white border border-black/10 flex items-center justify-center text-text-secondary hover:text-teal-500 hover:border-teal-500 transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  {/* Problem Statement */}
+                  <p className="text-text-secondary text-sm leading-relaxed mb-4 line-clamp-2">
+                    {study.challengeBrief}
+                  </p>
+
+                  {/* CTA */}
+                  <div className="flex items-center text-teal-500 font-medium text-sm group-hover:gap-2 transition-all">
+                    Read the story
+                    <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
-                  </button>
-                  <button
-                    onClick={goToNext}
-                    className="w-10 h-10 rounded-full bg-white border border-black/10 flex items-center justify-center text-text-secondary hover:text-teal-500 hover:border-teal-500 transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
+                  </div>
                 </div>
-                <div className="flex gap-4">
-                  <Link href="/case-studies" className="text-sm text-text-muted hover:text-teal-500 transition-colors">
-                    All Case Studies
-                  </Link>
-                  <Link href="/blog" className="text-sm text-text-muted hover:text-teal-500 transition-colors">
-                    All Posts
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Navigation - only visible on mobile */}
-          <div className="flex lg:hidden items-center justify-between mt-4 pt-4 border-t border-black/10">
-            <div className="flex gap-3">
-              <button
-                onClick={goToPrev}
-                className="w-12 h-12 rounded-full bg-white border border-black/10 flex items-center justify-center text-text-secondary hover:text-teal-500 hover:border-teal-500 transition-colors active:scale-95"
-                aria-label="Previous item"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={goToNext}
-                className="w-12 h-12 rounded-full bg-white border border-black/10 flex items-center justify-center text-text-secondary hover:text-teal-500 hover:border-teal-500 transition-colors active:scale-95"
-                aria-label="Next item"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-            <div className="text-sm text-text-muted">
-              {currentIndex + 1} / {featuredItems.length}
-            </div>
-            <div className="flex gap-4">
-              <Link href="/case-studies" className="text-sm text-text-muted hover:text-teal-500 transition-colors">
-                Case Studies
               </Link>
-              <Link href="/blog" className="text-sm text-text-muted hover:text-teal-500 transition-colors">
-                Blog
-              </Link>
-            </div>
-          </div>
-
-          {/* Progress bar - larger touch targets on mobile */}
-          <div className="mt-4 lg:mt-6 flex gap-1.5 lg:gap-1">
-            {featuredItems.map((_, index) => (
-              <div
-                key={index}
-                className="h-2 lg:h-1 flex-1 rounded-full bg-black/20 overflow-hidden cursor-pointer"
-                onClick={() => goToSlide(index)}
-              >
-                <motion.div
-                  className="h-full bg-teal-500"
-                  initial={{ width: "0%" }}
-                  animate={{
-                    width: index === currentIndex ? "100%" : index < currentIndex ? "100%" : "0%",
-                  }}
-                  transition={{
-                    duration: index === currentIndex && !isPaused ? 5 : 0.3,
-                    ease: "linear",
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* View All Link */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="text-center mt-8"
+        >
+          <Link
+            href="/case-studies"
+            className="inline-flex items-center gap-2 text-text-muted hover:text-teal-500 transition-colors font-medium"
+          >
+            View all case studies
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 
@@ -619,7 +418,7 @@ export default function HomePage() {
       />
 
       {/* 3. Results & Case Studies */}
-      <FeaturedCarousel />
+      <ResultsGrid />
 
       {/* 4. Why Us Section */}
       <section className="section">
