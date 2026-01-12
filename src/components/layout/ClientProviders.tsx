@@ -2,6 +2,7 @@
 
 import { EasterEggsProvider, ScrollProgress } from '@/components/interactive'
 import { ChatWidget } from '@/components/chat'
+import { AnalyticsProvider } from '@/lib/analytics'
 
 interface ClientProvidersProps {
   children: React.ReactNode
@@ -9,11 +10,13 @@ interface ClientProvidersProps {
 
 export function ClientProviders({ children }: ClientProvidersProps) {
   return (
-    <EasterEggsProvider>
-      <ScrollProgress />
-      {children}
-      <ChatWidget />
-    </EasterEggsProvider>
+    <AnalyticsProvider>
+      <EasterEggsProvider>
+        <ScrollProgress />
+        {children}
+        <ChatWidget />
+      </EasterEggsProvider>
+    </AnalyticsProvider>
   )
 }
 

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import TypingIndicator from "./TypingIndicator";
+import { useAnalytics } from "@/lib/analytics";
 
 interface Message {
   id: string;
@@ -30,6 +31,7 @@ export default function ChatWidget() {
   const [nudgeDismissed, setNudgeDismissed] = useState(false);
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { trackChatOpen, trackChatMessage, trackChatLead } = useAnalytics();
 
   // Show nudge after 5 seconds if chat hasn't been opened
   useEffect(() => {
@@ -42,13 +44,14 @@ export default function ChatWidget() {
     return () => clearTimeout(timer);
   }, [nudgeDismissed, isOpen]);
 
-  // Hide nudge when chat opens
+  // Hide nudge when chat opens and track analytics
   useEffect(() => {
     if (isOpen) {
       setShowNudge(false);
       setNudgeDismissed(true);
+      trackChatOpen();
     }
-  }, [isOpen]);
+  }, [isOpen, trackChatOpen]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -77,6 +80,7 @@ export default function ChatWidget() {
     setQuestionCount((prev) => prev + 1);
     setIsLoading(true);
     setError(null);
+    trackChatMessage();
 
     try {
       const response = await fetch("/api/chat", {
