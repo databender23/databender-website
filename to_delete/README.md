@@ -21,6 +21,13 @@ Redundant logo variants (keep `logo-color.png` and `logo-white.png` in `/public/
 - `logo-black.png` - Unused variant
 - `logo-white.jpeg` - Lower quality duplicate of `logo-white.png`
 
+### `/root-cleanup/`
+Files that were cluttering the project root:
+- 6 PDF files - Case study design mockups (~2.4 MB)
+- `DataBender_mainLogo.png` - Duplicate logo (443 KB)
+- `blog.json` - Old data export (209 KB)
+- `_content-style-guide.md` - Draft content guide (15 KB)
+
 ## To Delete
 
 Run this command to remove all files:
