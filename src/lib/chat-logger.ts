@@ -87,8 +87,8 @@ export async function sendConversationDigest(
   messages: ChatMessage[],
   trigger: "limit_reached" | "lead_detected"
 ): Promise<void> {
-  const awsRegion = process.env.AWS_SES_REGION || process.env.AWS_REGION || "us-east-1";
-  const fromEmail = process.env.AWS_SES_FROM_EMAIL || "notifications@databender.co";
+  const awsRegion = process.env.SES_REGION || process.env.AWS_REGION || "us-east-1";
+  const fromEmail = process.env.SES_FROM_EMAIL || "notifications@databender.co";
   const notifyEmail = process.env.CHAT_NOTIFY_EMAIL || "info@databender.co";
 
   // Skip if explicitly disabled
