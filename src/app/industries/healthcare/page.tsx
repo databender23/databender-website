@@ -1,0 +1,621 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { CTA } from "@/components/sections";
+import { Button } from "@/components/ui";
+import { LottieWrapper } from "@/components/animations";
+import { industryContent } from "@/lib/industries-data";
+
+const HEALTHCARE_LOTTIE_URL = "/animations/healthcare-industry.json";
+
+export default function HealthcareIndustryPage() {
+  const [lottieData, setLottieData] = useState<object | null>(null);
+  const content = industryContent["healthcare"];
+
+  useEffect(() => {
+    fetch(HEALTHCARE_LOTTIE_URL)
+      .then((res) => res.json())
+      .then((data) => setLottieData(data))
+      .catch(() => setLottieData(null));
+  }, []);
+
+  return (
+    <>
+      {/* Hero Section */}
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
+        <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
+        <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
+
+        <div className="container mx-auto px-6 relative z-10 pt-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 mb-4"
+              >
+                <Link
+                  href="/industries"
+                  className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
+                >
+                  Industries
+                </Link>
+                <span className="text-text-muted">/</span>
+                <span className="text-teal-500 text-sm font-medium">Healthcare</span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+              >
+                AI for Healthcare That Stays In-House
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
+              >
+                Get paid what you&apos;re worth, stop drowning in paperwork, and use AI
+                without putting patient data at risk. Built for healthcare organizations
+                that need results without compliance headaches.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-wrap gap-4"
+              >
+                <Button variant="primary" size="lg" href="/contact">
+                  Schedule Consultation
+                </Button>
+                <Button variant="secondary" size="lg" href="#price-transparency">
+                  Access Price Transparency Data
+                </Button>
+              </motion.div>
+            </div>
+
+            {lottieData && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex justify-center items-center"
+              >
+                <div className="w-full max-w-md">
+                  <LottieWrapper
+                    animationData={lottieData}
+                    loop={true}
+                    autoplay={true}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Challenges Section */}
+      <section className="section bg-[#F8F9FA]">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            >
+              Sound Familiar?
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl font-bold text-text-primary mb-8"
+            >
+              The problems nobody has solved for you yet
+            </motion.h2>
+
+            <ul className="space-y-4">
+              {content.challenges.map((challenge, index) => (
+                <motion.li
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-start gap-3"
+                >
+                  <svg
+                    className="w-6 h-6 text-error flex-shrink-0 mt-0.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    />
+                  </svg>
+                  <span className="text-text-secondary text-lg">{challenge}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Solutions Section */}
+      <section className="section">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            >
+              What We Build
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl font-bold text-text-primary"
+            >
+              Solutions that actually work in healthcare
+            </motion.h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {content.solutions.map((solution, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 rounded-xl bg-[#F8F9FA] border border-black/10"
+              >
+                <h3 className="text-xl font-semibold text-text-primary mb-3">
+                  {solution.title}
+                </h3>
+                <p className="text-text-secondary">{solution.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Legacy Systems Section */}
+      <section id="legacy-systems" className="section bg-[#F8F9FA] scroll-mt-24">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+                >
+                  Legacy Systems Modernization
+                </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-3xl md:text-4xl font-bold text-text-primary mb-6"
+                >
+                  Your EHR Isn&apos;t Going Anywhere. That&apos;s Fine.
+                </motion.h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="space-y-4 text-text-secondary text-lg"
+                >
+                  <p>
+                    Nobody wants a three-year EHR migration. The disruption, the training,
+                    the risk—it&apos;s rarely worth it. But that legacy system is holding
+                    you back from AI, analytics, and the integrations you actually need.
+                  </p>
+                  <p>
+                    We build a modern data layer on top of what you have. Your systems
+                    stay in place. Data flows out into a unified platform where AI and
+                    analytics can actually work. No rip-and-replace required.
+                  </p>
+                </motion.div>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="bg-white p-8 rounded-2xl border border-black/10"
+              >
+                <h3 className="text-xl font-bold text-text-primary mb-6">
+                  How we connect legacy systems
+                </h3>
+                <ul className="space-y-4">
+                  {[
+                    {
+                      title: "HL7 & FHIR Integration",
+                      description: "We speak the languages your systems speak—connecting to Epic, Cerner, Meditech, and everything in between"
+                    },
+                    {
+                      title: "Unified Data Layer",
+                      description: "Patient, billing, and operational data in one place. Query across systems that were never designed to talk"
+                    },
+                    {
+                      title: "Real-Time & Batch",
+                      description: "Some data needs to flow in real-time. Some can batch overnight. We architect for both."
+                    },
+                    {
+                      title: "Zero Disruption",
+                      description: "Clinical workflows stay exactly the same. The integration layer sits alongside, not inside, your EHR"
+                    },
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <svg
+                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <div>
+                        <span className="font-medium text-text-primary">{item.title}</span>
+                        <p className="text-text-secondary text-sm">{item.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Price Transparency Section */}
+      <section id="price-transparency" className="section scroll-mt-24">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+                >
+                  Competitive Intelligence
+                </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-3xl md:text-4xl font-bold text-text-primary mb-6"
+                >
+                  Know What Everyone Else Gets Paid
+                </motion.h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="space-y-4 text-text-secondary text-lg"
+                >
+                  <p>
+                    Every hospital and insurer now publishes their negotiated rates.
+                    It&apos;s the law. The problem? The files are massive—billions of rows
+                    of data in formats designed to be technically compliant, not actually useful.
+                  </p>
+                  <p>
+                    We&apos;ve built the infrastructure to process these Machine-Readable Files
+                    and turn them into competitive intelligence you can actually use.
+                  </p>
+                </motion.div>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="bg-white p-8 rounded-2xl border border-black/10"
+              >
+                <h3 className="text-xl font-bold text-text-primary mb-6">
+                  What you get
+                </h3>
+                <ul className="space-y-4">
+                  {[
+                    {
+                      title: "Competitor Rate Benchmarks",
+                      description: "See what the hospital down the street gets paid for the same CPT codes"
+                    },
+                    {
+                      title: "Payer-by-Payer Analysis",
+                      description: "Identify which payers are underpaying you relative to market"
+                    },
+                    {
+                      title: "Negotiation Leverage",
+                      description: "Walk into contract talks with data, not guesses"
+                    },
+                    {
+                      title: "Market Positioning",
+                      description: "Understand where you stand on price across your service lines"
+                    },
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <svg
+                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <div>
+                        <span className="font-medium text-text-primary">{item.title}</span>
+                        <p className="text-text-secondary text-sm">{item.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8">
+                  <Button variant="primary" href="/assessments/healthcare-benchmark">
+                    Get Your Market Benchmark
+                  </Button>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI Without Risk Section */}
+      <section id="ai-compliance" className="section bg-[#F8F9FA] scroll-mt-24">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="order-2 lg:order-1"
+              >
+                <div className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-8 rounded-2xl border border-teal-500/20">
+                  <h3 className="text-xl font-bold text-text-primary mb-6">
+                    How it works
+                  </h3>
+                  <ul className="space-y-4">
+                    {[
+                      {
+                        title: "Your servers, your data",
+                        description: "AI models run inside your infrastructure. Nothing goes out."
+                      },
+                      {
+                        title: "No third-party BAAs",
+                        description: "No agreements with OpenAI, no cloud AI vendors in your compliance chain."
+                      },
+                      {
+                        title: "Full audit trails",
+                        description: "Every query logged. See who asked what, when. Compliance loves it."
+                      },
+                      {
+                        title: "You own the models",
+                        description: "Inspect, tune, or retrain. No vendor lock-in, no black boxes."
+                      },
+                    ].map((item, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <svg
+                          className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                          />
+                        </svg>
+                        <div>
+                          <span className="font-medium text-text-primary">{item.title}</span>
+                          <p className="text-text-secondary text-sm">{item.description}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+
+              <div className="order-1 lg:order-2">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+                >
+                  HIPAA-Compliant AI
+                </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-3xl md:text-4xl font-bold text-text-primary mb-6"
+                >
+                  Yes, You Can Use AI. No, Your Data Doesn&apos;t Leave.
+                </motion.h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="space-y-4 text-text-secondary text-lg"
+                >
+                  <p>
+                    Every other AI tool wants your data in their cloud. For healthcare,
+                    that&apos;s a dealbreaker. PHI in someone else&apos;s infrastructure means
+                    BAAs, breach risk, and compliance headaches you don&apos;t need.
+                  </p>
+                  <p>
+                    We deploy AI differently. Local language models that run entirely
+                    within your walls. The capabilities you need without the regulatory exposure.
+                  </p>
+                  <p className="font-medium text-text-primary">
+                    This isn&apos;t AI adapted for healthcare as an afterthought.
+                    It&apos;s AI built for healthcare from day one.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="section">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            >
+              What You Get
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl font-bold text-text-primary"
+            >
+              The outcomes that matter
+            </motion.h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {content.benefits.map((benefit, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 rounded-xl bg-gradient-to-br from-teal-500/5 to-teal-500/10 border border-teal-500/20"
+              >
+                <div className="flex items-start gap-3">
+                  <svg
+                    className="w-6 h-6 text-teal-500 flex-shrink-0 mt-0.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <div>
+                    <h3 className="text-lg font-semibold text-text-primary mb-1">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-text-secondary text-sm">{benefit.description}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="section bg-[#F8F9FA]">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            >
+              Real Applications
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl font-bold text-text-primary"
+            >
+              What this looks like in practice
+            </motion.h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {content.useCases.map((useCase, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 rounded-xl bg-[#F8F9FA] border border-black/10"
+              >
+                <h3 className="text-xl font-semibold text-text-primary mb-3">
+                  {useCase.title}
+                </h3>
+                <p className="text-text-secondary">{useCase.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <CTA
+        title="Ready to see what's possible?"
+        description="Schedule a consultation to discuss your specific challenges, or access price transparency data for your market."
+        primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
+        secondaryCta={{ label: "Access Price Data", href: "/assessments/healthcare-benchmark" }}
+        variant="gradient"
+      />
+    </>
+  );
+}

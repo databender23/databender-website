@@ -154,6 +154,11 @@ export const services: ConsolidatedService[] = [
         description: "AI-powered extraction from contracts, invoices, medical records, and legal documents. Structured data from unstructured documents at scale.",
         icon: "book",
       },
+      {
+        title: "Staff AI Augmentation",
+        description: "Implement new processes and improve current ones to reduce repetitive work for employees, allowing you to do more with less.",
+        icon: "lightbulb",
+      },
     ],
     benefits: [
       { title: "Plain English Queries", description: "Anyone can ask questions and get accurate answers." },

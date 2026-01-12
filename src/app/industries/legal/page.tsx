@@ -88,7 +88,7 @@ export default function LegalIndustryPage() {
                 transition={{ delay: 0.1 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
               >
-                Data & AI Solutions for Law Firms
+                AI for Law Firms That Stays Inside Your Walls
               </motion.h1>
 
               <motion.p
@@ -97,9 +97,9 @@ export default function LegalIndustryPage() {
                 transition={{ delay: 0.2 }}
                 className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
               >
-                Transform how your firm manages knowledge, wins new business, and
-                multiplies associate productivity. Custom solutions for firms that
-                want results, not more software.
+                Your associates spend 60% of their time on work that doesn&apos;t need
+                a law degree. We fix that with AI that never touches third-party clouds.
+                Client files stay on your servers. Privilege stays intact.
               </motion.p>
 
               <motion.div
@@ -198,8 +198,107 @@ export default function LegalIndustryPage() {
         </div>
       </section>
 
+      {/* AI Privacy Section */}
+      <section className="section">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+                >
+                  Privacy-First AI
+                </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-3xl md:text-4xl font-bold text-text-primary mb-6"
+                >
+                  AI Without the Ethics Headache
+                </motion.h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="space-y-4 text-text-secondary text-lg"
+                >
+                  <p>
+                    Client data in OpenAI&apos;s cloud? Good luck explaining that to the
+                    partnership. Privileged communications running through third-party
+                    servers? The ethics committee will have questions.
+                  </p>
+                  <p>
+                    We deploy AI differently. Local models that run entirely within your
+                    infrastructure. Client files never leave your walls. Attorney-client
+                    privilege stays intact.
+                  </p>
+                </motion.div>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-8 rounded-2xl border border-teal-500/20"
+              >
+                <h3 className="text-xl font-bold text-text-primary mb-6">
+                  How it works
+                </h3>
+                <ul className="space-y-4">
+                  {[
+                    {
+                      title: "Your servers only",
+                      description: "AI models run inside your infrastructure. Nothing goes to external APIs."
+                    },
+                    {
+                      title: "No cloud dependencies",
+                      description: "No OpenAI, no Azure AI, no third-party processors in your data chain."
+                    },
+                    {
+                      title: "Full audit trails",
+                      description: "Every query logged. See who asked what, when. Compliance and ethics covered."
+                    },
+                    {
+                      title: "You control the models",
+                      description: "Inspect, tune, or retrain. No vendor lock-in, no black boxes."
+                    },
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <svg
+                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                        />
+                      </svg>
+                      <div>
+                        <span className="font-medium text-text-primary">{item.title}</span>
+                        <p className="text-text-secondary text-sm">{item.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Custom Audits Section */}
-      <section id="audits" className="section scroll-mt-24">
+      <section id="audits" className="section bg-[#F8F9FA] scroll-mt-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <motion.p
@@ -415,33 +514,33 @@ export default function LegalIndustryPage() {
             {[
               {
                 title: "Knowledge Management",
-                description: "AI-powered search across matters, documents, and emails. Surface relevant precedents and expertise instantly.",
+                description: "Ask a question, get the precedent. AI searches every matter, document, and email you've ever touched. Finds the relevant clause in seconds.",
                 icon: "search",
               },
               {
+                title: "Document Intelligence",
+                description: "AI reads contracts, extracts key terms, flags issues. What took a first-year associate 10 hours takes 10 minutes.",
+                icon: "book",
+              },
+              {
                 title: "Client Intelligence",
-                description: "360-degree view of client relationships across all partners. Spot expansion opportunities and risks early.",
+                description: "See every touchpoint across every partner. Spot who's growing, who's at risk, and who hasn't heard from you in six months.",
                 icon: "users",
               },
               {
-                title: "Business Development",
-                description: "Competitive intelligence, pitch automation, and win/loss analytics to close more business.",
-                icon: "trending",
+                title: "Agentic Research",
+                description: "Point AI at a legal question. It searches case law, synthesizes holdings, and delivers a memo with citations. Research that used to take days.",
+                icon: "brain",
               },
               {
-                title: "Associate Productivity",
-                description: "AI-assisted research, drafting, and review tools that multiply output without adding headcount.",
+                title: "Associate Multiplier",
+                description: "First drafts in minutes. AI handles the boilerplate, associates handle the judgment calls. Same quality, half the hours.",
                 icon: "zap",
               },
               {
                 title: "Matter Analytics",
-                description: "Real-time visibility into matter profitability, budgets, and resource allocation.",
+                description: "Real-time visibility into matter profitability, budget burn, and resource allocation. Know which matters make money before they close.",
                 icon: "chart",
-              },
-              {
-                title: "Integration Hub",
-                description: "Connect your DMS, billing, CRM, and practice tools into a unified platform.",
-                icon: "link",
               },
             ].map((solution, index) => (
               <motion.div
@@ -464,7 +563,7 @@ export default function LegalIndustryPage() {
 
       {/* CTA */}
       <CTA
-        title="Ready to transform your firm?"
+        title="Ready to see what's possible?"
         description="Request a custom audit or schedule a consultation to discuss your specific challenges."
         primaryCta={{ label: "Request Audit", href: "#audits" }}
         secondaryCta={{ label: "Schedule Consultation", href: "/contact" }}

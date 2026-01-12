@@ -226,7 +226,7 @@ export const blogPosts: BlogPost[] = [
 
 <hr/>
 
-<p><em>We've built a <a href="/assessments/manufacturing">5-minute assessment</a> specifically for scale-up manufacturers trying to figure out if their data is ready for this kind of prioritization. No sales pitch at the end. Just a diagnostic and some practical next steps.</em></p>`,
+<p><em>We've built a <a href="/assessments/manufacturing">5-minute assessment</a> for scale-up manufacturers trying to figure out if their data is ready for this kind of prioritization. No sales pitch at the end. Just a diagnostic and some practical next steps.</em></p>`,
     author: "Databender Team",
     publishedAt: "2026-01-11",
     updatedAt: "2026-01-11",
