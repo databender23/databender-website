@@ -59,35 +59,45 @@ export async function updateSession(session: Partial<Session> & { sessionId: str
 }
 
 export async function getEventsForDate(date: string): Promise<TrackedEvent[]> {
-  const client = getClient();
+  try {
+    const client = getClient();
 
-  const result = await client.send(
-    new QueryCommand({
-      TableName: EVENTS_TABLE,
-      KeyConditionExpression: "pk = :pk",
-      ExpressionAttributeValues: {
-        ":pk": `EVENT#${date}`,
-      },
-    })
-  );
+    const result = await client.send(
+      new QueryCommand({
+        TableName: EVENTS_TABLE,
+        KeyConditionExpression: "pk = :pk",
+        ExpressionAttributeValues: {
+          ":pk": `EVENT#${date}`,
+        },
+      })
+    );
 
-  return (result.Items || []) as TrackedEvent[];
+    return (result.Items || []) as TrackedEvent[];
+  } catch (error) {
+    console.error(`DynamoDB getEventsForDate error for ${date}:`, error);
+    return [];
+  }
 }
 
 export async function getSessionsForDate(date: string): Promise<Session[]> {
-  const client = getClient();
+  try {
+    const client = getClient();
 
-  const result = await client.send(
-    new QueryCommand({
-      TableName: SESSIONS_TABLE,
-      KeyConditionExpression: "pk = :pk",
-      ExpressionAttributeValues: {
-        ":pk": `SESSION#${date}`,
-      },
-    })
-  );
+    const result = await client.send(
+      new QueryCommand({
+        TableName: SESSIONS_TABLE,
+        KeyConditionExpression: "pk = :pk",
+        ExpressionAttributeValues: {
+          ":pk": `SESSION#${date}`,
+        },
+      })
+    );
 
-  return (result.Items || []) as Session[];
+    return (result.Items || []) as Session[];
+  } catch (error) {
+    console.error(`DynamoDB getSessionsForDate error for ${date}:`, error);
+    return [];
+  }
 }
 
 export async function getEventsForDateRange(startDate: string, endDate: string): Promise<TrackedEvent[]> {
