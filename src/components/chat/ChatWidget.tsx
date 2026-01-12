@@ -15,7 +15,7 @@ interface Message {
 const INITIAL_MESSAGE: Message = {
   id: "welcome",
   role: "assistant",
-  content: "Hi! I'm the DataBender assistant. I can help you learn about our data and AI services, answer questions, or schedule a consultation. How can I help you today?",
+  content: "Hi! I'm the Databender assistant. I can help you learn about our data and AI services, answer questions, or schedule a consultation. How can I help you today?",
 };
 
 const MAX_QUESTIONS = 10;
@@ -237,7 +237,7 @@ export default function ChatWidget() {
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold">DataBender Assistant</h3>
+                <h3 className="font-semibold">Databender Assistant</h3>
                 <p className="text-xs text-white/80">Ask me anything about our services</p>
               </div>
             </div>

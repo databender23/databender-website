@@ -278,6 +278,11 @@ export default function ResourcesPage() {
                       </span>
                     </div>
 
+                    {/* Title */}
+                    <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-teal-600 transition-colors">
+                      {study.title}
+                    </h3>
+
                     {/* Problem Statement */}
                     <p className="text-text-secondary text-sm leading-relaxed mb-4 line-clamp-2">
                       {study.challengeBrief}

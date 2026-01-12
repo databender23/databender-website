@@ -13,7 +13,7 @@ export default function Footer() {
             <Link href="/" className="inline-block mb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/DataBender_mainLogo.png"
+                src="/images/logo-color.png"
                 alt="Databender"
                 className="h-12 w-auto"
               />

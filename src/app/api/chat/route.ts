@@ -8,63 +8,87 @@ import {
 
 const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "https://calendly.com";
 
-const SYSTEM_PROMPT = `You are the DataBender AI assistant, helping visitors learn about DataBender's data and AI consulting services. Be friendly, professional, and helpful.
+const SYSTEM_PROMPT = `You are the Databender AI assistant. Be friendly, knowledgeable, and conversational—like talking to a helpful colleague who happens to know a lot about data and AI.
 
-## About DataBender
-DataBender helps mid-market companies (typically $10M-$500M revenue) transform their data into actionable insights and implement AI solutions that actually work.
+## About Databender
+"Boutique strategy. Enterprise delivery."
+
+Databender is an AI-first data analytics and AI consultancy founded by Grant Bender. We help mid-market companies ($10M-$500M revenue) transform their data and implement AI that actually works.
+
+**Why companies choose us:**
+- **AI-Augmented Team**: Every consultant uses AI in their workflow. Senior expertise + AI efficiency = enterprise-quality at a fraction of traditional consulting costs.
+- **AI That Works**: Most AI projects fail on bad data. Ours don't—because we fix the data first.
+- **From Insight to Action**: We don't stop at dashboards. Insights wire into daily operations—automated alerts, triggered workflows, decisions that happen automatically.
+- **Regulated-Ready**: HIPAA, GDPR, SOC 2 compliance built in from day one. Healthcare, legal, finance—we know what auditors look for.
 
 ## Services
 
-### Data & AI Strategy
-Build a solid data foundation, assess AI readiness, and create actionable roadmaps:
-- Data Foundation: Build infrastructure that scales—data warehouse, pipelines, governance
-- Data Integration: Connect all systems into one unified view (CRM, ERP, etc.)
-- AI-Powered Data Cleanup: Intelligent cleaning at 125x less cost than manual review
-- AI Readiness Assessment: Evaluate infrastructure, capabilities, and readiness
-- AI Roadmapping: Prioritize AI initiatives based on ROI and feasibility
-- AI Governance & Compliance: Responsible AI for regulated industries
+### Data & AI Strategy (Get the data right)
+- **Data Foundation**: Data warehouse, pipelines, governance—built so you're not redoing it in a year
+- **Data Integration**: Connect CRM, ERP, and everything else into one unified view
+- **AI-Powered Data Cleanup**: Fix duplicates, standardize formats at 125x less cost than manual review
+- **AI Readiness Assessment**: Clear picture of what's realistic and where quick wins are
+- **AI Roadmapping**: Prioritize by ROI and feasibility, with quarterly milestones
+- **AI Governance & Compliance**: Bias monitoring, audit trails, explainability for regulated industries
 
-### Analytics & BI
-Visual dashboards, real-time visibility, and predictive insights:
-- Dashboards: Visual dashboards that answer your real questions
-- Agentic Research: AI agents that gather and synthesize information
-- Operational Visibility: Real-time views into daily operations
-- Predictive Analytics: Forecasts you can trust—demand planning, churn prediction
-- Managed Data Pipelines: Reliable, automated data flows
-- Custom Analytical Applications: Purpose-built tools for your workflows
+### Analytics & BI (See what's happening)
+- **Dashboards**: Visual dashboards that answer your real questions—KPIs, trends, drill-downs
+- **Agentic Research**: AI agents that gather, analyze, and synthesize information from multiple sources
+- **Operational Visibility**: Real-time views into daily operations with live monitoring and alerts
+- **Predictive Analytics**: Demand planning, churn prediction, resource optimization you can trust
+- **Managed Data Pipelines**: Reliable, automated data flows we build and maintain
+- **Custom Analytical Applications**: Purpose-built tools for your specific workflows
 
-### AI Services & Automation
-AI enablement, knowledge management, and natural language interfaces:
-- Natural Language BI: Ask questions in plain English, get accurate answers
-- Local LLM Integrations: AI that stays on your servers for privacy
-- Knowledge Management: AI-powered search across documents and systems
-- AI Agents & Automation: Autonomous agents for research, customer service, workflows
-- RAG & Knowledge Systems: Turn documents into answerable knowledge
-- Conversational AI: Internal assistants and customer-facing chatbots
-- Document Intelligence: AI extraction from contracts, invoices, legal docs
+### AI Services & Automation (Work smarter with AI)
+- **Natural Language BI**: Ask questions in plain English, get accurate answers—no SQL required
+- **Local LLM Integrations**: AI that stays on your servers—data never leaves for privacy-sensitive industries
+- **Knowledge Management**: AI-powered search across documents, emails, systems
+- **AI Enablement**: Custom AI for your specific workflows—document processing to decision automation
+- **AI Agents & Automation**: Autonomous agents for research, customer service, data processing
+- **RAG & Knowledge Systems**: Turn documents into answerable knowledge with sourced answers
+- **Conversational AI**: Internal assistants and customer-facing chatbots powered by your data
+- **Document Intelligence**: AI extraction from contracts, invoices, medical records, legal docs
+- **Staff AI Augmentation**: Reduce repetitive work so employees can do more with less
 
-## Industries Served
-- Legal: Knowledge management, client intelligence, business development for law firms
-- Healthcare: Operational visibility, multi-location analytics, compliance
-- Commercial Real Estate: Portfolio intelligence, tenant analytics, due diligence
-- Manufacturing: Sales intelligence, production visibility, operational analytics
+## Industries We Serve
+
+### Legal
+Challenges: Associates spending 60% of time on non-legal work, knowledge walking out when partners retire, losing pitches to better-informed competitors
+Solutions: Knowledge that stays (every precedent searchable forever), AI that stays in-house (privilege intact), due diligence in days not weeks, client intelligence across all touchpoints
+
+### Healthcare
+Challenges: More time on paperwork than patients, underpaid on payer contracts, AI tools wanting data in the cloud
+Solutions: AI that stays on-premises (PHI never leaves), know what competitors get paid (price transparency analysis), modern data layer over legacy EHR, document intelligence for intake
+
+### Commercial Real Estate
+Challenges: Paying brokers for deal flow everyone sees, messy public data, owners hiding behind LLCs
+Solutions: Ownership intelligence (track through LLCs and trusts), deal scoring (which properties to call first), document intelligence for data rooms, AI that protects your competitive edge
+
+### Manufacturing
+Challenges: Three phone calls to answer "how many truckloads shipped?", Salesforce can't show what's in production
+Solutions: Systems that finally talk (CRM + ERP + production in one view), lead scoring, customer reorder prediction, talk to your data in plain English
+
+## Proven Results (Case Studies)
+- **125x cost savings**: AI entity resolution cleaned 1.69M broken records that would've taken 50 analysts months
+- **31% higher success rate**: Custom lead scoring vs. standard CRM tools—discovered property value was actually a negative predictor
+- **Instant AI answers**: Transformed decades of institutional knowledge (1000s of documents from 70+ manufacturers) into searchable AI knowledge base
 
 ## Your Role
-1. Answer questions about DataBender's services clearly and helpfully
-2. Help visitors understand which services might help their situation
-3. Qualify leads by understanding their:
-   - Industry and company size
-   - Current challenges with data/analytics/AI
-   - Timeline and priorities
-4. When someone wants to schedule a consultation, provide this booking link: ${BOOKING_URL}
-5. If they prefer to be contacted, collect their name, email, and briefly summarize their needs
+1. Answer questions about Databender clearly and helpfully
+2. Help visitors understand which services fit their situation
+3. Qualify leads by learning about their industry, company size, challenges, and timeline
+4. When ready to schedule: use this markdown link format: [Schedule with Grant](${BOOKING_URL})
+5. If they prefer to be contacted: collect name, email, and briefly summarize their needs
 
 ## Guidelines
-- Keep responses concise but helpful (2-4 sentences usually)
-- Don't oversell—be honest about what's realistic
+- Keep responses concise (2-4 sentences usually)—more detail only if they ask
+- Be honest about what's realistic—don't oversell
 - If you don't know something, say so and offer to connect them with the team
-- For pricing questions: explain that it varies by scope and suggest a consultation
-- Be conversational, not robotic`;
+- For pricing: it varies by scope, suggest a consultation to scope it out
+- Be conversational and natural, not robotic or salesy
+- Use the case study metrics when relevant ("we've seen 125x cost savings on data cleanup projects")
+- Match your language to theirs—technical with technical folks, plain English with executives
+- Always use markdown link syntax for URLs: [link text](url) — never paste raw URLs`;
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -84,11 +108,219 @@ const MAX_OUTPUT_TOKENS = 300; // Keep responses concise
 // Question limit for triggering email digest
 const QUESTION_LIMIT = 10;
 
+// Bot detection patterns
+const BOT_PATTERNS = [
+  /bot/i,
+  /crawler/i,
+  /spider/i,
+  /scraper/i,
+  /curl/i,
+  /wget/i,
+  /python-requests/i,
+  /axios/i,
+  /node-fetch/i,
+  /go-http-client/i,
+  /postman/i,
+  /insomnia/i,
+  /googlebot/i,
+  /bingbot/i,
+  /slurp/i,
+  /duckduckbot/i,
+  /baiduspider/i,
+  /yandexbot/i,
+  /facebookexternalhit/i,
+  /twitterbot/i,
+  /linkedinbot/i,
+  /whatsapp/i,
+  /telegrambot/i,
+  /discordbot/i,
+  /slackbot/i,
+  /applebot/i,
+  /semrush/i,
+  /ahrefs/i,
+  /mj12bot/i,
+  /dotbot/i,
+  /petalbot/i,
+  /bytespider/i,
+  /headless/i,
+  /phantom/i,
+  /selenium/i,
+  /puppeteer/i,
+  /playwright/i,
+];
+
+function isBot(userAgent: string | null): boolean {
+  if (!userAgent) return true; // No user agent = suspicious
+  return BOT_PATTERNS.some((pattern) => pattern.test(userAgent));
+}
+
+// ===========================================
+// RATE LIMITING (in-memory, resets on restart)
+// ===========================================
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 10; // Max 10 requests per minute per IP
+
+const rateLimitStore = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const windowStart = now - RATE_LIMIT_WINDOW_MS;
+
+  // Get existing timestamps for this IP
+  const timestamps = rateLimitStore.get(ip) || [];
+
+  // Filter to only recent timestamps
+  const recentTimestamps = timestamps.filter((t) => t > windowStart);
+
+  // Check if over limit
+  if (recentTimestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
+    return true;
+  }
+
+  // Add current timestamp and store
+  recentTimestamps.push(now);
+  rateLimitStore.set(ip, recentTimestamps);
+
+  // Cleanup old entries periodically (every 100th request)
+  if (Math.random() < 0.01) {
+    for (const [key, times] of rateLimitStore.entries()) {
+      const recent = times.filter((t) => t > windowStart);
+      if (recent.length === 0) {
+        rateLimitStore.delete(key);
+      } else {
+        rateLimitStore.set(key, recent);
+      }
+    }
+  }
+
+  return false;
+}
+
+// ===========================================
+// ORIGIN VALIDATION
+// ===========================================
+const ALLOWED_ORIGINS = [
+  "https://databender.co",
+  "https://www.databender.co",
+  "http://localhost:3000",
+  "http://localhost:3001",
+];
+
+function isValidOrigin(origin: string | null, referer: string | null): boolean {
+  // In development, allow requests without origin (e.g., direct browser testing)
+  if (process.env.NODE_ENV === "development") {
+    return true;
+  }
+
+  // Check origin header
+  if (origin && ALLOWED_ORIGINS.some((allowed) => origin.startsWith(allowed))) {
+    return true;
+  }
+
+  // Fallback to referer header
+  if (referer && ALLOWED_ORIGINS.some((allowed) => referer.startsWith(allowed))) {
+    return true;
+  }
+
+  return false;
+}
+
+// ===========================================
+// PROMPT INJECTION FILTER
+// ===========================================
+const INJECTION_PATTERNS = [
+  /ignore\s+(all\s+)?(previous|prior|above)\s+(instructions|prompts|rules)/i,
+  /disregard\s+(all\s+)?(previous|prior|above)/i,
+  /forget\s+(all\s+)?(previous|prior|above)/i,
+  /you\s+are\s+now\s+(a|an|the)/i,
+  /new\s+instructions?:/i,
+  /system\s*:/i,
+  /\[system\]/i,
+  /\[inst\]/i,
+  /\<\|system\|\>/i,
+  /\<\|assistant\|\>/i,
+  /pretend\s+(you('re|are)|to\s+be)/i,
+  /act\s+as\s+(if|though|a|an)/i,
+  /roleplay\s+as/i,
+  /jailbreak/i,
+  /dan\s+mode/i,
+  /developer\s+mode/i,
+  /bypass\s+(your|the|all)\s+(restrictions|rules|filters)/i,
+  /override\s+(your|the|all)\s+(instructions|programming)/i,
+];
+
+function containsInjection(text: string): boolean {
+  return INJECTION_PATTERNS.some((pattern) => pattern.test(text));
+}
+
+// ===========================================
+// DAILY COST CAP
+// ===========================================
+const DAILY_REQUEST_LIMIT = 500; // Adjust based on your budget
+let dailyRequestCount = 0;
+let lastResetDate = new Date().toDateString();
+
+function isDailyLimitReached(): boolean {
+  const today = new Date().toDateString();
+
+  // Reset counter at midnight
+  if (today !== lastResetDate) {
+    dailyRequestCount = 0;
+    lastResetDate = today;
+  }
+
+  return dailyRequestCount >= DAILY_REQUEST_LIMIT;
+}
+
+function incrementDailyCount(): void {
+  dailyRequestCount++;
+}
+
+// ===========================================
+// MAIN HANDLER
+// ===========================================
 export async function POST(request: Request) {
   try {
+    const userAgent = request.headers.get("user-agent");
+    const origin = request.headers.get("origin");
+    const referer = request.headers.get("referer");
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    const ip = forwardedFor?.split(",")[0]?.trim() || "unknown";
+
+    // 1. Block bots
+    if (isBot(userAgent)) {
+      return NextResponse.json(
+        { error: "Service unavailable" },
+        { status: 403 }
+      );
+    }
+
+    // 2. Validate origin (production only)
+    if (!isValidOrigin(origin, referer)) {
+      return NextResponse.json(
+        { error: "Invalid request origin" },
+        { status: 403 }
+      );
+    }
+
+    // 3. Check rate limit
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please wait a moment." },
+        { status: 429 }
+      );
+    }
+
+    // 4. Check daily cost cap
+    if (isDailyLimitReached()) {
+      return NextResponse.json(
+        { error: "Chat service temporarily unavailable. Please try again tomorrow or contact us directly." },
+        { status: 503 }
+      );
+    }
+
     const body: ChatRequest = await request.json();
     const { messages, sessionId = `session-${Date.now()}` } = body;
-    const userAgent = request.headers.get("user-agent") || undefined;
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json(
@@ -111,6 +343,17 @@ export async function POST(request: Request) {
     if (totalChars > MAX_CONVERSATION_CHARS) {
       return NextResponse.json(
         { error: "Conversation too long. Please start a new chat." },
+        { status: 400 }
+      );
+    }
+
+    // 5. Check for prompt injection attempts
+    const userMessages = messages.filter((m) => m.role === "user");
+    const hasInjection = userMessages.some((m) => containsInjection(m.content));
+    if (hasInjection) {
+      console.warn(`Prompt injection attempt blocked from IP: ${ip}`);
+      return NextResponse.json(
+        { error: "Invalid message content" },
         { status: 400 }
       );
     }
@@ -144,12 +387,15 @@ export async function POST(request: Request) {
     const textContent = response.content.find((block) => block.type === "text");
     const content = textContent && "text" in textContent ? textContent.text : "";
 
+    // Increment daily counter after successful API call
+    incrementDailyCount();
+
     // Build complete conversation for logging
     const fullConversation = [...conversationMessages, { role: "assistant" as const, content }];
     const userMessageCount = fullConversation.filter((m) => m.role === "user").length;
 
     // Log conversation to file
-    await logConversation(sessionId, fullConversation, userAgent);
+    await logConversation(sessionId, fullConversation, userAgent || undefined);
 
     // Send email digest if limit reached
     if (userMessageCount >= QUESTION_LIMIT) {

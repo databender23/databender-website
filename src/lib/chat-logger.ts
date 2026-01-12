@@ -109,7 +109,7 @@ export async function sendConversationDigest(
         : `Potential Lead Detected in Chat`;
 
     await resend.emails.send({
-      from: "DataBender Chat <notifications@databender.co>",
+      from: "Databender Chat <notifications@databender.co>",
       to: [notifyEmail],
       subject,
       html: `

@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export interface ChatMessageProps {
   role: "user" | "assistant";
@@ -41,10 +43,34 @@ export default function ChatMessage({ role, content }: ChatMessageProps) {
                 />
               </svg>
             </div>
-            <span className="text-xs font-medium text-teal-600">DataBender</span>
+            <span className="text-xs font-medium text-teal-600">Databender</span>
           </div>
         )}
-        <p className="text-sm leading-relaxed whitespace-pre-wrap">{content}</p>
+        {isUser ? (
+          <p className="text-sm leading-relaxed whitespace-pre-wrap">{content}</p>
+        ) : (
+          <div className="text-sm leading-relaxed chat-markdown">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                em: ({ children }) => <em className="italic">{children}</em>,
+                ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
+                li: ({ children }) => <li className="ml-1">{children}</li>,
+                a: ({ href, children }) => (
+                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-teal-600 underline hover:text-teal-700">
+                    {children}
+                  </a>
+                ),
+                code: ({ children }) => <code className="bg-black/10 px-1 py-0.5 rounded text-xs">{children}</code>,
+              }}
+            >
+              {content}
+            </ReactMarkdown>
+          </div>
+        )}
       </div>
     </motion.div>
   );

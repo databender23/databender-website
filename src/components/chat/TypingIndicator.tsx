@@ -22,7 +22,7 @@ export default function TypingIndicator() {
               />
             </svg>
           </div>
-          <span className="text-xs font-medium text-teal-600">DataBender</span>
+          <span className="text-xs font-medium text-teal-600">Databender</span>
         </div>
         <div className="flex items-center gap-1 h-5">
           {[0, 1, 2].map((i) => (
