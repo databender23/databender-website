@@ -84,7 +84,7 @@ export default function IndustriesPage() {
                 transition={{ delay: 0.2 }}
                 className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
               >
-                We&apos;ve solved data problems across healthcare, legal, real estate, and manufacturing. That cross-industry experience means we bring proven approaches—not experiments.
+                We&apos;ve solved data problems across healthcare, legal, real estate, and manufacturing. That cross-industry experience means we bring proven approaches, not experiments.
               </motion.p>
 
               <motion.div

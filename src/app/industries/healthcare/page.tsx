@@ -63,8 +63,8 @@ export default function HealthcareIndustryPage() {
                 className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
               >
                 Years of clinical knowledge locked in documents. AI that finally
-                understands them—reading prior auths, clinical protocols, and policy
-                manuals—without your data leaving the building.
+                understands them (reading prior auths, clinical protocols, and policy
+                manuals) without your data leaving the building.
               </motion.p>
 
               <motion.div
@@ -220,7 +220,7 @@ export default function HealthcareIndustryPage() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  AI That Reads Like Your Best Staff—At Scale
+                  AI That Reads Like Your Best Staff, At Scale
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -237,7 +237,7 @@ export default function HealthcareIndustryPage() {
                   <p>
                     We built Document Intelligence that transforms unstructured documents
                     into an AI-ready knowledge base. Now AI can search, answer questions,
-                    and power workflows—using your organization&apos;s own data.
+                    and power workflows, all using your organization&apos;s own data.
                   </p>
                 </motion.div>
                 <motion.div
@@ -394,8 +394,8 @@ export default function HealthcareIndustryPage() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Every healthcare organization has decades of institutional knowledge—
-                    clinical protocols, policy decisions, operational expertise—trapped in
+                    Every healthcare organization has decades of institutional knowledge:
+                    clinical protocols, policy decisions, operational expertise. It&apos;s trapped in
                     documents, systems, and people&apos;s heads.
                   </p>
                   <p>
@@ -447,7 +447,7 @@ export default function HealthcareIndustryPage() {
                 >
                   <p>
                     Nobody wants a three-year EHR migration. The disruption, the training,
-                    the risk—it&apos;s rarely worth it. But that legacy system is holding
+                    the risk. It&apos;s rarely worth it. But that legacy system is holding
                     you back from AI, analytics, and the integrations you actually need.
                   </p>
                   <p>
@@ -472,7 +472,7 @@ export default function HealthcareIndustryPage() {
                   {[
                     {
                       title: "HL7 & FHIR Integration",
-                      description: "We speak the languages your systems speak—connecting to Epic, Cerner, Meditech, and everything in between"
+                      description: "We speak the languages your systems speak, connecting to Epic, Cerner, Meditech, and everything in between"
                     },
                     {
                       title: "Unified Data Layer",

@@ -101,7 +101,7 @@ export default function LegalIndustryPage() {
               >
                 Your associates spend 60% of their time on work that doesn&apos;t need
                 a law degree. We deploy autonomous AI agents that handle document review,
-                due diligence, and research at a fraction of the cost—while keeping
+                due diligence, and research at a fraction of the cost, while keeping
                 client files on your servers and privilege intact.
               </motion.p>
 
@@ -432,7 +432,7 @@ export default function LegalIndustryPage() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto"
             >
-              Practical insights you can use today. No fluff, no sales pitches—just
+              Practical insights you can use today. No fluff, no sales pitches, just
               actionable strategies from firms that have done it.
             </motion.p>
           </div>
@@ -579,7 +579,7 @@ export default function LegalIndustryPage() {
                 metric: "31%",
                 label: "Higher Success",
                 title: "Data-Driven Discovery",
-                description: "Testing assumptions against actual outcomes. Find what really predicts success—not what you think does.",
+                description: "Testing assumptions against actual outcomes. Find what really predicts success, not what you think does.",
                 href: "/case-studies/what-predicts-lead-conversion",
               },
             ].map((item, index) => (
