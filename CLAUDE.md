@@ -151,8 +151,42 @@ To add/update environment variables:
 
 - All client components use `"use client"` directive
 - Animations use Framer Motion (`motion.div`, `AnimatePresence`)
-- Lottie animations loaded via URL fetch, rendered with `lottie-react`
+- Lottie animations use optimized `LottieWrapper` component (see below)
 - Forms follow controlled input pattern with useState
+
+### Lottie Animation System
+
+All Lottie animations use the optimized `LottieWrapper` component (`src/components/animations/LottieWrapper.tsx`), NOT raw `lottie-react`.
+
+**Key components:**
+- `LottieWrapper` - Core optimized component using `@lottiefiles/dotlottie-react`
+- `ResponsiveAnimation` - Wrapper with sensible defaults for hero animations
+
+**Optimizations built-in:**
+- Auto-converts `.json` URLs to compressed `.lottie` format (~50% smaller)
+- Lazy loading via intersection observer
+- Mobile optimizations: 0.5x speed, freezes after first loop, disabled frame interpolation
+- Respects `prefers-reduced-motion` accessibility setting
+- Priority preloading for hero animations
+
+**Usage:**
+```tsx
+// Preferred - use ResponsiveAnimation for page heroes
+<ResponsiveAnimation
+  lottieUrl="/animations/hero-data.json"
+  className="w-full aspect-square"
+/>
+
+// Direct usage when you need more control
+<LottieWrapper
+  animationUrl="/animations/data-management.json"
+  speed={1.3}
+  priority={true}
+  mobileOptimized={true}
+/>
+```
+
+**Animation files:** Both `.json` (source) and `.lottie` (compressed) versions in `public/animations/`. The component auto-selects `.lottie` for smaller file sizes.
 
 ### Dynamic Routes
 

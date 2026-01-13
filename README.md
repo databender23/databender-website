@@ -6,9 +6,11 @@ Marketing website for DataBender, a boutique data analytics and AI consulting fi
 
 - **Framework**: Next.js 16 (App Router)
 - **UI**: React 19, Tailwind CSS 4
-- **Animations**: Framer Motion, Lottie
+- **Animations**: Framer Motion, Lottie (DotLottie format)
 - **AI Chat**: Claude API (Anthropic)
-- **Email**: Resend
+- **Email**: AWS SES
+- **Hosting**: AWS Amplify
+- **Database**: AWS DynamoDB (analytics)
 
 ## Quick Start
 
@@ -51,7 +53,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 │   └── types/                 # TypeScript definitions
 ├── public/
 │   ├── images/               # Static images
-│   └── animations/           # Lottie JSON files
+│   └── animations/           # Lottie files (.json source, .lottie compressed)
 ├── docs/                      # Development documentation
 └── CLAUDE.md                  # AI assistant instructions
 ```
@@ -62,9 +64,16 @@ Create a `.env.local` file:
 
 ```env
 ANTHROPIC_API_KEY=         # Required for AI chatbot
-RESEND_API_KEY=            # Optional: email notifications
-CHAT_NOTIFY_EMAIL=         # Optional: email for chat digests
 NEXT_PUBLIC_BOOKING_URL=   # Calendar booking link
+
+# AWS Services (optional for local dev)
+SES_FROM_EMAIL=            # AWS SES sender email
+SES_REGION=                # AWS SES region (us-east-1)
+DYNAMODB_REGION=           # DynamoDB region (us-east-1)
+
+# Notifications (optional)
+CHAT_NOTIFY_EMAIL=         # Email for chat digests
+SLACK_WEBHOOK_URL=         # Slack webhook for alerts
 ```
 
 ## Key Features
@@ -87,15 +96,6 @@ NEXT_PUBLIC_BOOKING_URL=   # Calendar booking link
 - Case studies have custom pages in `src/app/case-studies/[name]/`
 - Blog content is in `src/lib/blog-data.ts`
 - Navigation structure is in `src/lib/navigation.ts`
-
-## Cleanup
-
-Files staged for deletion are in `/to_delete/`. See `to_delete/README.md` for details.
-
-To remove:
-```bash
-rm -rf to_delete/
-```
 
 ## License
 
