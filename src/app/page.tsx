@@ -1,14 +1,14 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { Hero, Features, CTA } from "@/components/sections";
 import { Badge } from "@/components/ui";
 import Link from "next/link";
 import { caseStudies } from "@/lib/case-studies-data";
 import { testimonials } from "@/lib/case-studies-data";
 import { CaseStudyDiagram } from "@/components/case-studies/CaseStudyDiagrams";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import LottieWrapper from "@/components/animations/LottieWrapper";
 
 // Icons for features
 const DataIcon = () => (
@@ -372,8 +372,7 @@ export default function HomePage() {
   ];
 
   // Lottie animation setup
-  const [animationData, setAnimationData] = useState(null);
-  const lottieRef = useRef<LottieRefCurrentProps>(null);
+  const [animationData, setAnimationData] = useState<object | null>(null);
 
   useEffect(() => {
     fetch("/animations/hero-data.json")
@@ -381,12 +380,6 @@ export default function HomePage() {
       .then((data) => setAnimationData(data))
       .catch((error) => console.error("Failed to load Lottie animation:", error));
   }, []);
-
-  useEffect(() => {
-    if (lottieRef.current) {
-      lottieRef.current.setSpeed(0.25);
-    }
-  }, [animationData]);
 
   return (
     <>
@@ -401,12 +394,12 @@ export default function HomePage() {
         media={
           <div className="w-full max-w-lg">
             {animationData && (
-              <Lottie
-                lottieRef={lottieRef}
+              <LottieWrapper
                 animationData={animationData}
                 loop={true}
                 autoplay={true}
-                renderer="svg"
+                speed={0.25}
+                mobileOptimized={true}
                 className="w-full h-auto"
               />
             )}

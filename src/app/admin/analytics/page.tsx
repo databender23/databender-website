@@ -4,6 +4,10 @@ import { useState, useEffect } from "react";
 import StatsCard from "./components/StatsCard";
 import PageviewsChart from "./components/PageviewsChart";
 import TopPagesTable from "./components/TopPagesTable";
+import ReferrerSourcesChart from "./components/ReferrerSourcesChart";
+import LocationBreakdown from "./components/LocationBreakdown";
+import ScrollDepthChart from "./components/ScrollDepthChart";
+import TechBreakdown from "./components/TechBreakdown";
 
 interface AnalyticsData {
   period: { start: string; end: string; days: number };
@@ -15,10 +19,20 @@ interface AnalyticsData {
     conversionRate: string;
     chatOpens: number;
     chatMessages: number;
+    botPageviews: number;
+    returningVisitors: number;
+    newVisitors: number;
+    avgSessionDuration: number;
+    bounceRate: string;
   };
-  topPages: { page: string; count: number }[];
+  topPages: { page: string; count: number; avgTime?: number }[];
   dailyPageviews: { date: string; count: number }[];
   deviceBreakdown: Record<string, number>;
+  browserBreakdown: Record<string, number>;
+  osBreakdown: Record<string, number>;
+  topCountries: { country: string; count: number }[];
+  topReferrers: { source: string; count: number }[];
+  scrollDepthBreakdown: Record<number, number>;
   conversionBreakdown: Record<string, number>;
 }
 
@@ -64,6 +78,14 @@ export default function AnalyticsDashboard() {
 
   if (!data) return null;
 
+  // Format session duration
+  const formatDuration = (seconds: number) => {
+    if (seconds < 60) return `${seconds}s`;
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return secs > 0 ? `${mins}m ${secs}s` : `${mins}m`;
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -86,7 +108,7 @@ export default function AnalyticsDashboard() {
         </select>
       </div>
 
-      {/* Stats Grid */}
+      {/* Primary Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard title="Page Views" value={data.metrics.pageviews} />
         <StatsCard title="Unique Visitors" value={data.metrics.uniqueVisitors} />
@@ -98,24 +120,65 @@ export default function AnalyticsDashboard() {
         />
       </div>
 
+      {/* Engagement Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatsCard
+          title="Avg Session"
+          value={formatDuration(data.metrics.avgSessionDuration)}
+          subtitle="Average time on site"
+        />
+        <StatsCard
+          title="Bounce Rate"
+          value={`${data.metrics.bounceRate}%`}
+          subtitle="Single page sessions"
+        />
+        <StatsCard
+          title="New Visitors"
+          value={data.metrics.newVisitors}
+          subtitle={`${data.metrics.sessions > 0 ? Math.round((data.metrics.newVisitors / data.metrics.sessions) * 100) : 0}% of sessions`}
+        />
+        <StatsCard
+          title="Returning"
+          value={data.metrics.returningVisitors}
+          subtitle={`${data.metrics.sessions > 0 ? Math.round((data.metrics.returningVisitors / data.metrics.sessions) * 100) : 0}% of sessions`}
+        />
+      </div>
+
       {/* Chat Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <StatsCard
           title="Chat Opens"
           value={data.metrics.chatOpens}
-          subtitle="Users who opened the chat widget"
+          subtitle="Users who opened chat"
         />
         <StatsCard
           title="Chat Messages"
           value={data.metrics.chatMessages}
-          subtitle="Total messages sent by visitors"
+          subtitle="Messages sent"
+        />
+        <StatsCard
+          title="Bot Traffic"
+          value={data.metrics.botPageviews}
+          subtitle="Filtered from metrics"
         />
       </div>
 
-      {/* Charts */}
+      {/* Charts Row 1 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <PageviewsChart data={data.dailyPageviews} />
         <TopPagesTable data={data.topPages} />
+      </div>
+
+      {/* Charts Row 2 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <ReferrerSourcesChart data={data.topReferrers} />
+        <LocationBreakdown data={data.topCountries} />
+      </div>
+
+      {/* Charts Row 3 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <ScrollDepthChart data={data.scrollDepthBreakdown} />
+        <TechBreakdown browserData={data.browserBreakdown} osData={data.osBreakdown} />
       </div>
 
       {/* Device Breakdown */}

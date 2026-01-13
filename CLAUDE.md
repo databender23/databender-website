@@ -124,3 +124,12 @@ Blog posts are stored in `src/lib/blog-data.ts`. When creating blog content, fol
 ```
 
 This creates a highlighted box for the key point with the explanation as regular text below.
+
+### Pending Infrastructure Tasks
+
+- **Domain Transfer**: Transfer `databender.co` from SiteGround to AWS Route 53
+  - Status: DNS already points to AWS Route 53 nameservers (site works)
+  - Remaining: Transfer domain registration from SiteGround (Tucows) to AWS
+  - Auth code from SiteGround: Request new EPP code when ready
+  - Steps: Unlock domain → Get auth code → Transfer via Route 53 console
+  - Note: Previous auth code had special characters causing CLI issues; use AWS Console for transfer
