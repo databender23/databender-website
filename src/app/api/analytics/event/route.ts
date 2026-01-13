@@ -11,7 +11,12 @@ import {
 import { sendSlackAlert, shouldAlertForScore } from "@/lib/notifications/slack";
 
 // Track which sessions have already received alerts to avoid duplicates
-const alertedSessions = new Map<string, { leadTier?: string; companyAlerted?: boolean }>();
+// Also cache geo data so it's available for non-pageview events
+const alertedSessions = new Map<string, {
+  leadTier?: string;
+  companyAlerted?: boolean;
+  geoData?: { country?: string; region?: string; city?: string };
+}>();
 
 // Clean up old entries periodically (simple in-memory cache)
 setInterval(() => {
@@ -483,6 +488,16 @@ export async function POST(request: NextRequest) {
     if (!botDetected) {
       const sessionAlerts = alertedSessions.get(sessionId) || {};
       const pageCount = pagesVisited?.length || 1;
+
+      // Cache geo data when we have it (from pageview events)
+      // so it's available for non-pageview events that trigger alerts
+      if (geoData.country || geoData.city || geoData.region) {
+        sessionAlerts.geoData = geoData;
+      }
+      // Use cached geo data if current geoData is empty
+      const alertGeoData = (geoData.country || geoData.city || geoData.region)
+        ? geoData
+        : (sessionAlerts.geoData || {});
       const hasChatInteraction = event.eventType === "chat_open" || event.eventType === "chat_message";
       const hasMultiPageEngagement = pageCount >= 2;
 
@@ -510,9 +525,9 @@ export async function POST(request: NextRequest) {
             currentPage: event.page,
             pagesViewed: pagesVisited || [event.page],
             company: companyData?.name,
-            country: geoData.country,
-            city: geoData.city,
-            region: geoData.region,
+            country: alertGeoData.country,
+            city: alertGeoData.city,
+            region: alertGeoData.region,
             device,
             isReturning,
             visitCount,
@@ -542,7 +557,7 @@ export async function POST(request: NextRequest) {
           pagesViewed: pagesVisited || [event.page],
           leadScore: currentLeadScore,
           leadTier,
-          country: geoData.country,
+          country: alertGeoData.country,
         }).catch(() => {}); // Ignore errors
 
         sessionAlerts.companyAlerted = true;
