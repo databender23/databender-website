@@ -112,8 +112,6 @@ export default function IndustriesPage() {
                 <div className="w-full max-w-md">
                   <LottieWrapper
                     animationData={lottieData}
-                    staticImage="/images/logo-color.png"
-                    staticOnMobile={true}
                     loop={true}
                     autoplay={true}
                     className="w-full h-auto"

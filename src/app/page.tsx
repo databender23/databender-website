@@ -387,8 +387,6 @@ export default function HomePage() {
           <div className="w-full max-w-lg">
             <LottieWrapper
               animationUrl="/animations/hero-data.json"
-              staticImage="/images/logo-color.png"
-              staticOnMobile={true}
               loop={true}
               autoplay={true}
               speed={1}
