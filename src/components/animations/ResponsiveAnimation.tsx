@@ -16,6 +16,8 @@ interface ResponsiveAnimationProps {
   speed?: number
   /** Whether to loop */
   loop?: boolean
+  /** Priority loading - load immediately without waiting for viewport */
+  priority?: boolean
 }
 
 /**
@@ -27,6 +29,7 @@ export default function ResponsiveAnimation({
   isActive = true,
   speed = 1,
   loop = true,
+  priority = true, // Default to priority for hero animations
 }: ResponsiveAnimationProps) {
   return (
     <LottieWrapper
@@ -35,6 +38,7 @@ export default function ResponsiveAnimation({
       speed={speed}
       loop={loop}
       autoplay={isActive}
+      priority={priority}
     />
   )
 }
