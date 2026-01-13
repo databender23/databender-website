@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
-import { Hero, CTA } from "@/components/sections";
+import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
+import { FloatingNodes } from "@/components/animations";
 import { DataPlayground } from "@/components/interactive";
 import { services, type ConsolidatedService } from "@/lib/services-data";
 import { useEffect, useState, useRef } from "react";
@@ -128,27 +129,104 @@ export default function ServicePageClient({ service }: Props) {
 
   const hasLottie = ["data-ai-strategy", "analytics-bi", "ai-services"].includes(service.slug);
 
-  const heroMedia = hasLottie && lottieData ? (
-    <div className="w-full h-full flex items-center justify-center">
-      <Lottie
-        lottieRef={lottieRef}
-        animationData={lottieData}
-        loop={true}
-        className="w-full max-w-md"
-      />
-    </div>
-  ) : undefined;
-
   return (
     <>
-      <Hero
-        subtitle="Services"
-        title={service.title}
-        description={service.longDescription}
-        primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "Take Assessment", href: "/assessments/data-ai-readiness" }}
-        media={heroMedia}
-      />
+      {/* Hero Section with Lottie Above */}
+      <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-24">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
+
+        {/* Teal glow spots */}
+        <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
+        <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
+
+        {/* Floating nodes background */}
+        <FloatingNodes nodeCount={20} showConnections={true} />
+
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)`,
+            backgroundSize: "64px 64px",
+          }}
+        />
+
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          {/* Lottie Animation - Above Hero */}
+          {hasLottie && lottieData && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="flex justify-center items-center mb-8"
+            >
+              <div className="w-full max-w-md">
+                <Lottie
+                  lottieRef={lottieRef}
+                  animationData={lottieData}
+                  loop={true}
+                  className="w-full h-auto"
+                />
+              </div>
+            </motion.div>
+          )}
+
+          {/* Hero Content */}
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            >
+              Services
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
+            >
+              {service.title}
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
+            >
+              {service.longDescription}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
+            >
+              <Button
+                variant="primary"
+                size="lg"
+                href="/contact"
+                icon={
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                }
+              >
+                Schedule Consultation
+              </Button>
+              <Button variant="secondary" size="lg" href="/assessments/data-ai-readiness">
+                Take Assessment
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* What's Included - Sub-services */}
       <section className="section">

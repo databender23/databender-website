@@ -59,72 +59,73 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero with Lottie */}
-      <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center overflow-hidden py-12 sm:py-0">
+      <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-24">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-12 items-center">
-            <div className="order-2 lg:order-1 lg:col-span-3">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-              >
-                Our Services
-              </motion.p>
+          {/* Lottie Animation - Above Hero */}
+          {lottieData && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="flex justify-center items-center mb-8"
+            >
+              <div className="w-full max-w-md">
+                <LottieWrapper
+                  animationData={lottieData}
+                  loop={true}
+                  autoplay={true}
+                  className="w-full h-auto"
+                  priority={true}
+                />
+              </div>
+            </motion.div>
+          )}
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
-              >
-                Everything you need to turn data into results
-              </motion.h1>
+          {/* Hero Content */}
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+            >
+              Our Services
+            </motion.p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
-              >
-                From cleaning up scattered systems to AI that works—we build complete solutions, not pieces.
-              </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
+            >
+              Everything you need to turn data into results
+            </motion.h1>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
-              >
-                <Button variant="primary" size="lg" href="/assessments/data-ai-readiness">
-                  Take Free Assessment
-                </Button>
-                <Button variant="secondary" size="lg" href="/contact">
-                  Talk to an Expert
-                </Button>
-              </motion.div>
-            </div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
+            >
+              From cleaning up scattered systems to AI that works—we build complete solutions, not pieces.
+            </motion.p>
 
-            {lottieData && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center order-1 lg:order-2 lg:col-span-2"
-              >
-                <div className="w-full max-w-lg">
-                  <LottieWrapper
-                    animationData={lottieData}
-                    loop={true}
-                    autoplay={true}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-            )}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
+            >
+              <Button variant="primary" size="lg" href="/assessments/data-ai-readiness">
+                Take Free Assessment
+              </Button>
+              <Button variant="secondary" size="lg" href="/contact">
+                Talk to an Expert
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>

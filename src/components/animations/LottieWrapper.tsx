@@ -4,6 +4,32 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useInView } from "react-intersection-observer";
 
+/**
+ * Preload a Lottie animation file
+ * Call this early to fetch critical animations before they're needed
+ */
+export function preloadLottie(url: string): void {
+  if (typeof window === 'undefined') return;
+
+  // Convert .json to .lottie if needed
+  const src = url.endsWith('.lottie') ? url : url.replace('.json', '.lottie');
+
+  // Use link preload for better browser optimization
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.as = 'fetch';
+  link.href = src;
+  link.crossOrigin = 'anonymous';
+  document.head.appendChild(link);
+}
+
+/**
+ * Preload multiple Lottie animations
+ */
+export function preloadLotties(urls: string[]): void {
+  urls.forEach(preloadLottie);
+}
+
 // Use DotLottieReact for all devices (more compatible than worker version)
 const DotLottieReact = dynamic(
   () => import("@lottiefiles/dotlottie-react").then((mod) => mod.DotLottieReact),
@@ -33,6 +59,12 @@ interface LottieWrapperProps {
   staticOnMobile?: boolean;
   /** Speed multiplier for mobile (default: 0.75 for smoother playback) */
   mobileSpeed?: number;
+  /** Freeze on last frame after first loop on mobile (default: true) */
+  freezeAfterFirstLoop?: boolean;
+  /** Use canvas renderer for better mobile performance (default: true on mobile) */
+  useCanvasRenderer?: boolean;
+  /** Priority loading - preload this animation (default: false) */
+  priority?: boolean;
 }
 
 export default function LottieWrapper({
@@ -49,6 +81,9 @@ export default function LottieWrapper({
   mobileOptimized = true,
   staticOnMobile = false,
   mobileSpeed = 0.75,
+  freezeAfterFirstLoop = true,
+  useCanvasRenderer = true,
+  priority = false,
 }: LottieWrapperProps) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dotLottieRef = useRef<any>(null);
@@ -56,11 +91,14 @@ export default function LottieWrapper({
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [hasCompletedFirstLoop, setHasCompletedFirstLoop] = useState(false);
+  const loopCountRef = useRef(0);
 
   // Lazy load trigger - only load when close to viewport
+  // Priority animations load immediately
   const { ref: viewRef, inView } = useInView({
     threshold: 0,
-    rootMargin: "200px",
+    rootMargin: priority ? "1000px" : "200px",
     triggerOnce: false,
   });
 
@@ -144,8 +182,18 @@ export default function LottieWrapper({
       ref.addEventListener('load', () => {
         setIsReady(true);
       });
+
+      // Listen for loop completion to freeze after first loop on mobile
+      ref.addEventListener('loop', () => {
+        loopCountRef.current += 1;
+        if (isMobile && mobileOptimized && freezeAfterFirstLoop && loopCountRef.current >= 1) {
+          setHasCompletedFirstLoop(true);
+          // Pause at current frame instead of stopping
+          ref.pause();
+        }
+      });
     }
-  }, []);
+  }, [isMobile, mobileOptimized, freezeAfterFirstLoop]);
 
   // Show static image for reduced motion or mobile static mode
   if (showStatic && staticImage) {
@@ -176,6 +224,16 @@ export default function LottieWrapper({
 
   const shouldAutoplay = autoplay && !playOnHover && !playOnView && !showStatic;
 
+  // Effective loop - disable looping if already completed first loop on mobile
+  const effectiveLoop = hasCompletedFirstLoop ? false : loop;
+
+  // Mobile-optimized render config
+  // Use canvas renderer and lower DPI for better performance
+  const renderConfig = isMobile && mobileOptimized && useCanvasRenderer ? {
+    // Use canvas renderer for better mobile performance
+    devicePixelRatio: 1.5, // Lower than default 2x for smoother playback
+  } : undefined;
+
   return (
     <div
       ref={viewRef}
@@ -189,8 +247,10 @@ export default function LottieWrapper({
         src={src}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         data={animationData as any}
-        loop={loop}
+        loop={effectiveLoop}
         autoplay={shouldAutoplay}
+        renderConfig={renderConfig}
+        useFrameInterpolation={!isMobile} // Disable frame interpolation on mobile for performance
       />
     </div>
   );

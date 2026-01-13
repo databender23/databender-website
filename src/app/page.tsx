@@ -1,14 +1,15 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Hero, Features, CTA } from "@/components/sections";
-import { Badge } from "@/components/ui";
+import { Features, CTA } from "@/components/sections";
+import { Badge, Button } from "@/components/ui";
+import { FloatingNodes } from "@/components/animations";
 import Link from "next/link";
 import { caseStudies } from "@/lib/case-studies-data";
 import { testimonials } from "@/lib/case-studies-data";
 import { CaseStudyDiagram } from "@/components/case-studies/CaseStudyDiagrams";
 import { useState, useEffect } from "react";
-import LottieWrapper from "@/components/animations/LottieWrapper";
+import LottieWrapper, { preloadLottie } from "@/components/animations/LottieWrapper";
 
 // Icons for features
 const DataIcon = () => (
@@ -371,30 +372,109 @@ export default function HomePage() {
     },
   ];
 
-  // Hero animation is lazy loaded by LottieWrapper
+  // Preload hero animation for faster initial render
+  useEffect(() => {
+    preloadLottie("/animations/hero-data.json");
+  }, []);
 
   return (
     <>
       {/* 1. Hero Section */}
-      <Hero
-        subtitle="Data Analytics & AI Solutions"
-        title="Boutique Strategy. Enterprise Delivery."
-        description="Databender empowers firms to work efficiently, compliantly, and intelligently using data and AI."
-        primaryCta={{ label: "Take free assessment", href: "/assessments/data-ai-readiness" }}
-        secondaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        size="large"
-        media={
-          <div className="w-full max-w-lg">
-            <LottieWrapper
-              animationUrl="/animations/hero-data.json"
-              loop={true}
-              autoplay={true}
-              speed={1}
-              className="w-full h-auto min-h-[300px]"
-            />
+      <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-24">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
+
+        {/* Teal glow spots */}
+        <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
+        <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
+
+        {/* Floating nodes background */}
+        <FloatingNodes nodeCount={20} showConnections={true} />
+
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)`,
+            backgroundSize: "64px 64px",
+          }}
+        />
+
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          {/* Lottie Animation - Above Hero */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex justify-center items-center mb-8"
+          >
+            <div className="w-full max-w-md lg:max-w-lg">
+              <LottieWrapper
+                animationUrl="/animations/hero-data.json"
+                loop={true}
+                autoplay={true}
+                speed={1}
+                className="w-full h-auto"
+                priority={true}
+              />
+            </div>
+          </motion.div>
+
+          {/* Hero Content */}
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            >
+              Data Analytics & AI Solutions
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-text-primary mb-6"
+            >
+              Boutique Strategy. Enterprise Delivery.
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto"
+            >
+              Databender empowers firms to work efficiently, compliantly, and intelligently using data and AI.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
+            >
+              <Button
+                variant="primary"
+                size="lg"
+                href="/assessments/data-ai-readiness"
+                icon={
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                }
+              >
+                Take free assessment
+              </Button>
+              <Button variant="secondary" size="lg" href="/contact">
+                Schedule Consultation
+              </Button>
+            </motion.div>
           </div>
-        }
-      />
+        </div>
+      </section>
 
       {/* 2. What We Do Section */}
       <Features
