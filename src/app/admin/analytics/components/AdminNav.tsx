@@ -12,23 +12,23 @@ export default function AdminNav() {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav className="bg-bg-primary border-b border-border">
+      <div className="container py-4 flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link href="/admin/analytics" className="font-bold text-xl text-gray-900">
+          <Link href="/admin/analytics" className="font-bold text-xl text-text-primary">
             Databender Admin
           </Link>
-          <div className="flex gap-4">
+          <div className="flex gap-6">
             <Link
               href="/admin/analytics"
-              className="text-gray-600 hover:text-teal-500 transition-colors"
+              className="text-text-secondary hover:text-teal-500 transition-colors text-sm font-medium"
             >
               Analytics
             </Link>
             <Link
               href="/"
               target="_blank"
-              className="text-gray-600 hover:text-teal-500 transition-colors"
+              className="text-text-secondary hover:text-teal-500 transition-colors text-sm font-medium"
             >
               View Site
             </Link>
@@ -36,7 +36,7 @@ export default function AdminNav() {
         </div>
         <button
           onClick={handleLogout}
-          className="text-gray-600 hover:text-red-500 transition-colors"
+          className="text-text-muted hover:text-error transition-colors text-sm font-medium"
         >
           Logout
         </button>

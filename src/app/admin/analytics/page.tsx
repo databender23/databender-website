@@ -56,7 +56,7 @@ export default function AnalyticsDashboard() {
 
   if (error) {
     return (
-      <div className="bg-red-50 text-red-600 p-4 rounded-lg">
+      <div className="bg-error/10 text-error p-4 rounded-lg">
         {error}
       </div>
     );
@@ -69,15 +69,15 @@ export default function AnalyticsDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
-          <p className="text-gray-500">
+          <h1 className="text-2xl font-bold text-text-primary">Analytics Dashboard</h1>
+          <p className="text-text-muted">
             {data.period.start} to {data.period.end}
           </p>
         </div>
         <select
           value={days}
           onChange={(e) => setDays(Number(e.target.value))}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
+          className="px-4 py-2 border border-border rounded-md bg-bg-primary text-text-primary focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all"
         >
           <option value={7}>Last 7 days</option>
           <option value={14}>Last 14 days</option>
@@ -120,13 +120,13 @@ export default function AnalyticsDashboard() {
 
       {/* Device Breakdown */}
       {Object.keys(data.deviceBreakdown).length > 0 && (
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Device Breakdown</h3>
+        <div className="bg-bg-card rounded-lg p-6 shadow-card border border-border">
+          <h3 className="text-lg font-semibold text-text-primary mb-4">Device Breakdown</h3>
           <div className="flex gap-8">
             {Object.entries(data.deviceBreakdown).map(([device, count]) => (
               <div key={device} className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{count}</p>
-                <p className="text-sm text-gray-500 capitalize">{device}</p>
+                <p className="text-2xl font-bold text-text-primary">{count}</p>
+                <p className="text-sm text-text-muted capitalize">{device}</p>
               </div>
             ))}
           </div>
@@ -135,13 +135,13 @@ export default function AnalyticsDashboard() {
 
       {/* Conversion Breakdown */}
       {Object.keys(data.conversionBreakdown).length > 0 && (
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Conversion Types</h3>
+        <div className="bg-bg-card rounded-lg p-6 shadow-card border border-border">
+          <h3 className="text-lg font-semibold text-text-primary mb-4">Conversion Types</h3>
           <div className="flex gap-8">
             {Object.entries(data.conversionBreakdown).map(([type, count]) => (
               <div key={type} className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{count}</p>
-                <p className="text-sm text-gray-500">{type.replace(/_/g, " ")}</p>
+                <p className="text-2xl font-bold text-text-primary">{count}</p>
+                <p className="text-sm text-text-muted">{type.replace(/_/g, " ")}</p>
               </div>
             ))}
           </div>
