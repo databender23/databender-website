@@ -21,9 +21,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Post Not Found" };
   }
 
+  const ogImage = post.featuredImage || '/images/databender-og.png';
+
   return {
     title: `${post.title} | Databender Blog`,
     description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
+      publishedTime: post.publishedAt,
+      authors: [post.author],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [ogImage],
+    },
   };
 }
 
