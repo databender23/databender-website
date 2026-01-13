@@ -324,14 +324,14 @@ export default function HomePage() {
     {
       title: "Get your data in order",
       description:
-        "Scattered systems. Duplicate records. Information trapped in documents nobody can search. We connect, clean, and organize so you stop wasting resources and start reaching the right people.",
+        "We connect, clean, and organize so you can leverage the full power of data & AI.",
       icon: <DataIcon />,
       href: "/services",
     },
     {
       title: "See what's happening",
       description:
-        "Stop guessing what's working. Dashboards and analytics that reveal what actually drives results, not what you assume. Make decisions based on evidence, not gut feelings.",
+        "Stop guessing what's working. Analytics that reveal what actually drives results, not what you assume. Make decisions based on evidence, not gut feelings.",
       icon: <ChartIcon />,
       href: "/services",
     },
