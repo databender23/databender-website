@@ -107,9 +107,9 @@ export default function LegalIndustryPage() {
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
               Your associates spend 60% of their time on work that doesn&apos;t need
-              a law degree. We deploy autonomous AI agents that handle document review,
-              due diligence, and research at a fraction of the cost, while keeping
-              client files on your servers and privilege intact.
+              a law degree. We build AI tools that handle document review, due diligence,
+              and research&mdash;so your team can focus on the work that requires judgment.
+              Everything runs on your servers. Privilege stays intact.
             </motion.p>
 
             <motion.div
@@ -218,9 +218,9 @@ export default function LegalIndustryPage() {
                     servers? The ethics committee will have questions.
                   </p>
                   <p>
-                    We deploy AI differently. Local models that run entirely within your
-                    infrastructure. Client files never leave your walls. Attorney-client
-                    privilege stays intact.
+                    We do it differently. Your client files stay on your servers. No data
+                    ever goes to OpenAI, Microsoft, or any third party. Your ethics committee
+                    will actually sign off on this.
                   </p>
                 </motion.div>
               </div>
@@ -239,19 +239,19 @@ export default function LegalIndustryPage() {
                   {[
                     {
                       title: "Your servers only",
-                      description: "AI models run inside your infrastructure. Nothing goes to external APIs."
+                      description: "Everything runs on your computers. Nothing goes outside your firm."
                     },
                     {
-                      title: "No cloud dependencies",
-                      description: "No OpenAI, no Azure AI, no third-party processors in your data chain."
+                      title: "No outside AI services",
+                      description: "No OpenAI, no Microsoft, no third parties ever touch your data."
                     },
                     {
                       title: "Full audit trails",
-                      description: "Every query logged. See who asked what, when. Compliance and ethics covered."
+                      description: "Every search logged. See who asked what, when. Compliance and ethics covered."
                     },
                     {
-                      title: "You control the models",
-                      description: "Inspect, tune, or retrain. No vendor lock-in, no black boxes."
+                      title: "You own and control everything",
+                      description: "No vendor lock-in. No surprises. Your AI, your rules."
                     },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-2 sm:gap-3">
@@ -507,7 +507,10 @@ export default function LegalIndustryPage() {
                 <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2 sm:mb-3">
                   {solution.title}
                 </h3>
-                <p className="text-text-secondary text-sm sm:text-base">{solution.description}</p>
+                <p
+                  className="text-text-secondary text-sm sm:text-base"
+                  dangerouslySetInnerHTML={{ __html: solution.description }}
+                />
               </motion.div>
             ))}
           </div>
@@ -551,22 +554,22 @@ export default function LegalIndustryPage() {
               {
                 metric: "125x",
                 label: "Cost Savings",
-                title: "AI Agents for Data Work",
-                description: "Autonomous agents that reason through messy data at machine scale. What takes 50 analysts months, done in hours.",
+                title: "Messy Data Fixed Fast",
+                description: "Work that would take 50 people months, done by AI in hours. Same accuracy, fraction of the cost.",
                 href: "/case-studies/army-of-ai-agents",
               },
               {
                 metric: "Instant",
                 label: "AI Answers",
-                title: "Document Intelligence",
-                description: "Decades of documents turned into an AI-searchable knowledge base. Ask in plain English, get answers with sources.",
+                title: "Document Search That Works",
+                description: "Ask questions about your documents in plain English. Get answers with citations in seconds, not hours of digging.",
                 href: "/case-studies/agentic-document-intelligence",
               },
               {
                 metric: "31%",
                 label: "Higher Success",
-                title: "Data-Driven Discovery",
-                description: "Testing assumptions against actual outcomes. Find what really predicts success, not what you think does.",
+                title: "Find What Wins Pitches",
+                description: "Stop guessing what makes clients say yes. We analyze your actual wins and losses to find what really works.",
                 href: "/case-studies/what-predicts-lead-conversion",
               },
             ].map((item, index) => (

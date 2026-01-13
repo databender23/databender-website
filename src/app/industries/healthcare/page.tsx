@@ -69,9 +69,9 @@ export default function HealthcareIndustryPage() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
-              Years of clinical knowledge locked in documents. AI that finally
-              understands them (reading prior auths, clinical protocols, and policy
-              manuals) without your data leaving the building.
+              Twenty years of clinical knowledge scattered across thousands of documents.
+              Now your team can ask questions in plain English and get instant answers,
+              all without your data ever leaving the building.
             </motion.p>
 
             <motion.div
@@ -165,7 +165,7 @@ export default function HealthcareIndustryPage() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  AI That Reads Like Your Best Staff, At Scale
+                  Ask Questions. Get Answers. It&apos;s That Simple.
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -175,14 +175,14 @@ export default function HealthcareIndustryPage() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Prior authorization requests. Clinical protocols. Formularies. Policy
-                    manuals. Insurance cards. Years of institutional knowledge scattered
-                    across thousands of documents that AI tools like ChatGPT can&apos;t access.
+                    Your team has questions: &quot;What&apos;s our sepsis protocol?&quot; &quot;Which payer requires
+                    this documentation?&quot; &quot;Where&apos;s the policy on referrals?&quot;
                   </p>
                   <p>
-                    We built Document Intelligence that turns unstructured documents
-                    into an AI-ready knowledge base. Now AI can search, answer questions,
-                    and power workflows, all using your organization&apos;s own data.
+                    Right now, answering those means digging through folders, calling
+                    someone who might know, or just guessing. We built something better:
+                    AI that reads all your documents and answers questions instantly,
+                    in plain English, with links to the source.
                   </p>
                 </motion.div>
                 <motion.div
@@ -206,25 +206,25 @@ export default function HealthcareIndustryPage() {
                 className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
               >
                 <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  What AI can read
+                  What your team can finally search
                 </h3>
                 <ul className="space-y-3 sm:space-y-4">
                   {[
                     {
-                      title: "Prior Auth Documentation",
-                      description: "AI gathers required docs, checks payer requirements, drafts submissions"
+                      title: "Clinical Protocols",
+                      description: "\"What's our sepsis protocol?\" Instant answers with links to the source document."
                     },
                     {
-                      title: "Clinical Protocols & Formularies",
-                      description: "Instant answers: 'What's our sepsis protocol?' 'Show me the formulary for this drug class.'"
+                      title: "Policy Manuals",
+                      description: "New hires can search every policy from day one. No more asking around or digging through folders."
                     },
                     {
-                      title: "Policy & Procedure Manuals",
-                      description: "Every policy searchable by anyone, from day one. No more hunting through SharePoint."
+                      title: "Payer Requirements",
+                      description: "\"What does Blue Cross require for this procedure?\" AI checks the latest requirements."
                     },
                     {
-                      title: "Insurance Cards & Patient Forms",
-                      description: "Extract member IDs, group numbers, payer info. Eligibility checks start automatically."
+                      title: "Product & Formulary Info",
+                      description: "\"Show me alternatives for this medication.\" Answers in seconds, not phone calls."
                     },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -268,25 +268,25 @@ export default function HealthcareIndustryPage() {
               >
                 <div className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-8 rounded-2xl border border-teal-500/20">
                   <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                    How knowledge stays
+                    How it works
                   </h3>
                   <ul className="space-y-3 sm:space-y-4">
                     {[
                       {
-                        title: "Institutional memory",
-                        description: "Every protocol, policy, and clinical reference searchable forever. When staff leave, the knowledge doesn't."
+                        title: "Everything becomes searchable",
+                        description: "Protocols, policies, procedures, all findable instantly. No more hunting through folders."
                       },
                       {
-                        title: "Research agents",
-                        description: "AI scans clinical literature, synthesizes findings, surfaces relevant protocols. Hours of research in minutes."
+                        title: "Ask in plain English",
+                        description: "\"What's our referral protocol?\" \"Which payer is slowest?\" Get answers with links to sources."
                       },
                       {
-                        title: "Natural language Q&A",
-                        description: "'What's our referral protocol?' 'Which payer is slowest?' Ask in plain English, get answers with sources."
+                        title: "Research done for you",
+                        description: "Need the latest on a treatment? AI summarizes the research and shows you where it found it."
                       },
                       {
-                        title: "Living knowledge base",
-                        description: "New documents automatically expand what AI knows. The system gets smarter as you use it."
+                        title: "Gets smarter over time",
+                        description: "Every new document you add expands what AI can answer. Your knowledge base grows automatically."
                       },
                     ].map((item, index) => (
                       <li key={index} className="flex items-start gap-2 sm:gap-3">
@@ -320,7 +320,7 @@ export default function HealthcareIndustryPage() {
                   viewport={{ once: true }}
                   className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
                 >
-                  Knowledge Management & AI Agents
+                  Institutional Knowledge
                 </motion.p>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
@@ -329,7 +329,7 @@ export default function HealthcareIndustryPage() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  Knowledge That Stays When People Leave
+                  When Someone Retires, the Knowledge Doesn&apos;t Leave
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -339,19 +339,17 @@ export default function HealthcareIndustryPage() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Every healthcare organization has decades of institutional knowledge:
-                    clinical protocols, policy decisions, operational expertise. It&apos;s trapped in
-                    documents, systems, and people&apos;s heads.
+                    Your best people know things that aren&apos;t written down anywhere.
+                    How to handle tricky payer situations. Which vendors to trust.
+                    The shortcuts that actually work.
                   </p>
                   <p>
-                    We build AI systems that capture, organize, and surface that knowledge.
-                    Research agents that scan clinical literature. Q&A systems that answer
-                    questions in plain English with sources. Knowledge that compounds instead
-                    of walking out the door.
+                    We help capture that knowledge and make it searchable. New hires
+                    can tap into decades of experience from day one. When someone retires,
+                    what they knew stays with the organization.
                   </p>
                   <p className="font-medium text-text-primary">
-                    New hires productive in weeks, not months. Expertise accessible to
-                    everyone, forever.
+                    Your team gets smarter over time, not smaller.
                   </p>
                 </motion.div>
               </div>
@@ -372,7 +370,7 @@ export default function HealthcareIndustryPage() {
                   viewport={{ once: true }}
                   className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
                 >
-                  Legacy Systems Modernization
+                  Your Existing Systems
                 </motion.p>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
@@ -381,7 +379,7 @@ export default function HealthcareIndustryPage() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  Your EHR Isn&apos;t Going Anywhere. That&apos;s Fine.
+                  We Work With What You Have
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -391,14 +389,15 @@ export default function HealthcareIndustryPage() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Nobody wants a three-year EHR migration. The disruption, the training,
-                    the risk. It&apos;s rarely worth it. But that legacy system is holding
-                    you back from AI, analytics, and the integrations you actually need.
+                    You&apos;re not replacing your EHR. That&apos;s a massive disruption nobody
+                    wants. But right now, your systems don&apos;t talk to each other, and
+                    getting a complete picture of anything requires pulling reports from
+                    three different places.
                   </p>
                   <p>
-                    We build a modern data layer on top of what you have. Your systems
-                    stay in place. Data flows out into a unified platform where AI and
-                    analytics can actually work. No rip-and-replace required.
+                    We connect your existing systems so information flows where it needs
+                    to go. Your staff keeps working the same way, nothing changes for
+                    them, but now the data is available for AI and better reporting.
                   </p>
                 </motion.div>
               </div>
@@ -411,25 +410,25 @@ export default function HealthcareIndustryPage() {
                 className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
               >
                 <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  How we connect legacy systems
+                  What this means for you
                 </h3>
                 <ul className="space-y-3 sm:space-y-4">
                   {[
                     {
-                      title: "HL7 & FHIR Integration",
-                      description: "We speak the languages your systems speak, connecting to Epic, Cerner, Meditech, and everything in between"
+                      title: "Works with Epic, Cerner, and others",
+                      description: "We know how to connect to the systems healthcare organizations actually use."
                     },
                     {
-                      title: "Unified Data Layer",
-                      description: "Patient, billing, and operational data in one place. Query across systems that were never designed to talk"
+                      title: "One place for everything",
+                      description: "Patient info, billing, scheduling—visible together without switching between screens."
                     },
                     {
-                      title: "Real-Time & Batch",
-                      description: "Some data needs to flow in real-time. Some can batch overnight. We architect for both."
+                      title: "Nothing changes for your team",
+                      description: "Staff keep using the same systems. The connections happen behind the scenes."
                     },
                     {
-                      title: "Zero Disruption",
-                      description: "Clinical workflows stay exactly the same. The integration layer sits alongside, not inside, your EHR"
+                      title: "Better reports, less work",
+                      description: "Instead of pulling data from three places, reports build themselves automatically."
                     },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -473,25 +472,25 @@ export default function HealthcareIndustryPage() {
               >
                 <div className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-8 rounded-2xl border border-teal-500/20">
                   <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                    How it works
+                    Why compliance approves this
                   </h3>
                   <ul className="space-y-3 sm:space-y-4">
                     {[
                       {
-                        title: "Your servers, your data",
-                        description: "AI models run inside your infrastructure. Nothing goes out."
+                        title: "Everything stays in-house",
+                        description: "AI runs on your computers. Patient data never touches outside servers."
                       },
                       {
-                        title: "No third-party BAAs",
-                        description: "No agreements with OpenAI, no cloud AI vendors in your compliance chain."
+                        title: "No extra vendor agreements",
+                        description: "No new contracts with AI companies. Keeps your compliance simple."
                       },
                       {
-                        title: "Full audit trails",
-                        description: "Every query logged. See who asked what, when. Compliance loves it."
+                        title: "Complete records",
+                        description: "Every question asked is logged. You can see exactly who searched for what."
                       },
                       {
-                        title: "You own the models",
-                        description: "Inspect, tune, or retrain. No vendor lock-in, no black boxes."
+                        title: "You control it",
+                        description: "It's your system. Update it, adjust it, or turn it off whenever you want."
                       },
                     ].map((item, index) => (
                       <li key={index} className="flex items-start gap-2 sm:gap-3">
@@ -525,7 +524,7 @@ export default function HealthcareIndustryPage() {
                   viewport={{ once: true }}
                   className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
                 >
-                  HIPAA-Compliant AI
+                  Privacy & Compliance
                 </motion.p>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
@@ -534,7 +533,7 @@ export default function HealthcareIndustryPage() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  Yes, You Can Use AI. No, Your Data Doesn&apos;t Leave.
+                  Your Data Never Leaves Your Building
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -544,17 +543,17 @@ export default function HealthcareIndustryPage() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Every other AI tool wants your data in their cloud. For healthcare,
-                    that&apos;s a dealbreaker. PHI in someone else&apos;s infrastructure means
-                    BAAs, breach risk, and compliance headaches you don&apos;t need.
+                    Most AI tools send your data to their servers. That&apos;s a problem
+                    when you&apos;re dealing with patient information. Your compliance
+                    team will shut it down, and they&apos;re right to.
                   </p>
                   <p>
-                    We deploy AI differently. Local language models that run entirely
-                    within your walls. The capabilities you need without the regulatory exposure.
+                    We do it differently. Everything runs on your own computers.
+                    Patient information never goes anywhere. You get AI capabilities
+                    without the compliance headaches.
                   </p>
                   <p className="font-medium text-text-primary">
-                    This isn&apos;t AI adapted for healthcare as an afterthought.
-                    It&apos;s AI built for healthcare from day one.
+                    Built for healthcare from day one, not adapted as an afterthought.
                   </p>
                 </motion.div>
               </div>
