@@ -249,8 +249,8 @@ export default function ServicePageClient({ service }: Props) {
         </div>
       </section>
 
-      {/* Interactive Demo - Data Management only */}
-      {service.slug === "data-management" && (
+      {/* Interactive Demo - Data & AI Strategy only */}
+      {service.slug === "data-ai-strategy" && (
         <section className="section bg-[#F8F9FA]">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
@@ -278,7 +278,7 @@ export default function ServicePageClient({ service }: Props) {
       )}
 
       {/* Benefits */}
-      <section className={`section ${service.slug === "data-management" ? "" : "bg-[#F8F9FA]"}`}>
+      <section className={`section ${service.slug === "data-ai-strategy" ? "" : "bg-[#F8F9FA]"}`}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <motion.p
