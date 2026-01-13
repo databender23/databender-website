@@ -66,78 +66,76 @@ export default function LegalIndustryPage() {
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left side - Text */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-2 mb-4"
-              >
-                <Link
-                  href="/industries"
-                  className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
-                >
-                  Industries
-                </Link>
-                <span className="text-text-muted">/</span>
-                <span className="text-teal-500 text-sm font-medium">Legal</span>
-              </motion.div>
+          {/* Lottie Animation - Above Hero */}
+          {lottieData && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="flex justify-center items-center mb-8"
+            >
+              <div className="w-full max-w-sm">
+                <LottieWrapper
+                  animationData={lottieData}
+                  loop={true}
+                  autoplay={true}
+                  className="w-full h-auto"
+                />
+              </div>
+            </motion.div>
+          )}
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
+          {/* Hero Content */}
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center justify-center gap-2 mb-4"
+            >
+              <Link
+                href="/industries"
+                className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
               >
-                Legal
-              </motion.h1>
+                Industries
+              </Link>
+              <span className="text-text-muted">/</span>
+              <span className="text-teal-500 text-sm font-medium">Legal</span>
+            </motion.div>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
-              >
-                Your associates spend 60% of their time on work that doesn&apos;t need
-                a law degree. We deploy autonomous AI agents that handle document review,
-                due diligence, and research at a fraction of the cost, while keeping
-                client files on your servers and privilege intact.
-              </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
+            >
+              Legal
+            </motion.h1>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
-              >
-                <Button variant="primary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
-                  Schedule Consultation
-                </Button>
-                <Button variant="secondary" size="lg" href="#guides" className="w-full sm:w-auto min-h-[48px]">
-                  Download Free Guides
-                </Button>
-              </motion.div>
-            </div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
+            >
+              Your associates spend 60% of their time on work that doesn&apos;t need
+              a law degree. We deploy autonomous AI agents that handle document review,
+              due diligence, and research at a fraction of the cost, while keeping
+              client files on your servers and privilege intact.
+            </motion.p>
 
-            {/* Right side - Lottie Animation */}
-            {lottieData && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center"
-              >
-                <div className="w-full max-w-md">
-                  <LottieWrapper
-                    animationData={lottieData}
-                    loop={true}
-                    autoplay={true}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-            )}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
+            >
+              <Button variant="primary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
+                Schedule Consultation
+              </Button>
+              <Button variant="secondary" size="lg" href="#guides" className="w-full sm:w-auto min-h-[48px]">
+                Download Free Guides
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>
