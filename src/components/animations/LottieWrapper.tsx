@@ -227,13 +227,8 @@ export default function LottieWrapper({
   // Effective loop - disable looping if already completed first loop on mobile
   const effectiveLoop = hasCompletedFirstLoop ? false : loop;
 
-  // Mobile-optimized render config
-  // Use canvas renderer and lower DPI for better performance
-  const renderConfig = isMobile && mobileOptimized && useCanvasRenderer ? {
-    // Lower devicePixelRatio for better mobile performance
-    // 0.75 provides good balance between quality and performance
-    devicePixelRatio: 0.75,
-  } : undefined;
+  // Mobile render config - use native resolution for sharp rendering
+  const renderConfig = undefined;
 
   return (
     <div
