@@ -80,7 +80,7 @@ export default function LottieWrapper({
   style,
   mobileOptimized = true,
   staticOnMobile = false,
-  mobileSpeed = 0.75,
+  mobileSpeed = 0.5,  // Slower for smoother mobile playback
   freezeAfterFirstLoop = true,
   useCanvasRenderer = true,
   priority = false,
@@ -102,13 +102,19 @@ export default function LottieWrapper({
     triggerOnce: false,
   });
 
-  // Check for mobile device
+  // Check for mobile device and low-power mode
+  const [isLowPower, setIsLowPower] = useState(false);
+
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768 ||
         ('ontouchstart' in window) ||
         (navigator.maxTouchPoints > 0);
       setIsMobile(mobile);
+
+      // Detect low-power devices (fewer cores = likely older/slower device)
+      const cores = navigator.hardwareConcurrency || 4;
+      setIsLowPower(mobile && cores <= 4);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -137,23 +143,36 @@ export default function LottieWrapper({
 
   const src = getSrc();
 
-  // Set speed when ready
+  // Set speed when ready - even slower on low-power devices
   useEffect(() => {
     if (!dotLottieRef.current || !isReady) return;
-    const effectiveSpeed = isMobile && mobileOptimized ? speed * mobileSpeed : speed;
+    let effectiveSpeed = speed;
+    if (isMobile && mobileOptimized) {
+      effectiveSpeed = isLowPower ? speed * 0.35 : speed * mobileSpeed;
+    }
     dotLottieRef.current.setSpeed(effectiveSpeed);
-  }, [isReady, speed, isMobile, mobileOptimized, mobileSpeed]);
+  }, [isReady, speed, isMobile, mobileOptimized, mobileSpeed, isLowPower]);
 
   // Handle play/pause based on viewport
+  // Delay start on mobile to let page load first
   useEffect(() => {
     if (!dotLottieRef.current || !isReady || showStatic) return;
 
     if (inView) {
-      dotLottieRef.current.play();
+      if (isMobile && mobileOptimized) {
+        // Delay animation start on mobile to reduce initial load competition
+        const delay = isLowPower ? 500 : 200;
+        const timer = setTimeout(() => {
+          dotLottieRef.current?.play();
+        }, delay);
+        return () => clearTimeout(timer);
+      } else {
+        dotLottieRef.current.play();
+      }
     } else {
       dotLottieRef.current.pause();
     }
-  }, [inView, isReady, showStatic]);
+  }, [inView, isReady, showStatic, isMobile, mobileOptimized, isLowPower]);
 
   // Handle play on hover
   useEffect(() => {
@@ -230,8 +249,7 @@ export default function LottieWrapper({
   // Mobile-optimized render config
   // Use canvas renderer and lower DPI for better performance
   const renderConfig = isMobile && mobileOptimized && useCanvasRenderer ? {
-    // Use canvas renderer for better mobile performance
-    devicePixelRatio: 1.5, // Lower than default 2x for smoother playback
+    devicePixelRatio: 1, // Lowest for smoothest mobile playback (default is 2x)
   } : undefined;
 
   return (
