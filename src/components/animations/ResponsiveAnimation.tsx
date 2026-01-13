@@ -18,6 +18,8 @@ interface ResponsiveAnimationProps {
   loop?: boolean
   /** Priority loading - load immediately without waiting for viewport */
   priority?: boolean
+  /** Keep animation looping on mobile (default: false - freezes after first loop) */
+  keepPlayingOnMobile?: boolean
 }
 
 /**
@@ -30,6 +32,7 @@ export default function ResponsiveAnimation({
   speed = 1,
   loop = true,
   priority = true, // Default to priority for hero animations
+  keepPlayingOnMobile = false,
 }: ResponsiveAnimationProps) {
   return (
     <LottieWrapper
@@ -39,6 +42,7 @@ export default function ResponsiveAnimation({
       loop={loop}
       autoplay={isActive}
       priority={priority}
+      freezeAfterFirstLoop={!keepPlayingOnMobile}
     />
   )
 }

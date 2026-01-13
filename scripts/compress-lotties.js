@@ -1,6 +1,8 @@
 /**
  * Lottie Compression Script
- * Uses lottie-compress to optimize JSON files, then converts to .lottie format
+ * - Reduces decimal precision for smaller file sizes
+ * - Uses lottie-compress for image optimization
+ * - Minifies JSON output
  */
 
 const fs = require('fs');
@@ -8,6 +10,30 @@ const path = require('path');
 const LottieCompress = require('lottie-compress').default;
 
 const ANIMATIONS_DIR = path.join(__dirname, '../public/animations');
+const DECIMAL_PRECISION = 2; // Reduce from 6+ decimals to 2
+
+/**
+ * Recursively reduce decimal precision in animation data
+ * This can save 15-30% on vector-heavy animations
+ */
+function reducePrecision(obj, precision = DECIMAL_PRECISION) {
+  if (typeof obj === 'number') {
+    // Round to specified decimal places
+    const multiplier = Math.pow(10, precision);
+    return Math.round(obj * multiplier) / multiplier;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(item => reducePrecision(item, precision));
+  }
+  if (typeof obj === 'object' && obj !== null) {
+    const result = {};
+    for (const key of Object.keys(obj)) {
+      result[key] = reducePrecision(obj[key], precision);
+    }
+    return result;
+  }
+  return obj;
+}
 
 async function compressLottie(jsonPath) {
   const filename = path.basename(jsonPath);
@@ -43,19 +69,16 @@ async function compressLottie(jsonPath) {
 
       return { filename, originalSize, newSize, compressed: true };
     } else {
-      // For vector-only files, just minify the JSON
-      const minified = JSON.stringify(jsonData);
+      // For vector-only files, reduce precision and minify
+      console.log(`  [${filename}] Vector-only - reducing precision...`);
+      const optimized = reducePrecision(jsonData);
+      const minified = JSON.stringify(optimized);
       const minifiedSize = Buffer.byteLength(minified);
 
-      if (minifiedSize < originalSize) {
-        fs.writeFileSync(jsonPath, minified);
-        const savings = ((originalSize - minifiedSize) / originalSize * 100).toFixed(1);
-        console.log(`  [${filename}] Minified: ${formatSize(originalSize)} → ${formatSize(minifiedSize)} (${savings}% savings)`);
-        return { filename, originalSize, newSize: minifiedSize, compressed: true };
-      } else {
-        console.log(`  [${filename}] Already optimized (${formatSize(originalSize)})`);
-        return { filename, originalSize, newSize: originalSize, compressed: false };
-      }
+      fs.writeFileSync(jsonPath, minified);
+      const savings = ((originalSize - minifiedSize) / originalSize * 100).toFixed(1);
+      console.log(`  [${filename}] ${formatSize(originalSize)} → ${formatSize(minifiedSize)} (${savings}% savings)`);
+      return { filename, originalSize, newSize: minifiedSize, compressed: true };
     }
   } catch (error) {
     console.error(`  [${filename}] Error: ${error.message}`);

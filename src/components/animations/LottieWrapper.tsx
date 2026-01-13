@@ -230,8 +230,9 @@ export default function LottieWrapper({
   // Mobile-optimized render config
   // Use canvas renderer and lower DPI for better performance
   const renderConfig = isMobile && mobileOptimized && useCanvasRenderer ? {
-    // Use canvas renderer for better mobile performance
-    devicePixelRatio: 1, // Lowest for best mobile performance
+    // Lower devicePixelRatio for better mobile performance
+    // 0.75 provides good balance between quality and performance
+    devicePixelRatio: 0.75,
   } : undefined;
 
   return (

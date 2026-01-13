@@ -72,6 +72,7 @@ export default function AboutPage() {
                   loop={true}
                   speed={1}
                   className="w-full aspect-square"
+                  keepPlayingOnMobile={true}
                 />
               </div>
             </motion.div>
