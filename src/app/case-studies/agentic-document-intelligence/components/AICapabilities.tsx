@@ -247,11 +247,11 @@ export default function AICapabilities({ className = '' }: AICapabilitiesProps) 
           What This Enables
         </div>
         <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary mb-2 sm:mb-3 px-2">
-          AI That Knows Your Business
+          Five Ways to Use Your Knowledge Base
         </h3>
         <p className="text-sm sm:text-base text-text-secondary max-w-2xl mx-auto px-2">
-          Once your documents become a structured knowledge base, AI can search, answer questions,
-          automate workflows, and power applications - all using YOUR data.
+          Once structured, your documents become the foundation for search,
+          AI assistants, automated workflows, and custom applications.
         </p>
       </motion.div>
 

@@ -64,7 +64,7 @@ export default function ExecutiveSummaryCard({ className = '' }: ExecutiveSummar
                       <span className="text-[10px] sm:text-xs font-semibold text-red-600 uppercase tracking-wide">Problem</span>
                     </div>
                     <p className="text-xs sm:text-sm text-red-800">
-                      Your institutional knowledge is locked in documents. AI tools can&apos;t access it - every question requires manual lookup.
+                      Critical information buried in PDFs, scans, and spreadsheets. Every question requires someone to dig through files.
                     </p>
                   </div>
 
@@ -77,7 +77,7 @@ export default function ExecutiveSummaryCard({ className = '' }: ExecutiveSummar
                       <span className="text-[10px] sm:text-xs font-semibold text-teal-600 uppercase tracking-wide">Solution</span>
                     </div>
                     <p className="text-xs sm:text-sm text-teal-800">
-                      AI that reads and understands your documents, transforming them into a searchable knowledge base - automatically.
+                      Vision AI that reads documents like a human, extracting structured data from any format automatically.
                     </p>
                   </div>
 
@@ -90,7 +90,7 @@ export default function ExecutiveSummaryCard({ className = '' }: ExecutiveSummar
                       <span className="text-[10px] sm:text-xs font-semibold text-green-600 uppercase tracking-wide">Result</span>
                     </div>
                     <p className="text-xs sm:text-sm text-green-800">
-                      AI that knows your business. Search, chat, automate workflows, build apps - all powered by YOUR data.
+                      Ask questions in plain English. Get sourced answers in seconds. Build apps on your own data.
                     </p>
                   </div>
                 </div>

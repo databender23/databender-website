@@ -154,14 +154,14 @@ export default function RealWorldExamples({ className = '' }: RealWorldExamplesP
           <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
-          Knowledge Locked Away
+          The Challenge
         </div>
         <h3 className="text-xl sm:text-2xl font-bold text-text-primary mb-2 px-2">
-          Your Expertise Is Scattered Across Documents
+          Every Manufacturer, a Different Format
         </h3>
         <p className="text-sm sm:text-base text-text-secondary max-w-2xl mx-auto px-2">
-          Years of institutional knowledge trapped in different formats.
-          AI can&apos;t read these. Every answer requires someone to dig through files manually.
+          Tables, checklists, catalogs, forms - each supplier has their own layout.
+          Traditional OCR chokes on this variety. Manual entry is the only option.
         </p>
       </motion.div>
 

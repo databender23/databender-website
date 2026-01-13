@@ -67,8 +67,8 @@ export default function DocumentIntelligenceCaseStudy() {
               transition={{ delay: 0.2 }}
               className="text-lg md:text-xl text-text-secondary mb-6 md:mb-8 max-w-2xl mx-auto px-2"
             >
-              Your organization&apos;s expertise lives in documents. Now AI can access it -
-              search, chat, automate, and build applications using YOUR data.
+              Decades of expertise trapped in PDFs, scans, and spreadsheets. We turn them into
+              a searchable knowledge base that powers AI assistants, workflows, and applications.
             </motion.p>
 
             {/* Executive Summary */}
@@ -99,11 +99,11 @@ export default function DocumentIntelligenceCaseStudy() {
           >
             <span className="text-red-500 font-medium uppercase tracking-wide text-xs sm:text-sm">The Problem</span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mt-2 mb-3 md:mb-4 px-2">
-              Your Knowledge Is Locked Away
+              AI Can&apos;t Read Your Documents
             </h2>
             <p className="text-sm sm:text-base text-text-secondary max-w-2xl mx-auto px-2">
-              AI assistants are powerful, but they can&apos;t answer questions about YOUR business.
-              Your expertise is trapped in documents they can&apos;t read.
+              ChatGPT is powerful, but it doesn&apos;t know your business.
+              Your expertise sits in documents it can&apos;t access.
             </p>
           </motion.div>
 
@@ -201,11 +201,11 @@ export default function DocumentIntelligenceCaseStudy() {
           >
             <span className="text-teal-500 font-medium uppercase tracking-wide text-xs sm:text-sm">The Outcome</span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mt-2 mb-3 md:mb-4 px-2">
-              AI That Knows Your Business
+              From Scattered Files to Unified Intelligence
             </h2>
             <p className="text-sm sm:text-base text-text-secondary max-w-2xl mx-auto px-2">
-              Thousands of documents become a single knowledge base. AI can finally answer questions
-              about YOUR data, YOUR processes, YOUR expertise.
+              Thousands of documents become one searchable source of truth.
+              Ask questions, get instant answers with citations.
             </p>
           </motion.div>
 
@@ -228,11 +228,11 @@ export default function DocumentIntelligenceCaseStudy() {
               Any Industry, Any Documents
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mt-2 mb-3 md:mb-4 px-2">
-              Your Documents Could Power AI
+              This Works Across Industries
             </h2>
             <p className="text-sm sm:text-base text-text-secondary max-w-2xl mx-auto px-2">
-              Wherever you have institutional knowledge locked in documents,
-              we can transform it into an AI-ready knowledge base.
+              Medical devices, legal contracts, real estate records, manufacturing specs.
+              If your expertise lives in documents, we can make it searchable.
             </p>
           </motion.div>
 
@@ -276,7 +276,7 @@ export default function DocumentIntelligenceCaseStudy() {
               viewport={{ once: true }}
               className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 md:mb-6 px-2"
             >
-              Ready to unlock your institutional knowledge?
+              Ready to make your documents work for you?
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -285,8 +285,8 @@ export default function DocumentIntelligenceCaseStudy() {
               transition={{ delay: 0.1 }}
               className="text-base md:text-xl text-text-secondary mb-8 md:mb-10 px-2"
             >
-              Let&apos;s discuss how your documents can become an AI-ready knowledge base
-              that powers search, chat, automation, and custom applications.
+              We&apos;ll show you what&apos;s possible with a sample of your actual documents.
+              No commitment, just a demo of your data transformed.
             </motion.p>
 
             <motion.div
