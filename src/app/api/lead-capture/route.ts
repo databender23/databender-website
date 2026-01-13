@@ -1,4 +1,123 @@
 import { NextResponse } from "next/server";
+import { sendGuideEmail } from "@/lib/notifications/guide-email";
+import { getGuideContentBySlug } from "@/lib/guide-content-data";
+
+const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
+
+interface LeadData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  company?: string;
+  phone?: string;
+  message?: string;
+  formType: "audit" | "guide" | "assessment";
+  resourceSlug: string;
+  resourceTitle: string;
+  submittedAt: string;
+}
+
+/**
+ * Send Slack notification for lead capture
+ */
+async function sendLeadSlackNotification(data: LeadData): Promise<void> {
+  if (!SLACK_WEBHOOK_URL) {
+    console.log("Slack webhook not configured, skipping notification");
+    return;
+  }
+
+  try {
+    const formTypeLabels: Record<string, string> = {
+      guide: "Guide Download",
+      audit: "Audit Request",
+      assessment: "Assessment",
+    };
+
+    const formTypeEmoji: Record<string, string> = {
+      guide: "📖",
+      audit: "🔍",
+      assessment: "📊",
+    };
+
+    const emoji = formTypeEmoji[data.formType] || "📋";
+    const typeLabel = formTypeLabels[data.formType] || data.formType;
+
+    // Format timestamp in Chicago timezone
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "America/Chicago",
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const blocks: any[] = [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `${emoji} *New ${typeLabel}*\n*${data.resourceTitle}*`,
+        },
+      },
+      {
+        type: "section",
+        fields: [
+          { type: "mrkdwn", text: `*Name*\n${data.firstName} ${data.lastName}` },
+          { type: "mrkdwn", text: `*Email*\n${data.email}` },
+        ],
+      },
+    ];
+
+    // Add company if provided
+    if (data.company) {
+      blocks.push({
+        type: "section",
+        fields: [
+          { type: "mrkdwn", text: `*Company*\n${data.company}` },
+          { type: "mrkdwn", text: `*Type*\n${typeLabel}` },
+        ],
+      });
+    }
+
+    // Add message if provided (for audits)
+    if (data.message) {
+      blocks.push({
+        type: "section",
+        text: { type: "mrkdwn", text: `*Message*\n${data.message}` },
+      });
+    }
+
+    // Add timestamp
+    blocks.push({
+      type: "context",
+      elements: [{ type: "mrkdwn", text: `🕐 ${timeStr} CT` }],
+    });
+
+    const payload = {
+      text: `${emoji} New ${typeLabel}: ${data.resourceTitle} from ${data.firstName} ${data.lastName}`,
+      attachments: [
+        {
+          color: data.formType === "audit" ? "#ea580c" : "#1A9988",
+          blocks,
+        },
+      ],
+    };
+
+    const response = await fetch(SLACK_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Slack notification failed:", response.status, errorText);
+    }
+  } catch (error) {
+    console.error("Slack notification error:", error);
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -14,7 +133,7 @@ export async function POST(request: Request) {
       resourceSlug,
       resourceTitle,
       submittedAt,
-    } = body;
+    } = body as LeadData;
 
     // Validate required fields
     if (!firstName || !lastName || !email) {
@@ -33,12 +152,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // In production, you would:
-    // 1. Store in CRM (HubSpot, Salesforce, etc.)
-    // 2. Send email with the resource (using Resend, SendGrid)
-    // 3. Trigger email nurture sequence
-    // 4. For audits: Create task/notification for sales team
-
     // Log the submission
     console.log("Lead capture submission:", {
       formType,
@@ -53,39 +166,51 @@ export async function POST(request: Request) {
       submittedAt,
     });
 
-    // Example: Send resource email with Resend (uncomment and add API key)
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    //
-    // if (formType === "guide") {
-    //   await resend.emails.send({
-    //     from: 'Databender <resources@databender.co>',
-    //     to: [email],
-    //     subject: `Your Guide: ${resourceTitle}`,
-    //     html: `
-    //       <h2>Here's your guide!</h2>
-    //       <p>Hi ${firstName},</p>
-    //       <p>Thanks for downloading "${resourceTitle}".</p>
-    //       <p><a href="${process.env.SITE_URL}/downloads/${resourceSlug}.pdf">Download your guide</a></p>
-    //     `,
-    //   });
-    // }
-    //
-    // if (formType === "audit") {
-    //   // Notify sales team
-    //   await resend.emails.send({
-    //     from: 'Databender <notifications@databender.co>',
-    //     to: ['sales@databender.co'],
-    //     subject: `New Audit Request: ${resourceTitle} from ${company}`,
-    //     html: `
-    //       <h2>New Audit Request</h2>
-    //       <p><strong>Audit:</strong> ${resourceTitle}</p>
-    //       <p><strong>Contact:</strong> ${firstName} ${lastName}</p>
-    //       <p><strong>Email:</strong> ${email}</p>
-    //       <p><strong>Company:</strong> ${company}</p>
-    //       <p><strong>Message:</strong> ${message || 'None'}</p>
-    //     `,
-    //   });
-    // }
+    // Send Slack notification (fire and forget)
+    sendLeadSlackNotification({
+      firstName,
+      lastName,
+      email,
+      company,
+      phone,
+      message,
+      formType,
+      resourceSlug,
+      resourceTitle,
+      submittedAt,
+    }).catch((err) => console.error("Slack notification failed:", err));
+
+    // Handle guide downloads
+    if (formType === "guide") {
+      const guideContent = getGuideContentBySlug(resourceSlug);
+
+      if (guideContent) {
+        // Send guide email via SES
+        const emailSent = await sendGuideEmail({
+          firstName,
+          lastName,
+          email,
+          company,
+          guideTitle: resourceTitle,
+          guideSlug: resourceSlug,
+          downloadUrl: guideContent.pdfUrl,
+          contentUrl: `/resources/guides/${resourceSlug}/content`,
+        });
+
+        if (!emailSent) {
+          console.warn(`Guide email failed to send for ${email}`);
+        }
+      } else {
+        console.warn(`No guide content found for slug: ${resourceSlug}`);
+      }
+    }
+
+    // Handle audit requests (notify team)
+    if (formType === "audit") {
+      // Audit requests are handled via Slack notification above
+      // Could add additional email notification to sales team here
+      console.log(`Audit request received: ${resourceTitle} from ${company}`);
+    }
 
     return NextResponse.json(
       { success: true, message: "Lead captured successfully" },

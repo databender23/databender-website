@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui";
 import { EmailCaptureForm } from "@/components/forms";
 import { legalGuides, type Guide } from "@/lib/lead-magnets-data";
+import { getGuideContentBySlug } from "@/lib/guide-content-data";
 
 // Icon components for topic bullets
 const IconCheck = () => (
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export default function GuidePageClient({ guide }: Props) {
+  const guideContent = getGuideContentBySlug(guide.slug);
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -133,6 +135,7 @@ export default function GuidePageClient({ guide }: Props) {
                 showCompanyField={true}
                 showPhoneField={false}
                 showMessageField={false}
+                downloadUrl={guideContent?.pdfUrl}
               />
             </motion.div>
           </div>

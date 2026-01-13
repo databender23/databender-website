@@ -12,6 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://databender.co'),
   title: {
     default: "Databender | Boutique Strategy. Enterprise Delivery.",
     template: "%s | Databender",

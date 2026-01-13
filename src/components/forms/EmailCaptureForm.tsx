@@ -14,6 +14,7 @@ interface EmailCaptureFormProps {
   showMessageField?: boolean;
   onSuccess?: () => void;
   className?: string;
+  downloadUrl?: string; // Direct download URL to show after success
 }
 
 export default function EmailCaptureForm({
@@ -26,6 +27,7 @@ export default function EmailCaptureForm({
   showMessageField = false,
   onSuccess,
   className = "",
+  downloadUrl,
 }: EmailCaptureFormProps) {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -105,11 +107,35 @@ export default function EmailCaptureForm({
         <h3 className="text-xl font-semibold text-text-primary mb-2">
           {formType === "audit" ? "Request Received!" : "You're In!"}
         </h3>
-        <p className="text-text-secondary">
+        <p className="text-text-secondary mb-4">
           {formType === "audit"
             ? "We'll review your information and reach out within 1 business day."
-            : "Check your email for access to your resource."}
+            : "Your guide is ready. We've also sent a copy to your email."}
         </p>
+        {downloadUrl && formType === "guide" && (
+          <div className="space-y-3">
+            <a
+              href={downloadUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-teal-500 text-white font-medium rounded-xl hover:bg-teal-600 transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Your Guide
+            </a>
+            <a
+              href={`/resources/guides/${resourceSlug}/content`}
+              className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-white text-teal-600 font-medium rounded-xl border border-teal-500/30 hover:bg-teal-500/5 transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              Read Online
+            </a>
+          </div>
+        )}
       </motion.div>
     );
   }
