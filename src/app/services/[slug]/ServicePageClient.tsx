@@ -95,7 +95,16 @@ const AI_SERVICES_LOTTIE_URL = "/animations/ai-services.json";
 
 export default function ServicePageClient({ service }: Props) {
   const [lottieData, setLottieData] = useState<object | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
+
+  // Detect mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     let lottieUrl: string | null = null;
@@ -120,12 +129,13 @@ export default function ServicePageClient({ service }: Props) {
   useEffect(() => {
     if (lottieRef.current) {
       if (service.slug === "data-ai-strategy") {
-        lottieRef.current.setSpeed(1.3);
+        // Slower on mobile for smoother rendering
+        lottieRef.current.setSpeed(isMobile ? 0.5 : 1.3);
       } else if (service.slug === "analytics-bi") {
         lottieRef.current.setSpeed(0.5);
       }
     }
-  }, [lottieData, service.slug]);
+  }, [lottieData, service.slug, isMobile]);
 
   const hasLottie = ["data-ai-strategy", "analytics-bi", "ai-services"].includes(service.slug);
 
