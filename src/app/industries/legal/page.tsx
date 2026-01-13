@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
@@ -46,16 +46,7 @@ const iconMap: Record<string, React.FC> = {
 
 export default function LegalIndustryPage() {
   const [selectedAudit, setSelectedAudit] = useState<string | null>(null);
-  const [lottieData, setLottieData] = useState<object | null>(null);
   const content = industryContent["legal"];
-
-  // Load Lottie animation
-  useEffect(() => {
-    fetch(LEGAL_LOTTIE_URL)
-      .then((res) => res.json())
-      .then((data) => setLottieData(data))
-      .catch(() => setLottieData(null));
-  }, []);
 
   return (
     <>
@@ -121,23 +112,21 @@ export default function LegalIndustryPage() {
             </div>
 
             {/* Lottie Animation */}
-            {lottieData && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center"
-              >
-                <div className="w-full max-w-md">
-                  <LottieWrapper
-                    animationData={lottieData}
-                    loop={true}
-                    autoplay={true}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-            )}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex justify-center items-center"
+            >
+              <div className="w-full max-w-md">
+                <LottieWrapper
+                  animationUrl={LEGAL_LOTTIE_URL}
+                  loop={true}
+                  autoplay={true}
+                  className="w-full h-auto"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

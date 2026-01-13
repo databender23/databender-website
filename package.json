@@ -13,6 +13,7 @@
     "@aws-sdk/client-dynamodb": "^3.966.0",
     "@aws-sdk/client-ses": "^3.966.0",
     "@aws-sdk/lib-dynamodb": "^3.966.0",
+    "@lottiefiles/dotlottie-react": "^0.17.12",
     "@types/canvas-confetti": "^1.9.0",
     "bcryptjs": "^3.0.3",
     "canvas-confetti": "^1.9.4",
@@ -26,9 +27,11 @@
     "react-markdown": "^10.1.0",
     "recharts": "^3.6.0",
     "remark-gfm": "^4.0.1",
+    "sharp": "^0.34.5",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@dotlottie/dotlottie-js": "^1.6.2",
     "@tailwindcss/postcss": "^4",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",

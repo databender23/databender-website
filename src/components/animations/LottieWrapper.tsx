@@ -2,20 +2,22 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import dynamic from "next/dynamic";
-import { LottieRefCurrentProps } from "lottie-react";
 import { useInView } from "react-intersection-observer";
 
-// Dynamically import Lottie to reduce initial bundle size
-const Lottie = dynamic(() => import("lottie-react"), {
-  ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-100 rounded-lg w-full h-full min-h-[200px]" />,
-});
+// Dynamically import DotLottieReact for .lottie files (much smaller)
+const DotLottieReact = dynamic(
+  () => import("@lottiefiles/dotlottie-react").then((mod) => mod.DotLottieReact),
+  {
+    ssr: false,
+    loading: () => <div className="animate-pulse bg-gray-100 rounded-lg w-full h-full min-h-[200px]" />,
+  }
+);
 
 interface LottieWrapperProps {
-  /** Animation data object OR URL to fetch animation from */
-  animationData?: object;
-  /** URL to fetch animation data from (lazy loaded) */
+  /** URL to .lottie file (preferred) or .json file */
   animationUrl?: string;
+  /** Animation data object (legacy, prefer animationUrl with .lottie) */
+  animationData?: object;
   /** Static image to show on mobile (recommended for performance) */
   staticImage?: string;
   loop?: boolean;
@@ -34,8 +36,8 @@ interface LottieWrapperProps {
 }
 
 export default function LottieWrapper({
-  animationData: providedAnimationData,
   animationUrl,
+  animationData,
   staticImage,
   loop = true,
   autoplay = true,
@@ -45,25 +47,24 @@ export default function LottieWrapper({
   className = "",
   style,
   mobileOptimized = true,
-  staticOnMobile = false, // Animations play on mobile by default
-  mobileSpeed = 0.75, // Slower on mobile for smoother playback
+  staticOnMobile = false,
+  mobileSpeed = 0.75,
 }: LottieWrapperProps) {
-  const lottieRef = useRef<LottieRefCurrentProps>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dotLottieRef = useRef<any>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [animationData, setAnimationData] = useState<object | null>(providedAnimationData || null);
-  const [isLoading, setIsLoading] = useState(!providedAnimationData && !!animationUrl);
-  const hasLoadedRef = useRef(false);
+  const [isReady, setIsReady] = useState(false);
 
   // Lazy load trigger - only load when close to viewport
   const { ref: viewRef, inView } = useInView({
     threshold: 0,
-    rootMargin: "200px", // Start loading 200px before entering viewport
+    rootMargin: "200px",
     triggerOnce: false,
   });
 
-  // Check for mobile device - do this synchronously on mount to avoid flash
+  // Check for mobile device
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768 ||
@@ -80,85 +81,52 @@ export default function LottieWrapper({
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mediaQuery.matches);
-
     const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener("change", handler);
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
-  // Determine if we should show static content
   const showStatic = prefersReducedMotion || (staticOnMobile && isMobile);
 
-  // Lazy load animation data when entering viewport (only if not showing static)
+  // Convert .json URL to .lottie URL if available
+  const getSrc = () => {
+    if (!animationUrl) return undefined;
+    // If it's already a .lottie file, use it directly
+    if (animationUrl.endsWith('.lottie')) return animationUrl;
+    // Try .lottie version first (smaller), fallback handled by component
+    return animationUrl.replace('.json', '.lottie');
+  };
+
+  const src = getSrc();
+
+  // Set speed when ready
   useEffect(() => {
-    if (
-      !animationUrl ||
-      providedAnimationData ||
-      hasLoadedRef.current ||
-      showStatic ||
-      !inView
-    ) {
-      return;
-    }
-
-    hasLoadedRef.current = true;
-    setIsLoading(true);
-
-    fetch(animationUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        setAnimationData(data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to load animation:", err);
-        setIsLoading(false);
-      });
-  }, [animationUrl, providedAnimationData, showStatic, inView]);
-
-  // Set animation speed (slower on mobile for smoother playback)
-  useEffect(() => {
-    if (!lottieRef.current) return;
+    if (!dotLottieRef.current || !isReady) return;
     const effectiveSpeed = isMobile && mobileOptimized ? speed * mobileSpeed : speed;
-    lottieRef.current.setSpeed(effectiveSpeed);
-  }, [animationData, speed, isMobile, mobileOptimized, mobileSpeed]);
+    dotLottieRef.current.setSpeed(effectiveSpeed);
+  }, [isReady, speed, isMobile, mobileOptimized, mobileSpeed]);
 
-  // Handle play on view
+  // Handle play/pause based on viewport
   useEffect(() => {
-    if (!lottieRef.current || prefersReducedMotion || showStatic) return;
+    if (!dotLottieRef.current || !isReady || showStatic) return;
 
-    if (playOnView) {
-      if (inView) {
-        lottieRef.current.play();
-      } else {
-        lottieRef.current.pause();
-      }
+    if (inView) {
+      dotLottieRef.current.play();
+    } else {
+      dotLottieRef.current.pause();
     }
-  }, [inView, playOnView, prefersReducedMotion, showStatic]);
+  }, [inView, isReady, showStatic]);
 
   // Handle play on hover
   useEffect(() => {
-    if (!lottieRef.current || prefersReducedMotion || showStatic) return;
+    if (!dotLottieRef.current || !isReady || showStatic || !playOnHover) return;
 
-    if (playOnHover) {
-      if (isHovered) {
-        lottieRef.current.play();
-      } else {
-        lottieRef.current.goToAndStop(0, true);
-      }
-    }
-  }, [isHovered, playOnHover, prefersReducedMotion, showStatic]);
-
-  // Pause animation when not in view to save battery/CPU
-  useEffect(() => {
-    if (!lottieRef.current || showStatic) return;
-
-    if (inView) {
-      lottieRef.current.play();
+    if (isHovered) {
+      dotLottieRef.current.play();
     } else {
-      lottieRef.current.pause();
+      dotLottieRef.current.stop();
     }
-  }, [inView, showStatic]);
+  }, [isHovered, isReady, showStatic, playOnHover]);
 
   const handleMouseEnter = useCallback(() => {
     if (playOnHover) setIsHovered(true);
@@ -168,9 +136,16 @@ export default function LottieWrapper({
     if (playOnHover) setIsHovered(false);
   }, [playOnHover]);
 
-  const shouldAutoplay = autoplay && !playOnHover && !playOnView && !showStatic;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleDotLottieRef = (ref: any) => {
+    dotLottieRef.current = ref;
+  };
 
-  // Show static image on mobile for best performance
+  const handleLoad = () => {
+    setIsReady(true);
+  };
+
+  // Show static image for reduced motion or mobile static mode
   if (showStatic && staticImage) {
     return (
       <div ref={viewRef} className={className} style={style}>
@@ -184,8 +159,8 @@ export default function LottieWrapper({
     );
   }
 
-  // Show loading placeholder while fetching animation
-  if (isLoading || (!animationData && animationUrl)) {
+  // Don't render until in view (lazy load)
+  if (!inView && !isReady) {
     return (
       <div ref={viewRef} className={className} style={style}>
         <div className="animate-pulse bg-gray-100 rounded-lg w-full h-full min-h-[200px]" />
@@ -193,17 +168,11 @@ export default function LottieWrapper({
     );
   }
 
-  // Don't render Lottie if no animation data
-  if (!animationData) {
+  if (!src && !animationData) {
     return <div ref={viewRef} className={className} style={style} />;
   }
 
-  // GPU compositing hint for smoother animations
-  const animationStyle = {
-    width: "100%",
-    height: "100%",
-    willChange: isMobile ? "transform" : "auto",
-  };
+  const shouldAutoplay = autoplay && !playOnHover && !playOnView && !showStatic;
 
   return (
     <div
@@ -213,12 +182,15 @@ export default function LottieWrapper({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Lottie
-        lottieRef={lottieRef}
-        animationData={animationData}
+      <DotLottieReact
+        dotLottieRefCallback={handleDotLottieRef}
+        src={src}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data={animationData as any}
         loop={loop}
         autoplay={shouldAutoplay}
-        style={animationStyle}
+        onLoad={handleLoad}
+        style={{ width: "100%", height: "100%" }}
       />
     </div>
   );
