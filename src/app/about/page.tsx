@@ -60,12 +60,12 @@ export default function AboutPage() {
               </motion.div>
             </div>
 
-            {/* Lottie Animation */}
+            {/* Lottie Animation - above on mobile, right side on desktop */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex justify-center items-center lg:col-span-2"
+              className="flex justify-center items-center lg:col-span-2 order-first lg:order-last"
             >
               <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
                 <ResponsiveAnimation
