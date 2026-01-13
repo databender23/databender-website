@@ -86,26 +86,152 @@ function parseUserAgent(ua: string | null): { browser?: string; browserVersion?:
   return { browser, browserVersion, os, osVersion };
 }
 
-function parseReferrerSource(referrer: string | undefined): { source?: string; medium?: string } {
-  if (!referrer) return { source: "direct", medium: "none" };
+interface ReferrerInfo {
+  source: string;
+  medium: string;
+  category: "search" | "ai-search" | "social" | "email" | "referral" | "direct" | "unknown";
+  displayName: string;
+}
+
+function parseReferrerSource(referrer: string | undefined, utm?: { source?: string; medium?: string }): ReferrerInfo {
+  // If we have UTM params, they take precedence
+  if (utm?.source) {
+    const medium = utm.medium || "campaign";
+    let category: ReferrerInfo["category"] = "referral";
+
+    // Categorize based on UTM medium
+    if (medium === "social" || ["linkedin", "twitter", "facebook"].includes(utm.source.toLowerCase())) {
+      category = "social";
+    } else if (medium === "email" || medium === "newsletter") {
+      category = "email";
+    } else if (medium === "cpc" || medium === "paid") {
+      category = "search"; // Paid search
+    }
+
+    return {
+      source: utm.source.toLowerCase(),
+      medium,
+      category,
+      displayName: `${utm.source}${utm.medium ? ` (${utm.medium})` : ""}`,
+    };
+  }
+
+  if (!referrer) {
+    return { source: "direct", medium: "none", category: "direct", displayName: "Direct" };
+  }
 
   try {
     const url = new URL(referrer);
     const hostname = url.hostname.toLowerCase();
 
-    if (hostname.includes("google")) return { source: "google", medium: "organic" };
-    if (hostname.includes("bing")) return { source: "bing", medium: "organic" };
-    if (hostname.includes("duckduckgo")) return { source: "duckduckgo", medium: "organic" };
-    if (hostname.includes("facebook") || hostname.includes("fb.com")) return { source: "facebook", medium: "social" };
-    if (hostname.includes("twitter") || hostname.includes("t.co")) return { source: "twitter", medium: "social" };
-    if (hostname.includes("linkedin")) return { source: "linkedin", medium: "social" };
-    if (hostname.includes("instagram")) return { source: "instagram", medium: "social" };
-    if (hostname.includes("youtube")) return { source: "youtube", medium: "social" };
-    if (hostname.includes("reddit")) return { source: "reddit", medium: "social" };
+    // AI Search Engines (growing category!)
+    if (hostname.includes("perplexity")) {
+      return { source: "perplexity", medium: "ai-search", category: "ai-search", displayName: "Perplexity AI" };
+    }
+    if (hostname.includes("you.com")) {
+      return { source: "you.com", medium: "ai-search", category: "ai-search", displayName: "You.com" };
+    }
+    if (hostname.includes("phind")) {
+      return { source: "phind", medium: "ai-search", category: "ai-search", displayName: "Phind" };
+    }
+    if (hostname.includes("kagi")) {
+      return { source: "kagi", medium: "ai-search", category: "ai-search", displayName: "Kagi" };
+    }
+    if (hostname.includes("chat.openai") || hostname.includes("chatgpt")) {
+      return { source: "chatgpt", medium: "ai-search", category: "ai-search", displayName: "ChatGPT" };
+    }
+    if (hostname.includes("claude.ai") || hostname.includes("anthropic")) {
+      return { source: "claude", medium: "ai-search", category: "ai-search", displayName: "Claude" };
+    }
+    if (hostname.includes("gemini.google") || hostname.includes("bard.google")) {
+      return { source: "gemini", medium: "ai-search", category: "ai-search", displayName: "Google Gemini" };
+    }
+    if (hostname.includes("copilot.microsoft")) {
+      return { source: "copilot", medium: "ai-search", category: "ai-search", displayName: "Microsoft Copilot" };
+    }
 
-    return { source: hostname, medium: "referral" };
+    // Traditional Search Engines
+    if (hostname.includes("google")) {
+      return { source: "google", medium: "organic", category: "search", displayName: "Google" };
+    }
+    if (hostname.includes("bing")) {
+      return { source: "bing", medium: "organic", category: "search", displayName: "Bing" };
+    }
+    if (hostname.includes("duckduckgo")) {
+      return { source: "duckduckgo", medium: "organic", category: "search", displayName: "DuckDuckGo" };
+    }
+    if (hostname.includes("yahoo")) {
+      return { source: "yahoo", medium: "organic", category: "search", displayName: "Yahoo" };
+    }
+    if (hostname.includes("ecosia")) {
+      return { source: "ecosia", medium: "organic", category: "search", displayName: "Ecosia" };
+    }
+    if (hostname.includes("brave")) {
+      return { source: "brave", medium: "organic", category: "search", displayName: "Brave Search" };
+    }
+
+    // Social Media
+    if (hostname.includes("linkedin")) {
+      return { source: "linkedin", medium: "social", category: "social", displayName: "LinkedIn" };
+    }
+    if (hostname.includes("facebook") || hostname.includes("fb.com") || hostname.includes("fb.me")) {
+      return { source: "facebook", medium: "social", category: "social", displayName: "Facebook" };
+    }
+    if (hostname.includes("twitter") || hostname.includes("t.co") || hostname.includes("x.com")) {
+      return { source: "twitter", medium: "social", category: "social", displayName: "X (Twitter)" };
+    }
+    if (hostname.includes("instagram")) {
+      return { source: "instagram", medium: "social", category: "social", displayName: "Instagram" };
+    }
+    if (hostname.includes("youtube")) {
+      return { source: "youtube", medium: "social", category: "social", displayName: "YouTube" };
+    }
+    if (hostname.includes("reddit")) {
+      return { source: "reddit", medium: "social", category: "social", displayName: "Reddit" };
+    }
+    if (hostname.includes("tiktok")) {
+      return { source: "tiktok", medium: "social", category: "social", displayName: "TikTok" };
+    }
+    if (hostname.includes("threads.net")) {
+      return { source: "threads", medium: "social", category: "social", displayName: "Threads" };
+    }
+
+    // Email clients (webmail)
+    if (hostname.includes("mail.google") || hostname.includes("gmail")) {
+      return { source: "gmail", medium: "email", category: "email", displayName: "Gmail" };
+    }
+    if (hostname.includes("outlook") || hostname.includes("mail.live") || hostname.includes("hotmail")) {
+      return { source: "outlook", medium: "email", category: "email", displayName: "Outlook" };
+    }
+    if (hostname.includes("mail.yahoo")) {
+      return { source: "yahoo-mail", medium: "email", category: "email", displayName: "Yahoo Mail" };
+    }
+
+    // Professional/Industry sites
+    if (hostname.includes("clutch.co")) {
+      return { source: "clutch", medium: "referral", category: "referral", displayName: "Clutch.co" };
+    }
+    if (hostname.includes("g2.com") || hostname.includes("g2crowd")) {
+      return { source: "g2", medium: "referral", category: "referral", displayName: "G2" };
+    }
+    if (hostname.includes("capterra")) {
+      return { source: "capterra", medium: "referral", category: "referral", displayName: "Capterra" };
+    }
+
+    // Generic referral - extract clean domain name
+    const domainParts = hostname.replace("www.", "").split(".");
+    const cleanDomain = domainParts.length >= 2
+      ? `${domainParts[domainParts.length - 2]}.${domainParts[domainParts.length - 1]}`
+      : hostname;
+
+    return {
+      source: cleanDomain,
+      medium: "referral",
+      category: "referral",
+      displayName: cleanDomain
+    };
   } catch {
-    return { source: "unknown", medium: "unknown" };
+    return { source: "unknown", medium: "unknown", category: "unknown", displayName: "Unknown" };
   }
 }
 
@@ -207,8 +333,9 @@ export async function POST(request: NextRequest) {
     // Track the event
     await trackEvent(trackedEvent);
 
-    // Parse referrer source
-    const { source: referrerSource, medium: referrerMedium } = parseReferrerSource(event.referrer);
+    // Parse referrer source with enhanced detection
+    const referrerInfo = parseReferrerSource(event.referrer, event.utm);
+    const { source: referrerSource, medium: referrerMedium, category: referrerCategory, displayName: referrerDisplayName } = referrerInfo;
 
     // Calculate lead score for this event
     const eventScore = calculateEventScore(event.eventType, event.page, event.data);
@@ -380,6 +507,8 @@ export async function POST(request: NextRequest) {
             isReturning,
             visitCount,
             referrerSource,
+            referrerCategory,
+            referrerDisplayName,
             utmCampaign: event.utm?.campaign,
             utmSource: event.utm?.source,
             sessionDuration,

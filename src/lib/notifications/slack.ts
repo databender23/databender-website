@@ -25,6 +25,8 @@ interface LeadAlert {
   isReturning?: boolean;
   visitCount?: number;
   referrerSource?: string;
+  referrerCategory?: "search" | "ai-search" | "social" | "email" | "referral" | "direct" | "unknown";
+  referrerDisplayName?: string;
   utmCampaign?: string;
   utmSource?: string;
   sessionDuration?: number; // seconds
@@ -112,15 +114,31 @@ function formatLeadMessage(alert: LeadAlert): object {
   if (duration) visitorContext.push(`⏱️ ${duration}`);
   if (alert.company) visitorContext.push(`🏢 ${alert.company}`);
 
-  // Build source/attribution line
+  // Build source/attribution line with category-specific emoji
   const sourceInfo: string[] = [];
+  const getCategoryEmoji = (category?: string) => {
+    switch (category) {
+      case "ai-search": return "🤖";
+      case "search": return "🔍";
+      case "social": return "👥";
+      case "email": return "📧";
+      case "referral": return "🔗";
+      default: return "📍";
+    }
+  };
+
   if (alert.utmCampaign) {
     sourceInfo.push(`📣 Campaign: ${alert.utmCampaign}`);
-  } else if (alert.utmSource) {
-    sourceInfo.push(`📍 Source: ${alert.utmSource}`);
-  } else if (alert.referrerSource && alert.referrerSource !== "direct") {
-    sourceInfo.push(`📍 via ${alert.referrerSource}`);
   }
+
+  // Show source with category context
+  if (alert.referrerDisplayName && alert.referrerSource !== "direct") {
+    const categoryEmoji = getCategoryEmoji(alert.referrerCategory);
+    sourceInfo.push(`${categoryEmoji} ${alert.referrerDisplayName}`);
+  } else if (alert.referrerSource === "direct") {
+    sourceInfo.push("🎯 Direct");
+  }
+
   if (location) sourceInfo.push(`🌍 ${location}`);
 
   // Build intent signals
