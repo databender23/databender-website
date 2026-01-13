@@ -7,7 +7,7 @@ export const mainNavigation: NavItem[] = [
     children: [
       { label: "Data & AI Strategy", href: "/services/data-ai-strategy" },
       { label: "Analytics & BI", href: "/services/analytics-bi" },
-      { label: "AI Services & Automation", href: "/services/ai-services" },
+      { label: "AI & Automation", href: "/services/ai-services" },
     ],
   },
   {
@@ -43,7 +43,7 @@ export const footerNavigation = {
   services: [
     { label: "Data & AI Strategy", href: "/services/data-ai-strategy" },
     { label: "Analytics & BI", href: "/services/analytics-bi" },
-    { label: "AI Services & Automation", href: "/services/ai-services" },
+    { label: "AI & Automation", href: "/services/ai-services" },
     { label: "All Services", href: "/services" },
   ],
   industries: [

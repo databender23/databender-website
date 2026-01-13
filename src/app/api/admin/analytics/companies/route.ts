@@ -36,7 +36,7 @@ interface CompanyAnalytics {
 const SERVICE_PATTERNS: Record<string, RegExp> = {
   "Data & AI Strategy": /\/services\/data-ai-strategy/i,
   "Analytics & BI": /\/services\/analytics-bi/i,
-  "AI Services": /\/services\/ai-services/i,
+  "AI & Automation": /\/services\/ai-services/i,
   "Document Intelligence": /document-intelligence|agentic-document/i,
   "AI Agents": /ai-agents|army-of-ai-agents/i,
   "Lead Scoring": /lead-conversion|lead-scoring/i,

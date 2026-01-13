@@ -107,8 +107,8 @@ export const services: ConsolidatedService[] = [
   },
   {
     slug: "ai-services",
-    title: "AI Services & Automation",
-    shortTitle: "AI Services & Automation",
+    title: "AI & Automation",
+    shortTitle: "AI & Automation",
     description: "AI agents that work autonomously, document intelligence that extracts data at scale, and knowledge systems that make your files searchable.",
     longDescription: "AI that actually knows your business. We build agents that handle research and workflows while you sleep. Document intelligence that pulls structured data from contracts and records. Knowledge systems that turn years of files into answers your team can find in seconds.",
     icon: "sparkles",
@@ -184,7 +184,7 @@ export const serviceCategories = {
     message: "Stop waiting for reports. Ask questions in plain English and see what's happening now.",
   },
   "ai-services": {
-    title: "AI Services & Automation",
+    title: "AI & Automation",
     subtitle: "Work smarter with AI",
     description: "AI agents, document intelligence, and knowledge systems that make your business searchable.",
     position: "Work smarter",

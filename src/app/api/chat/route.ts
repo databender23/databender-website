@@ -40,7 +40,7 @@ Databender is an AI-first data analytics and AI consultancy founded by Grant Ben
 - **Managed Data Pipelines**: Reliable, automated data flows we build and maintain
 - **Custom Analytical Applications**: Purpose-built tools for your specific workflows
 
-### AI Services & Automation (Work smarter with AI)
+### AI & Automation (Work smarter with AI)
 - **Natural Language BI**: Ask questions in plain English, get accurate answers—no SQL required
 - **Local LLM Integrations**: AI that stays on your servers—data never leaves for privacy-sensitive industries
 - **Knowledge Management**: AI-powered search across documents, emails, systems
