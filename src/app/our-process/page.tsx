@@ -143,7 +143,7 @@ export default function OurProcessPage() {
                     animationData={lottieData}
                     loop={true}
                     autoplay={true}
-                    speed={0.5}
+                    speed={1}
                     className="w-full h-auto"
                   />
                 </div>

@@ -1,140 +1,96 @@
 import type { AssessmentScores, AssessmentCategory } from "@/types";
 
 export const assessmentQuestions = [
-  // Data Infrastructure (25 points)
+  // Data Infrastructure
   {
     id: "data-systems",
     category: "dataInfrastructure" as AssessmentCategory,
-    question: "How would you describe your current data landscape?",
+    question: "Where does your company's data live today?",
     options: [
-      { value: 0, label: "Data lives in spreadsheets and individual tools", description: "No centralized system" },
-      { value: 3, label: "We have some databases but they don't connect", description: "Siloed systems" },
-      { value: 5, label: "We have a central database but data quality varies", description: "Centralized but messy" },
-      { value: 8, label: "We have clean, connected data systems", description: "Well-organized" },
+      { value: 0, label: "Scattered across spreadsheets and different tools", description: "Everyone has their own files" },
+      { value: 3, label: "In a few systems that don't talk to each other", description: "Information is siloed" },
+      { value: 5, label: "Mostly in one place, but it's messy", description: "Centralized but needs cleanup" },
+      { value: 8, label: "In one place, clean and connected", description: "Well organized" },
     ],
   },
   {
     id: "data-quality",
     category: "dataInfrastructure" as AssessmentCategory,
-    question: "How confident are you in your data quality?",
+    question: "How much do you trust your data?",
     options: [
-      { value: 0, label: "We frequently find errors and duplicates", description: "Major quality issues" },
-      { value: 3, label: "Some data is reliable, some isn't", description: "Inconsistent quality" },
-      { value: 5, label: "Most data is accurate but cleanup is manual", description: "Good but labor-intensive" },
-      { value: 8, label: "We have automated quality controls", description: "Systematic quality management" },
+      { value: 0, label: "Not much. We find errors and duplicates all the time", description: "Constant issues" },
+      { value: 3, label: "Depends on the source. Some is good, some isn't", description: "Hit or miss" },
+      { value: 5, label: "It's mostly accurate, but someone has to check it manually", description: "Good but requires effort" },
+      { value: 8, label: "We trust it. Errors get caught automatically", description: "Reliable" },
     ],
   },
-  {
-    id: "data-access",
-    category: "dataInfrastructure" as AssessmentCategory,
-    question: "How easy is it for your team to access the data they need?",
-    options: [
-      { value: 0, label: "They have to ask IT or wait for reports", description: "Dependent on others" },
-      { value: 3, label: "Some self-service exists but it's limited", description: "Partial self-service" },
-      { value: 5, label: "Most people can access data but need training", description: "Available but complex" },
-      { value: 9, label: "Anyone can get the data they need easily", description: "Full self-service" },
-    ],
-  },
-  // Analytics Capability (25 points)
+  // Analytics Capability
   {
     id: "reporting",
     category: "analyticsCapability" as AssessmentCategory,
-    question: "How do you currently get insights from your data?",
+    question: "How do you see what's happening in your business?",
     options: [
-      { value: 0, label: "Manual spreadsheet analysis", description: "Ad-hoc Excel work" },
-      { value: 3, label: "Basic reports from our systems", description: "Standard reports" },
-      { value: 5, label: "We have dashboards but they're not always current", description: "Some visualization" },
-      { value: 8, label: "Real-time dashboards with key metrics", description: "Live insights" },
+      { value: 0, label: "Someone builds a spreadsheet when we need it", description: "One-off analysis" },
+      { value: 3, label: "We run standard reports from our systems", description: "Basic reports" },
+      { value: 5, label: "We have dashboards, but they're not always up to date", description: "Some dashboards" },
+      { value: 8, label: "We have dashboards that update automatically", description: "Live dashboards" },
     ],
   },
   {
     id: "decisions",
     category: "analyticsCapability" as AssessmentCategory,
-    question: "How often do data insights drive business decisions?",
+    question: "When you make a big decision, how often do you look at data first?",
     options: [
-      { value: 0, label: "Rarely - we mostly rely on intuition", description: "Gut-based decisions" },
-      { value: 3, label: "Sometimes - for major decisions", description: "Occasional data use" },
-      { value: 6, label: "Often - but getting data takes time", description: "Data-informed but slow" },
-      { value: 9, label: "Always - data is central to how we operate", description: "Data-driven culture" },
+      { value: 0, label: "Rarely. We mostly go with our gut", description: "Intuition-based" },
+      { value: 3, label: "Sometimes, if it's a major decision", description: "Occasionally" },
+      { value: 6, label: "Usually, but getting the data takes a while", description: "Often but slow" },
+      { value: 9, label: "Always. We don't make decisions without it", description: "Data-driven" },
     ],
   },
-  {
-    id: "reporting-time",
-    category: "analyticsCapability" as AssessmentCategory,
-    question: "How long does it take to answer a new business question with data?",
-    options: [
-      { value: 0, label: "Days to weeks", description: "Very slow" },
-      { value: 3, label: "Hours to a day", description: "Relatively slow" },
-      { value: 5, label: "Less than an hour", description: "Reasonably fast" },
-      { value: 8, label: "Minutes or instant", description: "Real-time capability" },
-    ],
-  },
-  // Automation Maturity (25 points)
+  // Automation Maturity
   {
     id: "manual-work",
     category: "automationMaturity" as AssessmentCategory,
-    question: "How much manual data work does your team do?",
+    question: "How much time does your team spend on repetitive data tasks?",
     options: [
-      { value: 0, label: "A lot - data entry, cleanup, report creation", description: "Heavily manual" },
-      { value: 3, label: "Some automation but still significant manual work", description: "Partially automated" },
-      { value: 6, label: "Most routine tasks are automated", description: "Mostly automated" },
-      { value: 8, label: "Manual work is minimal and strategic", description: "Highly automated" },
-    ],
-  },
-  {
-    id: "alerts",
-    category: "automationMaturity" as AssessmentCategory,
-    question: "Do you have automated alerts for important changes in your data?",
-    options: [
-      { value: 0, label: "No - we find out about issues manually", description: "No alerting" },
-      { value: 3, label: "Basic alerts for critical issues only", description: "Minimal alerting" },
-      { value: 5, label: "Automated alerts for key metrics", description: "Good alerting" },
-      { value: 9, label: "Smart alerts with context and recommendations", description: "Intelligent alerting" },
+      { value: 0, label: "A lot. Data entry, copying between systems, building reports", description: "Very manual" },
+      { value: 3, label: "Some of it runs automatically, but there's still a lot of manual work", description: "Partially automated" },
+      { value: 6, label: "Most routine stuff happens automatically", description: "Mostly automated" },
+      { value: 8, label: "Very little. We only do manual work when it requires judgment", description: "Highly automated" },
     ],
   },
   {
     id: "workflows",
     category: "automationMaturity" as AssessmentCategory,
-    question: "Are your data workflows automated or manual?",
+    question: "How does data move between your systems?",
     options: [
-      { value: 0, label: "Mostly manual - copy/paste, exports, uploads", description: "Manual workflows" },
-      { value: 3, label: "Some scheduled jobs but many manual steps", description: "Partial automation" },
-      { value: 5, label: "Most data flows are automated", description: "Automated pipelines" },
-      { value: 8, label: "Full automation with error handling", description: "Robust automation" },
+      { value: 0, label: "Manually. Copy/paste, exports, uploads", description: "All manual" },
+      { value: 3, label: "Some things sync automatically, but a lot is still manual", description: "Partially automatic" },
+      { value: 5, label: "Most data moves automatically between systems", description: "Mostly automatic" },
+      { value: 8, label: "Everything syncs automatically, and we get notified if something breaks", description: "Fully automatic" },
     ],
   },
-  // AI Readiness (25 points)
+  // AI Readiness
   {
     id: "ai-current",
     category: "aiReadiness" as AssessmentCategory,
-    question: "Are you currently using AI or machine learning?",
+    question: "Is your company using AI today?",
     options: [
-      { value: 0, label: "No, and we're not sure where to start", description: "Not using AI" },
-      { value: 3, label: "We've experimented but nothing in production", description: "Exploring AI" },
-      { value: 5, label: "We use AI tools but not custom solutions", description: "Using off-the-shelf AI" },
-      { value: 9, label: "We have AI integrated into our workflows", description: "AI-enabled" },
-    ],
-  },
-  {
-    id: "ai-data-ready",
-    category: "aiReadiness" as AssessmentCategory,
-    question: "Is your data ready for AI/ML applications?",
-    options: [
-      { value: 0, label: "Our data is too messy for AI", description: "Not AI-ready" },
-      { value: 3, label: "Some data could work but needs cleanup", description: "Partially ready" },
-      { value: 5, label: "Data is clean but not optimized for AI", description: "Ready with work" },
-      { value: 8, label: "Our data is well-structured for AI applications", description: "AI-ready" },
+      { value: 0, label: "No, and we're not sure where we'd even start", description: "Not using AI" },
+      { value: 3, label: "We've tried some things, but nothing stuck", description: "Experimenting" },
+      { value: 5, label: "We use tools like ChatGPT, but nothing built for our business", description: "General AI tools" },
+      { value: 9, label: "Yes, AI is part of how we work", description: "Using AI daily" },
     ],
   },
   {
     id: "ai-goals",
     category: "aiReadiness" as AssessmentCategory,
-    question: "What's your primary interest in AI for your business?",
+    question: "What would you most want AI to do for your business?",
     options: [
-      { value: 2, label: "Not sure yet - exploring possibilities", description: "Curious" },
-      { value: 4, label: "Automating manual tasks", description: "Efficiency focus" },
-      { value: 6, label: "Getting better insights from our data", description: "Intelligence focus" },
-      { value: 8, label: "Predictive capabilities and recommendations", description: "Advanced applications" },
+      { value: 2, label: "Not sure yet. Still figuring out the possibilities", description: "Exploring" },
+      { value: 4, label: "Take over repetitive tasks my team does manually", description: "Save time" },
+      { value: 6, label: "Help us understand our data better", description: "Better visibility" },
+      { value: 8, label: "Predict what's going to happen and recommend what to do", description: "Forecasting" },
     ],
   },
 ];
@@ -162,12 +118,12 @@ export function calculateScores(answers: Record<string, number>): AssessmentScor
     scores.automationMaturity +
     scores.aiReadiness;
 
-  // Determine tier
-  if (scores.total < 25) {
+  // Determine tier (max score is ~66 with 8 questions)
+  if (scores.total < 17) {
     scores.tier = "early";
-  } else if (scores.total < 50) {
+  } else if (scores.total < 34) {
     scores.tier = "emerging";
-  } else if (scores.total < 75) {
+  } else if (scores.total < 51) {
     scores.tier = "developing";
   } else {
     scores.tier = "advanced";
@@ -179,45 +135,45 @@ export function calculateScores(answers: Record<string, number>): AssessmentScor
 export const tierDescriptions = {
   early: {
     title: "Early Stage",
-    description: "Your data infrastructure is foundational. You're likely dealing with scattered data and manual processes. The good news? There's significant opportunity for quick wins.",
+    description: "Your data is scattered and most work is manual. That's normal for companies at this stage. The good news: there's a lot of low-hanging fruit.",
     recommendations: [
-      "Start with data consolidation—connect your key systems",
-      "Focus on data quality before adding complexity",
-      "Build basic dashboards for essential metrics",
-      "Consider AI data cleanup to accelerate foundation work",
+      "Connect your key systems so data flows between them",
+      "Clean up your data before adding more tools",
+      "Build simple dashboards for the numbers that matter most",
+      "Use AI to speed up data cleanup (it's faster than doing it by hand)",
     ],
     suggestedServices: ["data-integration", "ai-data-cleanup", "data-foundation"],
   },
   emerging: {
     title: "Emerging",
-    description: "You have some foundation in place but significant manual work remains. You're ready to start automating and getting more value from your data.",
+    description: "You have some pieces in place, but your team still spends too much time on manual work. You're ready to automate the repetitive stuff.",
     recommendations: [
-      "Automate your most time-consuming manual processes",
-      "Build out your analytics capabilities",
-      "Start thinking about predictive use cases",
-      "Consider operational visibility solutions",
+      "Automate the tasks that eat up the most time",
+      "Build dashboards so you can see what's happening without asking",
+      "Start thinking about what you'd want to predict",
+      "Get real-time visibility into your operations",
     ],
     suggestedServices: ["dashboards-analytics", "operational-visibility", "data-integration"],
   },
   developing: {
     title: "Developing",
-    description: "Your data infrastructure is solid and you're getting value from analytics. You're ready to explore more advanced AI and automation.",
+    description: "Your data is in good shape and you're using it to make decisions. You're ready for AI that does more than just answer questions.",
     recommendations: [
-      "Implement AI-generated insights for proactive analytics",
-      "Add natural language capabilities for self-service",
-      "Build predictive models for key business decisions",
-      "Automate more complex workflows",
+      "Set up AI that tells you what to pay attention to",
+      "Let people ask questions in plain English instead of running reports",
+      "Build models that predict what's coming",
+      "Automate more complex processes",
     ],
     suggestedServices: ["ai-insights", "natural-language-bi", "predictive-analytics"],
   },
   advanced: {
     title: "Advanced",
-    description: "You're operating at a high level with data-driven decision making. Focus on optimization, advanced AI, and staying ahead of the curve.",
+    description: "You're ahead of most companies. Your data is clean, your team uses it daily, and you're already using AI. Now it's about optimization.",
     recommendations: [
-      "Optimize existing AI models for better performance",
-      "Explore advanced predictive and prescriptive analytics",
-      "Consider building competitive advantages with custom AI",
-      "Focus on scaling and governance",
+      "Fine-tune your AI to get even better results",
+      "Move from predicting what will happen to recommending what to do",
+      "Build AI that's unique to your business",
+      "Make sure everything scales as you grow",
     ],
     suggestedServices: ["predictive-analytics", "ai-insights"],
   },

@@ -324,21 +324,21 @@ export default function HomePage() {
     {
       title: "Get your data in order",
       description:
-        "Connect siloed systems. Clean messy records. Build a single source of truth you can rely on.",
+        "Scattered systems. Duplicate records. Information trapped in documents nobody can search. We connect, clean, and organize so you stop wasting resources and start reaching the right people.",
       icon: <DataIcon />,
       href: "/services",
     },
     {
       title: "See what's happening",
       description:
-        "Dashboards that answer what your CFO asks. Reports that update themselves. Visibility across your whole operation.",
+        "Stop guessing what's working. Dashboards and analytics that reveal what actually drives results, not what you assume. Make decisions based on evidence, not gut feelings.",
       icon: <ChartIcon />,
       href: "/services",
     },
     {
       title: "Work smarter with AI",
       description:
-        "AI that gives accurate answers. Automation that frees up hours each week. Systems that learn from your corrections.",
+        "AI that knows your business, not just the internet. Ask questions in plain English. Automate tedious work. Get answers from your own data in seconds.",
       icon: <AIIcon />,
       href: "/services",
     },
@@ -388,7 +388,7 @@ export default function HomePage() {
         subtitle="Data Analytics & AI Solutions"
         title="Boutique Strategy. Enterprise Delivery."
         description="Databender empowers firms to work efficiently, compliantly, and intelligently using data and AI."
-        primaryCta={{ label: "Take the Free Assessment", href: "/assessments/data-ai-readiness" }}
+        primaryCta={{ label: "Take free assessment", href: "/assessments/data-ai-readiness" }}
         secondaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         size="large"
         media={
@@ -398,7 +398,7 @@ export default function HomePage() {
                 animationData={animationData}
                 loop={true}
                 autoplay={true}
-                speed={0.25}
+                speed={1}
                 mobileOptimized={true}
                 className="w-full h-auto"
               />

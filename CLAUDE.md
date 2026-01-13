@@ -11,6 +11,40 @@ npm run lint     # Run ESLint
 npm run start    # Start production server
 ```
 
+## AWS Configuration
+
+**CRITICAL: Always use the `databender` AWS profile for ALL AWS operations.**
+
+```bash
+# CORRECT - Always include --profile databender
+aws amplify list-apps --profile databender --region us-east-2
+aws ses list-identities --profile databender --region us-east-1
+aws route53 list-hosted-zones --profile databender
+
+# WRONG - Never use default profile for this project
+aws amplify list-apps  # ❌ Uses wrong account
+```
+
+### AWS Accounts
+
+| Profile | Account ID | Purpose |
+|---------|------------|---------|
+| `databender` | 028699705186 | **Production** - Amplify, SES, Route 53, DynamoDB |
+| `default` | 792782107668 | Personal account - DO NOT USE for this project |
+
+### Key AWS Resources (databender account)
+
+- **Amplify App**: `dmjrh5y3hpi2d` (us-east-2)
+- **SES Region**: us-east-1
+- **DynamoDB Region**: us-east-1
+- **Domain DNS**: Currently at SiteGround (pending transfer to Route 53)
+
+### Before ANY AWS CLI Command
+
+1. Verify you're using the correct profile: `aws sts get-caller-identity --profile databender`
+2. Expected account: `028699705186`
+3. If you see `792782107668`, you're in the WRONG account
+
 ## Architecture
 
 This is the DataBender marketing website built with Next.js 16 (App Router), React 19, Tailwind CSS 4, and Framer Motion.
@@ -64,10 +98,22 @@ Defined in `src/app/globals.css` using Tailwind CSS 4's `@theme` directive:
 
 ```
 ANTHROPIC_API_KEY=         # Required for chatbot
-RESEND_API_KEY=            # Optional: email notifications
-CHAT_NOTIFY_EMAIL=         # Optional: email for chat digests
+SES_FROM_EMAIL=            # SES sender (notifications@mail.databender.co)
+SES_REGION=                # SES region (us-east-1)
+CHAT_NOTIFY_EMAIL=         # Email for chat digests
+SLACK_WEBHOOK_URL=         # Slack incoming webhook for notifications
+DYNAMODB_REGION=           # DynamoDB region (us-east-1)
 NEXT_PUBLIC_BOOKING_URL=   # Calendar booking link for chatbot
 ```
+
+### Amplify Environment Variables
+
+**IMPORTANT**: Amplify SSR doesn't automatically pass console env vars to Lambda runtime. The `amplify.yml` writes env vars to `.env.production` during build as a workaround.
+
+To add/update environment variables:
+1. Set them in Amplify Console (App settings → Environment variables)
+2. Also add them to the `amplify.yml` preBuild phase
+3. Redeploy for changes to take effect
 
 ### Component Patterns
 
@@ -125,10 +171,27 @@ Blog posts are stored in `src/lib/blog-data.ts`. When creating blog content, fol
 
 This creates a highlighted box for the key point with the explanation as regular text below.
 
+### Notification System
+
+The site has a comprehensive notification system in `src/lib/notifications/`:
+
+- **Slack Notifications** (`slack.ts`): Real-time alerts for leads, company identification, conversions
+- **Email Summaries** (`email-summary.ts`): Daily analytics digest via AWS SES
+- **Chat Notifications** (`chat-logger.ts`): Email + Slack alerts for chat conversations
+
+**Slack webhook format**: Uses simple `{ text: "..." }` format (not blocks) for webhook compatibility.
+
+### AWS SES Configuration
+
+- **Sending Domain**: `mail.databender.co` (subdomain to avoid DMARC conflicts with main domain)
+- **From Address**: `notifications@mail.databender.co`
+- **Region**: us-east-1
+- **DNS Records**: DKIM CNAMEs configured at SiteGround
+
 ### Pending Infrastructure Tasks
 
 - **Domain Transfer**: Transfer `databender.co` from SiteGround to AWS Route 53
-  - Status: DNS already points to AWS Route 53 nameservers (site works)
+  - Status: DNS managed at SiteGround (pointing to Amplify)
   - Remaining: Transfer domain registration from SiteGround (Tucows) to AWS
   - Auth code from SiteGround: Request new EPP code when ready
   - Steps: Unlock domain → Get auth code → Transfer via Route 53 console

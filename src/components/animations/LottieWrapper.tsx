@@ -61,8 +61,8 @@ export default function LottieWrapper({
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
-  // Calculate effective speed (slower on mobile)
-  const effectiveSpeed = isMobile && mobileOptimized ? Math.min(speed, 0.5) : speed;
+  // Use the speed prop directly (no mobile reduction)
+  const effectiveSpeed = speed;
 
   // Set animation speed
   useEffect(() => {

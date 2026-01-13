@@ -204,17 +204,18 @@ export async function sendSlackAlert(alert: SlackAlert): Promise<boolean> {
     return false;
   }
 
-  let message: object;
+  // Use simple text format for better webhook compatibility
+  let text: string;
 
   switch (alert.type) {
     case "lead":
-      message = formatLeadMessage(alert);
+      text = formatLeadText(alert);
       break;
     case "company":
-      message = formatCompanyMessage(alert);
+      text = formatCompanyText(alert);
       break;
     case "conversion":
-      message = formatConversionMessage(alert);
+      text = formatConversionText(alert);
       break;
     default:
       return false;
@@ -224,11 +225,12 @@ export async function sendSlackAlert(alert: SlackAlert): Promise<boolean> {
     const response = await fetch(SLACK_WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(message),
+      body: JSON.stringify({ text }),
     });
 
     if (!response.ok) {
-      console.error("Slack notification failed:", response.status);
+      const errorText = await response.text();
+      console.error("Slack notification failed:", response.status, errorText);
       return false;
     }
 
@@ -237,6 +239,72 @@ export async function sendSlackAlert(alert: SlackAlert): Promise<boolean> {
     console.error("Slack notification error:", error);
     return false;
   }
+}
+
+// Simple text formatters for better webhook compatibility
+function formatLeadText(alert: LeadAlert): string {
+  const emoji = getTierEmoji(alert.tier);
+  const journeyText = alert.pagesViewed.slice(-5).join(" → ");
+
+  const lines = [
+    `${emoji} *${alert.tier} Lead Detected*`,
+    "",
+    `*Score:* ${alert.score} (${alert.tier})`,
+    `*Current Page:* ${alert.currentPage}`,
+  ];
+
+  if (alert.company) lines.push(`*Company:* ${alert.company}`);
+  if (alert.isReturning) lines.push(`*Visitor Type:* Returning`);
+  if (alert.referrerSource) lines.push(`*Source:* ${alert.referrerSource}`);
+  if (alert.country && alert.device) {
+    lines.push(`*Location:* ${alert.country} | ${alert.device}`);
+  }
+
+  lines.push("", `*Journey:* ${journeyText}`);
+  lines.push("", `_Visitor: ${alert.visitorId.slice(0, 8)}..._`);
+
+  return lines.join("\n");
+}
+
+function formatCompanyText(alert: CompanyAlert): string {
+  const journeyText = alert.pagesViewed.slice(-5).join(" → ");
+
+  const lines = [
+    "🏢 *Company Identified*",
+    "",
+    `*Company:* ${alert.companyName}`,
+    `*Current Page:* ${alert.currentPage}`,
+  ];
+
+  if (alert.companyDomain) lines.push(`*Domain:* ${alert.companyDomain}`);
+  if (alert.leadScore) lines.push(`*Lead Score:* ${alert.leadScore} (${alert.leadTier})`);
+  if (alert.country) lines.push(`*Location:* ${alert.country}`);
+
+  lines.push("", `*Pages Viewed:* ${journeyText}`);
+  lines.push("", `_Visitor: ${alert.visitorId.slice(0, 8)}..._`);
+
+  return lines.join("\n");
+}
+
+function formatConversionText(alert: ConversionAlert): string {
+  const conversionLabel = alert.conversionType
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, l => l.toUpperCase());
+
+  const lines = [
+    "✅ *New Conversion!*",
+    "",
+    `*Type:* ${conversionLabel}`,
+    `*Page:* ${alert.page}`,
+  ];
+
+  if (alert.company) lines.push(`*Company:* ${alert.company}`);
+  if (alert.leadScore) lines.push(`*Lead Score:* ${alert.leadScore}`);
+  if (alert.journeyLength) lines.push(`*Journey Length:* ${alert.journeyLength} pages`);
+
+  lines.push("", `_Visitor: ${alert.visitorId.slice(0, 8)}..._`);
+
+  return lines.join("\n");
 }
 
 // Helper to check if we should send a lead alert based on score
