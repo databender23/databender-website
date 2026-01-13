@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { pipelineStages, stageConnections, colorClasses, StageId, getStepById } from './DiagramConfig'
 
@@ -11,7 +10,7 @@ interface PipelineDiagramProps {
 
 // Icon components for each stage
 function StageIcon({ icon, className = '' }: { icon: string; className?: string }) {
-  const iconClass = `w-5 h-5 ${className}`
+  const iconClass = `w-4 h-4 sm:w-5 sm:h-5 ${className}`
 
   switch (icon) {
     case 'database':
@@ -80,7 +79,7 @@ function StageNode({
     >
       <div
         className={`
-          relative p-3 rounded-lg border-2 transition-all duration-300 max-w-[100px]
+          relative p-2 sm:p-3 rounded-lg border-2 transition-all duration-300 max-w-[70px] sm:max-w-[100px]
           ${isHighlighted
             ? `${colors.bgLight} ${colors.border} shadow-lg`
             : 'bg-bg-primary border-border'
@@ -97,9 +96,9 @@ function StageNode({
           />
         )}
 
-        <div className="relative z-10 flex flex-col items-center gap-1.5">
+        <div className="relative z-10 flex flex-col items-center gap-1">
           <div className={`
-            w-10 h-10 rounded-lg flex items-center justify-center
+            w-7 h-7 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center
             ${isHighlighted ? colors.bgLight : 'bg-bg-secondary'}
           `}>
             <StageIcon
@@ -108,10 +107,10 @@ function StageNode({
             />
           </div>
           <div className="text-center">
-            <p className={`text-xs font-semibold leading-tight ${isHighlighted ? colors.text : 'text-text-primary'}`}>
+            <p className={`text-[10px] sm:text-xs font-semibold leading-tight ${isHighlighted ? colors.text : 'text-text-primary'}`}>
               {stage.label}
             </p>
-            <p className="text-[10px] text-text-muted mt-0.5 leading-tight">
+            <p className="text-[8px] sm:text-[10px] text-text-muted mt-0.5 leading-tight hidden sm:block">
               {stage.plainEnglish}
             </p>
           </div>
@@ -167,8 +166,6 @@ function ConnectionLine({
 }
 
 export default function PipelineDiagram({ currentStep, className = '' }: PipelineDiagramProps) {
-  const [showTechnical, setShowTechnical] = useState(false)
-
   const currentStepData = getStepById(currentStep)
   const highlightedStages = currentStepData?.highlightStages || []
   const activeConnections = currentStepData?.activeConnections || []
@@ -196,35 +193,11 @@ export default function PipelineDiagram({ currentStep, className = '' }: Pipelin
 
   return (
     <div className={`${className}`}>
-      {/* View toggle */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3 md:mb-4">
-        <h3 className="text-xs md:text-sm font-medium text-text-primary">Entity Resolution Pipeline</h3>
-        <div className="flex items-center gap-1.5 md:gap-2">
-          <button
-            onClick={() => setShowTechnical(false)}
-            className={`px-2 py-1 md:px-3 md:py-1.5 text-[10px] md:text-xs font-medium rounded-lg transition-colors ${
-              !showTechnical
-                ? 'bg-teal-500 text-white'
-                : 'bg-bg-secondary text-text-secondary hover:bg-bg-secondary/80'
-            }`}
-          >
-            Simple View
-          </button>
-          <button
-            onClick={() => setShowTechnical(true)}
-            className={`px-2 py-1 md:px-3 md:py-1.5 text-[10px] md:text-xs font-medium rounded-lg transition-colors ${
-              showTechnical
-                ? 'bg-teal-500 text-white'
-                : 'bg-bg-secondary text-text-secondary hover:bg-bg-secondary/80'
-            }`}
-          >
-            Technical Details
-          </button>
-        </div>
-      </div>
+      {/* Title */}
+      <h3 className="text-xs md:text-sm font-medium text-text-primary mb-3 md:mb-4">Entity Resolution Pipeline</h3>
 
       {/* Diagram container */}
-      <div className="relative bg-bg-secondary rounded-lg md:rounded-xl border border-border p-4 md:p-8 min-h-[350px] md:min-h-[450px]">
+      <div className="relative bg-bg-secondary rounded-lg md:rounded-xl border border-border p-4 md:p-8 min-h-[420px] sm:min-h-[380px] md:min-h-[450px]">
         {/* Connection lines (render first, behind nodes) */}
         {stageConnections.map(connection => {
           const endpoints = connectionEndpoints[connection.id]
@@ -249,29 +222,7 @@ export default function PipelineDiagram({ currentStep, className = '' }: Pipelin
             position={stagePositions[stage.id]}
           />
         ))}
-
-        {/* Technical details overlay */}
-        {showTechnical && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="absolute bottom-2 left-2 right-2 md:bottom-4 md:left-4 md:right-4 p-3 md:p-4 bg-bg-primary/95 backdrop-blur-sm rounded-lg border border-border"
-          >
-            <h4 className="text-xs md:text-sm font-semibold text-text-primary mb-1.5 md:mb-2">Technical Details</h4>
-            <div className="grid md:grid-cols-2 gap-3 md:gap-4 text-[10px] md:text-xs">
-              <div>
-                <p className="text-text-muted mb-0.5 md:mb-1">Match Types Used</p>
-                <p className="text-text-secondary">10 different matching strategies including name variations, location proximity, and address normalization</p>
-              </div>
-              <div>
-                <p className="text-text-muted mb-0.5 md:mb-1">AI Validation</p>
-                <p className="text-text-secondary">10 parallel agents processing 200 owners per batch</p>
-              </div>
-            </div>
-          </motion.div>
-        )}
       </div>
-
     </div>
   )
 }
