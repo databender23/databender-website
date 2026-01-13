@@ -100,8 +100,9 @@ export default function LegalIndustryPage() {
                 className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
               >
                 Your associates spend 60% of their time on work that doesn&apos;t need
-                a law degree. We fix that with AI that never touches third-party clouds.
-                Client files stay on your servers. Privilege stays intact.
+                a law degree. We deploy autonomous AI agents that handle document review,
+                due diligence, and research at a fraction of the cost—while keeping
+                client files on your servers and privilege intact.
               </motion.p>
 
               <motion.div
@@ -526,8 +527,96 @@ export default function LegalIndustryPage() {
         </div>
       </section>
 
-      {/* Benefits Section */}
+      {/* Proof Points Section */}
       <section className="section bg-[#F8F9FA]">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-16">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+            >
+              Proven Results
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-3 sm:mb-4"
+            >
+              See what&apos;s possible
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto"
+            >
+              These capabilities aren&apos;t theoretical. Here&apos;s what we&apos;ve delivered.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            {[
+              {
+                metric: "125x",
+                label: "Cost Savings",
+                title: "AI Agents for Data Work",
+                description: "Autonomous agents that reason through messy data at machine scale. What takes 50 analysts months, done in hours.",
+                href: "/case-studies/army-of-ai-agents",
+              },
+              {
+                metric: "Instant",
+                label: "AI Answers",
+                title: "Document Intelligence",
+                description: "Decades of documents transformed into an AI-searchable knowledge base. Ask in plain English, get answers with sources.",
+                href: "/case-studies/agentic-document-intelligence",
+              },
+              {
+                metric: "31%",
+                label: "Higher Success",
+                title: "Data-Driven Discovery",
+                description: "Testing assumptions against actual outcomes. Find what really predicts success—not what you think does.",
+                href: "/case-studies/what-predicts-lead-conversion",
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link
+                  href={item.href}
+                  className="block p-5 sm:p-6 rounded-xl bg-white border border-black/10 hover:border-teal-500/30 hover:shadow-lg transition-all group h-full"
+                >
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="text-3xl sm:text-4xl font-bold text-teal-500">{item.metric}</span>
+                    <span className="text-text-muted text-sm">{item.label}</span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-teal-500 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-text-secondary text-sm mb-3">{item.description}</p>
+                  <span className="inline-flex items-center gap-1 text-teal-500 font-medium text-sm group-hover:gap-2 transition-all">
+                    See the case study
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="section">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-10 sm:mb-16">
             <motion.p

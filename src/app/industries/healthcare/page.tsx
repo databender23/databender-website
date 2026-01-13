@@ -62,9 +62,9 @@ export default function HealthcareIndustryPage() {
                 transition={{ delay: 0.2 }}
                 className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
               >
-                Get paid what you&apos;re worth, stop drowning in paperwork, and use AI
-                without putting patient data at risk. Built for healthcare organizations
-                that need results without compliance headaches.
+                Years of clinical knowledge locked in documents. AI that finally
+                understands them—reading prior auths, clinical protocols, and policy
+                manuals—without your data leaving the building.
               </motion.p>
 
               <motion.div
@@ -76,8 +76,8 @@ export default function HealthcareIndustryPage() {
                 <Button variant="primary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
                   Schedule Consultation
                 </Button>
-                <Button variant="secondary" size="lg" href="#price-transparency" className="w-full sm:w-auto min-h-[48px]">
-                  Access Price Transparency Data
+                <Button variant="secondary" size="lg" href="/case-studies/agentic-document-intelligence" className="w-full sm:w-auto min-h-[48px]">
+                  See Document Intelligence
                 </Button>
               </motion.div>
             </div>
@@ -199,6 +199,222 @@ export default function HealthcareIndustryPage() {
         </div>
       </section>
 
+      {/* Document Intelligence Section */}
+      <section id="document-intelligence" className="section bg-[#F8F9FA] scroll-mt-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+                >
+                  Document Intelligence
+                </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
+                >
+                  AI That Reads Like Your Best Staff—At Scale
+                </motion.h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
+                >
+                  <p>
+                    Prior authorization requests. Clinical protocols. Formularies. Policy
+                    manuals. Insurance cards. Years of institutional knowledge scattered
+                    across thousands of documents that AI tools like ChatGPT can&apos;t access.
+                  </p>
+                  <p>
+                    We built Document Intelligence that transforms unstructured documents
+                    into an AI-ready knowledge base. Now AI can search, answer questions,
+                    and power workflows—using your organization&apos;s own data.
+                  </p>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="mt-6"
+                >
+                  <Button variant="secondary" href="/case-studies/agentic-document-intelligence" className="min-h-[48px]">
+                    See How It Works
+                  </Button>
+                </motion.div>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
+              >
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
+                  What AI can read
+                </h3>
+                <ul className="space-y-3 sm:space-y-4">
+                  {[
+                    {
+                      title: "Prior Auth Documentation",
+                      description: "AI gathers required docs, checks payer requirements, drafts submissions"
+                    },
+                    {
+                      title: "Clinical Protocols & Formularies",
+                      description: "Instant answers: 'What's our sepsis protocol?' 'Show me the formulary for this drug class.'"
+                    },
+                    {
+                      title: "Policy & Procedure Manuals",
+                      description: "Every policy searchable by anyone, from day one. No more hunting through SharePoint."
+                    },
+                    {
+                      title: "Insurance Cards & Patient Forms",
+                      description: "Extract member IDs, group numbers, payer info. Eligibility checks start automatically."
+                    },
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <svg
+                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                      <div>
+                        <span className="font-medium text-text-primary">{item.title}</span>
+                        <p className="text-text-secondary text-sm">{item.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Knowledge & AI Agents Section */}
+      <section id="knowledge-agents" className="section scroll-mt-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="order-2 lg:order-1"
+              >
+                <div className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-8 rounded-2xl border border-teal-500/20">
+                  <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
+                    How knowledge stays
+                  </h3>
+                  <ul className="space-y-3 sm:space-y-4">
+                    {[
+                      {
+                        title: "Institutional memory",
+                        description: "Every protocol, policy, and clinical reference searchable forever. When staff leave, the knowledge doesn't."
+                      },
+                      {
+                        title: "Research agents",
+                        description: "AI scans clinical literature, synthesizes findings, surfaces relevant protocols. Hours of research in minutes."
+                      },
+                      {
+                        title: "Natural language Q&A",
+                        description: "'What's our referral protocol?' 'Which payer is slowest?' Ask in plain English, get answers with sources."
+                      },
+                      {
+                        title: "Living knowledge base",
+                        description: "New documents automatically expand what AI knows. The system gets smarter as you use it."
+                      },
+                    ].map((item, index) => (
+                      <li key={index} className="flex items-start gap-2 sm:gap-3">
+                        <svg
+                          className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                          />
+                        </svg>
+                        <div>
+                          <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
+                          <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+
+              <div className="order-1 lg:order-2">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+                >
+                  Knowledge Management & AI Agents
+                </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
+                >
+                  Knowledge That Stays When People Leave
+                </motion.h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
+                >
+                  <p>
+                    Every healthcare organization has decades of institutional knowledge—
+                    clinical protocols, policy decisions, operational expertise—trapped in
+                    documents, systems, and people&apos;s heads.
+                  </p>
+                  <p>
+                    We build AI systems that capture, organize, and surface that knowledge.
+                    Research agents that scan clinical literature. Q&A systems that answer
+                    questions in plain English with sources. Knowledge that compounds instead
+                    of walking out the door.
+                  </p>
+                  <p className="font-medium text-text-primary">
+                    New hires productive in weeks, not months. Expertise accessible to
+                    everyone, forever.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Legacy Systems Section */}
       <section id="legacy-systems" className="section bg-[#F8F9FA] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
@@ -292,109 +508,6 @@ export default function HealthcareIndustryPage() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Price Transparency Section */}
-      <section id="price-transparency" className="section scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-                >
-                  Competitive Intelligence
-                </motion.p>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
-                >
-                  Know What Everyone Else Gets Paid
-                </motion.h2>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
-                >
-                  <p>
-                    Every hospital and insurer now publishes their negotiated rates.
-                    It&apos;s the law. The problem? The files are massive—billions of rows
-                    of data in formats designed to be technically compliant, not actually useful.
-                  </p>
-                  <p>
-                    We&apos;ve built the infrastructure to process these Machine-Readable Files
-                    and turn them into competitive intelligence you can actually use.
-                  </p>
-                </motion.div>
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
-              >
-                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  What you get
-                </h3>
-                <ul className="space-y-3 sm:space-y-4">
-                  {[
-                    {
-                      title: "Competitor Rate Benchmarks",
-                      description: "See what the hospital down the street gets paid for the same CPT codes"
-                    },
-                    {
-                      title: "Payer-by-Payer Analysis",
-                      description: "Identify which payers are underpaying you relative to market"
-                    },
-                    {
-                      title: "Negotiation Leverage",
-                      description: "Walk into contract talks with data, not guesses"
-                    },
-                    {
-                      title: "Market Positioning",
-                      description: "Understand where you stand on price across your service lines"
-                    },
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start gap-2 sm:gap-3">
-                      <svg
-                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <div>
-                        <span className="font-medium text-text-primary">{item.title}</span>
-                        <p className="text-text-secondary text-sm">{item.description}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-6 sm:mt-8">
-                  <Button variant="primary" href="/assessments/healthcare-benchmark" className="w-full sm:w-auto min-h-[48px]">
-                    Get Your Market Benchmark
-                  </Button>
-                </div>
               </motion.div>
             </div>
           </div>
@@ -611,9 +724,9 @@ export default function HealthcareIndustryPage() {
       {/* CTA */}
       <CTA
         title="Ready to see what's possible?"
-        description="Schedule a consultation to discuss your specific challenges, or access price transparency data for your market."
+        description="Schedule a consultation to discuss your specific challenges, or see how Document Intelligence transforms scattered documents into searchable knowledge."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "Access Price Data", href: "/assessments/healthcare-benchmark" }}
+        secondaryCta={{ label: "See Document Intelligence", href: "/case-studies/agentic-document-intelligence" }}
         variant="gradient"
       />
     </>
