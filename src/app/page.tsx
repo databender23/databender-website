@@ -350,25 +350,25 @@ export default function HomePage() {
     {
       title: "AI-Augmented Team",
       description:
-        "Every consultant and developer has integrated AI into their workflow. Humans handle strategy and judgment. AI handles the grunt work. You get enterprise-quality delivery at a fraction of traditional consulting costs.",
+        "Senior consultants with AI integrated into every workflow. Strategy and judgment stay human. Repetitive work gets automated. Enterprise quality, boutique pricing.",
       icon: <UsersIcon />,
     },
     {
       title: "AI That Works",
       description:
-        "AI analytics that give accurate answers—because we fix the data first. Most AI projects fail on bad data. Ours don't.",
+        "AI that gives accurate answers—because we fix the data first. Most AI projects fail on bad data. We build on solid foundations, not wishful thinking.",
       icon: <LightbulbIcon />,
     },
     {
       title: "From Insight to Action",
       description:
-        "We don't stop at dashboards. We wire insights into your daily operations—automated alerts, triggered workflows, decisions that happen without you.",
+        "We don't stop at dashboards. We wire insights into daily operations—automated alerts, triggered workflows, decisions that execute without you.",
       icon: <CogIcon />,
     },
     {
       title: "Regulated-Ready",
       description:
-        "HIPAA, GDPR, SOC 2—compliance built in from day one. We've done this in healthcare, legal, and finance. We know what auditors look for.",
+        "HIPAA, GDPR, SOC 2—compliance built in from day one. We've delivered in healthcare, legal, and finance. We know what auditors look for.",
       icon: <ShieldIcon />,
     },
   ];
