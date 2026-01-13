@@ -62,95 +62,100 @@ function formatLeadMessage(alert: LeadAlert): object {
   const emoji = getTierEmoji(alert.tier);
   const journeyText = alert.pagesViewed.slice(-5).join(" → ");
 
-  const fields = [
-    { type: "mrkdwn", text: `*Score:* ${alert.score} (${alert.tier})` },
-    { type: "mrkdwn", text: `*Current Page:* ${alert.currentPage}` },
-  ];
+  // Color based on tier
+  const tierColors: Record<string, string> = {
+    "Very Hot": "#dc2626",
+    "Hot": "#ea580c",
+    "Warm": "#d97706"
+  };
 
-  if (alert.company) {
-    fields.push({ type: "mrkdwn", text: `*Company:* ${alert.company}` });
+  const details: string[] = [];
+  if (alert.company) details.push(`🏢 ${alert.company}`);
+  if (alert.isReturning) details.push("🔄 Returning visitor");
+  if (alert.referrerSource && alert.referrerSource !== "direct") {
+    details.push(`📍 via ${alert.referrerSource}`);
   }
-  if (alert.isReturning) {
-    fields.push({ type: "mrkdwn", text: `*Visitor Type:* Returning` });
-  }
-  if (alert.referrerSource) {
-    fields.push({ type: "mrkdwn", text: `*Source:* ${alert.referrerSource}` });
-  }
-  if (alert.country) {
-    fields.push({ type: "mrkdwn", text: `*Location:* ${alert.country}` });
-  }
+  if (alert.country) details.push(`🌍 ${alert.country}`);
 
   return {
-    blocks: [
-      {
-        type: "header",
-        text: { type: "plain_text", text: `${emoji} ${alert.tier} Lead Detected`, emoji: true }
-      },
-      {
-        type: "section",
-        fields: fields.slice(0, 4)
-      },
-      ...(fields.length > 4 ? [{
-        type: "section",
-        fields: fields.slice(4)
-      }] : []),
-      {
-        type: "section",
-        text: { type: "mrkdwn", text: `*Journey:* ${journeyText}` }
-      },
-      {
-        type: "context",
-        elements: [
-          { type: "mrkdwn", text: `Visitor ID: ${alert.visitorId.slice(0, 8)}... | ${alert.device || "Unknown device"}` }
-        ]
-      }
-    ]
+    attachments: [{
+      color: tierColors[alert.tier] || "#d97706",
+      blocks: [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `${emoji} *${alert.tier} Lead Detected*\nScore: *${alert.score}* points`
+          }
+        },
+        {
+          type: "section",
+          fields: [
+            { type: "mrkdwn", text: `*Page*\n${alert.currentPage}` },
+            { type: "mrkdwn", text: `*Device*\n${alert.device || "Unknown"}` }
+          ]
+        },
+        ...(details.length > 0 ? [{
+          type: "context",
+          elements: [{ type: "mrkdwn", text: details.join("  •  ") }]
+        }] : []),
+        {
+          type: "section",
+          text: { type: "mrkdwn", text: `*Journey*\n\`${journeyText}\`` }
+        },
+        {
+          type: "context",
+          elements: [
+            { type: "mrkdwn", text: `Visitor: \`${alert.visitorId.slice(0, 8)}...\`` }
+          ]
+        }
+      ]
+    }]
   };
 }
 
 function formatCompanyMessage(alert: CompanyAlert): object {
-  const fields = [
-    { type: "mrkdwn", text: `*Company:* ${alert.companyName}` },
-    { type: "mrkdwn", text: `*Current Page:* ${alert.currentPage}` },
-  ];
-
-  if (alert.companyDomain) {
-    fields.push({ type: "mrkdwn", text: `*Domain:* ${alert.companyDomain}` });
-  }
-  if (alert.leadScore) {
-    fields.push({ type: "mrkdwn", text: `*Lead Score:* ${alert.leadScore} (${alert.leadTier})` });
-  }
-  if (alert.country) {
-    fields.push({ type: "mrkdwn", text: `*Location:* ${alert.country}` });
-  }
-
   const journeyText = alert.pagesViewed.slice(-5).join(" → ");
 
+  const details: string[] = [];
+  if (alert.companyDomain) details.push(`🔗 ${alert.companyDomain}`);
+  if (alert.country) details.push(`🌍 ${alert.country}`);
+  if (alert.leadScore) details.push(`📊 Score: ${alert.leadScore}`);
+
   return {
-    blocks: [
-      {
-        type: "header",
-        text: { type: "plain_text", text: "🏢 Company Identified", emoji: true }
-      },
-      {
-        type: "section",
-        fields: fields.slice(0, 4)
-      },
-      ...(fields.length > 4 ? [{
-        type: "section",
-        fields: fields.slice(4)
-      }] : []),
-      {
-        type: "section",
-        text: { type: "mrkdwn", text: `*Pages Viewed:* ${journeyText}` }
-      },
-      {
-        type: "context",
-        elements: [
-          { type: "mrkdwn", text: `Visitor ID: ${alert.visitorId.slice(0, 8)}...` }
-        ]
-      }
-    ]
+    attachments: [{
+      color: "#3b82f6",
+      blocks: [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `🏢 *Company Identified*\n*${alert.companyName}*`
+          }
+        },
+        {
+          type: "section",
+          fields: [
+            { type: "mrkdwn", text: `*Current Page*\n${alert.currentPage}` },
+            { type: "mrkdwn", text: `*Lead Tier*\n${alert.leadTier || "Cold"}` }
+          ]
+        },
+        ...(details.length > 0 ? [{
+          type: "context",
+          elements: [{ type: "mrkdwn", text: details.join("  •  ") }]
+        }] : []),
+        {
+          type: "section",
+          text: { type: "mrkdwn", text: `*Pages Viewed*\n\`${journeyText}\`` }
+        },
+        {
+          type: "context",
+          elements: [
+            { type: "mrkdwn", text: `Visitor: \`${alert.visitorId.slice(0, 8)}...\`` }
+          ]
+        }
+      ]
+    }]
   };
 }
 
@@ -159,42 +164,41 @@ function formatConversionMessage(alert: ConversionAlert): object {
     .replace(/_/g, " ")
     .replace(/\b\w/g, l => l.toUpperCase());
 
-  const fields = [
-    { type: "mrkdwn", text: `*Type:* ${conversionLabel}` },
-    { type: "mrkdwn", text: `*Page:* ${alert.page}` },
-  ];
-
-  if (alert.company) {
-    fields.push({ type: "mrkdwn", text: `*Company:* ${alert.company}` });
-  }
-  if (alert.leadScore) {
-    fields.push({ type: "mrkdwn", text: `*Lead Score:* ${alert.leadScore}` });
-  }
-  if (alert.journeyLength) {
-    fields.push({ type: "mrkdwn", text: `*Journey Length:* ${alert.journeyLength} pages` });
-  }
+  const details: string[] = [];
+  if (alert.company) details.push(`🏢 ${alert.company}`);
+  if (alert.leadScore) details.push(`📊 Score: ${alert.leadScore}`);
+  if (alert.journeyLength) details.push(`📄 ${alert.journeyLength} pages visited`);
 
   return {
-    blocks: [
-      {
-        type: "header",
-        text: { type: "plain_text", text: "✅ New Conversion!", emoji: true }
-      },
-      {
-        type: "section",
-        fields: fields.slice(0, 4)
-      },
-      ...(fields.length > 4 ? [{
-        type: "section",
-        fields: fields.slice(4)
-      }] : []),
-      {
-        type: "context",
-        elements: [
-          { type: "mrkdwn", text: `Visitor ID: ${alert.visitorId.slice(0, 8)}...` }
-        ]
-      }
-    ]
+    attachments: [{
+      color: "#22c55e",
+      blocks: [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `✅ *New Conversion!*\n${conversionLabel}`
+          }
+        },
+        {
+          type: "section",
+          fields: [
+            { type: "mrkdwn", text: `*Page*\n${alert.page}` },
+            { type: "mrkdwn", text: `*Type*\n${conversionLabel}` }
+          ]
+        },
+        ...(details.length > 0 ? [{
+          type: "context",
+          elements: [{ type: "mrkdwn", text: details.join("  •  ") }]
+        }] : []),
+        {
+          type: "context",
+          elements: [
+            { type: "mrkdwn", text: `Visitor: \`${alert.visitorId.slice(0, 8)}...\`` }
+          ]
+        }
+      ]
+    }]
   };
 }
 
@@ -204,18 +208,17 @@ export async function sendSlackAlert(alert: SlackAlert): Promise<boolean> {
     return false;
   }
 
-  // Use simple text format for better webhook compatibility
-  let text: string;
+  let payload: object;
 
   switch (alert.type) {
     case "lead":
-      text = formatLeadText(alert);
+      payload = formatLeadMessage(alert);
       break;
     case "company":
-      text = formatCompanyText(alert);
+      payload = formatCompanyMessage(alert);
       break;
     case "conversion":
-      text = formatConversionText(alert);
+      payload = formatConversionMessage(alert);
       break;
     default:
       return false;
@@ -225,7 +228,7 @@ export async function sendSlackAlert(alert: SlackAlert): Promise<boolean> {
     const response = await fetch(SLACK_WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
