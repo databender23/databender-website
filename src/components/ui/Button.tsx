@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { useState, useCallback, MouseEvent } from "react";
 import type { ButtonProps } from "@/types";
 
+const MotionLink = motion.create(Link);
+
 interface Ripple {
   id: number;
   x: number;
@@ -85,15 +87,15 @@ export default function Button({
 
   if (href) {
     return (
-      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-        <Link
-          href={href}
-          className={classes}
-          onClick={createRipple}
-        >
-          {content}
-        </Link>
-      </motion.div>
+      <MotionLink
+        href={href}
+        className={classes}
+        onClick={createRipple}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        {content}
+      </MotionLink>
     );
   }
 
