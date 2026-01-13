@@ -142,9 +142,9 @@ export default function ServicePageClient({ service }: Props) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
-              className="flex justify-center items-center mb-8"
+              className="flex justify-center items-center mb-4 sm:mb-8"
             >
-              <div className="w-full max-w-md">
+              <div className="w-48 sm:w-64 md:w-full md:max-w-md">
                 <ResponsiveAnimation
                   lottieUrl={lottieUrls[service.slug]}
                   MobileComponent={mobileAnimations[service.slug]}
