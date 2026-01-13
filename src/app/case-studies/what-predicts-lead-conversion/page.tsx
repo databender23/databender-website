@@ -14,7 +14,7 @@ export default function LeadScoringCaseStudy() {
   return (
     <div className="min-h-screen bg-bg-primary">
       {/* Hero Section - Lead with a question, not a pitch */}
-      <section className="relative py-20 lg:py-28 overflow-hidden">
+      <section className="relative pt-20 md:pt-24 pb-20 lg:pb-28 overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-purple-50/50 to-bg-primary" />
 
