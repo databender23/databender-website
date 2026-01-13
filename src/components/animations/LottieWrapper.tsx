@@ -227,14 +227,23 @@ export default function LottieWrapper({
   // Effective loop - disable looping if already completed first loop on mobile
   const effectiveLoop = hasCompletedFirstLoop ? false : loop;
 
-  // Mobile render config - use native resolution for sharp rendering
-  const renderConfig = undefined;
+  // Mobile render config - lower resolution for smoother playback
+  const renderConfig = isMobile && mobileOptimized ? {
+    devicePixelRatio: 0.5,  // Half resolution = 4x fewer pixels to render
+  } : undefined;
+
+  // Mobile size constraints to limit canvas size
+  const mobileContainerStyle: React.CSSProperties = isMobile && mobileOptimized ? {
+    maxWidth: '300px',
+    maxHeight: '300px',
+    margin: '0 auto',
+  } : {};
 
   return (
     <div
       ref={viewRef}
       className={className}
-      style={style}
+      style={{ ...style, ...mobileContainerStyle }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
