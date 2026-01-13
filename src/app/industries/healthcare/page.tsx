@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
@@ -11,15 +10,7 @@ import { industryContent } from "@/lib/industries-data";
 const HEALTHCARE_LOTTIE_URL = "/animations/healthcare-industry.json";
 
 export default function HealthcareIndustryPage() {
-  const [lottieData, setLottieData] = useState<object | null>(null);
   const content = industryContent["healthcare"];
-
-  useEffect(() => {
-    fetch(HEALTHCARE_LOTTIE_URL)
-      .then((res) => res.json())
-      .then((data) => setLottieData(data))
-      .catch(() => setLottieData(null));
-  }, []);
 
   return (
     <>
@@ -82,23 +73,21 @@ export default function HealthcareIndustryPage() {
               </motion.div>
             </div>
 
-            {lottieData && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center"
-              >
-                <div className="w-full max-w-md">
-                  <LottieWrapper
-                    animationData={lottieData}
-                    loop={true}
-                    autoplay={true}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-            )}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex justify-center items-center"
+            >
+              <div className="w-full max-w-md">
+                <LottieWrapper
+                  animationUrl={HEALTHCARE_LOTTIE_URL}
+                  loop={true}
+                  autoplay={true}
+                  className="w-full h-auto"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

@@ -29,6 +29,8 @@ interface LottieWrapperProps {
   mobileOptimized?: boolean;
   /** Show static image on mobile instead of animating */
   staticOnMobile?: boolean;
+  /** Speed multiplier for mobile (default: 0.75 for smoother playback) */
+  mobileSpeed?: number;
 }
 
 export default function LottieWrapper({
@@ -44,6 +46,7 @@ export default function LottieWrapper({
   style,
   mobileOptimized = true,
   staticOnMobile = false, // Animations play on mobile by default
+  mobileSpeed = 0.75, // Slower on mobile for smoother playback
 }: LottieWrapperProps) {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -113,12 +116,12 @@ export default function LottieWrapper({
       });
   }, [animationUrl, providedAnimationData, showStatic, inView]);
 
-  // Set animation speed
+  // Set animation speed (slower on mobile for smoother playback)
   useEffect(() => {
-    if (lottieRef.current && speed !== 1) {
-      lottieRef.current.setSpeed(speed);
-    }
-  }, [animationData, speed]);
+    if (!lottieRef.current) return;
+    const effectiveSpeed = isMobile && mobileOptimized ? speed * mobileSpeed : speed;
+    lottieRef.current.setSpeed(effectiveSpeed);
+  }, [animationData, speed, isMobile, mobileOptimized, mobileSpeed]);
 
   // Handle play on view
   useEffect(() => {
@@ -195,6 +198,13 @@ export default function LottieWrapper({
     return <div ref={viewRef} className={className} style={style} />;
   }
 
+  // GPU compositing hint for smoother animations
+  const animationStyle = {
+    width: "100%",
+    height: "100%",
+    willChange: isMobile ? "transform" : "auto",
+  };
+
   return (
     <div
       ref={viewRef}
@@ -208,7 +218,7 @@ export default function LottieWrapper({
         animationData={animationData}
         loop={loop}
         autoplay={shouldAutoplay}
-        style={{ width: "100%", height: "100%" }}
+        style={animationStyle}
       />
     </div>
   );
