@@ -109,8 +109,8 @@ export const services: ConsolidatedService[] = [
     slug: "ai-services",
     title: "AI Services & Automation",
     shortTitle: "AI Services & Automation",
-    description: "Natural language queries, knowledge management, and AI automation, built on your data.",
-    longDescription: "We build AI that works because we build it on clean data. Natural language queries your team can actually use. Knowledge systems that surface what's buried in documents. Automation that handles the repetitive stuff.",
+    description: "AI agents that work autonomously, document intelligence that extracts data at scale, and knowledge systems that make your files searchable.",
+    longDescription: "AI that actually knows your business. We build agents that handle research and workflows while you sleep. Document intelligence that pulls structured data from contracts and records. Knowledge systems that turn years of files into answers your team can find in seconds.",
     icon: "sparkles",
     category: "ai-services",
     subServices: [
@@ -186,9 +186,9 @@ export const serviceCategories = {
   "ai-services": {
     title: "AI Services & Automation",
     subtitle: "Work smarter with AI",
-    description: "Natural language queries, knowledge management, and AI automation built on your data.",
+    description: "AI agents, document intelligence, and knowledge systems that make your business searchable.",
     position: "Work smarter",
-    message: "AI that works because it's built on clean data and designed for how your team operates.",
+    message: "Agents that work while you sleep. Documents that extract themselves. Files that answer questions.",
   },
 };
 
