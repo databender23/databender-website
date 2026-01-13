@@ -118,7 +118,7 @@ export default function LegalIndustryPage() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex justify-center items-center"
             >
-              <div className="w-full max-w-md">
+              <div className="w-full max-w-sm">
                 <LottieWrapper
                   animationUrl={LEGAL_LOTTIE_URL}
                   loop={true}

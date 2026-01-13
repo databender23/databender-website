@@ -128,7 +128,7 @@ export default function Hero({
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex lg:col-span-2 items-center justify-center lg:order-last max-w-xs mx-auto lg:max-w-none mt-8 lg:mt-0"
+              className="flex lg:col-span-2 items-center justify-center lg:order-last max-w-sm mx-auto lg:max-w-none mt-8 lg:mt-0"
             >
               {media}
             </motion.div>

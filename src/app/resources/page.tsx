@@ -112,7 +112,7 @@ export default function ResourcesPage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-xs mb-8 order-last md:order-first mt-8 md:mt-0"
+                className="w-full max-w-sm mb-8 order-last md:order-first mt-8 md:mt-0"
               >
                 <LottieWrapper
                   animationData={lottieData}
