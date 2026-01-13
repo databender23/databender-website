@@ -172,7 +172,7 @@ export default function ServicePageClient({ service }: Props) {
               transition={{ duration: 0.6 }}
               className="flex justify-center items-center mb-8"
             >
-              <div className="w-full max-w-md">
+              <div className={`w-full ${service.slug === "ai-services" ? "max-w-[25rem]" : "max-w-md"}`}>
                 <Lottie
                   lottieRef={lottieRef}
                   animationData={lottieData}
