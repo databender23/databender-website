@@ -10,71 +10,73 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero - Founder Focused */}
-      <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-24">
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-24">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation - Above Hero */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="flex justify-center items-center mb-8"
-          >
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-              <ResponsiveAnimation
-                lottieUrl="/animations/wavey-birdie.json"
-                MobileComponent={GrowthChartAnimation}
-                loop={true}
-                speed={1}
-                className="w-full aspect-square"
-                keepPlayingOnMobile={true}
-              />
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+            {/* Hero Content */}
+            <div className="lg:col-span-3">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              >
+                About Databender
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
+              >
+                Boutique strategy. Enterprise delivery.
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
+              >
+                Databender is a data analytics and AI consultancy that makes enterprise-grade capabilities accessible to growing businesses. Direct founder involvement on every engagement. Senior expertise from day one.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
+              >
+                <Button variant="primary" size="lg" href="/contact">
+                  Start a Conversation
+                </Button>
+                <Button variant="secondary" size="lg" href="/our-process">
+                  See How We Work
+                </Button>
+              </motion.div>
             </div>
-          </motion.div>
 
-          {/* Hero Content */}
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
-            >
-              About Databender
-            </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
-            >
-              Boutique strategy. Enterprise delivery.
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
-            >
-              Databender is a data analytics and AI consultancy that makes enterprise-grade capabilities accessible to growing businesses. Direct founder involvement on every engagement. Senior expertise from day one.
-            </motion.p>
-
+            {/* Lottie Animation */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex justify-center items-center lg:col-span-2"
             >
-              <Button variant="primary" size="lg" href="/contact">
-                Start a Conversation
-              </Button>
-              <Button variant="secondary" size="lg" href="/our-process">
-                See How We Work
-              </Button>
+              <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
+                <ResponsiveAnimation
+                  lottieUrl="/animations/wavey-birdie.json"
+                  MobileComponent={GrowthChartAnimation}
+                  loop={true}
+                  speed={1}
+                  className="w-full aspect-square"
+                  keepPlayingOnMobile={true}
+                />
+              </div>
             </motion.div>
           </div>
         </div>
