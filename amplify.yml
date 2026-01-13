@@ -13,7 +13,7 @@ frontend:
           echo "SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL" >> .env.production
           echo "DYNAMODB_REGION=$DYNAMODB_REGION" >> .env.production
           echo "ADMIN_USERNAME=$ADMIN_USERNAME" >> .env.production
-          echo "ADMIN_PASSWORD_HASH=$ADMIN_PASSWORD_HASH" >> .env.production
+          printf 'ADMIN_PASSWORD_HASH=%s\n' "$ADMIN_PASSWORD_HASH" >> .env.production
           echo "JWT_SECRET=$JWT_SECRET" >> .env.production
           echo "NEXT_PUBLIC_BOOKING_URL=$NEXT_PUBLIC_BOOKING_URL" >> .env.production
     build:
