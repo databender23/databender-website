@@ -27,7 +27,7 @@ interface LottieWrapperProps {
   style?: React.CSSProperties;
   /** Enable mobile optimizations (default: true) */
   mobileOptimized?: boolean;
-  /** Show static image on mobile instead of animating (default: true for performance) */
+  /** Show static image on mobile instead of animating */
   staticOnMobile?: boolean;
 }
 
@@ -43,7 +43,7 @@ export default function LottieWrapper({
   className = "",
   style,
   mobileOptimized = true,
-  staticOnMobile = true, // Default to true for better mobile performance
+  staticOnMobile = false, // Animations play on mobile by default
 }: LottieWrapperProps) {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
   const [isHovered, setIsHovered] = useState(false);

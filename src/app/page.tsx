@@ -390,8 +390,6 @@ export default function HomePage() {
               loop={true}
               autoplay={true}
               speed={1}
-              mobileOptimized={true}
-              staticOnMobile={true}
               className="w-full h-auto min-h-[300px]"
             />
           </div>
