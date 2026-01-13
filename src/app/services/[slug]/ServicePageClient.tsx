@@ -5,7 +5,6 @@ import Lottie from "lottie-react";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
 import { FloatingNodes } from "@/components/animations";
-import { DataPlayground } from "@/components/interactive";
 import { services, type ConsolidatedService } from "@/lib/services-data";
 import { useEffect, useState, useRef } from "react";
 import type { LottieRefCurrentProps } from "lottie-react";
@@ -279,36 +278,8 @@ export default function ServicePageClient({ service }: Props) {
         </div>
       </section>
 
-      {/* Interactive Demo - Data Management only */}
-      {service.slug === "data-management" && (
-        <section className="section bg-[#F8F9FA]">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
-              >
-                Try It Yourself
-              </motion.p>
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-3xl md:text-4xl font-bold text-text-primary"
-              >
-                See AI data cleanup in action
-              </motion.h2>
-            </div>
-            <DataPlayground />
-          </div>
-        </section>
-      )}
-
       {/* Benefits */}
-      <section className={`section ${service.slug === "data-management" ? "" : "bg-[#F8F9FA]"}`}>
+      <section className="section bg-[#F8F9FA]">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <motion.p
