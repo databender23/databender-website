@@ -1,23 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Badge } from "@/components/ui";
-import { LottieWrapper } from "@/components/animations";
+import { ResponsiveAnimation, DataVisualizationAnimation } from "@/components/animations";
 import { blogPosts, blogCategories } from "@/lib/blog-data";
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [lottieData, setLottieData] = useState<object | null>(null);
-
-  useEffect(() => {
-    fetch("/animations/man-robot-workplace.json")
-      .then((res) => res.json())
-      .then((data) => setLottieData(data))
-      .catch(() => setLottieData(null));
-  }, []);
 
   const filteredPosts = selectedCategory === "All"
     ? blogPosts
@@ -69,23 +61,21 @@ export default function BlogPage() {
               </motion.p>
             </div>
 
-            {lottieData && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center lg:col-span-2"
-              >
-                <div className="w-full max-w-lg">
-                  <LottieWrapper
-                    animationData={lottieData}
-                    loop={true}
-                    autoplay={true}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-            )}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex justify-center items-center lg:col-span-2"
+            >
+              <div className="w-full max-w-lg">
+                <ResponsiveAnimation
+                  lottieUrl="/animations/man-robot-workplace.json"
+                  MobileComponent={DataVisualizationAnimation}
+                  className="w-full h-auto"
+                  loop={true}
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

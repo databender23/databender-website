@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { LottieWrapper } from "@/components/animations";
+import { ResponsiveAnimation, DataManagementAnimation } from "@/components/animations";
 import {
   services,
   serviceCategories,
@@ -47,14 +46,6 @@ const ServiceIcon = ({ icon }: { icon: string }) => {
 
 export default function ServicesPage() {
   const serviceKeys = ["data-ai-strategy", "analytics-bi", "ai-services"] as const;
-  const [lottieData, setLottieData] = useState<object | null>(null);
-
-  useEffect(() => {
-    fetch("/animations/assistant-bot.json")
-      .then((res) => res.json())
-      .then((data) => setLottieData(data))
-      .catch(() => setLottieData(null));
-  }, []);
 
   return (
     <>
@@ -65,25 +56,22 @@ export default function ServicesPage() {
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation - Above Hero */}
-          {lottieData && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="flex justify-center items-center mb-8"
-            >
-              <div className="w-full max-w-md">
-                <LottieWrapper
-                  animationData={lottieData}
-                  loop={true}
-                  autoplay={true}
-                  className="w-full h-auto"
-                  priority={true}
-                />
-              </div>
-            </motion.div>
-          )}
+          {/* Responsive Animation - Above Hero */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex justify-center items-center mb-8"
+          >
+            <div className="w-full max-w-md">
+              <ResponsiveAnimation
+                lottieUrl="/animations/assistant-bot.json"
+                MobileComponent={DataManagementAnimation}
+                className="w-full h-auto"
+                loop={true}
+              />
+            </div>
+          </motion.div>
 
           {/* Hero Content */}
           <div className="max-w-3xl mx-auto text-center">

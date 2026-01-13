@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { LottieWrapper } from "@/components/animations";
+import { ResponsiveAnimation, StudentAnimation } from "@/components/animations";
 import { blogPosts } from "@/lib/blog-data";
 import { caseStudies } from "@/lib/case-studies-data";
 import { CaseStudyDiagram } from "@/components/case-studies/CaseStudyDiagrams";
@@ -73,19 +73,11 @@ const resourceCategories = [
 ];
 
 export default function ResourcesPage() {
-  const [lottieData, setLottieData] = useState<object | null>(null);
   const [blogIndex, setBlogIndex] = useState(0);
   const [blogPaused, setBlogPaused] = useState(false);
 
   // Get case studies with diagram types
   const featuredStudies = caseStudies.filter(study => study.diagramType);
-
-  useEffect(() => {
-    fetch("/animations/student.json")
-      .then((res) => res.json())
-      .then((data) => setLottieData(data))
-      .catch(() => setLottieData(null));
-  }, []);
 
   // Auto-rotate blog posts
   useEffect(() => {
@@ -148,23 +140,20 @@ export default function ResourcesPage() {
               </motion.div>
             </div>
 
-            {lottieData && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center lg:col-span-2"
-              >
-                <div className="w-full max-w-lg">
-                  <LottieWrapper
-                    animationData={lottieData}
-                    loop={true}
-                    autoplay={true}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-            )}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex justify-center items-center lg:col-span-2"
+            >
+              <div className="w-full max-w-lg">
+                <ResponsiveAnimation
+                  lottieUrl="/animations/student.json"
+                  MobileComponent={StudentAnimation}
+                  className="w-full h-auto"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

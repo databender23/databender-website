@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { LottieWrapper } from "@/components/animations";
+import { ResponsiveAnimation, DataVizAnimation } from "@/components/animations";
 
 interface Assessment {
   slug: string;
@@ -77,14 +77,6 @@ const AssessmentIcon = ({ icon }: { icon: string }) => {
 
 export default function AssessmentsPage() {
   const [selectedIndustry, setSelectedIndustry] = useState("all");
-  const [lottieData, setLottieData] = useState<object | null>(null);
-
-  useEffect(() => {
-    fetch("/animations/automation.json")
-      .then((res) => res.json())
-      .then((data) => setLottieData(data))
-      .catch(() => setLottieData(null));
-  }, []);
 
   const filteredAssessments = assessments.filter(
     (a) => selectedIndustry === "all" || a.industry === "all" || a.industry === selectedIndustry
@@ -100,22 +92,19 @@ export default function AssessmentsPage() {
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            {/* Lottie Animation - Above on desktop, below on mobile */}
-            {lottieData && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                className="w-full max-w-md mb-8 order-last md:order-first mt-8 md:mt-0"
-              >
-                <LottieWrapper
-                  animationData={lottieData}
-                  loop={true}
-                  autoplay={true}
-                  className="w-full h-auto"
-                />
-              </motion.div>
-            )}
+            {/* Animation - Above on desktop, below on mobile */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="w-full max-w-md mb-8 order-last md:order-first mt-8 md:mt-0"
+            >
+              <ResponsiveAnimation
+                lottieUrl="/animations/automation.json"
+                MobileComponent={DataVizAnimation}
+                className="w-full h-auto"
+              />
+            </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}

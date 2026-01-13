@@ -1,30 +1,27 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { ComponentType } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { LottieWrapper, FloatingNodes } from "@/components/animations";
+import { ResponsiveAnimation, HealthcareAnimation, RealEstateAnimation, ManufacturingAnimation, ProfessionalServicesAnimation, FloatingNodes } from "@/components/animations";
 import { industryContent, getIndustryBySlug, type IndustryWithCta } from "@/lib/industries-data";
+
+const mobileAnimations: Record<string, ComponentType<{className?: string; isActive?: boolean}>> = {
+  'healthcare': HealthcareAnimation,
+  'commercial-real-estate': RealEstateAnimation,
+  'manufacturing': ManufacturingAnimation,
+  'professional-services': ProfessionalServicesAnimation,
+};
 
 export default function IndustryPage() {
   const params = useParams();
   const slug = params.slug as string;
   const industry = getIndustryBySlug(slug) as IndustryWithCta | undefined;
   const content = industryContent[slug];
-  const [lottieData, setLottieData] = useState<object | null>(null);
-
-  // Load Lottie animation
-  useEffect(() => {
-    if (industry?.lottie) {
-      fetch(industry.lottie)
-        .then((res) => res.json())
-        .then((data) => setLottieData(data))
-        .catch(() => setLottieData(null));
-    }
-  }, [industry?.lottie]);
+  const MobileComponent = mobileAnimations[slug];
 
   if (!industry) {
     return (
@@ -78,8 +75,8 @@ export default function IndustryPage() {
         <FloatingNodes nodeCount={15} showConnections={true} />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation - Above Hero */}
-          {lottieData && (
+          {/* Animation - Above Hero */}
+          {industry.lottie && MobileComponent && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -87,11 +84,11 @@ export default function IndustryPage() {
               className="flex justify-center items-center mb-8"
             >
               <div className="w-full max-w-md">
-                <LottieWrapper
-                  animationData={lottieData}
-                  loop={true}
-                  autoplay={true}
+                <ResponsiveAnimation
+                  lottieUrl={industry.lottie}
+                  MobileComponent={MobileComponent}
                   className="w-full h-auto"
+                  loop={true}
                 />
               </div>
             </motion.div>

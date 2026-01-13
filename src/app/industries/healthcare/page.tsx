@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { LottieWrapper } from "@/components/animations";
+import { ResponsiveAnimation, HealthcareAnimation } from "@/components/animations";
 import { industryContent } from "@/lib/industries-data";
 
 const HEALTHCARE_LOTTIE_URL = "/animations/healthcare-industry.json";
@@ -29,12 +29,9 @@ export default function HealthcareIndustryPage() {
             className="flex justify-center items-center mb-8"
           >
             <div className="w-full max-w-md">
-              <LottieWrapper
-                animationUrl={HEALTHCARE_LOTTIE_URL}
-                loop={true}
-                autoplay={true}
-                className="w-full h-auto"
-                priority={true}
+              <ResponsiveAnimation
+                lottieUrl={HEALTHCARE_LOTTIE_URL}
+                MobileComponent={HealthcareAnimation}
               />
             </div>
           </motion.div>

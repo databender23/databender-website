@@ -1,20 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { LottieWrapper } from "@/components/animations";
+import { ResponsiveAnimation, GrowthChartAnimation } from "@/components/animations";
 
 export default function AboutPage() {
-  const [lottieData, setLottieData] = useState<object | null>(null);
-
-  useEffect(() => {
-    fetch("/animations/wavey-birdie.json")
-      .then((res) => res.json())
-      .then((data) => setLottieData(data))
-      .catch(() => setLottieData(null));
-  }, []);
 
   return (
     <>
@@ -68,24 +59,22 @@ export default function AboutPage() {
               </motion.div>
             </div>
 
-            {lottieData && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center lg:col-span-2"
-              >
-                <div className="w-full max-w-lg">
-                  <LottieWrapper
-                    animationData={lottieData}
-                    loop={true}
-                    autoplay={true}
-                    speed={1}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-            )}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex justify-center items-center lg:col-span-2"
+            >
+              <div className="w-full max-w-lg">
+                <ResponsiveAnimation
+                  lottieUrl="/animations/wavey-birdie.json"
+                  MobileComponent={GrowthChartAnimation}
+                  loop={true}
+                  speed={1}
+                  className="w-full h-auto"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

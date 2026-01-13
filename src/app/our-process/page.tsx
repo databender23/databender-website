@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { LottieWrapper } from "@/components/animations";
+import { ResponsiveAnimation, RoadmapAnimation } from "@/components/animations";
 
 interface ProcessPhase {
   number: string;
@@ -70,15 +69,6 @@ const processPhases: ProcessPhase[] = [
 ];
 
 export default function OurProcessPage() {
-  const [lottieData, setLottieData] = useState<object | null>(null);
-
-  useEffect(() => {
-    fetch("/animations/workflow-process.json")
-      .then((res) => res.json())
-      .then((data) => setLottieData(data))
-      .catch(() => setLottieData(null));
-  }, []);
-
   return (
     <>
       {/* Hero */}
@@ -131,24 +121,22 @@ export default function OurProcessPage() {
               </motion.div>
             </div>
 
-            {lottieData && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center lg:col-span-2"
-              >
-                <div className="w-full max-w-lg">
-                  <LottieWrapper
-                    animationData={lottieData}
-                    loop={true}
-                    autoplay={true}
-                    speed={1}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-            )}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex justify-center items-center lg:col-span-2"
+            >
+              <div className="w-full max-w-lg">
+                <ResponsiveAnimation
+                  lottieUrl="/animations/workflow-process.json"
+                  MobileComponent={RoadmapAnimation}
+                  loop={true}
+                  speed={1}
+                  className="w-full h-auto"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

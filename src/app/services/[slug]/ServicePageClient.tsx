@@ -1,14 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Lottie from "lottie-react";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { FloatingNodes } from "@/components/animations";
+import { FloatingNodes, ResponsiveAnimation, DataManagementAnimation, AnalyticsBIAnimation, AIServicesAnimation } from "@/components/animations";
 import { DataPlayground } from "@/components/interactive";
 import { services, type ConsolidatedService } from "@/lib/services-data";
-import { useEffect, useState, useRef } from "react";
-import type { LottieRefCurrentProps } from "lottie-react";
+import type { ComponentType } from "react";
 
 // Icon components
 const IconDatabase = () => (
@@ -89,45 +87,29 @@ interface Props {
   service: ConsolidatedService;
 }
 
-const DATA_MANAGEMENT_LOTTIE_URL = "/animations/data-management.json";
-const ANALYTICS_BI_LOTTIE_URL = "/animations/analytics-bi.json";
-const AI_SERVICES_LOTTIE_URL = "/animations/ai-services.json";
+// Mobile animation components mapping
+const mobileAnimations: Record<string, ComponentType<{className?: string; isActive?: boolean}>> = {
+  'data-ai-strategy': DataManagementAnimation,
+  'analytics-bi': AnalyticsBIAnimation,
+  'ai-services': AIServicesAnimation,
+};
+
+// Lottie URLs for desktop
+const lottieUrls: Record<string, string> = {
+  'data-ai-strategy': '/animations/data-management.json',
+  'analytics-bi': '/animations/analytics-bi.json',
+  'ai-services': '/animations/ai-services.json',
+};
+
+// Animation speeds per service
+const animationSpeeds: Record<string, number> = {
+  'data-ai-strategy': 1.3,
+  'analytics-bi': 0.5,
+  'ai-services': 1,
+};
 
 export default function ServicePageClient({ service }: Props) {
-  const [lottieData, setLottieData] = useState<object | null>(null);
-  const lottieRef = useRef<LottieRefCurrentProps>(null);
-
-  useEffect(() => {
-    let lottieUrl: string | null = null;
-
-    if (service.slug === "data-ai-strategy") {
-      lottieUrl = DATA_MANAGEMENT_LOTTIE_URL;
-    } else if (service.slug === "analytics-bi") {
-      lottieUrl = ANALYTICS_BI_LOTTIE_URL;
-    } else if (service.slug === "ai-services") {
-      lottieUrl = AI_SERVICES_LOTTIE_URL;
-    }
-
-    if (lottieUrl) {
-      fetch(lottieUrl)
-        .then((res) => res.json())
-        .then((data) => setLottieData(data))
-        .catch(() => console.error("Failed to load Lottie animation"));
-    }
-  }, [service.slug]);
-
-  // Set speed for specific animations
-  useEffect(() => {
-    if (lottieRef.current) {
-      if (service.slug === "data-ai-strategy") {
-        lottieRef.current.setSpeed(1.3);
-      } else if (service.slug === "analytics-bi") {
-        lottieRef.current.setSpeed(0.5);
-      }
-    }
-  }, [lottieData, service.slug]);
-
-  const hasLottie = ["data-ai-strategy", "analytics-bi", "ai-services"].includes(service.slug);
+  const hasAnimation = service.slug in mobileAnimations;
 
   return (
     <>
@@ -154,8 +136,8 @@ export default function ServicePageClient({ service }: Props) {
         />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation - Above Hero */}
-          {hasLottie && lottieData && (
+          {/* Animation - Above Hero */}
+          {hasAnimation && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -163,9 +145,10 @@ export default function ServicePageClient({ service }: Props) {
               className="flex justify-center items-center mb-8"
             >
               <div className="w-full max-w-md">
-                <Lottie
-                  lottieRef={lottieRef}
-                  animationData={lottieData}
+                <ResponsiveAnimation
+                  lottieUrl={lottieUrls[service.slug]}
+                  MobileComponent={mobileAnimations[service.slug]}
+                  speed={animationSpeeds[service.slug]}
                   loop={true}
                   className="w-full h-auto"
                 />

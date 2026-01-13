@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
 import { EmailCaptureForm } from "@/components/forms";
-import { LottieWrapper } from "@/components/animations";
+import { ResponsiveAnimation, LegalAnimation } from "@/components/animations";
 import { legalAudits, legalGuides } from "@/lib/lead-magnets-data";
 import { industryContent } from "@/lib/industries-data";
 
@@ -65,12 +65,11 @@ export default function LegalIndustryPage() {
             className="flex justify-center items-center mb-8"
           >
             <div className="w-full max-w-md">
-              <LottieWrapper
-                animationUrl={LEGAL_LOTTIE_URL}
+              <ResponsiveAnimation
+                lottieUrl={LEGAL_LOTTIE_URL}
+                MobileComponent={LegalAnimation}
                 loop={true}
-                autoplay={true}
                 className="w-full h-auto"
-                priority={true}
               />
             </div>
           </motion.div>

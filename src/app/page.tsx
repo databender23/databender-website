@@ -9,7 +9,8 @@ import { caseStudies } from "@/lib/case-studies-data";
 import { testimonials } from "@/lib/case-studies-data";
 import { CaseStudyDiagram } from "@/components/case-studies/CaseStudyDiagrams";
 import { useState, useEffect } from "react";
-import LottieWrapper, { preloadLottie } from "@/components/animations/LottieWrapper";
+import { preloadLottie } from "@/components/animations/LottieWrapper";
+import { ResponsiveAnimation, HeroDataAnimation } from "@/components/animations";
 
 // Icons for features
 const DataIcon = () => (
@@ -409,14 +410,11 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="flex justify-center items-center mb-8"
           >
-            <div className="w-full max-w-md lg:max-w-lg">
-              <LottieWrapper
-                animationUrl="/animations/hero-data.json"
-                loop={true}
-                autoplay={true}
-                speed={1}
-                className="w-full h-auto"
-                priority={true}
+            <div className="w-full max-w-md lg:max-w-lg aspect-square">
+              <ResponsiveAnimation
+                lottieUrl="/animations/hero-data.json"
+                MobileComponent={HeroDataAnimation}
+                className="w-full h-full"
               />
             </div>
           </motion.div>
