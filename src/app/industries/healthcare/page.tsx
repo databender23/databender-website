@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
@@ -10,7 +11,16 @@ import { industryContent } from "@/lib/industries-data";
 const HEALTHCARE_LOTTIE_URL = "/animations/healthcare-industry.json";
 
 export default function HealthcareIndustryPage() {
+  const [isMobile, setIsMobile] = useState(false);
   const content = industryContent["healthcare"];
+
+  // Detect mobile for conditional loop behavior
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <>
@@ -32,6 +42,7 @@ export default function HealthcareIndustryPage() {
               <ResponsiveAnimation
                 lottieUrl={HEALTHCARE_LOTTIE_URL}
                 MobileComponent={HealthcareAnimation}
+                loop={!isMobile}
                 className="w-full aspect-square"
               />
             </div>

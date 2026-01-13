@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
@@ -46,7 +46,16 @@ const iconMap: Record<string, React.FC> = {
 
 export default function LegalIndustryPage() {
   const [selectedAudit, setSelectedAudit] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const content = industryContent["legal"];
+
+  // Detect mobile for conditional loop behavior
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <>
@@ -68,7 +77,7 @@ export default function LegalIndustryPage() {
               <ResponsiveAnimation
                 lottieUrl={LEGAL_LOTTIE_URL}
                 MobileComponent={LegalAnimation}
-                loop={true}
+                loop={!isMobile}
                 className="w-full aspect-square"
               />
             </div>

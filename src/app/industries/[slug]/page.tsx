@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { ComponentType } from "react";
+import { ComponentType, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
@@ -16,12 +16,27 @@ const mobileAnimations: Record<string, ComponentType<{className?: string; isActi
   'professional-services': ProfessionalServicesAnimation,
 };
 
+// Industries that should not loop on mobile
+const noLoopOnMobile = ['commercial-real-estate', 'manufacturing'];
+
 export default function IndustryPage() {
   const params = useParams();
   const slug = params.slug as string;
   const industry = getIndustryBySlug(slug) as IndustryWithCta | undefined;
   const content = industryContent[slug];
   const MobileComponent = mobileAnimations[slug];
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile for conditional loop behavior
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Determine if animation should loop
+  const shouldLoop = !(isMobile && noLoopOnMobile.includes(slug));
 
   if (!industry) {
     return (
@@ -88,7 +103,7 @@ export default function IndustryPage() {
                   lottieUrl={industry.lottie}
                   MobileComponent={MobileComponent}
                   className="w-full aspect-square"
-                  loop={true}
+                  loop={shouldLoop}
                 />
               </div>
             </motion.div>
