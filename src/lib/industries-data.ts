@@ -29,7 +29,7 @@ export const industries: IndustryWithCta[] = [
   {
     slug: "commercial-real-estate",
     title: "Commercial Real Estate",
-    description: "Stop sending mailers to the wrong people. We cleaned 1.69M broken ownership records at 125x less cost than doing it by hand. Know exactly who to call and review data rooms overnight instead of over weeks.",
+    description: "Untangle complex ownership structures. Speed up due diligence on deals. Identify off-market opportunities before your competitors. AI tools for CRE that run on your own systems.",
     icon: "building",
     lottie: "/animations/commercial-real-estate.json",
     ctaText: "See the Case Study",
