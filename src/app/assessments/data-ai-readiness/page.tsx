@@ -81,7 +81,7 @@ export default function AssessmentPage() {
   };
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       {/* Progress Bar */}
       <div className="fixed top-20 left-0 right-0 h-1 bg-[#F8F9FA] z-40">
         <motion.div

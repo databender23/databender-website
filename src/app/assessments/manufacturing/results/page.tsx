@@ -46,7 +46,7 @@ export default function ManufacturingResultsPage() {
 
   if (!results) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-20">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-text-primary mb-4">
             No results found
@@ -85,7 +85,7 @@ export default function ManufacturingResultsPage() {
   };
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-3xl mx-auto">
           {/* Header */}

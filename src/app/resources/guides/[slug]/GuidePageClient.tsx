@@ -19,7 +19,7 @@ interface Props {
 
 export default function GuidePageClient({ guide }: Props) {
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />

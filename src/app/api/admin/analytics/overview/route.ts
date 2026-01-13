@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAuthenticated } from "@/lib/admin/auth";
-import { getEventsForDateRange, getSessionsForDateRange } from "@/lib/analytics/dynamodb";
+import { getEventsForDateRange, getSessionsForDateRange, getConversionPathsForDateRange } from "@/lib/analytics/dynamodb";
+import {
+  getLeadTier,
+  calculatePageScore,
+  type LeadTier,
+} from "@/lib/analytics/lead-scoring";
 
 export async function GET(request: NextRequest) {
   const authenticated = await isAuthenticated();
@@ -19,9 +24,10 @@ export async function GET(request: NextRequest) {
   const endStr = endDate.toISOString().split("T")[0];
 
   try {
-    const [events, sessions] = await Promise.all([
+    const [events, sessions, conversionPaths] = await Promise.all([
       getEventsForDateRange(startStr, endStr),
       getSessionsForDateRange(startStr, endStr),
+      getConversionPathsForDateRange(startStr, endStr),
     ]);
 
     // Filter out bot traffic for metrics
@@ -165,6 +171,122 @@ export async function GET(request: NextRequest) {
         conversionTypes[s.conversionType!] = (conversionTypes[s.conversionType!] || 0) + 1;
       });
 
+    // Company identification stats
+    const sessionsWithCompany = humanSessions.filter((s) => s.companyName);
+    const uniqueCompanies = new Set(sessionsWithCompany.map((s) => s.companyDomain?.toLowerCase())).size;
+
+    // Top companies by visit count
+    const companyVisits: Record<string, { name: string; domain: string; visits: number }> = {};
+    sessionsWithCompany.forEach((s) => {
+      if (s.companyDomain) {
+        const key = s.companyDomain.toLowerCase();
+        if (!companyVisits[key]) {
+          companyVisits[key] = { name: s.companyName!, domain: s.companyDomain, visits: 0 };
+        }
+        companyVisits[key].visits += 1;
+      }
+    });
+
+    const topCompanies = Object.values(companyVisits)
+      .sort((a, b) => b.visits - a.visits)
+      .slice(0, 5)
+      .map(({ name, domain, visits }) => ({ name, domain, visits }));
+
+    // Lead score metrics
+    const tierBreakdown: Record<LeadTier, number> = {
+      Cold: 0,
+      Warm: 0,
+      Hot: 0,
+      "Very Hot": 0,
+    };
+
+    // Calculate scores from sessions that have lead scores
+    const sessionsWithScores = humanSessions.filter((s) => s.leadScore !== undefined && s.leadScore > 0);
+    let totalLeadScore = 0;
+
+    sessionsWithScores.forEach((s) => {
+      const score = s.leadScore || 0;
+      totalLeadScore += score;
+      const tier = s.leadTier || getLeadTier(score);
+      tierBreakdown[tier as LeadTier]++;
+    });
+
+    const averageLeadScore = sessionsWithScores.length > 0
+      ? Math.round(totalLeadScore / sessionsWithScores.length)
+      : 0;
+
+    // Calculate page contributions to lead scores
+    const pageScoreContributions: Record<string, { score: number; visits: number }> = {};
+    sessionsWithScores.forEach((s) => {
+      const pages = s.pagesVisited || [];
+      pages.forEach((page) => {
+        const pageScore = calculatePageScore(page);
+        if (!pageScoreContributions[page]) {
+          pageScoreContributions[page] = { score: 0, visits: 0 };
+        }
+        pageScoreContributions[page].score += pageScore;
+        pageScoreContributions[page].visits++;
+      });
+    });
+
+    const topScoringPages = Object.entries(pageScoreContributions)
+      .map(([page, data]) => ({
+        page,
+        contributedScore: data.score,
+        visits: data.visits,
+      }))
+      .sort((a, b) => b.contributedScore - a.contributedScore)
+      .slice(0, 10);
+
+    // High score visitors (Hot and Very Hot)
+    const highScoreVisitors = humanSessions
+      .filter((s) => {
+        const score = s.leadScore || 0;
+        const tier = s.leadTier || getLeadTier(score);
+        return tier === "Hot" || tier === "Very Hot";
+      })
+      .sort((a, b) => (b.leadScore || 0) - (a.leadScore || 0))
+      .slice(0, 10)
+      .map((s) => ({
+        visitorId: s.visitorId,
+        score: s.leadScore || 0,
+        tier: (s.leadTier || getLeadTier(s.leadScore || 0)) as LeadTier,
+        pagesVisited: s.pagesVisited || [],
+        country: s.country,
+        device: s.device,
+      }));
+
+    // Attribution summary
+    const totalConversionPaths = conversionPaths.length;
+    const avgJourneyLength = totalConversionPaths > 0
+      ? Math.round((conversionPaths.reduce((sum, c) => sum + c.journeyLength, 0) / totalConversionPaths) * 10) / 10
+      : 0;
+    const singlePageConversions = conversionPaths.filter((c) => c.journeyLength === 1).length;
+
+    // Top first-touch pages (entry points that lead to conversions)
+    const firstTouchCounts: Record<string, number> = {};
+    conversionPaths.forEach((c) => {
+      const page = c.firstTouchPage;
+      firstTouchCounts[page] = (firstTouchCounts[page] || 0) + 1;
+    });
+
+    const topFirstTouchPages = Object.entries(firstTouchCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([page, count]) => ({ page, count }));
+
+    // Top last-touch pages (pages where conversions happen)
+    const lastTouchCounts: Record<string, number> = {};
+    conversionPaths.forEach((c) => {
+      const page = c.lastTouchPage;
+      lastTouchCounts[page] = (lastTouchCounts[page] || 0) + 1;
+    });
+
+    const topLastTouchPages = Object.entries(lastTouchCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([page, count]) => ({ page, count }));
+
     return NextResponse.json({
       period: { start: startStr, end: endStr, days },
       metrics: {
@@ -190,6 +312,28 @@ export async function GET(request: NextRequest) {
       topReferrers,
       scrollDepthBreakdown: scrollDepthCounts,
       conversionBreakdown: conversionTypes,
+      // Company identification
+      companyIdentification: {
+        identifiedCompanies: uniqueCompanies,
+        identifiedSessions: sessionsWithCompany.length,
+        topCompanies,
+      },
+      // Lead scoring metrics
+      leadScoring: {
+        tierBreakdown,
+        averageScore: averageLeadScore,
+        topScoringPages,
+        highScoreVisitors,
+      },
+      // Attribution summary
+      attribution: {
+        trackedConversions: totalConversionPaths,
+        averageJourneyLength: avgJourneyLength,
+        singlePageConversions,
+        multiPageConversions: totalConversionPaths - singlePageConversions,
+        topFirstTouchPages,
+        topLastTouchPages,
+      },
     });
   } catch (error) {
     console.error("Analytics overview error:", error);

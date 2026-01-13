@@ -130,7 +130,7 @@ export default function ResultsPage() {
   return (
     <>
       {/* Hero with Score */}
-      <section className="relative min-h-[60vh] flex items-center pt-20">
+      <section className="relative min-h-[60vh] flex items-center">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-3xl mx-auto text-center">

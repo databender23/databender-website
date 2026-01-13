@@ -5,7 +5,16 @@ const SESSION_ID_KEY = "db_session_id";
 const SESSION_EXPIRY_KEY = "db_session_expiry";
 const FIRST_VISIT_KEY = "db_first_visit";
 const VISIT_COUNT_KEY = "db_visit_count";
+const SESSION_JOURNEY_KEY = "db_session_journey";
+const VISITOR_JOURNEY_KEY = "db_visitor_journey";
 const SESSION_DURATION_MS = 30 * 60 * 1000; // 30 minutes
+const MAX_JOURNEY_LENGTH = 50; // Limit to prevent localStorage overflow
+
+export interface PageVisit {
+  page: string;
+  timestamp: string;
+  referrer?: string;
+}
 
 export function getVisitorId(): string {
   if (typeof window === "undefined") return "";
@@ -79,4 +88,102 @@ export function markConversion(conversionType: string): void {
 export function getConversion(): string | null {
   if (typeof window === "undefined") return null;
   return sessionStorage.getItem("db_conversion");
+}
+
+/**
+ * Add a page visit to the current session journey
+ */
+export function addPageToSessionJourney(page: string, referrer?: string): void {
+  if (typeof window === "undefined") return;
+
+  const journey = getSessionJourney();
+  const visit: PageVisit = {
+    page,
+    timestamp: new Date().toISOString(),
+    referrer,
+  };
+
+  // Avoid duplicate consecutive pages
+  if (journey.length > 0 && journey[journey.length - 1].page === page) {
+    return;
+  }
+
+  journey.push(visit);
+
+  // Keep journey under max length (remove oldest entries)
+  const trimmedJourney = journey.slice(-MAX_JOURNEY_LENGTH);
+
+  try {
+    sessionStorage.setItem(SESSION_JOURNEY_KEY, JSON.stringify(trimmedJourney));
+  } catch {
+    // Handle quota exceeded by trimming more aggressively
+    const smallerJourney = trimmedJourney.slice(-10);
+    sessionStorage.setItem(SESSION_JOURNEY_KEY, JSON.stringify(smallerJourney));
+  }
+
+  // Also update the cross-session visitor journey
+  addPageToVisitorJourney(visit);
+}
+
+/**
+ * Get the current session's page journey
+ */
+export function getSessionJourney(): PageVisit[] {
+  if (typeof window === "undefined") return [];
+
+  try {
+    const stored = sessionStorage.getItem(SESSION_JOURNEY_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Clear the session journey (called when session expires)
+ */
+export function clearSessionJourney(): void {
+  if (typeof window === "undefined") return;
+  sessionStorage.removeItem(SESSION_JOURNEY_KEY);
+}
+
+/**
+ * Add a page visit to the cross-session visitor journey (localStorage)
+ */
+function addPageToVisitorJourney(visit: PageVisit): void {
+  if (typeof window === "undefined") return;
+
+  const journey = getVisitorJourney();
+
+  // Avoid duplicate consecutive pages
+  if (journey.length > 0 && journey[journey.length - 1].page === visit.page) {
+    return;
+  }
+
+  journey.push(visit);
+
+  // Keep a longer history for cross-session analysis
+  const trimmedJourney = journey.slice(-100);
+
+  try {
+    localStorage.setItem(VISITOR_JOURNEY_KEY, JSON.stringify(trimmedJourney));
+  } catch {
+    // Handle quota exceeded
+    const smallerJourney = trimmedJourney.slice(-20);
+    localStorage.setItem(VISITOR_JOURNEY_KEY, JSON.stringify(smallerJourney));
+  }
+}
+
+/**
+ * Get the visitor's complete page journey across all sessions
+ */
+export function getVisitorJourney(): PageVisit[] {
+  if (typeof window === "undefined") return [];
+
+  try {
+    const stored = localStorage.getItem(VISITOR_JOURNEY_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
 }

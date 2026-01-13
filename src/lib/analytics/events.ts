@@ -48,6 +48,10 @@ export interface TrackedEvent extends AnalyticsEvent {
   browserVersion?: string;
   os?: string;
   osVersion?: string;
+  // Company identification (from reverse DNS or enrichment services)
+  companyName?: string;
+  companyDomain?: string;
+  companyIndustry?: string;
 }
 
 export interface Session {
@@ -71,4 +75,37 @@ export interface Session {
   maxScrollDepth?: number;
   browser?: string;
   os?: string;
+  // Company identification
+  companyName?: string;
+  companyDomain?: string;
+  companyIndustry?: string;
+  // Lead scoring
+  leadScore?: number;
+  leadTier?: "Cold" | "Warm" | "Hot" | "Very Hot";
+  pagesVisited?: string[];
+}
+
+export interface PageJourneyStep {
+  page: string;
+  timestamp: string;
+  referrer?: string;
+}
+
+export interface ConversionPath {
+  conversionId: string;
+  visitorId: string;
+  sessionId: string;
+  conversionType: string;
+  conversionPage: string;
+  timestamp: string;
+  pageJourney: PageJourneyStep[];
+  journeyLength: number;
+  firstTouchPage: string;
+  lastTouchPage: string;
+  // Attribution metadata
+  device?: string;
+  country?: string;
+  referrerSource?: string;
+  referrerMedium?: string;
+  utm?: UTMParams;
 }

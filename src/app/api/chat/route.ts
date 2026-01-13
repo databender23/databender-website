@@ -4,6 +4,7 @@ import {
   logConversation,
   sendConversationDigest,
   detectLeadIndicators,
+  sendSlackNotification,
 } from "@/lib/chat-logger";
 
 const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "https://calendly.com";
@@ -397,14 +398,20 @@ export async function POST(request: Request) {
     // Log conversation to file
     await logConversation(sessionId, fullConversation, userAgent || undefined);
 
-    // Send email digest if limit reached
+    // Send notifications if limit reached
     if (userMessageCount >= QUESTION_LIMIT) {
-      await sendConversationDigest(sessionId, fullConversation, "limit_reached");
+      await Promise.all([
+        sendConversationDigest(sessionId, fullConversation, "limit_reached"),
+        sendSlackNotification(sessionId, fullConversation, "limit_reached"),
+      ]);
     }
     // Or if lead indicators detected (check every 3 messages to avoid spam)
     else if (userMessageCount >= 3 && userMessageCount % 3 === 0) {
       if (detectLeadIndicators(fullConversation)) {
-        await sendConversationDigest(sessionId, fullConversation, "lead_detected");
+        await Promise.all([
+          sendConversationDigest(sessionId, fullConversation, "lead_detected"),
+          sendSlackNotification(sessionId, fullConversation, "lead_detected"),
+        ]);
       }
     }
 

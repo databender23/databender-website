@@ -8,6 +8,10 @@ import ReferrerSourcesChart from "./components/ReferrerSourcesChart";
 import LocationBreakdown from "./components/LocationBreakdown";
 import ScrollDepthChart from "./components/ScrollDepthChart";
 import TechBreakdown from "./components/TechBreakdown";
+import IdentifiedCompanies from "./components/IdentifiedCompanies";
+import LeadScoreBreakdown from "./components/LeadScoreBreakdown";
+import AttributionReport from "./components/AttributionReport";
+import type { LeadTier } from "@/lib/analytics/lead-scoring";
 
 interface AnalyticsData {
   period: { start: string; end: string; days: number };
@@ -34,6 +38,32 @@ interface AnalyticsData {
   topReferrers: { source: string; count: number }[];
   scrollDepthBreakdown: Record<number, number>;
   conversionBreakdown: Record<string, number>;
+  companyIdentification?: {
+    identifiedCompanies: number;
+    identifiedSessions: number;
+    topCompanies: { name: string; domain: string; visits: number }[];
+  };
+  leadScoring?: {
+    tierBreakdown: Record<LeadTier, number>;
+    averageScore: number;
+    topScoringPages: { page: string; contributedScore: number; visits: number }[];
+    highScoreVisitors: {
+      visitorId: string;
+      score: number;
+      tier: LeadTier;
+      pagesVisited: string[];
+      country?: string;
+      device?: string;
+    }[];
+  };
+  attribution?: {
+    trackedConversions: number;
+    averageJourneyLength: number;
+    singlePageConversions: number;
+    multiPageConversions: number;
+    topFirstTouchPages: { page: string; count: number }[];
+    topLastTouchPages: { page: string; count: number }[];
+  };
 }
 
 export default function AnalyticsDashboard() {
@@ -145,7 +175,7 @@ export default function AnalyticsDashboard() {
       </div>
 
       {/* Chat Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <StatsCard
           title="Chat Opens"
           value={data.metrics.chatOpens}
@@ -160,6 +190,11 @@ export default function AnalyticsDashboard() {
           title="Bot Traffic"
           value={data.metrics.botPageviews}
           subtitle="Filtered from metrics"
+        />
+        <StatsCard
+          title="Companies ID'd"
+          value={data.companyIdentification?.identifiedCompanies || 0}
+          subtitle="From IP reverse DNS"
         />
       </div>
 
@@ -210,6 +245,79 @@ export default function AnalyticsDashboard() {
           </div>
         </div>
       )}
+
+      {/* Attribution Summary */}
+      {data.attribution && data.attribution.trackedConversions > 0 && (
+        <div className="bg-bg-card rounded-lg p-6 shadow-card border border-border">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-text-primary">Conversion Attribution Summary</h3>
+            <a
+              href="/admin/analytics/attribution"
+              className="text-sm text-teal-500 hover:text-teal-600 hover:underline"
+            >
+              View Full Report
+            </a>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-text-primary">{data.attribution.trackedConversions}</p>
+              <p className="text-sm text-text-muted">Tracked Conversions</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-text-primary">{data.attribution.averageJourneyLength}</p>
+              <p className="text-sm text-text-muted">Avg Pages/Conversion</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-text-primary">{data.attribution.singlePageConversions}</p>
+              <p className="text-sm text-text-muted">Single-Page</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-text-primary">{data.attribution.multiPageConversions}</p>
+              <p className="text-sm text-text-muted">Multi-Page</p>
+            </div>
+          </div>
+          {data.attribution.topFirstTouchPages.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-border">
+              <div>
+                <p className="text-sm font-medium text-text-secondary mb-2">Top Entry Points</p>
+                <div className="space-y-1">
+                  {data.attribution.topFirstTouchPages.slice(0, 3).map((item) => (
+                    <div key={item.page} className="flex justify-between text-sm">
+                      <span className="text-text-muted truncate max-w-[180px]">{item.page}</span>
+                      <span className="text-text-primary font-medium">{item.count}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-text-secondary mb-2">Top Conversion Pages</p>
+                <div className="space-y-1">
+                  {data.attribution.topLastTouchPages.slice(0, 3).map((item) => (
+                    <div key={item.page} className="flex justify-between text-sm">
+                      <span className="text-text-muted truncate max-w-[180px]">{item.page}</span>
+                      <span className="text-text-primary font-medium">{item.count}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Lead Score Section */}
+      {data.leadScoring && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold text-text-primary">Lead Intent Scoring</h2>
+            <span className="text-sm text-text-muted">Based on visitor behavior signals</span>
+          </div>
+          <LeadScoreBreakdown data={data.leadScoring} />
+        </div>
+      )}
+
+      {/* Identified Companies */}
+      <IdentifiedCompanies days={days} />
     </div>
   );
 }

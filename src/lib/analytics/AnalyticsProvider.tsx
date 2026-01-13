@@ -2,8 +2,22 @@
 
 import { createContext, useContext, useEffect, useRef, useCallback, type ReactNode } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { getVisitorId, getSessionId, getDeviceType, markConversion, isReturningVisitor } from "./visitor-id";
-import type { AnalyticsEvent, EventType, UTMParams } from "./events";
+import {
+  getVisitorId,
+  getSessionId,
+  getDeviceType,
+  markConversion,
+  isReturningVisitor,
+  addPageToSessionJourney,
+  getSessionJourney,
+} from "./visitor-id";
+import type { AnalyticsEvent, EventType, UTMParams, PageJourneyStep } from "./events";
+import {
+  calculateEventScore,
+  getLeadTier,
+  BEHAVIOR_SCORES,
+  type LeadTier,
+} from "./lead-scoring";
 
 interface AnalyticsContextValue {
   trackEvent: (eventType: EventType, data?: Record<string, string | number | boolean>) => void;
@@ -38,18 +52,33 @@ function getScreenData() {
   };
 }
 
-async function sendEvent(
-  event: AnalyticsEvent,
-  visitorId: string,
-  sessionId: string,
-  device: string,
-  isReturning: boolean
-) {
+interface SendEventOptions {
+  event: AnalyticsEvent;
+  visitorId: string;
+  sessionId: string;
+  device: string;
+  isReturning: boolean;
+  pageJourney?: PageJourneyStep[];
+  leadScore?: number;
+  pagesVisited?: string[];
+}
+
+async function sendEvent(options: SendEventOptions) {
+  const { event, visitorId, sessionId, device, isReturning, pageJourney, leadScore, pagesVisited } = options;
   try {
     await fetch("/api/analytics/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event, visitorId, sessionId, device, isReturning }),
+      body: JSON.stringify({
+        event,
+        visitorId,
+        sessionId,
+        device,
+        isReturning,
+        ...(pageJourney && { pageJourney }),
+        ...(leadScore !== undefined && { leadScore }),
+        ...(pagesVisited && { pagesVisited }),
+      }),
     });
   } catch (error) {
     console.error("Failed to send analytics event:", error);
@@ -68,6 +97,10 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   const pageEntryTimeRef = useRef<number>(0);
   const utmParamsRef = useRef<UTMParams | undefined>(undefined);
 
+  // Lead scoring refs
+  const leadScoreRef = useRef<number>(0);
+  const pagesVisitedRef = useRef<string[]>([]);
+
   // Initialize IDs on mount
   useEffect(() => {
     visitorIdRef.current = getVisitorId();
@@ -75,6 +108,11 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     deviceRef.current = getDeviceType();
     isReturningRef.current = isReturningVisitor();
     utmParamsRef.current = getUTMParams();
+
+    // Initialize lead score with returning visitor bonus
+    if (isReturningRef.current) {
+      leadScoreRef.current = BEHAVIOR_SCORES.RETURNING_VISITOR;
+    }
   }, []);
 
   // Track page exit on unload
@@ -83,7 +121,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       if (!lastPathRef.current || pageEntryTimeRef.current === 0) return;
       const timeOnPage = Math.round((Date.now() - pageEntryTimeRef.current) / 1000);
 
-      // Use sendBeacon for reliable exit tracking
+      // Use sendBeacon for reliable exit tracking (includes lead score data)
       const payload = JSON.stringify({
         event: {
           eventType: "page_exit",
@@ -95,6 +133,8 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
         sessionId: sessionIdRef.current,
         device: deviceRef.current,
         isReturning: isReturningRef.current,
+        leadScore: leadScoreRef.current,
+        pagesVisited: pagesVisitedRef.current,
       });
       navigator.sendBeacon("/api/analytics/event", payload);
     };
@@ -116,7 +156,15 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
         timeOnPage,
         data: { maxScrollDepth: maxScrollDepthRef.current },
       };
-      sendEvent(exitEvent, visitorIdRef.current, sessionIdRef.current, deviceRef.current, isReturningRef.current);
+      sendEvent({
+        event: exitEvent,
+        visitorId: visitorIdRef.current,
+        sessionId: sessionIdRef.current,
+        device: deviceRef.current,
+        isReturning: isReturningRef.current,
+        leadScore: leadScoreRef.current,
+        pagesVisited: pagesVisitedRef.current,
+      });
     }
 
     // Reset for new page
@@ -124,6 +172,17 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     scrollDepthsRef.current = new Set();
     maxScrollDepthRef.current = 0;
     pageEntryTimeRef.current = Date.now();
+
+    // Add page to session journey for attribution tracking
+    const referrer = typeof document !== "undefined" ? document.referrer : undefined;
+    addPageToSessionJourney(pathname, referrer);
+
+    // Track this page and update lead score
+    if (!pagesVisitedRef.current.includes(pathname)) {
+      pagesVisitedRef.current = [...pagesVisitedRef.current, pathname];
+    }
+    const pageScore = calculateEventScore("pageview", pathname);
+    leadScoreRef.current += pageScore;
 
     const screenData = getScreenData();
     const event: AnalyticsEvent = {
@@ -137,7 +196,15 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       },
     };
 
-    sendEvent(event, visitorIdRef.current, sessionIdRef.current, deviceRef.current, isReturningRef.current);
+    sendEvent({
+      event,
+      visitorId: visitorIdRef.current,
+      sessionId: sessionIdRef.current,
+      device: deviceRef.current,
+      isReturning: isReturningRef.current,
+      leadScore: leadScoreRef.current,
+      pagesVisited: pagesVisitedRef.current,
+    });
   }, [pathname]);
 
   // Track scroll depth
@@ -155,13 +222,25 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
         if (scrollPercent >= milestone && !scrollDepthsRef.current.has(milestone)) {
           scrollDepthsRef.current.add(milestone);
 
+          // Update lead score for scroll depth
+          const scrollScore = calculateEventScore("scroll_depth", pathname, { depth: milestone });
+          leadScoreRef.current += scrollScore;
+
           const event: AnalyticsEvent = {
             eventType: "scroll_depth",
             page: pathname,
             data: { depth: milestone },
           };
 
-          sendEvent(event, visitorIdRef.current, sessionIdRef.current, deviceRef.current, isReturningRef.current);
+          sendEvent({
+            event,
+            visitorId: visitorIdRef.current,
+            sessionId: sessionIdRef.current,
+            device: deviceRef.current,
+            isReturning: isReturningRef.current,
+            leadScore: leadScoreRef.current,
+            pagesVisited: pagesVisitedRef.current,
+          });
         }
       }
     };
@@ -171,12 +250,24 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   const trackEvent = useCallback((eventType: EventType, data?: Record<string, string | number | boolean>) => {
+    // Update lead score for this event type
+    const eventScore = calculateEventScore(eventType, lastPathRef.current || pathname, data);
+    leadScoreRef.current += eventScore;
+
     const event: AnalyticsEvent = {
       eventType,
       page: lastPathRef.current || pathname,
       data,
     };
-    sendEvent(event, visitorIdRef.current, sessionIdRef.current, deviceRef.current, isReturningRef.current);
+    sendEvent({
+      event,
+      visitorId: visitorIdRef.current,
+      sessionId: sessionIdRef.current,
+      device: deviceRef.current,
+      isReturning: isReturningRef.current,
+      leadScore: leadScoreRef.current,
+      pagesVisited: pagesVisitedRef.current,
+    });
   }, [pathname]);
 
   const trackClick = useCallback((elementId: string, elementText?: string) => {
@@ -184,11 +275,32 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   }, [trackEvent]);
 
   const trackFormSubmit = useCallback((formName: string, success: boolean) => {
-    trackEvent("form_submit", { formName, success });
+    // Update lead score for form submit
+    const eventScore = calculateEventScore("form_submit", lastPathRef.current || pathname, { formName, success });
+    leadScoreRef.current += eventScore;
+
+    const event: AnalyticsEvent = {
+      eventType: "form_submit",
+      page: lastPathRef.current || pathname,
+      data: { formName, success },
+    };
+
+    // Include page journey for successful form submissions (conversions)
+    sendEvent({
+      event,
+      visitorId: visitorIdRef.current,
+      sessionId: sessionIdRef.current,
+      device: deviceRef.current,
+      isReturning: isReturningRef.current,
+      leadScore: leadScoreRef.current,
+      pagesVisited: pagesVisitedRef.current,
+      pageJourney: success ? getSessionJourney() : undefined,
+    });
+
     if (success) {
       markConversion(formName);
     }
-  }, [trackEvent]);
+  }, [pathname]);
 
   const trackChatOpen = useCallback(() => {
     trackEvent("chat_open");
@@ -199,9 +311,29 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   }, [trackEvent]);
 
   const trackChatLead = useCallback(() => {
-    trackEvent("chat_lead_detected");
+    // Update lead score for chat lead
+    const eventScore = calculateEventScore("chat_lead_detected", lastPathRef.current || pathname);
+    leadScoreRef.current += eventScore;
+
+    const event: AnalyticsEvent = {
+      eventType: "chat_lead_detected",
+      page: lastPathRef.current || pathname,
+    };
+
+    // Include page journey for chat lead conversions
+    sendEvent({
+      event,
+      visitorId: visitorIdRef.current,
+      sessionId: sessionIdRef.current,
+      device: deviceRef.current,
+      isReturning: isReturningRef.current,
+      leadScore: leadScoreRef.current,
+      pagesVisited: pagesVisitedRef.current,
+      pageJourney: getSessionJourney(),
+    });
+
     markConversion("chat_lead");
-  }, [trackEvent]);
+  }, [pathname]);
 
   return (
     <AnalyticsContext.Provider

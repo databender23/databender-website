@@ -1,9 +1,10 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
-import type { TrackedEvent, Session } from "./events";
+import type { TrackedEvent, Session, ConversionPath } from "./events";
 
 const EVENTS_TABLE = "databender-analytics-events";
 const SESSIONS_TABLE = "databender-analytics-sessions";
+const CONVERSIONS_TABLE = "databender-analytics-conversions";
 const REGION = process.env.DYNAMODB_REGION || "us-east-1";
 const TTL_DAYS = 90;
 
@@ -126,4 +127,70 @@ export async function getSessionsForDateRange(startDate: string, endDate: string
   }
 
   return sessions;
+}
+
+/**
+ * Store a conversion path for attribution analysis
+ */
+export async function storeConversionPath(conversion: ConversionPath): Promise<void> {
+  const client = getClient();
+  const dateStr = getDateString(new Date(conversion.timestamp));
+
+  const item = {
+    pk: `CONVERSION#${dateStr}`,
+    sk: `${conversion.timestamp}#${conversion.conversionId}`,
+    ...conversion,
+    ttl: getTTL(),
+  };
+
+  await client.send(
+    new PutCommand({
+      TableName: CONVERSIONS_TABLE,
+      Item: item,
+    })
+  );
+}
+
+/**
+ * Get conversion paths for a specific date
+ */
+export async function getConversionPathsForDate(date: string): Promise<ConversionPath[]> {
+  try {
+    const client = getClient();
+
+    const result = await client.send(
+      new QueryCommand({
+        TableName: CONVERSIONS_TABLE,
+        KeyConditionExpression: "pk = :pk",
+        ExpressionAttributeValues: {
+          ":pk": `CONVERSION#${date}`,
+        },
+      })
+    );
+
+    return (result.Items || []) as ConversionPath[];
+  } catch (error) {
+    console.error(`DynamoDB getConversionPathsForDate error for ${date}:`, error);
+    return [];
+  }
+}
+
+/**
+ * Get conversion paths for a date range
+ */
+export async function getConversionPathsForDateRange(
+  startDate: string,
+  endDate: string
+): Promise<ConversionPath[]> {
+  const conversions: ConversionPath[] = [];
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+    const dateStr = getDateString(d);
+    const dayConversions = await getConversionPathsForDate(dateStr);
+    conversions.push(...dayConversions);
+  }
+
+  return conversions;
 }

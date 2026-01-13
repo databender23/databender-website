@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
-import { trackEvent, updateSession } from "@/lib/analytics/dynamodb";
-import type { AnalyticsEvent, TrackedEvent } from "@/lib/analytics/events";
+import { trackEvent, updateSession, storeConversionPath } from "@/lib/analytics/dynamodb";
+import type { AnalyticsEvent, TrackedEvent, PageJourneyStep, ConversionPath } from "@/lib/analytics/events";
+import { lookupCompany, type CompanyInfo } from "@/lib/analytics/company-lookup";
+import {
+  calculateEventScore,
+  getLeadTier,
+  BEHAVIOR_SCORES,
+} from "@/lib/analytics/lead-scoring";
 
 // Bot detection patterns
 const BOT_PATTERNS = [
@@ -114,12 +120,15 @@ async function getGeoLocation(ip: string): Promise<{ country?: string; region?: 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { event, visitorId, sessionId, device, isReturning } = body as {
+    const { event, visitorId, sessionId, device, isReturning, leadScore: clientLeadScore, pagesVisited, pageJourney } = body as {
       event: AnalyticsEvent;
       visitorId: string;
       sessionId: string;
       device: "desktop" | "mobile" | "tablet";
       isReturning?: boolean;
+      leadScore?: number;
+      pagesVisited?: string[];
+      pageJourney?: PageJourneyStep[];
     };
 
     if (!event || !visitorId || !sessionId) {
@@ -145,6 +154,17 @@ export async function POST(request: NextRequest) {
       geoData = await getGeoLocation(ip);
     }
 
+    // Attempt company identification from IP (only for pageviews, non-bots)
+    let companyData: CompanyInfo | null = null;
+    if (event.eventType === "pageview" && ip && !botDetected) {
+      try {
+        companyData = await lookupCompany(ip);
+      } catch {
+        // Company lookup failed - continue without company data
+        // This is expected for most residential/mobile IPs
+      }
+    }
+
     const trackedEvent: TrackedEvent = {
       eventId: uuidv4(),
       visitorId,
@@ -158,6 +178,11 @@ export async function POST(request: NextRequest) {
       os,
       osVersion,
       ...geoData,
+      ...(companyData && {
+        companyName: companyData.name,
+        companyDomain: companyData.domain,
+        companyIndustry: companyData.industry,
+      }),
       ...event,
     };
 
@@ -166,6 +191,14 @@ export async function POST(request: NextRequest) {
 
     // Parse referrer source
     const { source: referrerSource, medium: referrerMedium } = parseReferrerSource(event.referrer);
+
+    // Calculate lead score for this event
+    const eventScore = calculateEventScore(event.eventType, event.page, event.data);
+
+    // Use client-provided cumulative score if available, otherwise calculate from event
+    // Note: Returning visitor bonus is added on the client side
+    const currentLeadScore = (clientLeadScore || 0) + eventScore;
+    const leadTier = getLeadTier(currentLeadScore);
 
     // Update session info for pageviews
     if (event.eventType === "pageview") {
@@ -185,6 +218,16 @@ export async function POST(request: NextRequest) {
         isReturning: isReturning || false,
         browser,
         os,
+        // Lead scoring data
+        leadScore: currentLeadScore,
+        leadTier,
+        pagesVisited: pagesVisited || [event.page],
+        // Include company data in session for easier querying
+        ...(companyData && {
+          companyName: companyData.name,
+          companyDomain: companyData.domain,
+          companyIndustry: companyData.industry,
+        }),
       });
     }
 
@@ -201,11 +244,36 @@ export async function POST(request: NextRequest) {
         isConverted: false,
         duration: event.timeOnPage,
         maxScrollDepth: event.data?.maxScrollDepth as number,
+        // Update lead score on exit
+        leadScore: currentLeadScore,
+        leadTier,
+        pagesVisited: pagesVisited || [],
+      });
+    }
+
+    // Update lead score for behavioral events (scroll, chat, etc.)
+    if (["scroll_depth", "chat_open", "chat_message"].includes(event.eventType)) {
+      await updateSession({
+        sessionId,
+        visitorId,
+        startTime: timestamp,
+        pageCount: 1,
+        entryPage: event.page,
+        exitPage: event.page,
+        device,
+        isConverted: false,
+        leadScore: currentLeadScore,
+        leadTier,
+        pagesVisited: pagesVisited || [],
       });
     }
 
     // Mark conversion for form submissions and chat leads
     if (event.eventType === "form_submit" || event.eventType === "chat_lead_detected") {
+      const conversionType = event.eventType === "chat_lead_detected"
+        ? "chat_lead"
+        : (event.data?.formName as string) || "form";
+
       await updateSession({
         sessionId,
         visitorId,
@@ -215,11 +283,47 @@ export async function POST(request: NextRequest) {
         exitPage: event.page,
         device,
         isConverted: true,
-        conversionType: event.eventType === "chat_lead_detected" ? "chat_lead" : (event.data?.formName as string) || "form",
+        conversionType,
+        // Include final lead score on conversion
+        leadScore: currentLeadScore,
+        leadTier,
+        pagesVisited: pagesVisited || [],
       });
+
+      // Store conversion path for attribution analysis
+      if (pageJourney && pageJourney.length > 0) {
+        const journey = pageJourney;
+        const firstTouchPage = journey[0].page;
+        const lastTouchPage = journey.length > 1 ? journey[journey.length - 1].page : firstTouchPage;
+
+        const conversionPath: ConversionPath = {
+          conversionId: uuidv4(),
+          visitorId,
+          sessionId,
+          conversionType,
+          conversionPage: event.page,
+          timestamp,
+          pageJourney: journey,
+          journeyLength: journey.length,
+          firstTouchPage,
+          lastTouchPage,
+          device,
+          country: geoData.country,
+          referrerSource,
+          referrerMedium,
+          utm: event.utm,
+        };
+
+        try {
+          await storeConversionPath(conversionPath);
+        } catch (conversionPathError) {
+          // Log but don't fail the request if conversion path storage fails
+          console.error("Failed to store conversion path:", conversionPathError);
+        }
+      }
     }
 
-    return NextResponse.json({ success: true, eventId: trackedEvent.eventId });
+    return NextResponse.json({ success: true, eventId: trackedEvent.eventId, leadScore: currentLeadScore, leadTier });
   } catch (error) {
     console.error("Analytics tracking error:", error);
     return NextResponse.json({ error: "Failed to track event" }, { status: 500 });

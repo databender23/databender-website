@@ -81,7 +81,7 @@ export default function HealthcareBenchmarkPage() {
 
   if (step === "success") {
     return (
-      <div className="min-h-screen pt-20">
+      <div className="min-h-screen">
         <div className="container mx-auto px-6 py-16">
           <div className="max-w-2xl mx-auto text-center">
             <motion.div
@@ -145,7 +145,7 @@ export default function HealthcareBenchmarkPage() {
   }
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
