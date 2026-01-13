@@ -4,16 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useInView } from "react-intersection-observer";
 
-// Use DotLottieWorkerReact for desktop (web worker keeps main thread free)
-// Use DotLottieReact for mobile (better compatibility)
-const DotLottieWorkerReact = dynamic(
-  () => import("@lottiefiles/dotlottie-react").then((mod) => mod.DotLottieWorkerReact),
-  {
-    ssr: false,
-    loading: () => <div className="animate-pulse bg-gray-100 rounded-lg w-full h-full min-h-[200px]" />,
-  }
-);
-
+// Use DotLottieReact for all devices (more compatible than worker version)
 const DotLottieReact = dynamic(
   () => import("@lottiefiles/dotlottie-react").then((mod) => mod.DotLottieReact),
   {
@@ -63,7 +54,7 @@ export default function LottieWrapper({
   const dotLottieRef = useRef<any>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [isMobile, setIsMobile] = useState<boolean | null>(null); // null = not yet determined
+  const [isMobile, setIsMobile] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
   // Lazy load trigger - only load when close to viewport
@@ -95,7 +86,7 @@ export default function LottieWrapper({
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
-  const showStatic = prefersReducedMotion || (staticOnMobile && isMobile === true);
+  const showStatic = prefersReducedMotion || (staticOnMobile && isMobile);
 
   // Convert .json URL to .lottie URL if available
   const getSrc = () => {
@@ -110,7 +101,7 @@ export default function LottieWrapper({
 
   // Set speed when ready
   useEffect(() => {
-    if (!dotLottieRef.current || !isReady || isMobile === null) return;
+    if (!dotLottieRef.current || !isReady) return;
     const effectiveSpeed = isMobile && mobileOptimized ? speed * mobileSpeed : speed;
     dotLottieRef.current.setSpeed(effectiveSpeed);
   }, [isReady, speed, isMobile, mobileOptimized, mobileSpeed]);
@@ -170,8 +161,8 @@ export default function LottieWrapper({
     );
   }
 
-  // Don't render until in view (lazy load) and mobile detection complete
-  if ((!inView && !isReady) || isMobile === null) {
+  // Don't render until in view (lazy load)
+  if (!inView && !isReady) {
     return (
       <div ref={viewRef} className={className} style={style}>
         <div className="animate-pulse bg-gray-100 rounded-lg w-full h-full min-h-[200px]" />
@@ -185,7 +176,6 @@ export default function LottieWrapper({
 
   const shouldAutoplay = autoplay && !playOnHover && !playOnView && !showStatic;
 
-  // Use regular component on mobile for better compatibility, worker on desktop
   return (
     <div
       ref={viewRef}
@@ -194,26 +184,14 @@ export default function LottieWrapper({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {isMobile ? (
-        <DotLottieReact
-          dotLottieRefCallback={handleDotLottieRef}
-          src={src}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          data={animationData as any}
-          loop={loop}
-          autoplay={shouldAutoplay}
-        />
-      ) : (
-        <DotLottieWorkerReact
-          dotLottieRefCallback={handleDotLottieRef}
-          src={src}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          data={animationData as any}
-          loop={loop}
-          autoplay={shouldAutoplay}
-          workerId="lottie-worker"
-        />
-      )}
+      <DotLottieReact
+        dotLottieRefCallback={handleDotLottieRef}
+        src={src}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data={animationData as any}
+        loop={loop}
+        autoplay={shouldAutoplay}
+      />
     </div>
   );
 }

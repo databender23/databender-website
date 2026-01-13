@@ -71,13 +71,13 @@ export default function CaseStudiesPage() {
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            {/* Lottie Animation - Above Hero */}
+            {/* Lottie Animation - Above on desktop, below on mobile */}
             {lottieData && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
-                className="w-full max-w-xs mb-8"
+                className="w-full max-w-xs mb-8 order-last md:order-first mt-8 md:mt-0"
               >
                 <LottieWrapper
                   animationData={lottieData}
