@@ -11,6 +11,10 @@ import {
   getVisitCount,
   addPageToSessionJourney,
   getSessionJourney,
+  setFirstTouchAttribution,
+  getFirstTouchAttribution,
+  getFirstVisitDate,
+  type FirstTouchAttribution,
 } from "./visitor-id";
 import type { AnalyticsEvent, EventType, UTMParams, PageJourneyStep } from "./events";
 import {
@@ -65,10 +69,12 @@ interface SendEventOptions {
   visitCount?: number;
   sessionStartTime?: string;
   entryPage?: string;
+  firstTouch?: FirstTouchAttribution | null;
+  firstVisitDate?: string | null;
 }
 
 async function sendEvent(options: SendEventOptions) {
-  const { event, visitorId, sessionId, device, isReturning, pageJourney, leadScore, pagesVisited, visitCount, sessionStartTime, entryPage } = options;
+  const { event, visitorId, sessionId, device, isReturning, pageJourney, leadScore, pagesVisited, visitCount, sessionStartTime, entryPage, firstTouch, firstVisitDate } = options;
   try {
     await fetch("/api/analytics/event", {
       method: "POST",
@@ -85,6 +91,8 @@ async function sendEvent(options: SendEventOptions) {
         ...(visitCount !== undefined && { visitCount }),
         ...(sessionStartTime && { sessionStartTime }),
         ...(entryPage && { entryPage }),
+        ...(firstTouch && { firstTouch }),
+        ...(firstVisitDate && { firstVisitDate }),
       }),
     });
   } catch (error) {
@@ -113,6 +121,10 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   const sessionStartTimeRef = useRef<string>("");
   const entryPageRef = useRef<string>("");
 
+  // First-touch attribution refs
+  const firstTouchRef = useRef<FirstTouchAttribution | null>(null);
+  const firstVisitDateRef = useRef<string | null>(null);
+
   // Initialize IDs on mount
   useEffect(() => {
     visitorIdRef.current = getVisitorId();
@@ -122,6 +134,58 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     visitCountRef.current = getVisitCount();
     sessionStartTimeRef.current = new Date().toISOString();
     utmParamsRef.current = getUTMParams();
+
+    // Get existing first-touch attribution or set it on first visit
+    const existingFirstTouch = getFirstTouchAttribution();
+    if (existingFirstTouch) {
+      firstTouchRef.current = existingFirstTouch;
+    } else {
+      // First visit - capture how they discovered the site
+      const referrer = typeof document !== "undefined" ? document.referrer : "";
+      const utm = utmParamsRef.current;
+      const landingPage = typeof window !== "undefined" ? window.location.pathname : "/";
+
+      // Determine source and medium from referrer or UTM
+      let source = "direct";
+      let medium = "none";
+
+      if (utm?.source) {
+        source = utm.source;
+        medium = utm.medium || "unknown";
+      } else if (referrer) {
+        try {
+          const refUrl = new URL(referrer);
+          source = refUrl.hostname.replace("www.", "");
+          // Infer medium from common sources
+          if (refUrl.hostname.includes("google") || refUrl.hostname.includes("bing") || refUrl.hostname.includes("duckduckgo")) {
+            medium = "organic";
+          } else if (refUrl.hostname.includes("linkedin") || refUrl.hostname.includes("twitter") || refUrl.hostname.includes("facebook")) {
+            medium = "social";
+          } else if (refUrl.hostname.includes("perplexity") || refUrl.hostname.includes("chat.openai") || refUrl.hostname.includes("claude.ai")) {
+            medium = "ai-search";
+          } else {
+            medium = "referral";
+          }
+        } catch {
+          source = referrer;
+          medium = "referral";
+        }
+      }
+
+      const newFirstTouch: FirstTouchAttribution = {
+        source,
+        medium,
+        landingPage,
+        timestamp: new Date().toISOString(),
+        referrer: referrer || undefined,
+        utmCampaign: utm?.campaign,
+        utmSource: utm?.source,
+      };
+
+      setFirstTouchAttribution(newFirstTouch);
+      firstTouchRef.current = newFirstTouch;
+    }
+    firstVisitDateRef.current = getFirstVisitDate();
 
     // Initialize lead score with returning visitor bonus
     if (isReturningRef.current) {
@@ -226,6 +290,8 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       visitCount: visitCountRef.current,
       sessionStartTime: sessionStartTimeRef.current,
       entryPage: entryPageRef.current,
+      firstTouch: firstTouchRef.current,
+      firstVisitDate: firstVisitDateRef.current,
     });
   }, [pathname]);
 
@@ -265,6 +331,8 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
             visitCount: visitCountRef.current,
             sessionStartTime: sessionStartTimeRef.current,
             entryPage: entryPageRef.current,
+            firstTouch: firstTouchRef.current,
+            firstVisitDate: firstVisitDateRef.current,
           });
         }
       }
@@ -295,6 +363,8 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       visitCount: visitCountRef.current,
       sessionStartTime: sessionStartTimeRef.current,
       entryPage: entryPageRef.current,
+      firstTouch: firstTouchRef.current,
+      firstVisitDate: firstVisitDateRef.current,
     });
   }, [pathname]);
 
@@ -326,6 +396,8 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       sessionStartTime: sessionStartTimeRef.current,
       entryPage: entryPageRef.current,
       pageJourney: success ? getSessionJourney() : undefined,
+      firstTouch: firstTouchRef.current,
+      firstVisitDate: firstVisitDateRef.current,
     });
 
     if (success) {
@@ -364,6 +436,8 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       sessionStartTime: sessionStartTimeRef.current,
       entryPage: entryPageRef.current,
       pageJourney: getSessionJourney(),
+      firstTouch: firstTouchRef.current,
+      firstVisitDate: firstVisitDateRef.current,
     });
 
     markConversion("chat_lead");

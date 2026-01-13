@@ -261,7 +261,7 @@ async function getGeoLocation(ip: string): Promise<{ country?: string; region?: 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { event, visitorId, sessionId, device, isReturning, leadScore: clientLeadScore, pagesVisited, pageJourney, visitCount, sessionStartTime, entryPage } = body as {
+    const { event, visitorId, sessionId, device, isReturning, leadScore: clientLeadScore, pagesVisited, pageJourney, visitCount, sessionStartTime, entryPage, firstTouch, firstVisitDate } = body as {
       event: AnalyticsEvent;
       visitorId: string;
       sessionId: string;
@@ -273,6 +273,16 @@ export async function POST(request: NextRequest) {
       visitCount?: number;
       sessionStartTime?: string;
       entryPage?: string;
+      firstTouch?: {
+        source: string;
+        medium: string;
+        landingPage: string;
+        timestamp: string;
+        referrer?: string;
+        utmCampaign?: string;
+        utmSource?: string;
+      } | null;
+      firstVisitDate?: string | null;
     };
 
     if (!event || !visitorId || !sessionId) {
@@ -513,6 +523,8 @@ export async function POST(request: NextRequest) {
             utmSource: event.utm?.source,
             sessionDuration,
             entryPage,
+            firstTouch,
+            firstVisitDate,
           }).catch(() => {}); // Ignore errors, don't affect main flow
 
           sessionAlerts.leadTier = tier;

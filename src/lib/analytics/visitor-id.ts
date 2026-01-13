@@ -7,8 +7,20 @@ const FIRST_VISIT_KEY = "db_first_visit";
 const VISIT_COUNT_KEY = "db_visit_count";
 const SESSION_JOURNEY_KEY = "db_session_journey";
 const VISITOR_JOURNEY_KEY = "db_visitor_journey";
+const FIRST_TOUCH_SOURCE_KEY = "db_first_touch_source";
+const FIRST_TOUCH_LANDING_KEY = "db_first_touch_landing";
 const SESSION_DURATION_MS = 30 * 60 * 1000; // 30 minutes
 const MAX_JOURNEY_LENGTH = 50; // Limit to prevent localStorage overflow
+
+export interface FirstTouchAttribution {
+  source: string;
+  medium: string;
+  landingPage: string;
+  timestamp: string;
+  referrer?: string;
+  utmCampaign?: string;
+  utmSource?: string;
+}
 
 export interface PageVisit {
   page: string;
@@ -39,6 +51,58 @@ export function isReturningVisitor(): boolean {
 export function getVisitCount(): number {
   if (typeof window === "undefined") return 1;
   return parseInt(localStorage.getItem(VISIT_COUNT_KEY) || "1", 10);
+}
+
+/**
+ * Store first-touch attribution data (only on first visit)
+ * This persists how the visitor originally discovered the site
+ */
+export function setFirstTouchAttribution(attribution: FirstTouchAttribution): void {
+  if (typeof window === "undefined") return;
+
+  // Only set if not already set (preserve original discovery source)
+  if (localStorage.getItem(FIRST_TOUCH_SOURCE_KEY)) {
+    return;
+  }
+
+  try {
+    localStorage.setItem(FIRST_TOUCH_SOURCE_KEY, JSON.stringify(attribution));
+    localStorage.setItem(FIRST_TOUCH_LANDING_KEY, attribution.landingPage);
+  } catch {
+    // Handle quota exceeded
+    console.warn("Failed to store first-touch attribution");
+  }
+}
+
+/**
+ * Get first-touch attribution data
+ * Returns how the visitor originally discovered the site
+ */
+export function getFirstTouchAttribution(): FirstTouchAttribution | null {
+  if (typeof window === "undefined") return null;
+
+  try {
+    const stored = localStorage.getItem(FIRST_TOUCH_SOURCE_KEY);
+    return stored ? JSON.parse(stored) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Get the original landing page that brought the visitor to the site
+ */
+export function getFirstTouchLandingPage(): string | null {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem(FIRST_TOUCH_LANDING_KEY);
+}
+
+/**
+ * Get the first visit timestamp
+ */
+export function getFirstVisitDate(): string | null {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem(FIRST_VISIT_KEY);
 }
 
 export function incrementVisitCount(): void {
