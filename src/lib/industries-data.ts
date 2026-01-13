@@ -24,7 +24,7 @@ export const industries: IndustryWithCta[] = [
     lottie: "/animations/healthcare-industry.json",
     ctaText: "See Document Intelligence",
     ctaHref: "/case-studies/agentic-document-intelligence",
-    ctaSubtext: "How AI transforms documents into searchable knowledge",
+    ctaSubtext: "How AI turns documents into searchable knowledge",
   },
   {
     slug: "commercial-real-estate",
@@ -173,7 +173,7 @@ export const industryContent: Record<string, {
     benefits: [
       { title: "125x Cheaper Data Cleanup", description: "AI agents fix duplicates, standardize records, and resolve conflicts at a fraction of manual review cost. Your data finally works." },
       { title: "Sales Scores That Actually Work", description: "Trained on real conversions, not assumptions. Your reps trust it because it matches what they see in the field." },
-      { title: "Institutional Knowledge Unlocked", description: "Specs, procedures, and expertise searchable by everyone. New hires productive in weeks, not months." },
+      { title: "Knowledge That's Finally Findable", description: "Specs, procedures, and expertise searchable by everyone. New hires productive in weeks, not months." },
       { title: "Trade Secrets Stay Secret", description: "AI runs on your infrastructure. Pricing, costs, and methods never touch external servers." },
       { title: "One View of Everything", description: "Customer history, orders, shipments, production status, quality issues. All visible without switching systems or making calls." },
       { title: "Answers in Seconds", description: "Operations questions answered instantly. No waiting for someone to pull a report or return a call." },

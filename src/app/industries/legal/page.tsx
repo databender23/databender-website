@@ -431,7 +431,7 @@ export default function LegalIndustryPage() {
               className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto"
             >
               Practical insights you can use today. No fluff, no sales pitches, just
-              actionable strategies from firms that have done it.
+              strategies from firms that have done it.
             </motion.p>
           </div>
 
@@ -570,7 +570,7 @@ export default function LegalIndustryPage() {
                 metric: "Instant",
                 label: "AI Answers",
                 title: "Document Intelligence",
-                description: "Decades of documents transformed into an AI-searchable knowledge base. Ask in plain English, get answers with sources.",
+                description: "Decades of documents turned into an AI-searchable knowledge base. Ask in plain English, get answers with sources.",
                 href: "/case-studies/agentic-document-intelligence",
               },
               {

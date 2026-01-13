@@ -145,49 +145,6 @@ export default function HealthcareIndustryPage() {
         </div>
       </section>
 
-      {/* Solutions Section */}
-      <section className="section">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10 sm:mb-16">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-            >
-              Our Solutions
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary"
-            >
-              How we help
-            </motion.h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {content.solutions.map((solution, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-5 sm:p-6 rounded-xl bg-[#F8F9FA] border border-black/10"
-              >
-                <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2 sm:mb-3">
-                  {solution.title}
-                </h3>
-                <p className="text-text-secondary text-sm sm:text-base">{solution.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Document Intelligence Section */}
       <section id="document-intelligence" className="section bg-[#F8F9FA] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
@@ -224,7 +181,7 @@ export default function HealthcareIndustryPage() {
                     across thousands of documents that AI tools like ChatGPT can&apos;t access.
                   </p>
                   <p>
-                    We built Document Intelligence that transforms unstructured documents
+                    We built Document Intelligence that turns unstructured documents
                     into an AI-ready knowledge base. Now AI can search, answer questions,
                     and power workflows, all using your organization&apos;s own data.
                   </p>
@@ -713,7 +670,7 @@ export default function HealthcareIndustryPage() {
       {/* CTA */}
       <CTA
         title="Ready to see what's possible?"
-        description="Schedule a consultation to discuss your specific challenges, or see how Document Intelligence transforms scattered documents into searchable knowledge."
+        description="Schedule a consultation to discuss your specific challenges, or see how Document Intelligence turns scattered documents into searchable knowledge."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "See Document Intelligence", href: "/case-studies/agentic-document-intelligence" }}
         variant="gradient"
