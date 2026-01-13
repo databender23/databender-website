@@ -72,70 +72,70 @@ export default function OurProcessPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-24">
+      <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-24">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-            <div className="lg:col-span-3">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
-              >
-                Our Process
-              </motion.p>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
-              >
-                How we turn data chaos into clarity
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
-              >
-                Most data projects fail because they start with technology instead of understanding. Our 4-phase approach puts your business goals first and builds from there.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-wrap gap-4"
-              >
-                <Button variant="primary" size="lg" href="/contact">
-                  Start a Conversation
-                </Button>
-                <Button variant="secondary" size="lg" href="/assessments/data-ai-readiness">
-                  Take Free Assessment
-                </Button>
-              </motion.div>
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          {/* Lottie Animation - Above Hero */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex justify-center items-center mb-8"
+          >
+            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
+              <ResponsiveAnimation
+                lottieUrl="/animations/workflow-process.json"
+                MobileComponent={RoadmapAnimation}
+                loop={true}
+                speed={1}
+                className="w-full aspect-square"
+              />
             </div>
+          </motion.div>
+
+          {/* Hero Content */}
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            >
+              Our Process
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
+            >
+              How we turn data chaos into clarity
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
+            >
+              Most data projects fail because they start with technology instead of understanding. Our 4-phase approach puts your business goals first and builds from there.
+            </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex justify-center items-center lg:col-span-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
             >
-              <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-                <ResponsiveAnimation
-                  lottieUrl="/animations/workflow-process.json"
-                  MobileComponent={RoadmapAnimation}
-                  loop={true}
-                  speed={1}
-                  className="w-full aspect-square"
-                />
-              </div>
+              <Button variant="primary" size="lg" href="/contact">
+                Start a Conversation
+              </Button>
+              <Button variant="secondary" size="lg" href="/assessments/data-ai-readiness">
+                Take Free Assessment
+              </Button>
             </motion.div>
           </div>
         </div>
