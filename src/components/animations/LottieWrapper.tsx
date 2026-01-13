@@ -227,8 +227,10 @@ export default function LottieWrapper({
   // Effective loop - disable looping if already completed first loop on mobile
   const effectiveLoop = hasCompletedFirstLoop ? false : loop;
 
-  // Mobile render config - use native resolution for sharp rendering
-  const renderConfig = undefined;
+  // Mobile render config - slightly lower resolution for smoother playback
+  const renderConfig = isMobile && mobileOptimized ? {
+    devicePixelRatio: 0.75,  // 44% fewer pixels, less blurry than 0.5
+  } : undefined;
 
   return (
     <div
