@@ -371,15 +371,7 @@ export default function HomePage() {
     },
   ];
 
-  // Lottie animation setup
-  const [animationData, setAnimationData] = useState<object | null>(null);
-
-  useEffect(() => {
-    fetch("/animations/hero-data.json")
-      .then((response) => response.json())
-      .then((data) => setAnimationData(data))
-      .catch((error) => console.error("Failed to load Lottie animation:", error));
-  }, []);
+  // Hero animation is lazy loaded by LottieWrapper
 
   return (
     <>
@@ -393,16 +385,15 @@ export default function HomePage() {
         size="large"
         media={
           <div className="w-full max-w-lg">
-            {animationData && (
-              <LottieWrapper
-                animationData={animationData}
-                loop={true}
-                autoplay={true}
-                speed={1}
-                mobileOptimized={true}
-                className="w-full h-auto"
-              />
-            )}
+            <LottieWrapper
+              animationUrl="/animations/hero-data.json"
+              loop={true}
+              autoplay={true}
+              speed={1}
+              mobileOptimized={true}
+              staticOnMobile={true}
+              className="w-full h-auto min-h-[300px]"
+            />
           </div>
         }
       />
