@@ -141,6 +141,8 @@ export default function OurProcessPage() {
                 <div className="w-full max-w-md">
                   <LottieWrapper
                     animationData={lottieData}
+                    staticImage="/images/logo-color.png"
+                    staticOnMobile={true}
                     loop={true}
                     autoplay={true}
                     speed={1}

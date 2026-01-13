@@ -60,7 +60,7 @@ export default function IndustriesPage() {
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div>
+            <div className="order-2 lg:order-1">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -107,11 +107,13 @@ export default function IndustriesPage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center"
+                className="flex justify-center items-center order-1 lg:order-2"
               >
                 <div className="w-full max-w-md">
                   <LottieWrapper
                     animationData={lottieData}
+                    staticImage="/images/logo-color.png"
+                    staticOnMobile={true}
                     loop={true}
                     autoplay={true}
                     className="w-full h-auto"
