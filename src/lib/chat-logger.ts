@@ -212,7 +212,7 @@ export async function sendSlackNotification(
     // Truncate conversation for Slack (last 6 messages)
     const recentMessages = messages.slice(-6);
     const conversationText = recentMessages
-      .map((m) => `*${m.role === "user" ? "Visitor" : "Bot"}:* ${m.content}`)
+      .map((m) => `>${m.role === "user" ? " *Visitor:*" : " Bot:"} ${m.content}`)
       .join("\n");
 
     const emoji = trigger === "lead_detected" ? ":fire:" : ":speech_balloon:";
@@ -220,65 +220,35 @@ export async function sendSlackNotification(
       ? "Potential Lead Detected!"
       : `Chat Limit Reached (${userMessages.length} questions)`;
 
-    const payload = {
-      blocks: [
-        {
-          type: "header",
-          text: {
-            type: "plain_text",
-            text: `${emoji} ${title}`,
-            emoji: true,
-          },
-        },
-        {
-          type: "section",
-          fields: [
-            {
-              type: "mrkdwn",
-              text: `*Session:*\n\`${sessionId.slice(0, 20)}...\``,
-            },
-            {
-              type: "mrkdwn",
-              text: `*Messages:*\n${messages.length} total`,
-            },
-          ],
-        },
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: `*Last question:*\n> ${lastUserMessage.slice(0, 200)}${lastUserMessage.length > 200 ? "..." : ""}`,
-          },
-        },
-        {
-          type: "divider",
-        },
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: `*Recent conversation:*\n${conversationText.slice(0, 2500)}`,
-          },
-        },
-        {
-          type: "context",
-          elements: [
-            {
-              type: "mrkdwn",
-              text: `Sent from Databender Chat | ${new Date().toLocaleString()}`,
-            },
-          ],
-        },
-      ],
-    };
+    // Use simple text format for better compatibility
+    const text = [
+      `${emoji} *${title}*`,
+      "",
+      `*Session:* \`${sessionId.slice(0, 20)}...\``,
+      `*Messages:* ${messages.length} total`,
+      "",
+      `*Last question:*`,
+      `> ${lastUserMessage.slice(0, 300)}`,
+      "",
+      `*Recent conversation:*`,
+      conversationText.slice(0, 2000),
+      "",
+      `_Databender Chat • ${new Date().toLocaleString()}_`,
+    ].join("\n");
 
-    await fetch(webhookUrl, {
+    const payload = { text };
+
+    const response = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
-    console.log(`Slack notification sent for session ${sessionId}`);
+    if (!response.ok) {
+      console.error("Slack webhook error:", await response.text());
+    } else {
+      console.log(`Slack notification sent for session ${sessionId}`);
+    }
   } catch (error) {
     console.error("Failed to send Slack notification:", error);
   }

@@ -8,6 +8,21 @@ import {
   getLeadTier,
   BEHAVIOR_SCORES,
 } from "@/lib/analytics/lead-scoring";
+import { sendSlackAlert, shouldAlertForScore } from "@/lib/notifications/slack";
+
+// Track which sessions have already received alerts to avoid duplicates
+const alertedSessions = new Map<string, { leadTier?: string; companyAlerted?: boolean }>();
+
+// Clean up old entries periodically (simple in-memory cache)
+setInterval(() => {
+  const oneHourAgo = Date.now() - 60 * 60 * 1000;
+  for (const [key, value] of alertedSessions.entries()) {
+    // Remove entries (we don't track timestamp, so just limit size)
+    if (alertedSessions.size > 10000) {
+      alertedSessions.delete(key);
+    }
+  }
+}, 60 * 60 * 1000);
 
 // Bot detection patterns
 const BOT_PATTERNS = [
@@ -321,6 +336,76 @@ export async function POST(request: NextRequest) {
           console.error("Failed to store conversion path:", conversionPathError);
         }
       }
+    }
+
+    // Send Slack notifications (fire-and-forget, don't block response)
+    // Only send for non-bot traffic
+    if (!botDetected) {
+      const sessionAlerts = alertedSessions.get(sessionId) || {};
+
+      // Check if we should send a lead score alert
+      const { shouldAlert, tier } = shouldAlertForScore(currentLeadScore);
+      if (shouldAlert && tier && sessionAlerts.leadTier !== tier) {
+        // Only alert if tier upgraded (not on every event at same tier)
+        const tierOrder = { "Warm": 1, "Hot": 2, "Very Hot": 3 };
+        const currentTierOrder = tierOrder[tier] || 0;
+        const previousTierOrder = sessionAlerts.leadTier ? tierOrder[sessionAlerts.leadTier as keyof typeof tierOrder] || 0 : 0;
+
+        if (currentTierOrder > previousTierOrder) {
+          sendSlackAlert({
+            type: "lead",
+            score: currentLeadScore,
+            tier,
+            visitorId,
+            sessionId,
+            currentPage: event.page,
+            pagesViewed: pagesVisited || [event.page],
+            company: companyData?.name,
+            country: geoData.country,
+            device,
+            isReturning,
+            referrerSource,
+          }).catch(() => {}); // Ignore errors, don't affect main flow
+
+          sessionAlerts.leadTier = tier;
+        }
+      }
+
+      // Send company identification alert (only once per session)
+      if (companyData && !sessionAlerts.companyAlerted) {
+        sendSlackAlert({
+          type: "company",
+          companyName: companyData.name,
+          companyDomain: companyData.domain,
+          visitorId,
+          currentPage: event.page,
+          pagesViewed: pagesVisited || [event.page],
+          leadScore: currentLeadScore,
+          leadTier,
+          country: geoData.country,
+        }).catch(() => {}); // Ignore errors
+
+        sessionAlerts.companyAlerted = true;
+      }
+
+      // Send conversion alert
+      if (event.eventType === "form_submit" || event.eventType === "chat_lead_detected") {
+        const conversionType = event.eventType === "chat_lead_detected"
+          ? "chat_lead"
+          : (event.data?.formName as string) || "form";
+
+        sendSlackAlert({
+          type: "conversion",
+          conversionType,
+          visitorId,
+          page: event.page,
+          leadScore: currentLeadScore,
+          company: companyData?.name,
+          journeyLength: pageJourney?.length,
+        }).catch(() => {}); // Ignore errors
+      }
+
+      alertedSessions.set(sessionId, sessionAlerts);
     }
 
     return NextResponse.json({ success: true, eventId: trackedEvent.eventId, leadScore: currentLeadScore, leadTier });
