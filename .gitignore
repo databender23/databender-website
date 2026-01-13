@@ -46,6 +46,9 @@ next-env.d.ts
 /lead_scoring
 /docs
 
+# PDF generation templates (dev tools)
+scripts/generate-*-pdf.html
+
 # chat logs (contains user data)
 /logs
 to_delete/

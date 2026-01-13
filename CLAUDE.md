@@ -85,10 +85,14 @@ This is the DataBender marketing website built with Next.js 16 (App Router), Rea
 
 ### Non-Production Directories
 
-These folders contain reference materials, not production code:
+The `docs/` folder contains all development documentation and strategy content (excluded from git via `.gitignore`):
 
-- `docs/` - Development documentation and planning notes
-- `src/content/` - Strategy and planning documents (75+ markdown files)
+- `docs/strategy/` - Brand voice, industry messaging, website plans, assessment specs
+- `docs/*.md` - Technical planning (AWS deployment, case study development, interactive design)
+- `docs/style-guides/` - Content style guidelines
+- `docs/drafts/` - Work in progress
+
+See `docs/README.md` for full structure.
 
 ### Design System
 
