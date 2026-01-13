@@ -137,13 +137,15 @@ export default function LottieWrapper({
   }, [playOnHover]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleDotLottieRef = (ref: any) => {
+  const handleDotLottieRef = useCallback((ref: any) => {
     dotLottieRef.current = ref;
-  };
-
-  const handleLoad = () => {
-    setIsReady(true);
-  };
+    if (ref) {
+      // Listen for load event on the dotLottie instance
+      ref.addEventListener('load', () => {
+        setIsReady(true);
+      });
+    }
+  }, []);
 
   // Show static image for reduced motion or mobile static mode
   if (showStatic && staticImage) {
@@ -189,9 +191,7 @@ export default function LottieWrapper({
         data={animationData as any}
         loop={loop}
         autoplay={shouldAutoplay}
-        onLoad={handleLoad}
         workerId="lottie-worker"
-        style={{ width: "100%", height: "100%" }}
       />
     </div>
   );
