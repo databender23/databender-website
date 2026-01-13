@@ -35,7 +35,7 @@ export default function GuidePageClient({ guide }: Props) {
                 className="flex items-center gap-2 mb-4"
               >
                 <Link
-                  href="/industries/professional-services/legal"
+                  href="/industries/legal"
                   className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
                 >
                   Legal Resources
@@ -217,7 +217,7 @@ export default function GuidePageClient({ guide }: Props) {
           </div>
 
           <div className="text-center mt-8">
-            <Button variant="secondary" href="/industries/professional-services/legal">
+            <Button variant="secondary" href="/industries/legal">
               View All Legal Resources
             </Button>
           </div>
