@@ -142,7 +142,7 @@ export const tierDescriptions = {
       "Build simple dashboards for the numbers that matter most",
       "Use AI to speed up data cleanup (it's faster than doing it by hand)",
     ],
-    suggestedServices: ["data-integration", "ai-data-cleanup", "data-foundation"],
+    suggestedServices: ["data-ai-strategy", "analytics-bi"],
   },
   emerging: {
     title: "Emerging",
@@ -153,7 +153,7 @@ export const tierDescriptions = {
       "Start thinking about what you'd want to predict",
       "Get real-time visibility into your operations",
     ],
-    suggestedServices: ["dashboards-analytics", "operational-visibility", "data-integration"],
+    suggestedServices: ["analytics-bi", "data-ai-strategy", "ai-services"],
   },
   developing: {
     title: "Developing",
@@ -164,7 +164,7 @@ export const tierDescriptions = {
       "Build models that predict what's coming",
       "Automate more complex processes",
     ],
-    suggestedServices: ["ai-insights", "natural-language-bi", "predictive-analytics"],
+    suggestedServices: ["ai-services", "analytics-bi", "data-ai-strategy"],
   },
   advanced: {
     title: "Advanced",
@@ -175,6 +175,6 @@ export const tierDescriptions = {
       "Build AI that's unique to your business",
       "Make sure everything scales as you grow",
     ],
-    suggestedServices: ["predictive-analytics", "ai-insights"],
+    suggestedServices: ["ai-services", "analytics-bi"],
   },
 };
