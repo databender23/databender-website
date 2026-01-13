@@ -19,9 +19,16 @@ interface LeadAlert {
   pagesViewed: string[];
   company?: string;
   country?: string;
+  city?: string;
+  region?: string;
   device?: string;
   isReturning?: boolean;
+  visitCount?: number;
   referrerSource?: string;
+  utmCampaign?: string;
+  utmSource?: string;
+  sessionDuration?: number; // seconds
+  entryPage?: string;
 }
 
 interface CompanyAlert {
@@ -69,47 +76,120 @@ function formatLeadMessage(alert: LeadAlert): object {
     "Warm": "#d97706"
   };
 
-  const details: string[] = [];
-  if (alert.company) details.push(`🏢 ${alert.company}`);
-  if (alert.isReturning) details.push("🔄 Returning visitor");
-  if (alert.referrerSource && alert.referrerSource !== "direct") {
-    details.push(`📍 via ${alert.referrerSource}`);
+  // Build location string (City, Region or Country)
+  let location = "";
+  if (alert.city && alert.region) {
+    location = `${alert.city}, ${alert.region}`;
+  } else if (alert.city) {
+    location = alert.city;
+  } else if (alert.country) {
+    location = alert.country;
   }
-  if (alert.country) details.push(`🌍 ${alert.country}`);
+
+  // Format session duration
+  const duration = alert.sessionDuration
+    ? alert.sessionDuration >= 60
+      ? `${Math.floor(alert.sessionDuration / 60)}m ${alert.sessionDuration % 60}s`
+      : `${alert.sessionDuration}s`
+    : null;
+
+  // Identify high-intent pages in journey
+  const highIntentPages = alert.pagesViewed.filter(p =>
+    p.includes("/contact") ||
+    p.includes("/case-studies") ||
+    p.includes("/assessment")
+  );
+
+  // Build visitor context line
+  const visitorContext: string[] = [];
+  if (alert.visitCount && alert.visitCount > 1) {
+    visitorContext.push(`🔄 Visit #${alert.visitCount}`);
+  } else if (alert.isReturning) {
+    visitorContext.push("🔄 Returning");
+  } else {
+    visitorContext.push("✨ First visit");
+  }
+  if (duration) visitorContext.push(`⏱️ ${duration}`);
+  if (alert.company) visitorContext.push(`🏢 ${alert.company}`);
+
+  // Build source/attribution line
+  const sourceInfo: string[] = [];
+  if (alert.utmCampaign) {
+    sourceInfo.push(`📣 Campaign: ${alert.utmCampaign}`);
+  } else if (alert.utmSource) {
+    sourceInfo.push(`📍 Source: ${alert.utmSource}`);
+  } else if (alert.referrerSource && alert.referrerSource !== "direct") {
+    sourceInfo.push(`📍 via ${alert.referrerSource}`);
+  }
+  if (location) sourceInfo.push(`🌍 ${location}`);
+
+  // Build intent signals
+  const intentSignals: string[] = [];
+  if (highIntentPages.length > 0) {
+    if (highIntentPages.some(p => p.includes("/contact"))) intentSignals.push("📞 Viewed Contact");
+    if (highIntentPages.some(p => p.includes("/case-studies"))) intentSignals.push("📚 Read Case Study");
+    if (highIntentPages.some(p => p.includes("/assessment"))) intentSignals.push("📋 Started Assessment");
+  }
+
+  const blocks: object[] = [
+    {
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: `${emoji} *${alert.tier} Lead Detected*\nScore: *${alert.score}* points  •  ${alert.pagesViewed.length} pages viewed`
+      }
+    },
+    {
+      type: "section",
+      fields: [
+        { type: "mrkdwn", text: `*Current Page*\n${alert.currentPage}` },
+        { type: "mrkdwn", text: `*Entry Page*\n${alert.entryPage || alert.pagesViewed[0] || "Unknown"}` }
+      ]
+    }
+  ];
+
+  // Add visitor context
+  if (visitorContext.length > 0) {
+    blocks.push({
+      type: "context",
+      elements: [{ type: "mrkdwn", text: visitorContext.join("  •  ") }]
+    });
+  }
+
+  // Add source/location info
+  if (sourceInfo.length > 0) {
+    blocks.push({
+      type: "context",
+      elements: [{ type: "mrkdwn", text: sourceInfo.join("  •  ") }]
+    });
+  }
+
+  // Add high-intent signals if any
+  if (intentSignals.length > 0) {
+    blocks.push({
+      type: "context",
+      elements: [{ type: "mrkdwn", text: `*Intent:* ${intentSignals.join("  ")}` }]
+    });
+  }
+
+  // Add journey
+  blocks.push({
+    type: "section",
+    text: { type: "mrkdwn", text: `*Journey*\n\`${journeyText}\`` }
+  });
+
+  // Add footer with device and visitor ID
+  blocks.push({
+    type: "context",
+    elements: [
+      { type: "mrkdwn", text: `${alert.device || "Unknown"} • Visitor: \`${alert.visitorId.slice(0, 8)}...\`` }
+    ]
+  });
 
   return {
     attachments: [{
       color: tierColors[alert.tier] || "#d97706",
-      blocks: [
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: `${emoji} *${alert.tier} Lead Detected*\nScore: *${alert.score}* points`
-          }
-        },
-        {
-          type: "section",
-          fields: [
-            { type: "mrkdwn", text: `*Page*\n${alert.currentPage}` },
-            { type: "mrkdwn", text: `*Device*\n${alert.device || "Unknown"}` }
-          ]
-        },
-        ...(details.length > 0 ? [{
-          type: "context",
-          elements: [{ type: "mrkdwn", text: details.join("  •  ") }]
-        }] : []),
-        {
-          type: "section",
-          text: { type: "mrkdwn", text: `*Journey*\n\`${journeyText}\`` }
-        },
-        {
-          type: "context",
-          elements: [
-            { type: "mrkdwn", text: `Visitor: \`${alert.visitorId.slice(0, 8)}...\`` }
-          ]
-        }
-      ]
+      blocks
     }]
   };
 }

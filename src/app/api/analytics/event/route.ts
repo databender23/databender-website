@@ -135,7 +135,7 @@ async function getGeoLocation(ip: string): Promise<{ country?: string; region?: 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { event, visitorId, sessionId, device, isReturning, leadScore: clientLeadScore, pagesVisited, pageJourney } = body as {
+    const { event, visitorId, sessionId, device, isReturning, leadScore: clientLeadScore, pagesVisited, pageJourney, visitCount, sessionStartTime, entryPage } = body as {
       event: AnalyticsEvent;
       visitorId: string;
       sessionId: string;
@@ -144,6 +144,9 @@ export async function POST(request: NextRequest) {
       leadScore?: number;
       pagesVisited?: string[];
       pageJourney?: PageJourneyStep[];
+      visitCount?: number;
+      sessionStartTime?: string;
+      entryPage?: string;
     };
 
     if (!event || !visitorId || !sessionId) {
@@ -355,6 +358,12 @@ export async function POST(request: NextRequest) {
         const previousTierOrder = sessionAlerts.leadTier ? tierOrder[sessionAlerts.leadTier as keyof typeof tierOrder] || 0 : 0;
 
         if (currentTierOrder > previousTierOrder) {
+          // Calculate session duration if we have start time
+          let sessionDuration: number | undefined;
+          if (sessionStartTime) {
+            sessionDuration = Math.floor((Date.now() - new Date(sessionStartTime).getTime()) / 1000);
+          }
+
           sendSlackAlert({
             type: "lead",
             score: currentLeadScore,
@@ -365,9 +374,16 @@ export async function POST(request: NextRequest) {
             pagesViewed: pagesVisited || [event.page],
             company: companyData?.name,
             country: geoData.country,
+            city: geoData.city,
+            region: geoData.region,
             device,
             isReturning,
+            visitCount,
             referrerSource,
+            utmCampaign: event.utm?.campaign,
+            utmSource: event.utm?.source,
+            sessionDuration,
+            entryPage,
           }).catch(() => {}); // Ignore errors, don't affect main flow
 
           sessionAlerts.leadTier = tier;

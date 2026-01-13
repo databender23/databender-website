@@ -8,6 +8,7 @@ import {
   getDeviceType,
   markConversion,
   isReturningVisitor,
+  getVisitCount,
   addPageToSessionJourney,
   getSessionJourney,
 } from "./visitor-id";
@@ -61,10 +62,13 @@ interface SendEventOptions {
   pageJourney?: PageJourneyStep[];
   leadScore?: number;
   pagesVisited?: string[];
+  visitCount?: number;
+  sessionStartTime?: string;
+  entryPage?: string;
 }
 
 async function sendEvent(options: SendEventOptions) {
-  const { event, visitorId, sessionId, device, isReturning, pageJourney, leadScore, pagesVisited } = options;
+  const { event, visitorId, sessionId, device, isReturning, pageJourney, leadScore, pagesVisited, visitCount, sessionStartTime, entryPage } = options;
   try {
     await fetch("/api/analytics/event", {
       method: "POST",
@@ -78,6 +82,9 @@ async function sendEvent(options: SendEventOptions) {
         ...(pageJourney && { pageJourney }),
         ...(leadScore !== undefined && { leadScore }),
         ...(pagesVisited && { pagesVisited }),
+        ...(visitCount !== undefined && { visitCount }),
+        ...(sessionStartTime && { sessionStartTime }),
+        ...(entryPage && { entryPage }),
       }),
     });
   } catch (error) {
@@ -101,12 +108,19 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   const leadScoreRef = useRef<number>(0);
   const pagesVisitedRef = useRef<string[]>([]);
 
+  // Session tracking refs
+  const visitCountRef = useRef<number>(1);
+  const sessionStartTimeRef = useRef<string>("");
+  const entryPageRef = useRef<string>("");
+
   // Initialize IDs on mount
   useEffect(() => {
     visitorIdRef.current = getVisitorId();
     sessionIdRef.current = getSessionId();
     deviceRef.current = getDeviceType();
     isReturningRef.current = isReturningVisitor();
+    visitCountRef.current = getVisitCount();
+    sessionStartTimeRef.current = new Date().toISOString();
     utmParamsRef.current = getUTMParams();
 
     // Initialize lead score with returning visitor bonus
@@ -177,6 +191,11 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     const referrer = typeof document !== "undefined" ? document.referrer : undefined;
     addPageToSessionJourney(pathname, referrer);
 
+    // Set entry page on first pageview of session
+    if (!entryPageRef.current) {
+      entryPageRef.current = pathname;
+    }
+
     // Track this page and update lead score
     if (!pagesVisitedRef.current.includes(pathname)) {
       pagesVisitedRef.current = [...pagesVisitedRef.current, pathname];
@@ -204,6 +223,9 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       isReturning: isReturningRef.current,
       leadScore: leadScoreRef.current,
       pagesVisited: pagesVisitedRef.current,
+      visitCount: visitCountRef.current,
+      sessionStartTime: sessionStartTimeRef.current,
+      entryPage: entryPageRef.current,
     });
   }, [pathname]);
 
@@ -240,6 +262,9 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
             isReturning: isReturningRef.current,
             leadScore: leadScoreRef.current,
             pagesVisited: pagesVisitedRef.current,
+            visitCount: visitCountRef.current,
+            sessionStartTime: sessionStartTimeRef.current,
+            entryPage: entryPageRef.current,
           });
         }
       }
@@ -267,6 +292,9 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       isReturning: isReturningRef.current,
       leadScore: leadScoreRef.current,
       pagesVisited: pagesVisitedRef.current,
+      visitCount: visitCountRef.current,
+      sessionStartTime: sessionStartTimeRef.current,
+      entryPage: entryPageRef.current,
     });
   }, [pathname]);
 
@@ -294,6 +322,9 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       isReturning: isReturningRef.current,
       leadScore: leadScoreRef.current,
       pagesVisited: pagesVisitedRef.current,
+      visitCount: visitCountRef.current,
+      sessionStartTime: sessionStartTimeRef.current,
+      entryPage: entryPageRef.current,
       pageJourney: success ? getSessionJourney() : undefined,
     });
 
@@ -329,6 +360,9 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       isReturning: isReturningRef.current,
       leadScore: leadScoreRef.current,
       pagesVisited: pagesVisitedRef.current,
+      visitCount: visitCountRef.current,
+      sessionStartTime: sessionStartTimeRef.current,
+      entryPage: entryPageRef.current,
       pageJourney: getSessionJourney(),
     });
 

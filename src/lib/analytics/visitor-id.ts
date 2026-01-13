@@ -36,6 +36,11 @@ export function isReturningVisitor(): boolean {
   return visitCount > 1;
 }
 
+export function getVisitCount(): number {
+  if (typeof window === "undefined") return 1;
+  return parseInt(localStorage.getItem(VISIT_COUNT_KEY) || "1", 10);
+}
+
 export function incrementVisitCount(): void {
   if (typeof window === "undefined") return;
 
