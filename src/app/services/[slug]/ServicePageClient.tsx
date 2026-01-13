@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Lottie from "lottie-react";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { FloatingNodes, ResponsiveAnimation, DataManagementAnimation, AnalyticsBIAnimation, AIServicesAnimation } from "@/components/animations";
+import { FloatingNodes } from "@/components/animations";
 import { DataPlayground } from "@/components/interactive";
 import { services, type ConsolidatedService } from "@/lib/services-data";
-import type { ComponentType } from "react";
+import { useEffect, useState, useRef } from "react";
+import type { LottieRefCurrentProps } from "lottie-react";
 
 // Icon components
 const IconDatabase = () => (
@@ -87,29 +89,45 @@ interface Props {
   service: ConsolidatedService;
 }
 
-// Mobile animation components mapping
-const mobileAnimations: Record<string, ComponentType<{className?: string; isActive?: boolean}>> = {
-  'data-ai-strategy': DataManagementAnimation,
-  'analytics-bi': AnalyticsBIAnimation,
-  'ai-services': AIServicesAnimation,
-};
-
-// Lottie URLs for desktop
-const lottieUrls: Record<string, string> = {
-  'data-ai-strategy': '/animations/data-management.json',
-  'analytics-bi': '/animations/analytics-bi.json',
-  'ai-services': '/animations/ai-services.json',
-};
-
-// Animation speeds per service
-const animationSpeeds: Record<string, number> = {
-  'data-ai-strategy': 1.3,
-  'analytics-bi': 0.5,
-  'ai-services': 1,
-};
+const DATA_MANAGEMENT_LOTTIE_URL = "/animations/data-management.json";
+const ANALYTICS_BI_LOTTIE_URL = "/animations/analytics-bi.json";
+const AI_SERVICES_LOTTIE_URL = "/animations/ai-services.json";
 
 export default function ServicePageClient({ service }: Props) {
-  const hasAnimation = service.slug in mobileAnimations;
+  const [lottieData, setLottieData] = useState<object | null>(null);
+  const lottieRef = useRef<LottieRefCurrentProps>(null);
+
+  useEffect(() => {
+    let lottieUrl: string | null = null;
+
+    if (service.slug === "data-ai-strategy") {
+      lottieUrl = DATA_MANAGEMENT_LOTTIE_URL;
+    } else if (service.slug === "analytics-bi") {
+      lottieUrl = ANALYTICS_BI_LOTTIE_URL;
+    } else if (service.slug === "ai-services") {
+      lottieUrl = AI_SERVICES_LOTTIE_URL;
+    }
+
+    if (lottieUrl) {
+      fetch(lottieUrl)
+        .then((res) => res.json())
+        .then((data) => setLottieData(data))
+        .catch(() => console.error("Failed to load Lottie animation"));
+    }
+  }, [service.slug]);
+
+  // Set speed for specific animations
+  useEffect(() => {
+    if (lottieRef.current) {
+      if (service.slug === "data-ai-strategy") {
+        lottieRef.current.setSpeed(1.3);
+      } else if (service.slug === "analytics-bi") {
+        lottieRef.current.setSpeed(0.5);
+      }
+    }
+  }, [lottieData, service.slug]);
+
+  const hasLottie = ["data-ai-strategy", "analytics-bi", "ai-services"].includes(service.slug);
 
   return (
     <>
@@ -136,21 +154,20 @@ export default function ServicePageClient({ service }: Props) {
         />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Animation - Above Hero */}
-          {hasAnimation && (
+          {/* Lottie Animation - Above Hero */}
+          {hasLottie && lottieData && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
-              className="flex justify-center items-center mb-4 sm:mb-8"
+              className="flex justify-center items-center mb-8"
             >
-              <div className="w-48 sm:w-64 md:w-full md:max-w-md">
-                <ResponsiveAnimation
-                  lottieUrl={lottieUrls[service.slug]}
-                  MobileComponent={mobileAnimations[service.slug]}
-                  speed={animationSpeeds[service.slug]}
+              <div className="w-full max-w-md">
+                <Lottie
+                  lottieRef={lottieRef}
+                  animationData={lottieData}
                   loop={true}
-                  className="w-full aspect-square"
+                  className="w-full h-auto"
                 />
               </div>
             </motion.div>
