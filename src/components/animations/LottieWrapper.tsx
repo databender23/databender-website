@@ -80,7 +80,7 @@ export default function LottieWrapper({
   style,
   mobileOptimized = true,
   staticOnMobile = false,
-  mobileSpeed = 0.75,
+  mobileSpeed = 0.5,
   freezeAfterFirstLoop = true,
   useCanvasRenderer = true,
   priority = false,
@@ -231,7 +231,7 @@ export default function LottieWrapper({
   // Use canvas renderer and lower DPI for better performance
   const renderConfig = isMobile && mobileOptimized && useCanvasRenderer ? {
     // Use canvas renderer for better mobile performance
-    devicePixelRatio: 1.5, // Lower than default 2x for smoother playback
+    devicePixelRatio: 1, // Lowest for best mobile performance
   } : undefined;
 
   return (
