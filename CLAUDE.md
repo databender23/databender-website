@@ -66,8 +66,21 @@ This is the DataBender marketing website built with Next.js 16 (App Router), Rea
   - `services-data.ts` - Service definitions and content
   - `industries-data.ts` - Industry pages data
   - `case-studies-data.ts` - Case study definitions and testimonials
+  - `blog-data.ts` - Blog post content and metadata
+  - `lead-magnets-data.ts` - Lead magnet/guide definitions
   - `navigation.ts` - Main and footer navigation structure
   - `chat-logger.ts` - Chat conversation logging
+  - `assessment-scoring.ts` - Assessment scoring logic
+  - `manufacturing-assessment.ts` - Manufacturing assessment questions
+  - `admin/` - Admin authentication (`auth.ts`)
+  - `analytics/` - Analytics tracking system:
+    - `AnalyticsProvider.tsx` - React context for client-side tracking
+    - `company-lookup.ts` - IP-to-company identification
+    - `dynamodb.ts` - DynamoDB operations for analytics storage
+    - `events.ts` - Event type definitions
+    - `lead-scoring.ts` - Visitor lead scoring algorithm
+    - `visitor-id.ts` - Anonymous visitor ID management
+  - `notifications/` - Notification system (Slack, email)
 - `src/types/` - TypeScript type definitions
 
 ### Non-Production Directories
@@ -76,9 +89,6 @@ These folders contain reference materials, not production code:
 
 - `docs/` - Development documentation and planning notes
 - `src/content/` - Strategy and planning documents (75+ markdown files)
-- `ai_document/` - Sample PDFs for document intelligence R&D (~38 MB)
-- `lead_scoring/` - Historical sales analysis and modeling reports (~13 MB)
-- `to_delete/` - Files staged for deletion (see `to_delete/README.md`)
 
 ### Design System
 
@@ -93,17 +103,39 @@ Defined in `src/app/globals.css` using Tailwind CSS 4's `@theme` directive:
 - `/api/contact` - Contact form submissions
 - `/api/lead-capture` - Lead magnet form submissions
 - `/api/assessment` - Assessment result submissions
+- `/api/analytics` - Analytics event tracking
+- `/api/admin/login` - Admin authentication
+- `/api/admin/logout` - Admin logout
+- `/api/admin/analytics/overview` - Analytics dashboard data
+- `/api/admin/analytics/companies` - Company identification data
+- `/api/admin/analytics/attribution` - Marketing attribution data
+- `/api/admin/analytics/summary` - Daily summary cron endpoint
 
 ### Environment Variables
 
 ```
+# Chatbot
 ANTHROPIC_API_KEY=         # Required for chatbot
+NEXT_PUBLIC_BOOKING_URL=   # Calendar booking link for chatbot
+DISABLE_CHAT_EMAILS=       # Optional: set to "true" to disable chat email notifications
+
+# AWS Services
 SES_FROM_EMAIL=            # SES sender (notifications@mail.databender.co)
 SES_REGION=                # SES region (us-east-1)
-CHAT_NOTIFY_EMAIL=         # Email for chat digests
-SLACK_WEBHOOK_URL=         # Slack incoming webhook for notifications
 DYNAMODB_REGION=           # DynamoDB region (us-east-1)
-NEXT_PUBLIC_BOOKING_URL=   # Calendar booking link for chatbot
+
+# Notifications
+CHAT_NOTIFY_EMAIL=         # Email for chat digests
+ANALYTICS_SUMMARY_EMAIL=   # Email for analytics summaries (falls back to CHAT_NOTIFY_EMAIL)
+SLACK_WEBHOOK_URL=         # Slack incoming webhook for notifications
+
+# Admin Dashboard
+JWT_SECRET=                # Secret for admin JWT tokens (required in production)
+ADMIN_USERNAME=            # Admin login username (default: "admin")
+ADMIN_PASSWORD_HASH=       # Bcrypt hash of admin password
+
+# Cron Jobs
+CRON_SECRET=               # Secret for authenticating cron endpoints
 ```
 
 ### Amplify Environment Variables
@@ -127,9 +159,25 @@ To add/update environment variables:
 - `/services/[slug]` - Service pages (data-ai-strategy, analytics-bi, ai-services)
 - `/industries/[slug]` - Industry pages (uses `industries-data.ts`)
 - `/industries/legal` - Custom Legal page (not dynamic, has special content)
+- `/industries/healthcare` - Custom Healthcare page (not dynamic, has special content)
 - `/blog/[slug]` - Blog posts
 - `/resources/guides/[slug]` - Lead magnet guides
 - `/case-studies/[slug]` - Dynamic case study pages (uses `case-studies-data.ts`)
+
+### Assessment Pages
+
+- `/assessments` - Assessment hub page listing all assessments
+- `/assessments/data-ai-readiness` - Data & AI readiness assessment
+- `/assessments/data-ai-readiness/results` - Data & AI readiness results
+- `/assessments/manufacturing` - Manufacturing AI assessment
+- `/assessments/manufacturing/results` - Manufacturing results
+- `/assessments/healthcare-benchmark` - Healthcare benchmark assessment
+
+### Admin Pages
+
+- `/admin/login` - Admin authentication page
+- `/admin/analytics` - Analytics dashboard
+- `/admin/analytics/attribution` - Marketing attribution dashboard
 
 ### Case Study Pages
 
@@ -188,11 +236,19 @@ The site has a comprehensive notification system in `src/lib/notifications/`:
 - **Region**: us-east-1
 - **DNS Records**: DKIM CNAMEs configured at SiteGround
 
+### Analytics System
+
+The site includes a custom analytics system (`src/lib/analytics/`) that tracks:
+- Page views and user journeys
+- Company identification via IP lookup
+- Lead scoring based on behavior
+- Marketing attribution (UTM parameters, referrers)
+
+Data is stored in DynamoDB and viewable in the admin dashboard at `/admin/analytics`.
+
 ### Pending Infrastructure Tasks
 
 - **Domain Transfer**: Transfer `databender.co` from SiteGround to AWS Route 53
   - Status: DNS managed at SiteGround (pointing to Amplify)
   - Remaining: Transfer domain registration from SiteGround (Tucows) to AWS
-  - Auth code from SiteGround: Request new EPP code when ready
   - Steps: Unlock domain → Get auth code → Transfer via Route 53 console
-  - Note: Previous auth code had special characters causing CLI issues; use AWS Console for transfer
