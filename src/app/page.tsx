@@ -410,7 +410,7 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="flex justify-center items-center mb-8"
           >
-            <div className="w-full max-w-md">
+            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
               <ResponsiveAnimation
                 lottieUrl="/animations/hero-data.json"
                 MobileComponent={HeroDataAnimation}

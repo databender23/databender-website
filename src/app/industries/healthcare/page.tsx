@@ -28,7 +28,7 @@ export default function HealthcareIndustryPage() {
             transition={{ duration: 0.6 }}
             className="flex justify-center items-center mb-8"
           >
-            <div className="w-full max-w-md">
+            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
               <ResponsiveAnimation
                 lottieUrl={HEALTHCARE_LOTTIE_URL}
                 MobileComponent={HealthcareAnimation}

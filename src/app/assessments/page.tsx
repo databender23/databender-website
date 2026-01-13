@@ -97,7 +97,7 @@ export default function AssessmentsPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
-              className="w-full max-w-md mb-8 order-last md:order-first mt-8 md:mt-0"
+              className="w-full max-w-xs sm:max-w-sm md:max-w-md mb-8 order-last md:order-first mt-8 md:mt-0"
             >
               <ResponsiveAnimation
                 lottieUrl="/animations/automation.json"
