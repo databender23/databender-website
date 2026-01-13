@@ -339,13 +339,16 @@ export async function POST(request: NextRequest) {
     }
 
     // Send Slack notifications (fire-and-forget, don't block response)
-    // Only send for non-bot traffic
+    // Only send for non-bot traffic with meaningful engagement
     if (!botDetected) {
       const sessionAlerts = alertedSessions.get(sessionId) || {};
+      const pageCount = pagesVisited?.length || 1;
+      const hasChatInteraction = event.eventType === "chat_open" || event.eventType === "chat_message";
+      const hasMultiPageEngagement = pageCount >= 2;
 
-      // Check if we should send a lead score alert
+      // Only send lead alerts for engaged visitors (2+ pages or chatbot interaction)
       const { shouldAlert, tier } = shouldAlertForScore(currentLeadScore);
-      if (shouldAlert && tier && sessionAlerts.leadTier !== tier) {
+      if (shouldAlert && tier && sessionAlerts.leadTier !== tier && (hasMultiPageEngagement || hasChatInteraction)) {
         // Only alert if tier upgraded (not on every event at same tier)
         const tierOrder = { "Warm": 1, "Hot": 2, "Very Hot": 3 };
         const currentTierOrder = tierOrder[tier] || 0;
@@ -371,8 +374,8 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Send company identification alert (only once per session)
-      if (companyData && !sessionAlerts.companyAlerted) {
+      // Send company identification alert only for engaged visitors (2+ pages)
+      if (companyData && !sessionAlerts.companyAlerted && hasMultiPageEngagement) {
         sendSlackAlert({
           type: "company",
           companyName: companyData.name,
@@ -388,7 +391,7 @@ export async function POST(request: NextRequest) {
         sessionAlerts.companyAlerted = true;
       }
 
-      // Send conversion alert
+      // Always send conversion alerts (form submissions, chat leads)
       if (event.eventType === "form_submit" || event.eventType === "chat_lead_detected") {
         const conversionType = event.eventType === "chat_lead_detected"
           ? "chat_lead"
