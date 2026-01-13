@@ -99,66 +99,63 @@ export default function AssessmentsPage() {
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
-              >
-                Assessments
-              </motion.p>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
-              >
-                Where do you stand?
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
-              >
-                Free diagnostic tools to understand your data maturity and identify opportunities. No sales pitch at the end. Just practical guidance.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-wrap gap-4"
-              >
-                <Button variant="primary" size="lg" href="#assessments">
-                  Start Assessment
-                </Button>
-                <Button variant="secondary" size="lg" href="/contact">
-                  Talk to an Expert
-                </Button>
-              </motion.div>
-            </div>
-
+          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+            {/* Lottie Animation - Above Hero */}
             {lottieData && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center"
+                transition={{ duration: 0.6 }}
+                className="w-full max-w-xs mb-8"
               >
-                <div className="w-full max-w-md">
-                  <LottieWrapper
-                    animationData={lottieData}
-                    loop={true}
-                    autoplay={true}
-                    className="w-full h-auto"
-                  />
-                </div>
+                <LottieWrapper
+                  animationData={lottieData}
+                  loop={true}
+                  autoplay={true}
+                  className="w-full h-auto"
+                />
               </motion.div>
             )}
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            >
+              Assessments
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
+            >
+              Where do you stand?
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8 max-w-2xl"
+            >
+              Free diagnostic tools to understand your data maturity and identify opportunities. No sales pitch at the end. Just practical guidance.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap justify-center gap-4"
+            >
+              <Button variant="primary" size="lg" href="#assessments">
+                Start Assessment
+              </Button>
+              <Button variant="secondary" size="lg" href="/contact">
+                Talk to an Expert
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>

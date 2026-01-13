@@ -70,63 +70,60 @@ export default function CaseStudiesPage() {
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
-              >
-                Case Studies
-              </motion.p>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
-              >
-                Results that speak for themselves
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8"
-              >
-                Real projects. Measurable results. See how companies went from data chaos to clarity—and what it meant for their business.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-wrap gap-4"
-              >
-                <Button variant="primary" size="lg" href="/contact">
-                  Schedule Consultation
-                </Button>
-              </motion.div>
-            </div>
-
+          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+            {/* Lottie Animation - Above Hero */}
             {lottieData && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex justify-center items-center"
+                transition={{ duration: 0.6 }}
+                className="w-full max-w-xs mb-8"
               >
-                <div className="w-full max-w-md">
-                  <LottieWrapper
-                    animationData={lottieData}
-                    loop={true}
-                    autoplay={true}
-                    className="w-full h-auto"
-                  />
-                </div>
+                <LottieWrapper
+                  animationData={lottieData}
+                  loop={true}
+                  autoplay={true}
+                  className="w-full h-auto"
+                />
               </motion.div>
             )}
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            >
+              Case Studies
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-6"
+            >
+              Results that speak for themselves
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8 max-w-2xl"
+            >
+              Real projects. Measurable results. See how companies went from data chaos to clarity and what it meant for their business.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap justify-center gap-4"
+            >
+              <Button variant="primary" size="lg" href="/contact">
+                Schedule Consultation
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>
