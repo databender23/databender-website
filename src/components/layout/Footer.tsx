@@ -18,7 +18,7 @@ export default function Footer() {
                 className="h-12 w-auto"
               />
             </Link>
-            <p className="text-text-secondary mb-6 max-w-sm">
+            <p className="text-text-secondary mb-6 max-w-md">
               Boutique strategy. Enterprise delivery.
             </p>
             <div className="flex gap-4">

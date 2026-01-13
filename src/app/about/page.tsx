@@ -75,7 +75,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="flex justify-center items-center"
               >
-                <div className="w-full max-w-sm">
+                <div className="w-full max-w-md">
                   <LottieWrapper
                     animationData={lottieData}
                     loop={true}

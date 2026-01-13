@@ -86,7 +86,7 @@ export default function IndustryPage() {
               transition={{ duration: 0.6 }}
               className="flex justify-center items-center mb-8"
             >
-              <div className="w-full max-w-sm">
+              <div className="w-full max-w-md">
                 <LottieWrapper
                   animationData={lottieData}
                   loop={true}

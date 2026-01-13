@@ -384,7 +384,7 @@ export default function HomePage() {
         secondaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         size="large"
         media={
-          <div className="w-full max-w-sm">
+          <div className="w-full max-w-md">
             <LottieWrapper
               animationUrl="/animations/hero-data.json"
               loop={true}

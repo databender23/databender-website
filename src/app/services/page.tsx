@@ -115,7 +115,7 @@ export default function ServicesPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="flex justify-center items-center order-1 lg:order-2"
               >
-                <div className="w-full max-w-sm">
+                <div className="w-full max-w-md">
                   <LottieWrapper
                     animationData={lottieData}
                     loop={true}
