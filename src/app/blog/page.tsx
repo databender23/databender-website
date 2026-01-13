@@ -71,7 +71,7 @@ export default function BlogPage() {
                 <ResponsiveAnimation
                   lottieUrl="/animations/man-robot-workplace.json"
                   MobileComponent={DataVisualizationAnimation}
-                  className="w-full h-auto"
+                  className="w-full aspect-square"
                   loop={true}
                 />
               </div>

@@ -74,7 +74,7 @@ export default function CaseStudiesPage() {
                 lottieUrl="/animations/growth-chart.json"
                 MobileComponent={GrowthChartAnimation}
                 loop={true}
-                className="w-full h-auto"
+                className="w-full aspect-square"
               />
             </motion.div>
 

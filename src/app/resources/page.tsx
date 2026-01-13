@@ -150,7 +150,7 @@ export default function ResourcesPage() {
                 <ResponsiveAnimation
                   lottieUrl="/animations/student.json"
                   MobileComponent={StudentAnimation}
-                  className="w-full h-auto"
+                  className="w-full aspect-square"
                 />
               </div>
             </motion.div>

@@ -67,7 +67,7 @@ export default function ServicesPage() {
               <ResponsiveAnimation
                 lottieUrl="/animations/assistant-bot.json"
                 MobileComponent={DataManagementAnimation}
-                className="w-full h-auto"
+                className="w-full aspect-square"
                 loop={true}
               />
             </div>

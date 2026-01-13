@@ -32,6 +32,7 @@ export default function HealthcareIndustryPage() {
               <ResponsiveAnimation
                 lottieUrl={HEALTHCARE_LOTTIE_URL}
                 MobileComponent={HealthcareAnimation}
+                className="w-full aspect-square"
               />
             </div>
           </motion.div>

@@ -69,7 +69,7 @@ export default function LegalIndustryPage() {
                 lottieUrl={LEGAL_LOTTIE_URL}
                 MobileComponent={LegalAnimation}
                 loop={true}
-                className="w-full h-auto"
+                className="w-full aspect-square"
               />
             </div>
           </motion.div>

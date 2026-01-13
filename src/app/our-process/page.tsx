@@ -133,7 +133,7 @@ export default function OurProcessPage() {
                   MobileComponent={RoadmapAnimation}
                   loop={true}
                   speed={1}
-                  className="w-full h-auto"
+                  className="w-full aspect-square"
                 />
               </div>
             </motion.div>

@@ -102,7 +102,7 @@ export default function AssessmentsPage() {
               <ResponsiveAnimation
                 lottieUrl="/animations/automation.json"
                 MobileComponent={DataVizAnimation}
-                className="w-full h-auto"
+                className="w-full aspect-square"
               />
             </motion.div>
 

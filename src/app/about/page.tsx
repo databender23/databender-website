@@ -71,7 +71,7 @@ export default function AboutPage() {
                   MobileComponent={GrowthChartAnimation}
                   loop={true}
                   speed={1}
-                  className="w-full h-auto"
+                  className="w-full aspect-square"
                 />
               </div>
             </motion.div>

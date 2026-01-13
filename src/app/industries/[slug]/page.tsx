@@ -87,7 +87,7 @@ export default function IndustryPage() {
                 <ResponsiveAnimation
                   lottieUrl={industry.lottie}
                   MobileComponent={MobileComponent}
-                  className="w-full h-auto"
+                  className="w-full aspect-square"
                   loop={true}
                 />
               </div>

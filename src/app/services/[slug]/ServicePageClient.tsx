@@ -150,7 +150,7 @@ export default function ServicePageClient({ service }: Props) {
                   MobileComponent={mobileAnimations[service.slug]}
                   speed={animationSpeeds[service.slug]}
                   loop={true}
-                  className="w-full h-auto"
+                  className="w-full aspect-square"
                 />
               </div>
             </motion.div>

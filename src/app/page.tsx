@@ -414,7 +414,7 @@ export default function HomePage() {
               <ResponsiveAnimation
                 lottieUrl="/animations/hero-data.json"
                 MobileComponent={HeroDataAnimation}
-                className="w-full h-full"
+                className="w-full aspect-square"
               />
             </div>
           </motion.div>

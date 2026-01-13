@@ -61,7 +61,7 @@ export default function IndustriesPage() {
                 lottieUrl="/animations/data-viz.json"
                 MobileComponent={DataVizAnimation}
                 loop={true}
-                className="w-full h-auto"
+                className="w-full aspect-square"
               />
             </div>
           </motion.div>
