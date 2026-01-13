@@ -113,15 +113,12 @@ export default function LottieWrapper({
       });
   }, [animationUrl, providedAnimationData, showStatic, inView]);
 
-  // Mobile frame rate limiter - reduce to ~15fps on mobile
-  const mobileSpeed = mobileOptimized && isMobile && !showStatic ? Math.min(speed, 0.5) : speed;
-
   // Set animation speed
   useEffect(() => {
-    if (lottieRef.current) {
-      lottieRef.current.setSpeed(mobileSpeed);
+    if (lottieRef.current && speed !== 1) {
+      lottieRef.current.setSpeed(speed);
     }
-  }, [animationData, mobileSpeed]);
+  }, [animationData, speed]);
 
   // Handle play on view
   useEffect(() => {
