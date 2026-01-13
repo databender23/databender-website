@@ -228,8 +228,8 @@ export default function LottieWrapper({
     );
   }
 
-  // Don't render until in view (lazy load)
-  if (!inView && !isReady) {
+  // Don't render until in view (lazy load) - skip for priority animations
+  if (!priority && !inView && !isReady) {
     return (
       <div ref={viewRef} className={className} style={style}>
         <div className="animate-pulse bg-gray-100 rounded-lg w-full h-full min-h-[200px]" />
