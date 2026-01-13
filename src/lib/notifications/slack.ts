@@ -202,10 +202,13 @@ function formatLeadMessage(alert: LeadAlert): object {
     if (highIntentPages.some(p => p.includes("/assessment"))) intentSignals.push("📋 Assessment");
   }
 
-  // Format timestamp
+  // Format timestamp in Chicago timezone
   const now = new Date();
-  const timeStr = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
-  const isBusinessHours = now.getHours() >= 9 && now.getHours() < 18 && now.getDay() >= 1 && now.getDay() <= 5;
+  const chicagoTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+  const timeStr = chicagoTime.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Chicago" });
+  const chicagoHour = chicagoTime.getHours();
+  const chicagoDay = chicagoTime.getDay();
+  const isBusinessHours = chicagoHour >= 9 && chicagoHour < 18 && chicagoDay >= 1 && chicagoDay <= 5;
 
   const blocks: object[] = [
     // Header with tier, score, and quick assessment
@@ -331,7 +334,14 @@ function formatLeadMessage(alert: LeadAlert): object {
     elements: [{ type: "mrkdwn", text: `🔑 Visitor ID: \`${alert.visitorId}\`` }]
   });
 
+  // Build preview text for mobile push notifications
+  const previewParts = [`${emoji} ${alert.tier} Lead (${alert.score} pts)`];
+  if (alert.company) previewParts.push(`from ${alert.company}`);
+  else if (interestAreas.length > 0) previewParts.push(interestAreas[0]);
+  previewParts.push(`on ${alert.currentPage}`);
+
   return {
+    text: previewParts.join(" • "), // Shows in mobile push notifications
     attachments: [{
       color: tierColors[alert.tier] || "#d97706",
       blocks
@@ -348,11 +358,12 @@ function formatCompanyMessage(alert: CompanyAlert): object {
   if (alert.country) details.push(`🌍 ${alert.country}`);
   if (alert.leadScore) details.push(`📊 Score: ${alert.leadScore} (${alert.leadTier || "Cold"})`);
 
-  // Format timestamp
+  // Format timestamp in Chicago timezone
   const now = new Date();
-  const timeStr = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+  const timeStr = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Chicago" });
 
   return {
+    text: `🏢 Company: ${alert.companyName} on ${alert.currentPage}`, // Mobile preview
     attachments: [{
       color: "#3b82f6",
       blocks: [
@@ -402,11 +413,17 @@ function formatConversionMessage(alert: ConversionAlert): object {
   if (alert.leadScore) details.push(`📊 Score: ${alert.leadScore}`);
   if (alert.journeyLength) details.push(`📄 ${alert.journeyLength} pages visited`);
 
-  // Format timestamp
+  // Format timestamp in Chicago timezone
   const now = new Date();
-  const timeStr = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+  const timeStr = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Chicago" });
+
+  // Mobile preview
+  const previewText = alert.company
+    ? `✅ Conversion: ${conversionLabel} from ${alert.company}`
+    : `✅ Conversion: ${conversionLabel} on ${alert.page}`;
 
   return {
+    text: previewText,
     attachments: [{
       color: "#22c55e",
       blocks: [

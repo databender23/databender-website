@@ -6,6 +6,10 @@ import {
   detectLeadIndicators,
   sendSlackNotification,
 } from "@/lib/chat-logger";
+import {
+  formatContextForPrompt,
+  type BrowsingContext,
+} from "@/lib/analytics/browsing-context";
 
 const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "https://calendly.com";
 
@@ -99,6 +103,7 @@ interface ChatMessage {
 interface ChatRequest {
   messages: ChatMessage[];
   sessionId?: string;
+  browsingContext?: BrowsingContext;
 }
 
 // Token limits
@@ -321,7 +326,7 @@ export async function POST(request: Request) {
     }
 
     const body: ChatRequest = await request.json();
-    const { messages, sessionId = `session-${Date.now()}` } = body;
+    const { messages, sessionId = `session-${Date.now()}`, browsingContext } = body;
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json(
@@ -378,10 +383,14 @@ export async function POST(request: Request) {
         content: m.content.slice(0, MAX_INPUT_CHARS), // Enforce limit
       }));
 
+    // Build system prompt with browsing context if available
+    const contextAddition = browsingContext ? formatContextForPrompt(browsingContext) : "";
+    const fullSystemPrompt = SYSTEM_PROMPT + contextAddition;
+
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-20250514",
       max_tokens: MAX_OUTPUT_TOKENS,
-      system: SYSTEM_PROMPT,
+      system: fullSystemPrompt,
       messages: conversationMessages,
     });
 

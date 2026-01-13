@@ -6,6 +6,7 @@ import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import TypingIndicator from "./TypingIndicator";
 import { useAnalytics } from "@/lib/analytics";
+import { getBrowsingContext, type BrowsingContext } from "@/lib/analytics/browsing-context";
 
 interface Message {
   id: string;
@@ -102,6 +103,9 @@ export default function ChatWidget() {
     trackChatMessage();
 
     try {
+      // Get current browsing context for personalized responses
+      const browsingContext = getBrowsingContext();
+
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -111,6 +115,7 @@ export default function ChatWidget() {
             role: m.role,
             content: m.content,
           })),
+          browsingContext,
         }),
       });
 
