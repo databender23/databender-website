@@ -485,7 +485,9 @@ export async function POST(request: NextRequest) {
 
     // Send Slack notifications (fire-and-forget, don't block response)
     // Only send for non-bot traffic with meaningful engagement
-    if (!botDetected) {
+    // Skip admin pages - these aren't real leads
+    const isAdminPage = event.page?.startsWith("/admin");
+    if (!botDetected && !isAdminPage) {
       const sessionAlerts = alertedSessions.get(sessionId) || {};
       const pageCount = pagesVisited?.length || 1;
 
