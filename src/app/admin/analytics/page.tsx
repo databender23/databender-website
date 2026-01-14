@@ -278,42 +278,15 @@ export default function AnalyticsDashboard() {
       const response = await fetch(`/api/admin/analytics/companies?days=${days}`);
       if (!response.ok) throw new Error("Failed to fetch companies");
       const result = await response.json();
-      // Transform to expected format
+      // API returns totals (not summary), and companies already in correct format
       const transformed: CompaniesData = {
-        summary: result.summary,
-        companies: result.companies.map((c: {
-          companyName: string;
-          companyDomain: string;
-          companyIndustry?: string;
-          uniqueVisitors: number;
-          visitCount: number;
-          engagementScore: number;
-          pagesViewed: string[];
-          viewedContactPage: boolean;
-          viewedPricingPage: boolean;
-          viewedCaseStudies: boolean;
-          viewedServicesPages: boolean;
-          lastVisit: string;
-          isConverted: boolean;
-        }) => ({
-          company: c.companyName,
-          domain: c.companyDomain,
-          industry: c.companyIndustry || "Unknown",
-          visitors: c.uniqueVisitors,
-          sessions: c.visitCount,
-          behaviorScore: c.engagementScore,
-          pagesViewed: c.pagesViewed,
-          keyPages: [
-            ...(c.viewedContactPage ? ["Contact"] : []),
-            ...(c.viewedPricingPage ? ["Pricing"] : []),
-            ...(c.viewedCaseStudies ? ["Case Studies"] : []),
-            ...(c.viewedServicesPages ? ["Services"] : []),
-          ],
-          lastVisit: c.lastVisit,
-          isLead: c.isConverted,
-          leadStatus: c.isConverted ? "Lead" : undefined,
-          contactedVia: [],
-        })),
+        summary: {
+          totalIdentified: result.totals?.totalIdentified || 0,
+          tierBreakdown: {},
+          totalConverted: result.totals?.withLeads || 0,
+          totalHighIntent: 0,
+        },
+        companies: result.companies || [],
       };
       setCompaniesData(transformed);
     } catch {
