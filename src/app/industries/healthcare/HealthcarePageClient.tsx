@@ -78,8 +78,8 @@ export default function HealthcarePageClient() {
               <Button variant="primary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
                 Schedule Consultation
               </Button>
-              <Button variant="secondary" size="lg" href="/case-studies/agentic-document-intelligence" className="w-full sm:w-auto min-h-[48px]">
-                See Document Intelligence
+              <Button variant="secondary" size="lg" href="/assessments/healthcare-ai-readiness" className="w-full sm:w-auto min-h-[48px]">
+                Take AI Readiness Assessment
               </Button>
             </motion.div>
           </div>
@@ -732,9 +732,9 @@ export default function HealthcarePageClient() {
       {/* CTA */}
       <CTA
         title="Ready to see what's possible?"
-        description="Schedule a consultation to discuss your specific challenges, or see how Document Intelligence turns scattered documents into searchable knowledge."
+        description="Schedule a consultation to discuss your specific challenges, or take our 5-minute AI readiness assessment to see where you stand."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "See Document Intelligence", href: "/case-studies/agentic-document-intelligence" }}
+        secondaryCta={{ label: "Take the Assessment", href: "/assessments/healthcare-ai-readiness" }}
         variant="gradient"
       />
     </>

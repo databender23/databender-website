@@ -114,8 +114,8 @@ export default function LegalPageClient() {
               <Button variant="primary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
                 Schedule Consultation
               </Button>
-              <Button variant="secondary" size="lg" href="#guides" className="w-full sm:w-auto min-h-[48px]">
-                Download Free Guides
+              <Button variant="secondary" size="lg" href="/assessments/legal" className="w-full sm:w-auto min-h-[48px]">
+                Take AI Readiness Assessment
               </Button>
             </motion.div>
           </div>
@@ -704,9 +704,9 @@ export default function LegalPageClient() {
       {/* CTA */}
       <CTA
         title="Ready to see what's possible?"
-        description="Schedule a consultation to discuss your specific challenges or download our free guides."
+        description="Schedule a consultation to discuss your specific challenges, or take our 5-minute AI readiness assessment to see where you stand."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "Download Free Guides", href: "#guides" }}
+        secondaryCta={{ label: "Take the Assessment", href: "/assessments/legal" }}
         variant="gradient"
       />
     </>

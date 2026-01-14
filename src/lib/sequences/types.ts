@@ -100,6 +100,9 @@ export const ASSESSMENT_NAMES: Record<string, string> = {
   "data-ai-readiness": "Data & AI Readiness Assessment",
   manufacturing: "Manufacturing AI Readiness Assessment",
   "healthcare-benchmark": "Healthcare Data Benchmark",
+  "healthcare-ai-readiness": "Healthcare AI Readiness Assessment",
+  legal: "Legal AI Readiness Assessment",
+  "commercial-real-estate": "CRE Data & AI Assessment",
 };
 
 /**
@@ -113,6 +116,18 @@ export const GUIDE_SEQUENCE_MAP: Record<string, SequenceType> = {
   "win-more-pitches": "guide-legal",
   "partner-succession": "guide-legal",
   "last-vendor": "guide-legal",
+  // Healthcare guides (use guide-general for now, can create guide-healthcare later)
+  "hipaa-compliant-ai": "guide-general",
+  "institutional-knowledge-healthcare": "guide-general",
+  "document-intelligence-healthcare": "guide-general",
+  // Manufacturing guides (use guide-general for now, can create guide-manufacturing later)
+  "data-cleanup-manufacturing": "guide-general",
+  "lead-scoring-manufacturing": "guide-general",
+  "operational-visibility": "guide-general",
+  // CRE guides (use guide-general for now, can create guide-cre later)
+  "entity-resolution-cre": "guide-general",
+  "data-room-review": "guide-general",
+  "deal-prioritization": "guide-general",
   // Default fallback is "guide-general"
 };
 

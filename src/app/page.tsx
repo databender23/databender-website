@@ -408,10 +408,10 @@ export default function HomePage() {
             lottieUrl="/animations/hero-data.json"
             className="mb-4"
             loop={false}
-            heroTextHeight={320}
-            maxSize={400}
-            minSize={180}
-            cropTop={30}
+            heroTextHeight={280}
+            maxSize={500}
+            minSize={220}
+            cropTop={20}
           />
 
           {/* Hero Content */}

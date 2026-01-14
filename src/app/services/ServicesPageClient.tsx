@@ -83,7 +83,7 @@ export default function ServicesPageClient() {
             className="mb-6"
             loop={true}
             heroTextHeight={280}
-            maxSize={420}
+            maxSize={480}
             minSize={200}
           />
 
