@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import CaseStudiesClient from "./CaseStudiesClient";
+import { JsonLd } from "@/components/seo";
+import { reviewSchema } from "@/lib/schema";
+import { testimonials } from "@/lib/case-studies-data";
 
 export const metadata: Metadata = {
   title: "Case Studies | Real Data & AI Results from DataBender Projects",
@@ -13,5 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function CaseStudiesPage() {
-  return <CaseStudiesClient />;
+  return (
+    <>
+      <JsonLd data={reviewSchema(testimonials)} />
+      <CaseStudiesClient />
+    </>
+  );
 }

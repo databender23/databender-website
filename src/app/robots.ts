@@ -28,6 +28,36 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/admin', '/api'],
       },
+      {
+        userAgent: 'Googlebot-Extended',
+        allow: '/',
+        disallow: ['/admin', '/api'],
+      },
+      {
+        userAgent: 'CCBot',
+        allow: '/',
+        disallow: ['/admin', '/api'],
+      },
+      {
+        userAgent: 'Applebot-Extended',
+        allow: '/',
+        disallow: ['/admin', '/api'],
+      },
+      {
+        userAgent: 'Google-Extended',
+        allow: '/',
+        disallow: ['/admin', '/api'],
+      },
+      {
+        userAgent: 'Bytespider',
+        allow: '/',
+        disallow: ['/admin', '/api'],
+      },
+      {
+        userAgent: 'cohere-ai',
+        allow: '/',
+        disallow: ['/admin', '/api'],
+      },
     ],
     sitemap: 'https://databender.co/sitemap.xml',
   };

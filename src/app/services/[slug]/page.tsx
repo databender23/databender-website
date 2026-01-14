@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ServicePageClient from "./ServicePageClient";
 import { services, getServiceBySlug } from "@/lib/services-data";
+import JsonLd from "@/components/seo/JsonLd";
+import { serviceSchema } from "@/lib/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -57,5 +59,10 @@ export default async function ServicePage({ params }: Props) {
     notFound();
   }
 
-  return <ServicePageClient service={service} />;
+  return (
+    <>
+      <JsonLd data={serviceSchema(service)} />
+      <ServicePageClient service={service} />
+    </>
+  );
 }

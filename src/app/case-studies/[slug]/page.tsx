@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import CaseStudyPageClient from "./CaseStudyPageClient";
 import { caseStudies, getCaseStudyBySlug } from "@/lib/case-studies-data";
+import JsonLd from "@/components/seo/JsonLd";
+import { caseStudySchema } from "@/lib/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -59,5 +61,10 @@ export default async function CaseStudyPage({ params }: Props) {
     notFound();
   }
 
-  return <CaseStudyPageClient study={study} />;
+  return (
+    <>
+      <JsonLd data={caseStudySchema(study)} />
+      <CaseStudyPageClient study={study} />
+    </>
+  );
 }

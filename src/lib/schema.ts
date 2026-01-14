@@ -1,6 +1,6 @@
 import type { BlogPost } from "@/types";
 import type { ConsolidatedService } from "./services-data";
-import type { CaseStudy } from "./case-studies-data";
+import type { CaseStudy, Testimonial } from "./case-studies-data";
 
 const SITE_URL = "https://databender.co";
 const LOGO_URL = `${SITE_URL}/images/databender-logo.png`;
@@ -198,5 +198,39 @@ export function websiteSchema() {
       "@type": "Organization",
       name: "Databender",
     },
+  };
+}
+
+/**
+ * Review schema for testimonials
+ * Generates aggregate rating and individual review rich snippets
+ */
+export function reviewSchema(testimonials: Testimonial[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Databender",
+    url: SITE_URL,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5",
+      bestRating: "5",
+      worstRating: "1",
+      ratingCount: testimonials.length.toString(),
+    },
+    review: testimonials.map((t) => ({
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+      },
+      author: {
+        "@type": "Person",
+        name: t.name,
+        jobTitle: t.title,
+      },
+      reviewBody: t.quote,
+    })),
   };
 }
