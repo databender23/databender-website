@@ -49,7 +49,7 @@ export default function IndustryPageClient({ industry }: Props) {
   return (
     <>
       {/* Hero with Lottie */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-24">
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden pt-16 md:pt-20">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
 

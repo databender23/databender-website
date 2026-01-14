@@ -159,7 +159,7 @@ export default function OurProcessClient() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-24">
+      <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden pt-16 md:pt-20">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
