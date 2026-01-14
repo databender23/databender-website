@@ -194,3 +194,29 @@ export async function getConversionPathsForDateRange(
 
   return conversions;
 }
+
+/**
+ * Get all sessions for a specific visitor
+ * Scans the last N days to find sessions for a visitor
+ */
+export async function getSessionsByVisitorId(
+  visitorId: string,
+  daysBack: number = 90
+): Promise<Session[]> {
+  const sessions: Session[] = [];
+  const end = new Date();
+  const start = new Date();
+  start.setDate(start.getDate() - daysBack);
+
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+    const dateStr = getDateString(d);
+    const daySessions = await getSessionsForDate(dateStr);
+    const visitorSessions = daySessions.filter(s => s.visitorId === visitorId);
+    sessions.push(...visitorSessions);
+  }
+
+  // Sort by start time, most recent first
+  sessions.sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime());
+
+  return sessions;
+}

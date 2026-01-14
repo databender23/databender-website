@@ -1,8 +1,10 @@
 "use client";
 
-import type { PageJourneyStep } from "@/lib/analytics/events";
+import { useState, useEffect } from "react";
+import type { PageJourneyStep, Session } from "@/lib/analytics/events";
 
 interface LeadJourneyProps {
+  leadId: string;
   pageJourney?: PageJourneyStep[];
   pagesVisited?: string[];
 }
@@ -140,18 +142,158 @@ function PageIcon({ type }: { type: string }) {
   );
 }
 
-export default function LeadJourney({ pageJourney, pagesVisited }: LeadJourneyProps) {
+function formatSessionDate(timestamp: string): string {
+  const date = new Date(timestamp);
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
+function formatDuration(seconds: number): string {
+  if (seconds < 60) return `${seconds}s`;
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return secs > 0 ? `${minutes}m ${secs}s` : `${minutes}m`;
+}
+
+interface SessionCardProps {
+  session: Session;
+  isConversionSession?: boolean;
+}
+
+function SessionCard({ session, isConversionSession }: SessionCardProps) {
+  const [isExpanded, setIsExpanded] = useState(isConversionSession);
+
+  return (
+    <div className={`border rounded-lg ${isConversionSession ? 'border-teal-500 bg-teal-500/5' : 'border-border'}`}>
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="w-full p-4 flex items-center justify-between text-left hover:bg-bg-secondary/50 transition-colors rounded-lg"
+      >
+        <div className="flex items-center gap-3">
+          <div className={`w-2 h-2 rounded-full ${session.isConverted ? 'bg-teal-500' : 'bg-gray-300'}`} />
+          <div>
+            <div className="font-medium text-text-primary text-sm">
+              {formatSessionDate(session.startTime)}
+              {isConversionSession && (
+                <span className="ml-2 text-xs bg-teal-500 text-white px-2 py-0.5 rounded">
+                  Conversion
+                </span>
+              )}
+            </div>
+            <div className="text-xs text-text-muted flex items-center gap-3">
+              <span>{session.pageCount} pages</span>
+              {session.duration && <span>{formatDuration(session.duration)}</span>}
+              <span className="capitalize">{session.device}</span>
+            </div>
+          </div>
+        </div>
+        <svg
+          className={`w-5 h-5 text-text-muted transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {isExpanded && session.pagesVisited && session.pagesVisited.length > 0 && (
+        <div className="px-4 pb-4 border-t border-border">
+          <div className="pt-3 space-y-2">
+            {session.pagesVisited.map((path, index) => {
+              const iconType = getPageIcon(path);
+              const isEntry = index === 0;
+              const isExit = index === session.pagesVisited!.length - 1;
+
+              return (
+                <div
+                  key={`${path}-${index}`}
+                  className="flex items-center gap-3 py-1"
+                >
+                  <div className="w-6 text-center text-xs text-text-muted">
+                    {index + 1}
+                  </div>
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    isEntry ? 'bg-teal-500 text-white' :
+                    isExit ? 'bg-teal-100 text-teal-700' :
+                    'bg-bg-secondary text-text-muted'
+                  }`}>
+                    <PageIcon type={iconType} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="text-sm text-text-primary">
+                      {getPageName(path)}
+                    </span>
+                    {(isEntry || isExit) && (
+                      <span className="ml-2 text-xs text-text-muted">
+                        ({isEntry ? 'entry' : 'exit'})
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function LeadJourney({ leadId, pageJourney, pagesVisited }: LeadJourneyProps) {
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showAllSessions, setShowAllSessions] = useState(false);
+
+  useEffect(() => {
+    async function fetchSessions() {
+      try {
+        const response = await fetch(`/api/admin/leads/${leadId}/sessions`);
+        if (response.ok) {
+          const data = await response.json();
+          setSessions(data.sessions || []);
+        }
+      } catch (error) {
+        console.error("Failed to fetch sessions:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchSessions();
+  }, [leadId]);
+
   // Use pageJourney if available (has timestamps), otherwise fall back to pagesVisited
   const hasDetailedJourney = pageJourney && pageJourney.length > 0;
+  const hasSessions = sessions.length > 0;
+  const displaySessions = showAllSessions ? sessions : sessions.slice(0, 3);
 
-  if (!hasDetailedJourney && (!pagesVisited || pagesVisited.length === 0)) {
+  if (loading) {
     return (
       <div className="bg-bg-card rounded-lg shadow-card border border-border p-6">
         <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
-          Page Journey
+          Session History
+        </h3>
+        <div className="flex items-center justify-center py-8">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-teal-500"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!hasSessions && !hasDetailedJourney && (!pagesVisited || pagesVisited.length === 0)) {
+    return (
+      <div className="bg-bg-card rounded-lg shadow-card border border-border p-6">
+        <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+          Session History
         </h3>
         <p className="text-text-muted text-sm text-center py-4">
-          No page journey data available
+          No session data available
         </p>
       </div>
     );
@@ -159,16 +301,41 @@ export default function LeadJourney({ pageJourney, pagesVisited }: LeadJourneyPr
 
   return (
     <div className="bg-bg-card rounded-lg shadow-card border border-border p-6">
-      <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
-        Page Journey
-      </h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider">
+          Session History
+        </h3>
+        {sessions.length > 0 && (
+          <span className="text-xs text-text-muted">
+            {sessions.length} session{sessions.length !== 1 ? 's' : ''}
+          </span>
+        )}
+      </div>
 
-      {hasDetailedJourney ? (
-        // Detailed journey with timestamps
+      {hasSessions ? (
+        // Show sessions with expandable page journeys
+        <div className="space-y-3">
+          {displaySessions.map((session, index) => (
+            <SessionCard
+              key={session.sessionId}
+              session={session}
+              isConversionSession={index === 0 && session.isConverted}
+            />
+          ))}
+
+          {sessions.length > 3 && (
+            <button
+              onClick={() => setShowAllSessions(!showAllSessions)}
+              className="w-full py-2 text-sm text-teal-600 hover:text-teal-700 font-medium"
+            >
+              {showAllSessions ? 'Show less' : `Show ${sessions.length - 3} more sessions`}
+            </button>
+          )}
+        </div>
+      ) : hasDetailedJourney ? (
+        // Fallback to detailed journey with timestamps
         <div className="relative">
-          {/* Vertical line */}
           <div className="absolute left-[15px] top-3 bottom-3 w-0.5 bg-border"></div>
-
           <div className="space-y-4">
             {pageJourney.map((step, index) => {
               const iconType = getPageIcon(step.page);
@@ -177,7 +344,6 @@ export default function LeadJourney({ pageJourney, pagesVisited }: LeadJourneyPr
 
               return (
                 <div key={`${step.page}-${step.timestamp}`} className="relative flex gap-4">
-                  {/* Timeline dot */}
                   <div
                     className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                       isFirst
@@ -189,14 +355,10 @@ export default function LeadJourney({ pageJourney, pagesVisited }: LeadJourneyPr
                   >
                     <PageIcon type={iconType} />
                   </div>
-
-                  {/* Content */}
                   <div className="flex-1 min-w-0 pb-2">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-medium text-text-primary text-sm">
-                        {getPageName(step.page)}
-                      </span>
-                    </div>
+                    <span className="font-medium text-text-primary text-sm">
+                      {getPageName(step.page)}
+                    </span>
                     <p className="text-xs text-text-muted truncate" title={step.page}>
                       {step.page}
                     </p>
@@ -242,11 +404,17 @@ export default function LeadJourney({ pageJourney, pagesVisited }: LeadJourneyPr
       {/* Summary */}
       <div className="mt-4 pt-4 border-t border-border">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-text-muted">Total Pages</span>
-          <span className="text-text-primary font-medium">
-            {hasDetailedJourney ? pageJourney.length : pagesVisited?.length || 0}
-          </span>
+          <span className="text-text-muted">Total Sessions</span>
+          <span className="text-text-primary font-medium">{sessions.length || 1}</span>
         </div>
+        {sessions.length > 0 && (
+          <div className="flex items-center justify-between text-sm mt-1">
+            <span className="text-text-muted">Total Pages Viewed</span>
+            <span className="text-text-primary font-medium">
+              {sessions.reduce((sum, s) => sum + s.pageCount, 0)}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

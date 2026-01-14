@@ -8,6 +8,8 @@ import TopReferrers from "./components/TopReferrers";
 import GeographicBreakdownNew from "./components/GeographicBreakdownNew";
 import CompanyIntelligence from "./components/CompanyIntelligence";
 import TrendChart from "./components/TrendChart";
+import CommonPaths from "./components/CommonPaths";
+import CrawlerStats from "./components/CrawlerStats";
 
 // Icons for KPI cards
 const SessionsIcon = () => (
@@ -570,6 +572,24 @@ export default function AnalyticsDashboard() {
           data={trendData}
           isLoading={overviewLoading}
         />
+      </motion.div>
+
+      {/* Divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
+      {/* User Journeys & Bot Activity */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.4 }}
+      >
+        <div className="mb-4">
+          <span className="text-xs font-semibold text-teal-500 uppercase tracking-wider">User Behavior & SEO</span>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <CommonPaths days={days} />
+          <CrawlerStats days={days} />
+        </div>
       </motion.div>
     </div>
   );

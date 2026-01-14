@@ -199,6 +199,7 @@ export default function LeadDetailPage() {
             onContactAdded={handleContactAdded}
           />
           <LeadJourney
+            leadId={leadId}
             pageJourney={lead.pageJourney}
             pagesVisited={lead.pagesVisited}
           />
