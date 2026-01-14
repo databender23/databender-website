@@ -13,15 +13,15 @@ import { BEHAVIOR_SCORES, getLeadTier } from "@/lib/analytics/lead-scoring";
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
 interface LeadData {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   company?: string;
   phone?: string;
   message?: string;
-  formType: "audit" | "guide" | "assessment";
-  resourceSlug: string;
-  resourceTitle: string;
+  formType: "audit" | "guide" | "assessment" | "newsletter";
+  resourceSlug?: string;
+  resourceTitle?: string;
   submittedAt: string;
   // Analytics data for lead enrichment
   visitorId?: string;
@@ -43,12 +43,14 @@ async function sendLeadSlackNotification(data: LeadData): Promise<void> {
       guide: "Guide Download",
       audit: "Audit Request",
       assessment: "Assessment",
+      newsletter: "Newsletter Signup",
     };
 
     const formTypeEmoji: Record<string, string> = {
       guide: "📖",
       audit: "🔍",
       assessment: "📊",
+      newsletter: "📬",
     };
 
     const emoji = formTypeEmoji[data.formType] || "📋";
@@ -69,17 +71,28 @@ async function sendLeadSlackNotification(data: LeadData): Promise<void> {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `${emoji} *New ${typeLabel}*\n*${data.resourceTitle}*`,
+          text: `${emoji} *New ${typeLabel}*${data.resourceTitle ? `\n*${data.resourceTitle}*` : ""}`,
         },
       },
-      {
+    ];
+
+    // Add name/email fields - handle newsletter (email only)
+    if (data.firstName && data.lastName) {
+      blocks.push({
         type: "section",
         fields: [
           { type: "mrkdwn", text: `*Name*\n${data.firstName} ${data.lastName}` },
           { type: "mrkdwn", text: `*Email*\n${data.email}` },
         ],
-      },
-    ];
+      });
+    } else {
+      blocks.push({
+        type: "section",
+        fields: [
+          { type: "mrkdwn", text: `*Email*\n${data.email}` },
+        ],
+      });
+    }
 
     // Add company if provided
     if (data.company) {
@@ -106,8 +119,14 @@ async function sendLeadSlackNotification(data: LeadData): Promise<void> {
       elements: [{ type: "mrkdwn", text: `🕐 ${timeStr} CT` }],
     });
 
+    // Build summary text - handle newsletter (email only)
+    const fromText = data.firstName && data.lastName
+      ? `from ${data.firstName} ${data.lastName}`
+      : `from ${data.email}`;
+    const titleText = data.resourceTitle ? `: ${data.resourceTitle}` : "";
+
     const payload = {
-      text: `${emoji} New ${typeLabel}: ${data.resourceTitle} from ${data.firstName} ${data.lastName}`,
+      text: `${emoji} New ${typeLabel}${titleText} ${fromText}`,
       attachments: [
         {
           color: data.formType === "audit" ? "#ea580c" : "#1A9988",
@@ -150,8 +169,16 @@ export async function POST(request: Request) {
       sourcePage,
     } = body as LeadData;
 
-    // Validate required fields
-    if (!firstName || !lastName || !email) {
+    // Validate required fields - newsletter only needs email
+    if (!email) {
+      return NextResponse.json(
+        { error: "Email is required" },
+        { status: 400 }
+      );
+    }
+
+    // For non-newsletter forms, require name fields
+    if (formType !== "newsletter" && (!firstName || !lastName)) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -172,8 +199,8 @@ export async function POST(request: Request) {
       formType,
       resourceSlug,
       resourceTitle,
-      firstName,
-      lastName,
+      firstName: firstName || "(newsletter)",
+      lastName: lastName || "(subscriber)",
       email,
       company,
       phone,
@@ -199,16 +226,16 @@ export async function POST(request: Request) {
         }
 
         const lead = await createLead({
-          firstName,
-          lastName,
+          firstName: firstName || "Newsletter",
+          lastName: lastName || "Subscriber",
           email,
           company,
           phone,
           message,
           formType: formType as LeadFormType,
-          resourceSlug,
-          resourceTitle,
-          sourcePage: sourcePage || `/resources/guides/${resourceSlug}`,
+          resourceSlug: resourceSlug || (formType === "newsletter" ? "newsletter" : undefined),
+          resourceTitle: resourceTitle || (formType === "newsletter" ? "Newsletter Subscription" : undefined),
+          sourcePage: sourcePage || (formType === "newsletter" ? sourcePage : `/resources/guides/${resourceSlug}`),
           leadSource: "website",
           visitorId,
           sessionId,
