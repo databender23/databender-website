@@ -20,16 +20,22 @@ export default function AdminNav() {
           </Link>
           <div className="flex gap-6">
             <Link
-              href="/admin/analytics"
+              href="/admin/dashboard"
               className="text-text-secondary hover:text-teal-500 transition-colors text-sm font-medium"
             >
-              Analytics
+              Dashboard
             </Link>
             <Link
               href="/admin/leads"
               className="text-text-secondary hover:text-teal-500 transition-colors text-sm font-medium"
             >
               Leads
+            </Link>
+            <Link
+              href="/admin/analytics"
+              className="text-text-secondary hover:text-teal-500 transition-colors text-sm font-medium"
+            >
+              Analytics
             </Link>
             <Link
               href="/"
