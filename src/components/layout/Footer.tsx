@@ -23,7 +23,7 @@ export default function Footer() {
       </div>
 
       {/* Spacer */}
-      <div className="h-24 md:h-32 lg:h-40" />
+      <div className="h-6 md:h-8 lg:h-10" />
 
       {/* Footer Links */}
       <div className="bg-gray-50 pt-16">
