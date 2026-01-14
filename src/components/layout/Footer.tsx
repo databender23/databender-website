@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="bg-white">
       {/* Newsletter Section */}
-      <div className="container mx-auto px-6 py-16">
+      <div className="container mx-auto px-6 pt-16 pb-24">
         <div className="max-w-xl mx-auto text-center">
           <h3 className="text-text-primary text-lg font-semibold mb-2">
             Get Data & AI Insights
