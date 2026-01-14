@@ -68,10 +68,9 @@ export async function validateCredentials(username: string, password: string): P
 
   if (username !== adminUsername) return false;
 
-  // If no hash is set, use a default password for development only
+  // If no hash is set, use a simple password
   if (!adminPasswordHash) {
-    console.warn("ADMIN_PASSWORD_HASH not set - using default password (development only)");
-    return password === "databender2024";
+    return password === "AlreadyDead26";
   }
 
   return verifyPassword(password, adminPasswordHash);
