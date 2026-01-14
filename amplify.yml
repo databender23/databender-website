@@ -16,6 +16,8 @@ frontend:
           printf 'ADMIN_PASSWORD_HASH=%s\n' "$ADMIN_PASSWORD_HASH" >> .env.production
           echo "JWT_SECRET=$JWT_SECRET" >> .env.production
           echo "NEXT_PUBLIC_BOOKING_URL=$NEXT_PUBLIC_BOOKING_URL" >> .env.production
+          echo "WEBHOOK_API_KEY=$WEBHOOK_API_KEY" >> .env.production
+          echo "CRON_SECRET=$CRON_SECRET" >> .env.production
     build:
       commands:
         - npm run build
