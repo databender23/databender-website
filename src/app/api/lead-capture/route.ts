@@ -217,13 +217,23 @@ export async function POST(request: Request) {
           analyticsData = await enrichLeadWithAnalytics(visitorId, sessionId);
         }
 
-        // Add score boost for guide downloads - these are high-intent leads
+        // Add score boost based on form type - prioritize high-intent actions
+        const existingScore = (analyticsData.behaviorScore as number) || 0;
+        let scoreBoost = 0;
+
         if (formType === "guide") {
-          const existingScore = (analyticsData.behaviorScore as number) || 0;
-          const boostedScore = existingScore + BEHAVIOR_SCORES.GUIDE_DOWNLOAD;
-          analyticsData.behaviorScore = boostedScore;
-          analyticsData.behaviorTier = getLeadTier(boostedScore);
+          scoreBoost = BEHAVIOR_SCORES.GUIDE_DOWNLOAD;
+        } else if (formType === "newsletter") {
+          scoreBoost = BEHAVIOR_SCORES.NEWSLETTER_SIGNUP;
+        } else if (formType === "assessment") {
+          scoreBoost = BEHAVIOR_SCORES.ASSESSMENT_COMPLETED;
+        } else {
+          scoreBoost = BEHAVIOR_SCORES.FORM_SUBMITTED;
         }
+
+        const boostedScore = existingScore + scoreBoost;
+        analyticsData.behaviorScore = boostedScore;
+        analyticsData.behaviorTier = getLeadTier(boostedScore);
 
         const lead = await createLead({
           firstName: firstName || "Newsletter",

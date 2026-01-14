@@ -13,7 +13,7 @@ export const guideContents: GuideContent[] = [
     slug: "associate-multiplier",
     title: "The Associate Multiplier",
     subtitle: "How Top Firms Get 3x Output Without Adding Headcount",
-    pdfUrl: "/downloads/associate-multiplier.pdf",
+    pdfUrl: "/api/downloads/associate-multiplier",
     content: `<p>Your associates are drowning. Not because they lack talent. Because they're spending 60% of their time on work that shouldn't require a law degree.</p>
 
 <p>Research that takes hours when it should take minutes. Drafting from scratch when 80% of the language already exists somewhere in your files. Formatting documents instead of thinking about strategy. Manual review of contracts that follow predictable patterns.</p>
@@ -121,7 +121,7 @@ export const guideContents: GuideContent[] = [
     slug: "last-vendor",
     title: "The Last Vendor You Need",
     subtitle: "How to Evaluate (and Escape) Legal Tech Fragmentation",
-    pdfUrl: "/downloads/last-vendor.pdf",
+    pdfUrl: "/api/downloads/last-vendor",
     content: `<p>Count them. Your document management system. Your billing software. E-discovery platform. Time tracking. Conflict checking. Matter management. Client portal. Email archiving. Practice management. Maybe a CRM nobody uses. Probably two or three research tools with overlapping features.</p>
 
 <p>We've seen firms with 23 different software vendors. Twenty-three. Each one solves exactly one problem. None of them talk to each other. Your IT director spends half their time maintaining integrations that break every time a vendor pushes an update.</p>
@@ -275,7 +275,7 @@ export const guideContents: GuideContent[] = [
     slug: "win-more-pitches",
     title: "Win More Pitches",
     subtitle: "Data-Driven Strategies for Legal Business Development",
-    pdfUrl: "/downloads/win-more-pitches.pdf",
+    pdfUrl: "/api/downloads/win-more-pitches",
     content: `<p>Most law firms track their pitch win rates the same way they track everything else: badly. A spreadsheet somewhere, updated when someone remembers, with categories that made sense when it was created in 2017.</p>
 
 <p>The result? Partners fly blind. They chase the same prospects as every other firm. They personalize pitches based on gut feel. And when they lose, nobody knows why.</p>
@@ -404,7 +404,7 @@ export const guideContents: GuideContent[] = [
     slug: "partner-succession",
     title: "The Partner Succession Problem",
     subtitle: "Preserving Institutional Knowledge Before It's Too Late",
-    pdfUrl: "/downloads/partner-succession.pdf",
+    pdfUrl: "/api/downloads/partner-succession",
     content: `<p>Your senior partners are walking out the door with thirty years of client relationships, deal patterns, and institutional wisdom. Retirement parties are knowledge funerals.</p>
 
 <p>The next generation inherits client names but not context. They get the files but not the stories behind them. The relationship partner who knew exactly how to handle the Johnson account, what triggers the CFO, which battles to pick and which to avoid? Gone. The associate taking over is starting from scratch with a client who expects continuity.</p>
