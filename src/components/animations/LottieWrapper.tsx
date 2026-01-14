@@ -11,14 +11,11 @@ import { useInView } from "react-intersection-observer";
 export function preloadLottie(url: string): void {
   if (typeof window === 'undefined') return;
 
-  // Convert .json to .lottie if needed
-  const src = url.endsWith('.lottie') ? url : url.replace('.json', '.lottie');
-
   // Use link preload for better browser optimization
   const link = document.createElement('link');
   link.rel = 'preload';
   link.as = 'fetch';
-  link.href = src;
+  link.href = url;
   link.crossOrigin = 'anonymous';
   document.head.appendChild(link);
 }
@@ -97,11 +94,11 @@ export default function LottieWrapper({
   const isMobileRef = useRef(false);
 
   // Lazy load trigger - only load when close to viewport
-  // Priority animations load immediately
+  // Priority animations load immediately, use triggerOnce to avoid re-triggering
   const { ref: viewRef, inView } = useInView({
     threshold: 0,
-    rootMargin: priority ? "1000px" : "200px",
-    triggerOnce: false,
+    rootMargin: priority ? "2000px" : "200px",
+    triggerOnce: true,
   });
 
   // Check for mobile device
@@ -129,16 +126,8 @@ export default function LottieWrapper({
 
   const showStatic = prefersReducedMotion || (staticOnMobile && isMobile);
 
-  // Convert .json URL to .lottie URL if available
-  const getSrc = () => {
-    if (!animationUrl) return undefined;
-    // If it's already a .lottie file, use it directly
-    if (animationUrl.endsWith('.lottie')) return animationUrl;
-    // Try .lottie version first (smaller), fallback handled by component
-    return animationUrl.replace('.json', '.lottie');
-  };
-
-  const src = getSrc();
+  // Use the animation URL as-is (no auto-conversion to .lottie)
+  const src = animationUrl;
 
   // Set speed when ready - add small delay to ensure isMobile detection has settled
   useEffect(() => {
@@ -219,8 +208,8 @@ export default function LottieWrapper({
     );
   }
 
-  // Don't render until in view (lazy load)
-  if (!inView && !isReady) {
+  // Don't render until in view (lazy load) - but priority animations render immediately
+  if (!priority && !inView && !isReady) {
     return (
       <div ref={viewRef} className={className} style={style}>
         <div className="animate-pulse bg-gray-100 rounded-lg w-full h-full min-h-[200px]" />
@@ -237,9 +226,16 @@ export default function LottieWrapper({
   // Effective loop - disable looping if already completed first loop on mobile
   const effectiveLoop = hasCompletedFirstLoop ? false : loop;
 
-  // Mobile render config - optimize for performance
+  // Render config - use native DPR on desktop, cap at 2 on mobile for performance
+  const getNativeDpr = () => {
+    if (typeof window === 'undefined') return 2;
+    const nativeDpr = window.devicePixelRatio;
+    // Cap mobile DPR at 2 to balance quality vs performance (3x DPR = 9x pixels)
+    return isMobile ? Math.min(nativeDpr, 2) : nativeDpr;
+  };
+
   const renderConfig = {
-    devicePixelRatio: isMobile ? 1 : (typeof window !== 'undefined' ? window.devicePixelRatio * 0.75 : 1),
+    devicePixelRatio: getNativeDpr(),
     freezeOnOffscreen: true,
     autoResize: true,
   };

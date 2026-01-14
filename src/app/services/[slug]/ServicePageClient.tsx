@@ -86,11 +86,11 @@ interface Props {
   service: ConsolidatedService;
 }
 
-// Lottie animation URLs (using compressed .lottie format)
+// Lottie animation URLs (use .json for now - .lottie conversion may have issues)
 const LOTTIE_URLS: Record<string, string> = {
-  "data-ai-strategy": "/animations/data-management.lottie",
-  "analytics-bi": "/animations/analytics-bi.lottie",
-  "ai-services": "/animations/ai-services.lottie",
+  "data-ai-strategy": "/animations/data-management.json",
+  "analytics-bi": "/animations/analytics-bi.json",
+  "ai-services": "/animations/ai-services.json",
 };
 
 // Animation speeds per service
