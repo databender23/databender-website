@@ -170,7 +170,7 @@ function KPICard({ title, value, subtitle, icon, index }: KPICardProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.4, ease: "easeOut" }}
+      transition={{ delay: index * 0.1, duration: 0.4, ease: [0, 0, 0.2, 1] }}
       className="bg-white rounded-xl p-6 border-l-4 border-l-teal-500 border border-border hover:border-teal-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group relative overflow-hidden"
     >
       {/* Subtle gradient background on hover */}

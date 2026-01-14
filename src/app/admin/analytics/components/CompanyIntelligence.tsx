@@ -596,7 +596,7 @@ export default function CompanyIntelligence({
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                   className="border-t border-gray-100 bg-gradient-to-br from-gray-50 to-white overflow-hidden"
                 >
                   {filteredAndSortedCompanies
