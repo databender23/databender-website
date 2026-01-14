@@ -481,15 +481,9 @@ export default function CompanyIntelligence({
                 </tr>
               </thead>
               <tbody>
-                <AnimatePresence mode="popLayout">
                   {filteredAndSortedCompanies.map((company) => (
-                    <motion.tr
+                    <tr
                       key={company.domain}
-                      layout
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
                       className={`border-b border-gray-50 cursor-pointer transition-all group ${
                         expandedCompany === company.domain
                           ? "bg-teal-50/30"
@@ -590,9 +584,8 @@ export default function CompanyIntelligence({
                           )}
                         </div>
                       </td>
-                    </motion.tr>
+                    </tr>
                   ))}
-                </AnimatePresence>
               </tbody>
             </table>
 

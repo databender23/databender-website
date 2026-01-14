@@ -302,19 +302,14 @@ export default function ContentPerformance({ pages, isLoading }: Props) {
                 </tr>
               </thead>
               <tbody>
-                <AnimatePresence mode="popLayout">
                   {sortedPages.map((page, index) => {
                     const pathInfo = formatPagePath(page.page);
                     const rankBadge = getRankBadge(index);
                     const conversionStyle = getConversionBadgeStyle(page.conversionRate);
 
                     return (
-                      <motion.tr
+                      <tr
                         key={page.page}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 10 }}
-                        transition={{ duration: 0.2, delay: index * 0.03 }}
                         className="border-b border-border/50 hover:bg-teal-50/30 transition-colors"
                       >
                         <td className="py-4 px-4">
@@ -373,10 +368,9 @@ export default function ContentPerformance({ pages, isLoading }: Props) {
                             {page.conversionRate.toFixed(1)}%
                           </span>
                         </td>
-                      </motion.tr>
+                      </tr>
                     );
                   })}
-                </AnimatePresence>
               </tbody>
             </table>
           </div>

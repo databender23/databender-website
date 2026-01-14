@@ -268,20 +268,15 @@ export default function SourceQualityTable({ sources, isLoading }: Props) {
                 ))}
               </tr>
             </thead>
-            <motion.tbody
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-            >
+            <tbody>
               {sortedSources.map((source, index) => {
                 const isHighConversion = source.conversionRate > 5;
                 const isHighScore = source.avgBehaviorScore > 60;
                 const sourceColor = getSourceColor(source.source);
 
                 return (
-                  <motion.tr
+                  <tr
                     key={source.source}
-                    variants={rowVariants}
                     className={`border-b border-border/50 hover:bg-teal-50/30 transition-colors ${
                       index % 2 === 1 ? "bg-gray-50/30" : ""
                     }`}
@@ -328,10 +323,10 @@ export default function SourceQualityTable({ sources, isLoading }: Props) {
                         </span>
                       )}
                     </td>
-                  </motion.tr>
+                  </tr>
                 );
               })}
-            </motion.tbody>
+            </tbody>
           </table>
         </div>
       )}
