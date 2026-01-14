@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
 import { sendGuideEmail } from "@/lib/notifications/guide-email";
 import { getGuideContentBySlug } from "@/lib/guide-content-data";
+import {
+  createLead,
+  enrichLeadWithAnalytics,
+} from "@/lib/leads/lead-service";
+import type { LeadFormType } from "@/lib/leads/types";
+import { enrollAndSendDay0 } from "@/lib/sequences/processor";
+import { getGuideSequenceType } from "@/lib/sequences/types";
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
@@ -15,6 +22,10 @@ interface LeadData {
   resourceSlug: string;
   resourceTitle: string;
   submittedAt: string;
+  // Analytics data for lead enrichment
+  visitorId?: string;
+  sessionId?: string;
+  sourcePage?: string;
 }
 
 /**
@@ -133,6 +144,9 @@ export async function POST(request: Request) {
       resourceSlug,
       resourceTitle,
       submittedAt,
+      visitorId,
+      sessionId,
+      sourcePage,
     } = body as LeadData;
 
     // Validate required fields
@@ -165,6 +179,47 @@ export async function POST(request: Request) {
       message,
       submittedAt,
     });
+
+    // Create lead in database (fire and forget to not block response)
+    (async () => {
+      try {
+        // Enrich with analytics data if visitorId/sessionId provided
+        let analyticsData = {};
+        if (visitorId && sessionId) {
+          analyticsData = await enrichLeadWithAnalytics(visitorId, sessionId);
+        }
+
+        const lead = await createLead({
+          firstName,
+          lastName,
+          email,
+          company,
+          phone,
+          message,
+          formType: formType as LeadFormType,
+          resourceSlug,
+          resourceTitle,
+          sourcePage: sourcePage || `/resources/guides/${resourceSlug}`,
+          visitorId,
+          sessionId,
+          ...analyticsData,
+        });
+        console.log(`Lead created for ${email}`);
+
+        // Enroll guide downloads in email sequence
+        if (formType === "guide" && resourceSlug) {
+          try {
+            const sequenceType = getGuideSequenceType(resourceSlug);
+            await enrollAndSendDay0(lead, sequenceType);
+            console.log(`Guide sequence (${sequenceType}) started for ${email}`);
+          } catch (seqErr) {
+            console.error(`Failed to start guide sequence for ${email}:`, seqErr);
+          }
+        }
+      } catch (err) {
+        console.error("Lead creation failed:", err);
+      }
+    })();
 
     // Send Slack notification (fire and forget)
     sendLeadSlackNotification({

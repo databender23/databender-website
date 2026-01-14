@@ -1,12 +1,32 @@
 import Link from "next/link";
 import { footerNavigation } from "@/lib/navigation";
+import NewsletterForm from "@/components/forms/NewsletterForm";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-white">
-      <div className="container mx-auto px-6 pt-20 pb-16">
+      {/* Newsletter Section */}
+      <div className="bg-[#1A1A1A]">
+        <div className="container mx-auto px-6 py-12">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="max-w-md">
+              <h3 className="text-white text-lg font-semibold mb-2">
+                Get Data & AI Insights
+              </h3>
+              <p className="text-white/70 text-sm">
+                Practical strategies for turning your data into competitive advantage. No fluff, just actionable insights.
+              </p>
+            </div>
+            <div className="w-full md:w-auto md:min-w-[360px]">
+              <NewsletterForm />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-6 pt-16 pb-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="col-span-2">

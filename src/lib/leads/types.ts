@@ -1,4 +1,5 @@
 import type { PageJourneyStep, UTMParams } from "../analytics/events";
+import type { EmailSequence } from "../sequences/types";
 
 export type LeadStatus =
   | "new"
@@ -25,6 +26,16 @@ export interface LeadNote {
   content: string;
   author?: string;
   createdAt: string;
+}
+
+export type ContactChannel = "linkedin" | "email" | "phone" | "other";
+
+export interface ContactRecord {
+  id: string;
+  channel: ContactChannel;
+  contactedAt: string;
+  campaign?: string;  // e.g., "Q1-Legal-Outreach"
+  notes?: string;
 }
 
 export interface Lead {
@@ -78,11 +89,15 @@ export interface Lead {
   industry?: string;
   notes?: LeadNote[];
   tags?: string[];
+  contactHistory?: ContactRecord[];
   assignedTo?: string;
 
   // Assessment-specific data
   assessmentScores?: Record<string, number>;
   assessmentTier?: string;
+
+  // Email sequence tracking
+  emailSequence?: EmailSequence;
 
   // Timestamps
   createdAt: string;
@@ -133,6 +148,9 @@ export interface CreateLeadInput {
   // Assessment-specific
   assessmentScores?: Record<string, number>;
   assessmentTier?: string;
+
+  // Email sequence (optional - usually set by enrollInSequence)
+  emailSequence?: EmailSequence;
 }
 
 export interface UpdateLeadInput {
@@ -141,6 +159,8 @@ export interface UpdateLeadInput {
   industry?: string;
   tags?: string[];
   assignedTo?: string;
+  emailSequence?: EmailSequence;
+  contactHistory?: ContactRecord[];
 }
 
 export interface LeadQueryParams {
@@ -156,6 +176,8 @@ export interface LeadQueryParams {
   lastKey?: string;
   sortBy?: "createdAt" | "behaviorScore" | "lastActivityAt";
   sortOrder?: "asc" | "desc";
+  excludeContactedVia?: ContactChannel[];  // Exclude leads contacted via these channels
+  contactedVia?: ContactChannel[];  // Only leads contacted via these channels
 }
 
 export interface LeadQueryResult {
@@ -184,4 +206,6 @@ export interface LeadExportParams {
   endDate?: string;
   minScore?: number;
   fields?: string[];
+  excludeContactedVia?: ContactChannel[];
+  contactedVia?: ContactChannel[];
 }

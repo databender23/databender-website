@@ -1,9 +1,34 @@
 import { NextResponse } from "next/server";
+import { createLead, enrichLeadWithAnalytics } from "@/lib/leads/lead-service";
+import { sendSlackAlert } from "@/lib/notifications/slack";
+
+interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  company: string;
+  phone?: string;
+  message: string;
+  // Analytics data for lead enrichment
+  visitorId?: string;
+  sessionId?: string;
+  sourcePage?: string;
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { firstName, lastName, email, company, phone, message } = body;
+    const {
+      firstName,
+      lastName,
+      email,
+      company,
+      phone,
+      message,
+      visitorId,
+      sessionId,
+      sourcePage,
+    } = body as ContactFormData;
 
     // Validate required fields
     if (!firstName || !lastName || !email || !company || !message) {
@@ -22,12 +47,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // In production, you would:
-    // 1. Send email notification (using Resend, SendGrid, AWS SES)
-    // 2. Store in database or CRM
-    // 3. Trigger automation workflows
-
-    // For now, log the submission
+    // Log the submission
     console.log("Contact form submission:", {
       firstName,
       lastName,
@@ -38,22 +58,54 @@ export async function POST(request: Request) {
       timestamp: new Date().toISOString(),
     });
 
-    // Example: Send email with Resend (uncomment and add API key)
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // await resend.emails.send({
-    //   from: 'Databender <notifications@databender.co>',
-    //   to: ['info@databender.co'],
-    //   subject: `New Contact Form: ${firstName} ${lastName} from ${company}`,
-    //   html: `
-    //     <h2>New Contact Form Submission</h2>
-    //     <p><strong>Name:</strong> ${firstName} ${lastName}</p>
-    //     <p><strong>Email:</strong> ${email}</p>
-    //     <p><strong>Company:</strong> ${company}</p>
-    //     <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-    //     <p><strong>Message:</strong></p>
-    //     <p>${message}</p>
-    //   `,
-    // });
+    // Create lead in database (fire and forget to not block response)
+    (async () => {
+      try {
+        // Enrich with analytics data if visitorId/sessionId provided
+        let analyticsData = {};
+        if (visitorId && sessionId) {
+          analyticsData = await enrichLeadWithAnalytics(visitorId, sessionId);
+        }
+
+        await createLead({
+          firstName,
+          lastName,
+          email,
+          company,
+          phone,
+          message,
+          formType: "contact",
+          sourcePage: sourcePage || "/contact",
+          visitorId,
+          sessionId,
+          ...analyticsData,
+        });
+        console.log(`Lead created for ${email}`);
+      } catch (err) {
+        console.error("Lead creation failed:", err);
+      }
+    })();
+
+    // Send Slack notification (fire and forget)
+    (async () => {
+      try {
+        await sendSlackAlert({
+          type: "conversion",
+          conversionType: "contact_form",
+          visitorId: visitorId || "unknown",
+          page: sourcePage || "/contact",
+          company,
+          formData: {
+            name: `${firstName} ${lastName}`,
+            email,
+            company,
+            message: message.substring(0, 200), // Truncate for notification
+          },
+        });
+      } catch (err) {
+        console.error("Slack notification failed:", err);
+      }
+    })();
 
     return NextResponse.json(
       { success: true, message: "Contact form submitted successfully" },

@@ -1,0 +1,260 @@
+/**
+ * Email Sequence Email Sender
+ *
+ * Handles sending sequence emails via AWS SES with template selection
+ */
+
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import type { Lead } from "../leads/types";
+import type { SequenceType, SequenceDay, SequenceTemplate, SequenceEmailParams } from "./types";
+import { ASSESSMENT_NAMES } from "./types";
+import {
+  generateUnsubscribeToken,
+  getAssessmentDetails,
+} from "./sequence-service";
+
+// Assessment templates
+import { getDay0AssessmentTemplate } from "./templates/assessment/day0";
+import { getDay2AssessmentTemplate } from "./templates/assessment/day2";
+import { getDay7AssessmentTemplate } from "./templates/assessment/day7";
+import { getDay14AssessmentTemplate } from "./templates/assessment/day14";
+import { getDay21AssessmentTemplate } from "./templates/assessment/day21";
+
+// Guide-legal templates
+import { getDay0GuideLegalTemplate } from "./templates/guide-legal/day0";
+import { getDay2GuideLegalTemplate } from "./templates/guide-legal/day2";
+import { getDay7GuideLegalTemplate } from "./templates/guide-legal/day7";
+import { getDay14GuideLegalTemplate } from "./templates/guide-legal/day14";
+import { getDay21GuideLegalTemplate } from "./templates/guide-legal/day21";
+
+// Guide-general templates
+import { getDay0GuideGeneralTemplate } from "./templates/guide-general/day0";
+import { getDay2GuideGeneralTemplate } from "./templates/guide-general/day2";
+import { getDay7GuideGeneralTemplate } from "./templates/guide-general/day7";
+import { getDay14GuideGeneralTemplate } from "./templates/guide-general/day14";
+import { getDay21GuideGeneralTemplate } from "./templates/guide-general/day21";
+
+/**
+ * Send a sequence email to a lead
+ */
+export async function sendSequenceEmail(
+  lead: Lead,
+  day: SequenceDay
+): Promise<{ success: boolean; messageId?: string; error?: string }> {
+  if (!lead.emailSequence) {
+    return { success: false, error: "Lead has no email sequence" };
+  }
+
+  const sequenceType = lead.emailSequence.sequenceType;
+  const params = buildEmailParams(lead);
+  const template = getEmailTemplate(day, sequenceType, params);
+
+  if (!template) {
+    return { success: false, error: `No template found for day ${day} ${sequenceType}` };
+  }
+
+  try {
+    const messageId = await sendEmail(lead.email, template);
+    console.log(`[Sequence] Sent day ${day} email to ${lead.email}, messageId: ${messageId}`);
+    return { success: true, messageId };
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    console.error(`[Sequence] Failed to send day ${day} email to ${lead.email}:`, error);
+    return { success: false, error: errorMessage };
+  }
+}
+
+/**
+ * Build email parameters from a lead
+ */
+function buildEmailParams(lead: Lead): SequenceEmailParams {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://databender.co";
+  const calendarUrl = process.env.NEXT_PUBLIC_BOOKING_URL || `${siteUrl}/contact`;
+  const unsubscribeToken = generateUnsubscribeToken(lead.email);
+  const unsubscribeUrl = `${siteUrl}/api/unsubscribe?token=${unsubscribeToken}`;
+
+  // Get assessment details if available
+  const assessmentDetails = getAssessmentDetails(lead);
+
+  // Determine assessment name from resource slug or form type
+  let assessmentName = "Data & AI Readiness Assessment";
+  if (lead.resourceSlug && ASSESSMENT_NAMES[lead.resourceSlug]) {
+    assessmentName = ASSESSMENT_NAMES[lead.resourceSlug];
+  }
+
+  return {
+    firstName: lead.firstName,
+    lastName: lead.lastName,
+    email: lead.email,
+    company: lead.company,
+    industry: lead.industry || lead.identifiedIndustry,
+    // Assessment data
+    overallScore: assessmentDetails.overallScore,
+    lowestCategory: assessmentDetails.lowestCategory,
+    lowestCategoryScore: assessmentDetails.lowestCategoryScore,
+    highestCategory: assessmentDetails.highestCategory,
+    primaryChallenge: lead.message, // Often contains the primary challenge
+    assessmentName,
+    assessmentScores: lead.assessmentScores,
+    // Guide data
+    guideTitle: lead.resourceTitle,
+    guideSlug: lead.resourceSlug,
+    downloadUrl: lead.resourceSlug ? `/guides/${lead.resourceSlug}.pdf` : undefined,
+    contentUrl: lead.resourceSlug ? `/resources/guides/${lead.resourceSlug}/content` : undefined,
+    // Common
+    calendarUrl,
+    unsubscribeUrl,
+  };
+}
+
+/**
+ * Get the appropriate email template based on day, sequence type, and params
+ */
+function getEmailTemplate(
+  day: SequenceDay,
+  sequenceType: SequenceType,
+  params: SequenceEmailParams
+): SequenceTemplate | null {
+  // Assessment sequence templates
+  if (sequenceType === "assessment") {
+    // Build assessment-specific params with defaults
+    const assessmentParams = {
+      firstName: params.firstName,
+      company: params.company,
+      overallScore: params.overallScore ?? 0,
+      lowestCategory: params.lowestCategory ?? "General",
+      lowestCategoryScore: params.lowestCategoryScore ?? 0,
+      highestCategory: params.highestCategory ?? "General",
+      primaryChallenge: params.primaryChallenge,
+      assessmentName: params.assessmentName ?? "Data & AI Readiness Assessment",
+      industry: params.industry,
+      calendarUrl: params.calendarUrl,
+      unsubscribeUrl: params.unsubscribeUrl,
+    };
+
+    switch (day) {
+      case 0:
+        return getDay0AssessmentTemplate(assessmentParams);
+      case 2:
+        return getDay2AssessmentTemplate(assessmentParams);
+      case 7:
+        return getDay7AssessmentTemplate(assessmentParams);
+      case 14:
+        return getDay14AssessmentTemplate(assessmentParams);
+      case 21:
+        return getDay21AssessmentTemplate(assessmentParams);
+    }
+  }
+
+  // Guide-legal sequence templates
+  if (sequenceType === "guide-legal") {
+    // Build guide-specific params with defaults
+    const guideParams = {
+      firstName: params.firstName,
+      company: params.company,
+      guideTitle: params.guideTitle ?? "Your Guide",
+      guideSlug: params.guideSlug ?? "",
+      downloadUrl: params.downloadUrl ?? "",
+      contentUrl: params.contentUrl ?? "",
+      calendarUrl: params.calendarUrl,
+      unsubscribeUrl: params.unsubscribeUrl,
+    };
+
+    switch (day) {
+      case 0:
+        return getDay0GuideLegalTemplate(guideParams);
+      case 2:
+        return getDay2GuideLegalTemplate(guideParams);
+      case 7:
+        return getDay7GuideLegalTemplate(guideParams);
+      case 14:
+        return getDay14GuideLegalTemplate(guideParams);
+      case 21:
+        return getDay21GuideLegalTemplate(guideParams);
+    }
+  }
+
+  // Guide-general sequence templates
+  if (sequenceType === "guide-general") {
+    // Build guide-specific params with defaults
+    const guideParams = {
+      firstName: params.firstName,
+      company: params.company,
+      guideTitle: params.guideTitle ?? "Your Guide",
+      guideSlug: params.guideSlug ?? "",
+      downloadUrl: params.downloadUrl ?? "",
+      contentUrl: params.contentUrl ?? "",
+      calendarUrl: params.calendarUrl,
+      unsubscribeUrl: params.unsubscribeUrl,
+    };
+
+    switch (day) {
+      case 0:
+        return getDay0GuideGeneralTemplate(guideParams);
+      case 2:
+        return getDay2GuideGeneralTemplate(guideParams);
+      case 7:
+        return getDay7GuideGeneralTemplate(guideParams);
+      case 14:
+        return getDay14GuideGeneralTemplate(guideParams);
+      case 21:
+        return getDay21GuideGeneralTemplate(guideParams);
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Send an email via AWS SES
+ */
+async function sendEmail(
+  toEmail: string,
+  template: SequenceTemplate
+): Promise<string | undefined> {
+  const awsRegion = process.env.SES_REGION || process.env.AWS_REGION || "us-east-1";
+  const fromEmail = process.env.SES_FROM_EMAIL || "notifications@mail.databender.co";
+
+  const clientConfig: {
+    region: string;
+    credentials?: { accessKeyId: string; secretAccessKey: string };
+  } = {
+    region: awsRegion,
+  };
+
+  // Use explicit credentials if provided (local dev)
+  if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
+    clientConfig.credentials = {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    };
+  }
+
+  const sesClient = new SESClient(clientConfig);
+
+  const command = new SendEmailCommand({
+    Source: `Databender <${fromEmail}>`,
+    Destination: {
+      ToAddresses: [toEmail],
+    },
+    Message: {
+      Subject: {
+        Data: template.subject,
+        Charset: "UTF-8",
+      },
+      Body: {
+        Html: {
+          Data: template.htmlBody,
+          Charset: "UTF-8",
+        },
+        Text: {
+          Data: template.textBody,
+          Charset: "UTF-8",
+        },
+      },
+    },
+  });
+
+  const result = await sesClient.send(command);
+  return result.MessageId;
+}

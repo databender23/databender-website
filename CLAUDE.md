@@ -80,6 +80,16 @@ This is the DataBender marketing website built with Next.js 16 (App Router), Rea
     - `events.ts` - Event type definitions
     - `lead-scoring.ts` - Visitor lead scoring algorithm
     - `visitor-id.ts` - Anonymous visitor ID management
+  - `leads/` - Lead management system:
+    - `types.ts` - Lead, ContactRecord, EmailSequence interfaces
+    - `dynamodb.ts` - Lead CRUD operations, active sequence scanning
+    - `lead-service.ts` - Business logic (createLead, enrichLeadWithAnalytics, getLeadStats)
+  - `sequences/` - Email nurture sequence system:
+    - `types.ts` - Sequence type definitions
+    - `sequence-service.ts` - Enroll, pause, unsubscribe, tracking
+    - `sequence-emails.ts` - Template selection and SES sending
+    - `processor.ts` - Daily batch processor for scheduled emails
+    - `templates/` - Email templates (assessment/, guide-legal/, guide-general/)
   - `notifications/` - Notification system (Slack, email)
 - `src/types/` - TypeScript type definitions
 
@@ -105,15 +115,19 @@ Defined in `src/app/globals.css` using Tailwind CSS 4's `@theme` directive:
 
 - `/api/chat` - Claude-powered chatbot (requires `ANTHROPIC_API_KEY`)
 - `/api/contact` - Contact form submissions
-- `/api/lead-capture` - Lead magnet form submissions
-- `/api/assessment` - Assessment result submissions
+- `/api/lead-capture` - Lead magnet form submissions (auto-enrolls in email sequences)
+- `/api/assessment` - Assessment result submissions (auto-enrolls in email sequences)
 - `/api/analytics` - Analytics event tracking
+- `/api/unsubscribe` - Token-based email unsubscribe with confirmation page
 - `/api/admin/login` - Admin authentication
 - `/api/admin/logout` - Admin logout
 - `/api/admin/analytics/overview` - Analytics dashboard data
 - `/api/admin/analytics/companies` - Company identification data
 - `/api/admin/analytics/attribution` - Marketing attribution data
 - `/api/admin/analytics/summary` - Daily summary cron endpoint
+- `/api/admin/leads/export` - Lead export with filtering (CSV format)
+- `/api/cron/sequences/process` - Daily cron to send scheduled nurture emails
+- `/api/leads/webhook` - External webhook for automation tools (Instantly, Apollo.io, Dripify)
 
 ### Environment Variables
 
@@ -140,6 +154,9 @@ ADMIN_PASSWORD_HASH=       # Bcrypt hash of admin password
 
 # Cron Jobs
 CRON_SECRET=               # Secret for authenticating cron endpoints
+
+# External Webhooks
+WEBHOOK_API_KEY=           # API key for external automation tools (Instantly, Apollo.io, Dripify)
 ```
 
 ### Amplify Environment Variables
@@ -216,6 +233,7 @@ All Lottie animations use the optimized `LottieWrapper` component (`src/componen
 - `/admin/login` - Admin authentication page
 - `/admin/analytics` - Analytics dashboard
 - `/admin/analytics/attribution` - Marketing attribution dashboard
+- `/admin/leads` - Lead management hub with filtering, contact tracking, and export
 
 ### Case Study Pages
 
@@ -283,6 +301,51 @@ The site includes a custom analytics system (`src/lib/analytics/`) that tracks:
 - Marketing attribution (UTM parameters, referrers)
 
 Data is stored in DynamoDB and viewable in the admin dashboard at `/admin/analytics`.
+
+### Email Sequence System
+
+Automated nurture email sequences in `src/lib/sequences/`:
+
+**Sequences Available:**
+- `assessment` - For assessment completers (5 emails over 21 days)
+- `guide-legal` - For legal guide downloaders
+- `guide-general` - For general guide downloaders
+
+**How It Works:**
+1. Lead completes assessment or downloads guide → Auto-enrolled in appropriate sequence
+2. Day 0 email sent immediately
+3. Daily cron (`/api/cron/sequences/process`) sends Day 2/7/14/21 emails based on enrollment date
+4. Unsubscribe link in each email → Updates lead status, shows confirmation page
+
+**Email Templates:** `src/lib/sequences/templates/` with 15 templates (5 per sequence)
+
+**Cron Setup:** Call `/api/cron/sequences/process` daily with `Authorization: Bearer {CRON_SECRET}`
+
+### Lead Management & Automation Support
+
+Lead hub at `/admin/leads` with:
+
+**Contact Channel Tracking:**
+- Track which channels (LinkedIn, Email, Phone) have been used
+- Record campaign names and notes for each contact
+- View contact history timeline in lead detail page
+
+**Export Filtering:**
+| Param | Purpose | Example |
+|-------|---------|---------|
+| `notContacted=true` | Only leads never contacted | Fresh leads for outreach |
+| `excludeContactedVia=linkedin` | Exclude LinkedIn contacts | For email campaigns |
+| `contactedVia=email` | Only email contacts | For follow-up sequences |
+
+**Webhook for External Tools:**
+`POST /api/leads/webhook` with `x-api-key: {WEBHOOK_API_KEY}`
+
+| Action | Purpose |
+|--------|---------|
+| `update_status` | Change lead status from Instantly/Apollo |
+| `record_contact` | Log contact via LinkedIn/email |
+| `add_note` | Add notes from automation tools |
+| `update_tier` | Update lead tier |
 
 ### Pending Infrastructure Tasks
 

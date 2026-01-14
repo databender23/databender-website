@@ -26,6 +26,12 @@ export default function AdminNav() {
               Analytics
             </Link>
             <Link
+              href="/admin/leads"
+              className="text-text-secondary hover:text-teal-500 transition-colors text-sm font-medium"
+            >
+              Leads
+            </Link>
+            <Link
               href="/"
               target="_blank"
               className="text-text-secondary hover:text-teal-500 transition-colors text-sm font-medium"

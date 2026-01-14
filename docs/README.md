@@ -7,47 +7,66 @@ This folder contains development planning, strategy content, and reference mater
 ```
 docs/
 ├── README.md                           # This file
-├── strategy/                           # Business strategy & content planning
-│   ├── brand/                          # Brand voice, positioning, value props
-│   ├── website-plans/                  # Page specs, assessments, services
-│   ├── industries/                     # Industry-specific messaging
-│   └── case-studies/                   # Case study collection process
 │
-├── WEBSITE-BUILD-PLAN.md               # Original build plan & architecture
-├── WEBSITE-DOCUMENTATION.md            # Technical documentation
-├── AWS-DEPLOYMENT-PLAN.md              # AWS Amplify deployment guide
+├── CONSOLIDATED STRATEGY (Active)
+│   ├── BRAND-GUIDE.md                  # Brand voice, positioning, value props, pitches
+│   ├── ASSESSMENTS-SPECS.md            # All assessment specifications & scoring
+│   ├── CASE-STUDIES-PLANNING.md        # Case study structure, graphics, UX plans
+│   │
+│   ├── GTM-GENERAL-CRE.md              # General SMB + Commercial Real Estate GTM
+│   ├── GTM-PROFESSIONAL-SERVICES.md    # Legal + Accounting/CPA GTM
+│   ├── GTM-HEALTHCARE.md               # Medical + Dental DSO GTM
+│   └── GTM-MANUFACTURING.md            # Manufacturing GTM
 │
-├── Case Study Development/
-│   ├── CASE-STUDIES-UPDATE-PLAN.md
-│   ├── CASE-STUDY-GRAPHICS.md
-│   ├── CASE-STUDY-STORY-CONCEPT.md
-│   └── CASE-STUDY-UX-IMPROVEMENTS.md
-│
-├── Interactive Design/
-│   ├── INTERACTIVE-DESIGN-SPEC.md
-│   ├── ENTITY-RESOLUTION-STORY-IMPLEMENTATION.md
-│   └── DOCUMENT-INTELLIGENCE-REFRAME.md
+├── TECHNICAL DOCUMENTATION
+│   ├── WEBSITE-BUILD-PLAN.md           # Original build plan & architecture
+│   ├── WEBSITE-DOCUMENTATION.md        # Site docs, email sequences, lead management
+│   ├── AWS-DEPLOYMENT-PLAN.md          # AWS Amplify deployment guide
+│   ├── INTERACTIVE-DESIGN-SPEC.md      # Interactive component specs
+│   ├── WEBSITE-IMPROVEMENTS.md         # Planned improvements
+│   └── WEBSITE-VALIDATION-REPORT.md    # Site validation status
 │
 ├── style-guides/
-│   └── content-style-guide.md
+│   └── content-style-guide.md          # Content writing guidelines
 │
-└── drafts/                             # Work in progress
+├── drafts/                             # Work in progress
+│
+└── archive/                            # Historical/source files
+    ├── strategy/                       # Original 80+ source files (now consolidated)
+    └── *.md                            # Older case study planning docs
 ```
 
 ## Quick Reference
 
 | Need | File |
 |------|------|
-| Brand voice & positioning | `strategy/brand/` |
-| Industry messaging | `strategy/industries/` |
-| Assessment specs | `strategy/website-plans/Assessments/` |
-| Service page content | `strategy/website-plans/Services/` |
+| Brand voice & positioning | `BRAND-GUIDE.md` |
+| Assessment specifications | `ASSESSMENTS-SPECS.md` |
+| Case study planning | `CASE-STUDIES-PLANNING.md` |
+| Legal/Accounting GTM | `GTM-PROFESSIONAL-SERVICES.md` |
+| Healthcare/Dental GTM | `GTM-HEALTHCARE.md` |
+| Manufacturing GTM | `GTM-MANUFACTURING.md` |
+| General/CRE GTM | `GTM-GENERAL-CRE.md` |
 | AWS deployment | `AWS-DEPLOYMENT-PLAN.md` |
 | Interactive components | `INTERACTIVE-DESIGN-SPEC.md` |
+| Content writing style | `style-guides/content-style-guide.md` |
+| Email sequences & lead management | `WEBSITE-DOCUMENTATION.md` (sections 13-15) |
 
-## Full Documentation Index
+## Consolidated Documents
 
-See **[DOCUMENTATION-SUMMARY.md](./DOCUMENTATION-SUMMARY.md)** for a complete aggregated summary of all 98 documentation files, organized by category with status indicators.
+The documentation has been consolidated from 95+ files into 7 active strategy documents:
+
+1. **BRAND-GUIDE.md** - Core positioning, voice & tone, value propositions, elevator pitches, channel strategy
+2. **ASSESSMENTS-SPECS.md** - All assessment flows, scoring logic, email sequences
+3. **CASE-STUDIES-PLANNING.md** - Data structure, graphics system, UX improvements
+4. **GTM-GENERAL-CRE.md** - Cross-industry strategy + Commercial Real Estate
+5. **GTM-PROFESSIONAL-SERVICES.md** - Legal + Accounting/CPA firms
+6. **GTM-HEALTHCARE.md** - Medical (imaging, ASCs) + Dental DSOs
+7. **GTM-MANUFACTURING.md** - Manufacturing outreach, offerings, lead magnets, staffing
+
+## Archive
+
+The `archive/` folder contains the original source files that were consolidated. These are preserved for reference but the consolidated files above are the authoritative versions.
 
 ## Production Code
 

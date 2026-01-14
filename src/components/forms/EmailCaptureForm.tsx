@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button, Input } from "@/components/ui";
+import { getVisitorId, getSessionId } from "@/lib/analytics/visitor-id";
 
 interface EmailCaptureFormProps {
   formType: "audit" | "guide" | "assessment";
@@ -56,6 +57,12 @@ export default function EmailCaptureForm({
     setError(null);
 
     try {
+      // Get visitor tracking data
+      const visitorId = getVisitorId();
+      const sessionId = getSessionId();
+      const pageJourney = sessionStorage.getItem("db_session_journey");
+      const sourcePage = window.location.pathname;
+
       const response = await fetch("/api/lead-capture", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -65,6 +72,10 @@ export default function EmailCaptureForm({
           resourceSlug,
           resourceTitle,
           submittedAt: new Date().toISOString(),
+          visitorId,
+          sessionId,
+          pageJourney: pageJourney ? JSON.parse(pageJourney) : [],
+          sourcePage,
         }),
       });
 

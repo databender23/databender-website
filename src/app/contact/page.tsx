@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Hero } from "@/components/sections";
 import { Button, Input, Textarea } from "@/components/ui";
+import { getVisitorId, getSessionId } from "@/lib/analytics/visitor-id";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -24,10 +25,22 @@ export default function ContactPage() {
     setError("");
 
     try {
+      // Get visitor tracking data
+      const visitorId = getVisitorId();
+      const sessionId = getSessionId();
+      const pageJourney = sessionStorage.getItem("db_session_journey");
+      const sourcePage = window.location.pathname;
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          visitorId,
+          sessionId,
+          pageJourney: pageJourney ? JSON.parse(pageJourney) : [],
+          sourcePage,
+        }),
       });
 
       if (!response.ok) throw new Error("Failed to submit");

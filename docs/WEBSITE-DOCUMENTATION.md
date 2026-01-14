@@ -190,6 +190,7 @@ DataBender empowers firms to work efficiently, compliantly, and intelligently us
 - **Purpose:** Universal lead magnet for all industries
 - **Output:** Personalized recommendations and roadmap
 - **Captures:** Email, name, company
+- **Auto-enrollment:** Enrolled in assessment email sequence (5 emails over 21 days)
 
 ### Industry-Specific:
 
@@ -204,6 +205,8 @@ All downloadable at `/industries/legal`:
 2. Win More Pitches
 3. The Partner Succession Problem
 4. The Last Vendor You Need
+
+**Auto-enrollment:** Guide downloaders are enrolled in appropriate email sequence (legal or general)
 
 ---
 
@@ -317,3 +320,80 @@ All downloadable at `/industries/legal`:
 - +21% more qualified leads
 - 3 weeks to value
 - 100% decision coverage
+
+---
+
+## 13. Email Sequence System
+
+### Overview
+Automated email nurture sequences are sent to leads who complete assessments or download guides.
+
+### Sequences
+
+| Sequence | Trigger | Emails | Schedule |
+|----------|---------|--------|----------|
+| Assessment | Assessment completion | 5 | Day 0, 2, 7, 14, 21 |
+| Guide (Legal) | Legal guide download | 5 | Day 0, 2, 7, 14, 21 |
+| Guide (General) | General guide download | 5 | Day 0, 2, 7, 14, 21 |
+
+### Email Schedule
+
+| Day | Purpose |
+|-----|---------|
+| 0 | Welcome + PDF delivery (sent immediately) |
+| 2 | Personalized insight on lowest-scoring category |
+| 7 | Value-add content (industry-specific) |
+| 14 | Case example / social proof |
+| 21 | Soft CTA + transition to newsletter |
+
+### Unsubscribe
+- Every email contains an unsubscribe link
+- One-click unsubscribe with confirmation page
+- Lead status updated automatically
+
+---
+
+## 14. Lead Management & Automation
+
+### Admin Lead Hub
+Access at `/admin/leads` to:
+- View all leads with filtering
+- Track contact history (LinkedIn, Email, Phone)
+- Export leads for outreach campaigns
+- Update lead status and tier
+
+### Contact Channel Tracking
+Track which channels have been used to contact each lead:
+- LinkedIn connection/message
+- Email outreach
+- Phone calls
+- Campaign names and notes
+
+### Export for Outreach
+
+| Filter | Use Case |
+|--------|----------|
+| `notContacted=true` | Fresh leads for new campaigns |
+| `excludeContactedVia=linkedin` | Avoid double-contacting on LinkedIn |
+| `contactedVia=email` | Follow-up on email responders |
+| `industry=Legal` | Industry-specific outreach |
+
+### External Tool Integration
+Webhook endpoint for Instantly, Apollo.io, Dripify, etc.:
+- Update lead status when contacted
+- Record contact channel automatically
+- Add notes from automation tools
+- Sync lead tier changes
+
+---
+
+## 15. Admin Dashboard
+
+### Analytics Dashboard
+- `/admin/analytics` - Page views, user journeys, conversions
+- `/admin/analytics/attribution` - UTM tracking, referrer analysis
+
+### Lead Management
+- `/admin/leads` - Lead hub with filtering and export
+- Contact tracking and history
+- Email sequence status
