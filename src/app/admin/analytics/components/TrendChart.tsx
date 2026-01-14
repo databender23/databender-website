@@ -202,7 +202,7 @@ export default function TrendChart({ data, isLoading = false }: Props) {
               return (
                 <div
                   key={item.date}
-                  className="flex-1 min-w-[8px] max-w-[28px] flex flex-col items-center"
+                  className="flex-1 min-w-[8px] max-w-[28px] h-full flex flex-col items-center"
                 >
                   {/* Bar with tooltip */}
                   <div className="w-full h-full flex items-end relative group cursor-pointer">
