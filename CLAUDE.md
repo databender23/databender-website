@@ -9,7 +9,125 @@ npm run dev      # Start development server at localhost:3000
 npm run build    # Production build
 npm run lint     # Run ESLint
 npm run start    # Start production server
+
+# Testing
+npm test              # Run Jest unit tests (required before deployment)
+npm run test:watch    # Jest in watch mode for development
+npm run test:coverage # Jest with coverage report
+npm run test:e2e      # Run Playwright E2E tests
+npm run test:e2e:ui   # Playwright with interactive UI
+npm run test:all      # Run both Jest and E2E tests
 ```
+
+## Testing Infrastructure
+
+**CRITICAL: All unit tests must pass before deployment.** The `amplify.yml` runs `npm test` before `npm run build` - failing tests will block deployment.
+
+### Test Structure
+
+```
+tests/
+├── unit/                          # Jest unit tests
+│   ├── api/                       # API route tests
+│   │   └── contact.test.ts        # Contact form API
+│   └── lib/                       # Library/utility tests
+│       └── analytics/
+│           └── lead-scoring.test.ts
+├── e2e/                           # Playwright E2E tests
+│   ├── flows/                     # User journey tests
+│   │   └── contact-submission.spec.ts
+│   ├── admin/                     # Admin flow tests
+│   │   └── login.spec.ts
+│   └── public/                    # Public page tests
+│       └── homepage.spec.ts
+└── setup/
+    └── jest.setup.ts              # Jest configuration and mocks
+```
+
+### Writing Tests
+
+**API Route Tests** (use `@jest-environment node`):
+```typescript
+/**
+ * @jest-environment node
+ */
+import { NextRequest } from 'next/server'
+
+jest.mock('@/lib/leads/lead-service', () => ({
+  createLead: jest.fn().mockResolvedValue({ leadId: 'test-123' }),
+}))
+
+describe('POST /api/contact', () => {
+  it('should return 200 for valid submission', async () => {
+    const { POST } = await import('@/app/api/contact/route')
+    const request = new NextRequest('http://localhost:3000/api/contact', {
+      method: 'POST',
+      body: JSON.stringify({ firstName: 'John', email: 'john@test.com' }),
+    })
+    const response = await POST(request)
+    expect(response.status).toBe(200)
+  })
+})
+```
+
+**Component Tests** (default jsdom environment):
+```typescript
+import { render, screen } from '@testing-library/react'
+import { Button } from '@/components/ui'
+
+describe('Button', () => {
+  it('renders with text', () => {
+    render(<Button>Click me</Button>)
+    expect(screen.getByText('Click me')).toBeInTheDocument()
+  })
+})
+```
+
+**E2E Tests** (Playwright):
+```typescript
+import { test, expect } from '@playwright/test'
+
+test('contact form submission', async ({ page }) => {
+  await page.goto('/contact')
+  await page.fill('input[name="email"]', 'test@example.com')
+  await page.click('button[type="submit"]')
+  await expect(page.locator('text=Thank you')).toBeVisible()
+})
+```
+
+### Test Coverage Requirements
+
+When making changes, **think deeply about what tests should be added or updated**:
+
+1. **New API Routes**: Add unit tests in `tests/unit/api/` covering:
+   - Valid request scenarios (200 responses)
+   - Validation errors (400 responses)
+   - Authentication requirements (401/403)
+   - Edge cases and error handling
+
+2. **New Components**: Add tests in `tests/unit/components/` for:
+   - Rendering with different props
+   - User interactions (clicks, form inputs)
+   - Conditional rendering logic
+
+3. **New Utility Functions**: Add tests in `tests/unit/lib/` for:
+   - Expected outputs for various inputs
+   - Edge cases (empty arrays, null values)
+   - Error conditions
+
+4. **New User Flows**: Add E2E tests in `tests/e2e/flows/` for:
+   - Complete user journeys (form submission → success)
+   - Error states and recovery
+   - Mobile responsiveness
+
+5. **Bug Fixes**: Add regression tests that would have caught the bug
+
+**Before completing any feature or fix, ask yourself:**
+- What existing tests might break from this change?
+- What new tests would verify this change works correctly?
+- What edge cases should be tested?
+
+See `docs/testing-setup-plan.md` for comprehensive test case suggestions.
 
 ## AWS Configuration
 

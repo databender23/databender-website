@@ -20,6 +20,8 @@ frontend:
           echo "CRON_SECRET=$CRON_SECRET" >> .env.production
     build:
       commands:
+        # Run unit tests before building - fail deployment if tests fail
+        - npm test
         - npm run build
   artifacts:
     baseDirectory: .next
