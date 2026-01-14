@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CTA, FAQ } from "@/components/sections";
 import type { FAQItem } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { ResponsiveAnimation, DataManagementAnimation } from "@/components/animations";
+import { HeroLottie } from "@/components/animations";
 import {
   services,
   serviceCategories,
@@ -78,21 +78,14 @@ export default function ServicesPageClient() {
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Responsive Animation - Above Hero */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="flex justify-center items-center mb-8"
-          >
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-              <ResponsiveAnimation
-                lottieUrl="/animations/assistant-bot.json"
-                MobileComponent={DataManagementAnimation}
-                className="w-full aspect-square"
-                loop={true}
-              />
-            </div>
-          </motion.div>
+          <HeroLottie
+            lottieUrl="/animations/assistant-bot.json"
+            className="mb-6"
+            loop={true}
+            heroTextHeight={320}
+            maxSize={380}
+            minSize={180}
+          />
 
           {/* Hero Content */}
           <div className="max-w-3xl mx-auto text-center">

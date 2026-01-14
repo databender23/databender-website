@@ -1,0 +1,138 @@
+'use client'
+
+import { useEffect, useState, useRef, ComponentType } from 'react'
+import { motion } from 'framer-motion'
+import LottieWrapper from './LottieWrapper'
+
+interface HeroLottieProps {
+  /** Lottie animation URL */
+  lottieUrl: string
+  /** Framer Motion component (kept for future use) */
+  MobileComponent?: ComponentType<{ className?: string; isActive?: boolean }>
+  /** Additional class names for the outer container */
+  className?: string
+  /** Whether animation is active */
+  isActive?: boolean
+  /** Lottie animation speed */
+  speed?: number
+  /** Whether to loop */
+  loop?: boolean
+  /** Priority loading */
+  priority?: boolean
+  /** Keep animation looping on mobile */
+  keepPlayingOnMobile?: boolean
+  /**
+   * Estimated height of hero text content in pixels.
+   * Used to calculate available space for animation.
+   * Default: 280 (title + subtitle + CTA buttons)
+   */
+  heroTextHeight?: number
+  /**
+   * Maximum size as percentage of calculated space.
+   * Default: 0.9 (90% of available space)
+   */
+  maxSizeRatio?: number
+  /**
+   * Minimum animation size in pixels.
+   * Default: 150
+   */
+  minSize?: number
+  /**
+   * Maximum animation size in pixels.
+   * Default: 400
+   */
+  maxSize?: number
+}
+
+/**
+ * Hero animation component that dynamically sizes based on viewport height
+ * to ensure hero text is always visible without scrolling.
+ *
+ * Calculates: available_height = viewport_height - header - padding - text_content
+ * Then sizes the animation to fit within that space while maintaining aspect ratio.
+ */
+export default function HeroLottie({
+  lottieUrl,
+  className = '',
+  isActive = true,
+  speed = 1,
+  loop = true,
+  priority = true,
+  keepPlayingOnMobile = false,
+  heroTextHeight = 280,
+  maxSizeRatio = 0.9,
+  minSize = 150,
+  maxSize = 400,
+}: HeroLottieProps) {
+  const [animationSize, setAnimationSize] = useState<number>(maxSize)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const calculateSize = () => {
+      // Get viewport height
+      const vh = window.innerHeight
+
+      // Estimate header height (varies by breakpoint)
+      const headerHeight = window.innerWidth >= 768 ? 80 : 64
+
+      // Padding (pt-20 = 80px on mobile, pt-24 = 96px on desktop)
+      const topPadding = window.innerWidth >= 768 ? 96 : 80
+
+      // Bottom margin/padding
+      const bottomPadding = 40
+
+      // Calculate available space for animation
+      const availableHeight = vh - headerHeight - topPadding - heroTextHeight - bottomPadding
+
+      // Apply ratio and constraints
+      let size = Math.floor(availableHeight * maxSizeRatio)
+      size = Math.max(minSize, Math.min(maxSize, size))
+
+      setAnimationSize(size)
+    }
+
+    // Calculate on mount
+    calculateSize()
+
+    // Recalculate on resize
+    window.addEventListener('resize', calculateSize)
+
+    // Also recalculate on orientation change (mobile)
+    window.addEventListener('orientationchange', calculateSize)
+
+    return () => {
+      window.removeEventListener('resize', calculateSize)
+      window.removeEventListener('orientationchange', calculateSize)
+    }
+  }, [heroTextHeight, maxSizeRatio, minSize, maxSize])
+
+  return (
+    <motion.div
+      ref={containerRef}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6 }}
+      className={`flex justify-center items-center ${className}`}
+    >
+      <div
+        className="transition-all duration-300 ease-out"
+        style={{
+          width: animationSize,
+          height: animationSize,
+          maxWidth: '100%',
+        }}
+      >
+        <LottieWrapper
+          animationUrl={lottieUrl}
+          className="w-full h-full"
+          speed={speed}
+          loop={loop}
+          autoplay={isActive}
+          priority={priority}
+          freezeAfterFirstLoop={!keepPlayingOnMobile}
+          mobileOptimized={true}
+        />
+      </div>
+    </motion.div>
+  )
+}

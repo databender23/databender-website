@@ -3,6 +3,7 @@ export { default as FloatingNodes } from "./FloatingNodes";
 export { default as CountUp } from "./CountUp";
 export { ServiceAnimation } from "./ServiceAnimations";
 export { default as ResponsiveAnimation } from "./ResponsiveAnimation";
+export { default as HeroLottie } from "./HeroLottie";
 
 // Framer Motion animation components (mobile-optimized)
 export { default as HeroDataAnimation } from "./HeroDataAnimation";

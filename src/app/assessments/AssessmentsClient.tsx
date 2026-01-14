@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { ResponsiveAnimation, DataVizAnimation } from "@/components/animations";
+import { HeroLottie } from "@/components/animations";
 
 interface Assessment {
   slug: string;
@@ -107,19 +107,15 @@ export default function AssessmentsClient() {
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            {/* Animation - Above on desktop, below on mobile */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="w-full max-w-xs sm:max-w-sm md:max-w-md mb-8 order-last md:order-first mt-8 md:mt-0"
-            >
-              <ResponsiveAnimation
-                lottieUrl="/animations/automation.json"
-                MobileComponent={DataVizAnimation}
-                className="w-full aspect-square"
-              />
-            </motion.div>
+            {/* Animation - dynamically sized to fit viewport */}
+            <HeroLottie
+              lottieUrl="/animations/automation.json"
+              className="mb-6"
+              loop={true}
+              heroTextHeight={300}
+              maxSize={350}
+              minSize={150}
+            />
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}

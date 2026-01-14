@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { ResponsiveAnimation, DataVizAnimation } from "@/components/animations";
+import { HeroLottie } from "@/components/animations";
 import { industries } from "@/lib/industries-data";
 
 const IndustryIcon = ({ icon }: { icon: string }) => {
@@ -49,22 +49,15 @@ export default function IndustriesClient() {
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation - Above Hero */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="flex justify-center items-center mb-8"
-          >
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-              <ResponsiveAnimation
-                lottieUrl="/animations/data-viz.json"
-                MobileComponent={DataVizAnimation}
-                loop={true}
-                className="w-full aspect-square"
-              />
-            </div>
-          </motion.div>
+          {/* Lottie Animation - dynamically sized to fit viewport */}
+          <HeroLottie
+            lottieUrl="/animations/data-viz.json"
+            className="mb-6"
+            loop={true}
+            heroTextHeight={320}
+            maxSize={380}
+            minSize={180}
+          />
 
           {/* Hero Content */}
           <div className="max-w-3xl mx-auto text-center">

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { ResponsiveAnimation, RoadmapAnimation } from "@/components/animations";
+import { HeroLottie } from "@/components/animations";
 import Link from "next/link";
 
 interface ProcessPhase {
@@ -165,23 +165,15 @@ export default function OurProcessClient() {
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="flex justify-center items-center mb-8"
-          >
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-              <ResponsiveAnimation
-                lottieUrl="/animations/workflow-process.json"
-                MobileComponent={RoadmapAnimation}
-                loop={true}
-                speed={1}
-                className="w-full aspect-square"
-              />
-            </div>
-          </motion.div>
+          {/* Lottie Animation - dynamically sized to fit viewport */}
+          <HeroLottie
+            lottieUrl="/animations/workflow-process.json"
+            className="mb-6"
+            loop={true}
+            heroTextHeight={350}
+            maxSize={350}
+            minSize={150}
+          />
 
           {/* Hero Content */}
           <div className="max-w-3xl mx-auto text-center">
