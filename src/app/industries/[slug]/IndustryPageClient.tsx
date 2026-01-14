@@ -9,7 +9,7 @@ import { industryContent, type IndustryWithCta } from "@/lib/industries-data";
 
 // Crop percentages per industry (crops from top)
 const INDUSTRY_CROPS: Record<string, number> = {
-  "commercial-real-estate": 20,
+  "commercial-real-estate": 30,
 };
 
 interface Props {

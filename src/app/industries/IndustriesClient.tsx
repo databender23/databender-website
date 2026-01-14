@@ -57,6 +57,7 @@ export default function IndustriesClient() {
             heroTextHeight={280}
             maxSize={420}
             minSize={200}
+            cropTop={10}
           />
 
           {/* Hero Content */}
