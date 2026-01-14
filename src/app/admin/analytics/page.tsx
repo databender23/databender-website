@@ -490,23 +490,24 @@ export default function AnalyticsDashboard() {
               isLoading={sourcesLoading}
             />
             <GeographicBreakdownNew
-              countries={geographicData?.byRegion?.map(r => ({
-                country: r.country,
-                sessions: r.sessions,
-                uniqueVisitors: r.visitors,
-                conversions: r.leads,
-                conversionRate: r.visitors > 0 ? (r.leads / r.visitors) * 100 : 0,
-                avgScore: 0,
+              cities={geographicData?.byCity?.map(c => ({
+                city: c.city,
+                region: c.region,
+                regionCode: c.regionCode,
+                country: c.country,
+                visitors: c.visitors,
+                leads: c.leads,
               })) || []}
               regions={geographicData?.byRegion?.filter(r => r.country === "United States" || r.countryCode === "US").map(r => ({
                 region: r.region,
                 sessions: r.sessions,
-                conversions: r.leads,
-                conversionRate: r.visitors > 0 ? (r.leads / r.visitors) * 100 : 0,
+                visitors: r.visitors,
+                leads: r.leads,
               })) || []}
               summary={{
-                totalCountries: geographicData?.summary?.uniqueCountries || 0,
-                topCountry: geographicData?.summary?.topCountry || "N/A",
+                totalCities: geographicData?.byCity?.length || 0,
+                topCity: geographicData?.byCity?.[0]?.city || "N/A",
+                topCityRegion: geographicData?.byCity?.[0]?.regionCode || "",
                 usPercent: geographicData?.summary?.totalVisitors ? Math.round(
                   (geographicData.byRegion?.filter(r => r.country === "United States" || r.countryCode === "US")
                     .reduce((sum, r) => sum + r.visitors, 0) / geographicData.summary.totalVisitors) * 100
