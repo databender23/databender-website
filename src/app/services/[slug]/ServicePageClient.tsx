@@ -86,7 +86,7 @@ interface Props {
   service: ConsolidatedService;
 }
 
-// Lottie animation URLs (use .json for now - .lottie conversion may have issues)
+// Lottie animation URLs (using .json format for lottie-react)
 const LOTTIE_URLS: Record<string, string> = {
   "data-ai-strategy": "/animations/data-management.json",
   "analytics-bi": "/animations/analytics-bi.json",
