@@ -93,6 +93,8 @@ export default function LottieWrapper({
   const [isReady, setIsReady] = useState(false);
   const [hasCompletedFirstLoop, setHasCompletedFirstLoop] = useState(false);
   const loopCountRef = useRef(0);
+  // Ref to track isMobile for use in event listeners (avoids stale closure)
+  const isMobileRef = useRef(false);
 
   // Lazy load trigger - only load when close to viewport
   // Priority animations load immediately
@@ -109,6 +111,7 @@ export default function LottieWrapper({
         ('ontouchstart' in window) ||
         (navigator.maxTouchPoints > 0);
       setIsMobile(mobile);
+      isMobileRef.current = mobile; // Keep ref in sync for event listeners
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -137,11 +140,17 @@ export default function LottieWrapper({
 
   const src = getSrc();
 
-  // Set speed when ready
+  // Set speed when ready - add small delay to ensure isMobile detection has settled
   useEffect(() => {
     if (!dotLottieRef.current || !isReady) return;
-    const effectiveSpeed = isMobile && mobileOptimized ? speed * mobileSpeed : speed;
-    dotLottieRef.current.setSpeed(effectiveSpeed);
+
+    // Small timeout to ensure isMobile has settled after hydration
+    const timer = setTimeout(() => {
+      const effectiveSpeed = isMobileRef.current && mobileOptimized ? speed * mobileSpeed : speed;
+      dotLottieRef.current?.setSpeed(effectiveSpeed);
+    }, 50);
+
+    return () => clearTimeout(timer);
   }, [isReady, speed, isMobile, mobileOptimized, mobileSpeed]);
 
   // Handle play/pause based on viewport
@@ -184,16 +193,17 @@ export default function LottieWrapper({
       });
 
       // Listen for loop completion to freeze after first loop on mobile
+      // Use isMobileRef to get current value (not stale closure)
       ref.addEventListener('loop', () => {
         loopCountRef.current += 1;
-        if (isMobile && mobileOptimized && freezeAfterFirstLoop && loopCountRef.current >= 1) {
+        if (isMobileRef.current && mobileOptimized && freezeAfterFirstLoop && loopCountRef.current >= 1) {
           setHasCompletedFirstLoop(true);
           // Pause at current frame instead of stopping
           ref.pause();
         }
       });
     }
-  }, [isMobile, mobileOptimized, freezeAfterFirstLoop]);
+  }, [mobileOptimized, freezeAfterFirstLoop]);
 
   // Show static image for reduced motion or mobile static mode
   if (showStatic && staticImage) {
@@ -227,8 +237,12 @@ export default function LottieWrapper({
   // Effective loop - disable looping if already completed first loop on mobile
   const effectiveLoop = hasCompletedFirstLoop ? false : loop;
 
-  // Mobile render config - use native resolution for sharp rendering
-  const renderConfig = undefined;
+  // Mobile render config - optimize for performance
+  const renderConfig = {
+    devicePixelRatio: isMobile ? 1 : (typeof window !== 'undefined' ? window.devicePixelRatio * 0.75 : 1),
+    freezeOnOffscreen: true,
+    autoResize: true,
+  };
 
   return (
     <div
