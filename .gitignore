@@ -52,3 +52,5 @@ scripts/generate-*-pdf.html
 # chat logs (contains user data)
 /logs
 to_delete/
+scripts/
+test-*.ts
