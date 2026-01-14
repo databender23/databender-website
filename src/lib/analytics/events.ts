@@ -41,7 +41,9 @@ export interface TrackedEvent extends AnalyticsEvent {
   // Server-side enrichment
   ip?: string;
   country?: string;
+  countryCode?: string;
   region?: string;
+  regionCode?: string;
   city?: string;
   isBot?: boolean;
   browser?: string;
@@ -68,7 +70,10 @@ export interface Session {
   conversionType?: string;
   // Enhanced session data
   country?: string;
+  countryCode?: string;
   region?: string;
+  regionCode?: string;
+  city?: string;
   referrerSource?: string;
   referrerMedium?: string;
   isReturning?: boolean;

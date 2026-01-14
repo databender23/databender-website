@@ -125,7 +125,13 @@ Defined in `src/app/globals.css` using Tailwind CSS 4's `@theme` directive:
 - `/api/admin/analytics/companies` - Company identification data
 - `/api/admin/analytics/attribution` - Marketing attribution data
 - `/api/admin/analytics/summary` - Daily summary cron endpoint
+- `/api/admin/dashboard` - Lead Generation Command Center data
+- `/api/admin/leads` - Lead listing with filters and pagination
+- `/api/admin/leads/[leadId]` - Individual lead CRUD
+- `/api/admin/leads/[leadId]/notes` - Add notes to lead
+- `/api/admin/leads/[leadId]/contacts` - Record contact attempts
 - `/api/admin/leads/export` - Lead export with filtering (CSV format)
+- `/api/admin/leads/stats` - Lead statistics
 - `/api/cron/sequences/process` - Daily cron to send scheduled nurture emails
 - `/api/leads/webhook` - External webhook for automation tools (Instantly, Apollo.io, Dripify)
 
@@ -231,9 +237,17 @@ All Lottie animations use the optimized `LottieWrapper` component (`src/componen
 ### Admin Pages
 
 - `/admin/login` - Admin authentication page
-- `/admin/analytics` - Analytics dashboard
-- `/admin/analytics/attribution` - Marketing attribution dashboard
+- `/admin/dashboard` - **Lead Generation Command Center** (main admin landing page)
+  - Action Required cards (hot leads, new today, need follow-up)
+  - Priority leads list (high-score, not contacted)
+  - Lead generation funnel visualization
+  - Top converting pages
+  - Outreach coverage (LinkedIn/Email progress)
+  - Channel quality by avg lead score
 - `/admin/leads` - Lead management hub with filtering, contact tracking, and export
+- `/admin/leads/[leadId]` - Individual lead detail with notes, contact history, status updates
+- `/admin/analytics` - Full analytics dashboard (pageviews, sessions, engagement)
+- `/admin/analytics/attribution` - Marketing attribution dashboard
 
 ### Case Study Pages
 
@@ -283,7 +297,10 @@ The site has a comprehensive notification system in `src/lib/notifications/`:
 - **Email Summaries** (`email-summary.ts`): Daily analytics digest via AWS SES
 - **Chat Notifications** (`chat-logger.ts`): Email + Slack alerts for chat conversations
 
-**Slack webhook format**: Uses simple `{ text: "..." }` format (not blocks) for webhook compatibility.
+**Slack Configuration:**
+- **Channel**: `#web-analytics`
+- **Webhook format**: Uses simple `{ text: "..." }` format (not blocks) for webhook compatibility
+- Admin page visits are excluded from notifications
 
 ### AWS SES Configuration
 
@@ -422,9 +439,42 @@ Lead hub at `/admin/leads` with:
 | `add_note` | Add notes from automation tools |
 | `update_tier` | Update lead tier |
 
+### DynamoDB Tables
+
+All tables in `us-east-1` region:
+
+| Table | Purpose | Key Schema |
+|-------|---------|------------|
+| `databender-leads` | Lead storage and management | `pk` (LEAD#{email}), `sk` (#CREATED#{timestamp}) |
+| `databender-analytics-events` | Raw analytics events | `pk`, `sk` |
+| `databender-analytics-sessions` | Session aggregates | `pk`, `sk` |
+| `databender-analytics-conversions` | Conversion paths | `pk`, `sk` |
+
+**GSIs on leads table:**
+- `status-createdAt-index` - Filter by lead status
+- `industry-createdAt-index` - Filter by industry
+- `tier-behaviorScore-index` - Prioritize high-value leads
+- `visitorId-createdAt-index` - Link multiple submissions
+
+### Utility Scripts
+
+Located in `scripts/`:
+
+```bash
+# Seed sample leads for testing
+AWS_PROFILE=databender npx tsx scripts/seed-sample-leads.ts
+
+# Clear all DynamoDB tables (analytics + leads)
+AWS_PROFILE=databender npx tsx scripts/clear-tables.ts
+```
+
 ### Pending Infrastructure Tasks
 
 - **Domain Transfer**: Transfer `databender.co` from SiteGround to AWS Route 53
   - Status: DNS managed at SiteGround (pointing to Amplify)
   - Remaining: Transfer domain registration from SiteGround (Tucows) to AWS
   - Steps: Unlock domain → Get auth code → Transfer via Route 53 console
+
+- **Daily Cron**: Set up scheduled trigger for `/api/cron/sequences/process`
+  - Requires: CloudWatch Events or external cron service
+  - Auth: `Authorization: Bearer {CRON_SECRET}` header

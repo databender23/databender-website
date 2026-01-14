@@ -3,10 +3,10 @@ import { v4 as uuidv4 } from "uuid";
 import { trackEvent, updateSession, storeConversionPath } from "@/lib/analytics/dynamodb";
 import type { AnalyticsEvent, TrackedEvent, PageJourneyStep, ConversionPath } from "@/lib/analytics/events";
 import { lookupCompany, type CompanyInfo } from "@/lib/analytics/company-lookup";
+import { getGeoFromIP } from "@/lib/analytics/geolocation";
 import {
   calculateEventScore,
   getLeadTier,
-  BEHAVIOR_SCORES,
 } from "@/lib/analytics/lead-scoring";
 import { sendSlackAlert, shouldAlertForScore } from "@/lib/notifications/slack";
 
@@ -15,7 +15,7 @@ import { sendSlackAlert, shouldAlertForScore } from "@/lib/notifications/slack";
 const alertedSessions = new Map<string, {
   leadTier?: string;
   companyAlerted?: boolean;
-  geoData?: { country?: string; region?: string; city?: string };
+  geoData?: { country?: string; region?: string; regionCode?: string; city?: string; countryCode?: string };
 }>();
 
 // Clean up old entries periodically (simple in-memory cache)
@@ -240,27 +240,16 @@ function parseReferrerSource(referrer: string | undefined, utm?: { source?: stri
   }
 }
 
-async function getGeoLocation(ip: string): Promise<{ country?: string; region?: string; city?: string }> {
-  // Skip local/private IPs
-  if (ip === "127.0.0.1" || ip === "::1" || ip.startsWith("192.168.") || ip.startsWith("10.")) {
-    return {};
-  }
-
-  try {
-    // Using ip-api.com (free tier: 45 requests/minute)
-    const response = await fetch(`http://ip-api.com/json/${ip}?fields=country,regionName,city`, {
-      signal: AbortSignal.timeout(2000),
-    });
-    if (!response.ok) return {};
-    const data = await response.json();
-    return {
-      country: data.country,
-      region: data.regionName,
-      city: data.city,
-    };
-  } catch {
-    return {};
-  }
+async function getGeoLocation(ip: string): Promise<{ country?: string; region?: string; regionCode?: string; city?: string; countryCode?: string }> {
+  const geoData = await getGeoFromIP(ip);
+  if (!geoData) return {};
+  return {
+    country: geoData.country,
+    region: geoData.region,
+    regionCode: geoData.regionCode,
+    city: geoData.city,
+    countryCode: geoData.countryCode,
+  };
 }
 
 export async function POST(request: NextRequest) {
@@ -308,7 +297,7 @@ export async function POST(request: NextRequest) {
     const botDetected = isBot(userAgent || null);
 
     // Get geolocation (only for pageviews to limit API calls)
-    let geoData: { country?: string; region?: string; city?: string } = {};
+    let geoData: { country?: string; region?: string; regionCode?: string; city?: string; countryCode?: string } = {};
     if (event.eventType === "pageview" && ip && !botDetected) {
       geoData = await getGeoLocation(ip);
     }
@@ -372,7 +361,10 @@ export async function POST(request: NextRequest) {
         device,
         isConverted: false,
         country: geoData.country,
+        countryCode: geoData.countryCode,
         region: geoData.region,
+        regionCode: geoData.regionCode,
+        city: geoData.city,
         referrerSource,
         referrerMedium,
         isReturning: isReturning || false,

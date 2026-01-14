@@ -11,7 +11,12 @@ function ScrollToTop() {
   const pathname = usePathname()
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    // Use multiple methods for cross-browser/mobile compatibility
+    // iOS Safari sometimes ignores window.scrollTo without the options object
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    // Fallback for older browsers and edge cases
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
   }, [pathname])
 
   return null
