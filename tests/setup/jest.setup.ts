@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom'
+import React from 'react'
 
 // Mock Next.js router
 jest.mock('next/navigation', () => ({
@@ -13,28 +14,40 @@ jest.mock('next/navigation', () => ({
 }))
 
 // Mock framer-motion to avoid animation issues in tests
-jest.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    p: ({ children, ...props }: any) => <p {...props}>{children}</p>,
-    h1: ({ children, ...props }: any) => <h1 {...props}>{children}</h1>,
-    h2: ({ children, ...props }: any) => <h2 {...props}>{children}</h2>,
-    h3: ({ children, ...props }: any) => <h3 {...props}>{children}</h3>,
-    section: ({ children, ...props }: any) => <section {...props}>{children}</section>,
-    article: ({ children, ...props }: any) => <article {...props}>{children}</article>,
-    form: ({ children, ...props }: any) => <form {...props}>{children}</form>,
-    input: (props: any) => <input {...props} />,
-    a: ({ children, ...props }: any) => <a {...props}>{children}</a>,
-  },
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-  useAnimation: () => ({
-    start: jest.fn(),
-    stop: jest.fn(),
-  }),
-  useInView: () => true,
-}))
+// Using React.createElement instead of JSX for setup file compatibility
+jest.mock('framer-motion', () => {
+  const createMotionComponent = (tag: string) => {
+    return ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => {
+      return React.createElement(tag, props, children)
+    }
+  }
+
+  return {
+    motion: {
+      div: createMotionComponent('div'),
+      span: createMotionComponent('span'),
+      button: createMotionComponent('button'),
+      p: createMotionComponent('p'),
+      h1: createMotionComponent('h1'),
+      h2: createMotionComponent('h2'),
+      h3: createMotionComponent('h3'),
+      section: createMotionComponent('section'),
+      article: createMotionComponent('article'),
+      form: createMotionComponent('form'),
+      input: createMotionComponent('input'),
+      a: createMotionComponent('a'),
+      img: createMotionComponent('img'),
+      ul: createMotionComponent('ul'),
+      li: createMotionComponent('li'),
+    },
+    AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
+    useAnimation: () => ({
+      start: jest.fn(),
+      stop: jest.fn(),
+    }),
+    useInView: () => true,
+  }
+})
 
 // Mock environment variables for tests
 process.env.DYNAMODB_REGION = 'us-east-1'
