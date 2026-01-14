@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="bg-white">
       {/* Newsletter Section */}
-      <div className="border-b border-black/5">
+      <div>
         <div className="container mx-auto px-6 py-12">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div className="max-w-md">
@@ -126,7 +126,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-black/10 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-text-muted text-sm">
             &copy; {currentYear} Databender. All rights reserved.
           </p>
