@@ -498,8 +498,8 @@ export default function LegalPageClient() {
         </div>
       </section>
 
-      {/* Predictive Analytics Section */}
-      <section id="predictive-analytics" className="section bg-[#F8F9FA] scroll-mt-24">
+      {/* Associate Enablement Section */}
+      <section id="associate-enablement" className="section bg-[#F8F9FA] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -510,7 +510,7 @@ export default function LegalPageClient() {
                   viewport={{ once: true }}
                   className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
                 >
-                  Predictive Analytics
+                  Associate Enablement
                 </motion.p>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
@@ -519,7 +519,7 @@ export default function LegalPageClient() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  Know Which Clients Will Actually Hire You
+                  Stop Losing Knowledge When Partners Retire
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -529,14 +529,14 @@ export default function LegalPageClient() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Business development spends hours on prospects who were never going to hire you.
-                    Meanwhile, the real opportunities get the same generic follow-up as everyone else.
-                    Your gut says some leads are better than others, but you can&apos;t prove it.
+                    A senior partner retires and 30 years of expertise walks out the door.
+                    Associates can&apos;t learn from work they never see. The same mistakes get made,
+                    the same research gets done, because nobody knows what the firm already figured out.
                   </p>
                   <p>
-                    We analyzed 3 years of pitch data for a client and built a model that predicts
-                    which prospects will convert. Result: <strong className="text-text-primary">31% higher win rate</strong> by
-                    focusing effort on the leads that actually close.
+                    We build systems that capture institutional knowledge and make it accessible.
+                    New associates tap into decades of firm experience from day one.
+                    Partners leave, but what they knew stays.
                   </p>
                 </motion.div>
                 <motion.div
@@ -546,8 +546,8 @@ export default function LegalPageClient() {
                   transition={{ delay: 0.3 }}
                   className="mt-6"
                 >
-                  <Button variant="secondary" href="/case-studies/what-predicts-lead-conversion" className="min-h-[48px]">
-                    See the Case Study
+                  <Button variant="secondary" href="/resources/guides/associate-multiplier" className="min-h-[48px]">
+                    Get the Associate Multiplier Guide
                   </Button>
                 </motion.div>
               </div>
@@ -560,25 +560,25 @@ export default function LegalPageClient() {
                 className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
               >
                 <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  What the model predicts
+                  What associates can access
                 </h3>
                 <ul className="space-y-3 sm:space-y-4">
                   {[
                     {
-                      title: "Which prospects will convert",
-                      description: "Score leads based on actual patterns from your wins and losses."
+                      title: "How partners handled similar issues",
+                      description: "See the actual approach taken on past matters, not just the final work product."
                     },
                     {
-                      title: "When to follow up",
-                      description: "Timing matters more than you think. Know when prospects are ready to move."
+                      title: "Firm-specific knowledge",
+                      description: "Client preferences, judge tendencies, strategies that worked. The stuff that's never written down."
                     },
                     {
-                      title: "What messaging works",
-                      description: "Different client types respond to different approaches. Stop guessing."
+                      title: "Training that scales",
+                      description: "Every associate gets access to your best attorneys' thinking, not just whoever's nearby."
                     },
                     {
-                      title: "Where to focus resources",
-                      description: "Your top partners' time is limited. Put it where it'll actually land work."
+                      title: "Fewer repeat mistakes",
+                      description: "When someone figures something out, the whole firm learns. Not just the people in that hallway."
                     },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-2 sm:gap-3">
@@ -592,7 +592,7 @@ export default function LegalPageClient() {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                         />
                       </svg>
                       <div>
