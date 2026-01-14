@@ -8,6 +8,7 @@ import {
 import type { LeadFormType } from "@/lib/leads/types";
 import { enrollAndSendDay0 } from "@/lib/sequences/processor";
 import { getGuideSequenceType } from "@/lib/sequences/types";
+import { BEHAVIOR_SCORES, getLeadTier } from "@/lib/analytics/lead-scoring";
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
@@ -184,9 +185,17 @@ export async function POST(request: Request) {
     (async () => {
       try {
         // Enrich with analytics data if visitorId/sessionId provided
-        let analyticsData = {};
+        let analyticsData: Record<string, unknown> = {};
         if (visitorId && sessionId) {
           analyticsData = await enrichLeadWithAnalytics(visitorId, sessionId);
+        }
+
+        // Add score boost for guide downloads - these are high-intent leads
+        if (formType === "guide") {
+          const existingScore = (analyticsData.behaviorScore as number) || 0;
+          const boostedScore = existingScore + BEHAVIOR_SCORES.GUIDE_DOWNLOAD;
+          analyticsData.behaviorScore = boostedScore;
+          analyticsData.behaviorTier = getLeadTier(boostedScore);
         }
 
         const lead = await createLead({
@@ -205,7 +214,7 @@ export async function POST(request: Request) {
           sessionId,
           ...analyticsData,
         });
-        console.log(`Lead created for ${email}`);
+        console.log(`Lead created for ${email} (score: ${analyticsData.behaviorScore || 0})`);
 
         // Enroll guide downloads in email sequence
         if (formType === "guide" && resourceSlug) {

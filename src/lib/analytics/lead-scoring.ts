@@ -54,6 +54,7 @@ export const BEHAVIOR_SCORES = {
   // Form engagement
   FORM_SUBMITTED: 50,
   ASSESSMENT_COMPLETED: 40,
+  GUIDE_DOWNLOAD: 75, // High-intent action - prioritize immediately
 
   // Session engagement
   MULTIPLE_PAGES_SESSION: 15, // 3+ pages in session
