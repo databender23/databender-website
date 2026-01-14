@@ -351,7 +351,7 @@ export default function LegalPageClient() {
                     },
                     {
                       title: "Research memos and opinions",
-                      description: "All that analysis your associates wrote—now it's findable."
+                      description: "All that analysis your associates wrote? Now it's findable."
                     },
                     {
                       title: "Deposition transcripts",
@@ -417,7 +417,7 @@ export default function LegalPageClient() {
                       },
                       {
                         title: "Conflict checks automated",
-                        description: "Run comprehensive checks in minutes instead of hours."
+                        description: "Run full conflict checks in minutes instead of hours."
                       },
                     ].map((item, index) => (
                       <li key={index} className="flex items-start gap-2 sm:gap-3">
