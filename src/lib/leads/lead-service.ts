@@ -68,6 +68,8 @@ export async function createLead(input: CreateLeadInput): Promise<Lead> {
         assessmentScores: input.assessmentScores,
       }),
       ...(input.assessmentTier && { assessmentTier: input.assessmentTier }),
+      // Update lead source if provided (for re-imports)
+      ...(input.leadSource && { leadSource: input.leadSource }),
       lastActivityAt: now,
     };
 

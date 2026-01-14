@@ -41,6 +41,11 @@ export function categorizeSource(
 
   const ref = referrer.toLowerCase();
 
+  // Internal referrers (same site) = direct
+  if (ref.includes("databender.co") || ref.includes("databender.com")) {
+    return "direct";
+  }
+
   // Social platforms
   if (ref.includes("linkedin.com")) {
     return "linkedin";
