@@ -15,8 +15,14 @@ export default function AdminNav() {
     <nav className="bg-bg-primary border-b border-border">
       <div className="container py-4 flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link href="/admin/analytics" className="font-bold text-xl text-text-primary">
-            Databender Admin
+          <Link href="/admin/dashboard" className="flex items-center gap-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/logo-icon.png"
+              alt="Databender"
+              className="h-8 w-8"
+            />
+            <span className="font-bold text-lg text-text-primary">Admin</span>
           </Link>
           <div className="flex gap-6">
             <Link
