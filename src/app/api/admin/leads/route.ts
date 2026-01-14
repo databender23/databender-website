@@ -110,7 +110,12 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error fetching leads:", error);
-    return NextResponse.json({ error: "Failed to fetch leads" }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return NextResponse.json({
+      error: "Failed to fetch leads",
+      details: errorMessage,
+      region: process.env.DYNAMODB_REGION || "us-east-1"
+    }, { status: 500 });
   }
 }
 

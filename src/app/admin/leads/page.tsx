@@ -65,11 +65,13 @@ export default function LeadsDashboard() {
       }
 
       const response = await fetch(`/api/admin/leads?${params.toString()}`);
-      if (!response.ok) throw new Error("Failed to fetch leads");
       const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.details || result.error || "Failed to fetch leads");
+      }
       setData(result);
-    } catch {
-      setError("Failed to load leads data");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load leads data");
     } finally {
       setLoading(false);
     }
