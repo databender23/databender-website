@@ -302,6 +302,81 @@ The site includes a custom analytics system (`src/lib/analytics/`) that tracks:
 
 Data is stored in DynamoDB and viewable in the admin dashboard at `/admin/analytics`.
 
+### SEO & Structured Data
+
+The site implements comprehensive SEO for both traditional search engines and AI search tools.
+
+**Schema.org Structured Data (`src/lib/schema.ts`):**
+- `organizationSchema()` - Company info, used on homepage
+- `serviceSchema(service)` - Service structured data
+- `caseStudySchema(study)` - Case study as Article schema
+- `breadcrumbSchema(items)` - Breadcrumb navigation
+- `reviewSchema(testimonials)` - Aggregate reviews from testimonials
+- `faqSchema(faqs)` - FAQ page schema
+
+**Usage in pages:**
+```tsx
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+
+// In page component:
+const breadcrumbs = [
+  { name: "Home", url: "/" },
+  { name: "Services", url: "/services" },
+  { name: service.title, url: `/services/${service.slug}` },
+];
+
+return (
+  <>
+    <JsonLd data={breadcrumbSchema(breadcrumbs)} />
+    <JsonLd data={serviceSchema(service)} />
+    <ServicePageClient service={service} />
+  </>
+);
+```
+
+**Pages with structured data:**
+- Homepage: `organizationSchema`
+- `/services`: `faqSchema` with FAQ section
+- `/services/[slug]`: `serviceSchema` + `breadcrumbSchema`
+- `/case-studies`: `reviewSchema` from testimonials
+- `/case-studies/[slug]`: `caseStudySchema` + `breadcrumbSchema`
+- `/blog/[slug]`: `breadcrumbSchema`
+- `/industries/[slug]`: `breadcrumbSchema`
+- `/resources/guides/[slug]`: `breadcrumbSchema`
+
+**AI Search Optimization:**
+- `public/llms.txt` - Comprehensive content for AI crawlers (Claude, ChatGPT, Perplexity)
+- `src/app/robots.ts` - Allows AI crawlers: GPTBot, Claude-Web, PerplexityBot, Googlebot-Extended, etc.
+- `src/app/sitemap.ts` - Dynamic sitemap with all pages
+
+**FAQ Component (`src/components/sections/FAQ.tsx`):**
+Reusable FAQ section with Framer Motion animations. Use with `faqSchema()` for structured data.
+
+```tsx
+import { FAQ } from "@/components/sections";
+import { faqSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/seo/JsonLd";
+
+const faqs = [
+  { question: "What services do you offer?", answer: "..." },
+  { question: "How long do projects take?", answer: "..." },
+];
+
+return (
+  <>
+    <JsonLd data={faqSchema(faqs)} />
+    <FAQ faqs={faqs} />
+  </>
+);
+```
+
+**When adding new pages:**
+1. Add appropriate schema (breadcrumbs for nested pages, specific schema for content type)
+2. Include in sitemap.ts if dynamic route
+3. Ensure images have descriptive alt text
+4. Consider adding FAQ section for key pages
+
 ### Email Sequence System
 
 Automated nurture email sequences in `src/lib/sequences/`:
