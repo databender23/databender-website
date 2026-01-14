@@ -35,24 +35,34 @@ export async function putLead(lead: Lead): Promise<void> {
 
 /**
  * Get a lead by leadId (requires scan with filter)
+ * Note: This scans the entire table - consider adding a GSI on leadId for better performance
  */
 export async function getLead(leadId: string): Promise<Lead | null> {
   const client = getClient();
 
-  const result = await client.send(
-    new ScanCommand({
+  let lastEvaluatedKey: Record<string, unknown> | undefined;
+
+  do {
+    const params: ScanCommandInput = {
       TableName: LEADS_TABLE,
       FilterExpression: "leadId = :leadId",
       ExpressionAttributeValues: {
         ":leadId": leadId,
       },
-      Limit: 1,
-    })
-  );
+    };
 
-  if (result.Items && result.Items.length > 0) {
-    return result.Items[0] as Lead;
-  }
+    if (lastEvaluatedKey) {
+      params.ExclusiveStartKey = lastEvaluatedKey;
+    }
+
+    const result = await client.send(new ScanCommand(params));
+
+    if (result.Items && result.Items.length > 0) {
+      return result.Items[0] as Lead;
+    }
+
+    lastEvaluatedKey = result.LastEvaluatedKey as Record<string, unknown> | undefined;
+  } while (lastEvaluatedKey);
 
   return null;
 }
