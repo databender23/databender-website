@@ -14,6 +14,7 @@ import {
   setFirstTouchAttribution,
   getFirstTouchAttribution,
   getFirstVisitDate,
+  isExcludedVisitor,
   type FirstTouchAttribution,
 } from "./visitor-id";
 import type { AnalyticsEvent, EventType, UTMParams, PageJourneyStep } from "./events";
@@ -125,6 +126,9 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   const firstTouchRef = useRef<FirstTouchAttribution | null>(null);
   const firstVisitDateRef = useRef<string | null>(null);
 
+  // Exclusion tracking (for internal team members)
+  const isExcludedRef = useRef<boolean>(false);
+
   // Initialize IDs on mount
   useEffect(() => {
     visitorIdRef.current = getVisitorId();
@@ -134,6 +138,9 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     visitCountRef.current = getVisitCount();
     sessionStartTimeRef.current = new Date().toISOString();
     utmParamsRef.current = getUTMParams();
+
+    // Check if this visitor should be excluded from analytics
+    isExcludedRef.current = isExcludedVisitor(visitorIdRef.current);
 
     // Get existing first-touch attribution or set it on first visit
     const existingFirstTouch = getFirstTouchAttribution();
@@ -197,6 +204,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const handleBeforeUnload = () => {
       if (!lastPathRef.current || pageEntryTimeRef.current === 0) return;
+      if (isExcludedRef.current) return; // Skip analytics for excluded visitors
       const timeOnPage = Math.round((Date.now() - pageEntryTimeRef.current) / 1000);
 
       // Use sendBeacon for reliable exit tracking (includes lead score data)
@@ -224,6 +232,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   // Track page views on route change
   useEffect(() => {
     if (!pathname || pathname === lastPathRef.current) return;
+    if (isExcludedRef.current) return; // Skip analytics for excluded visitors
 
     // Send page_exit for previous page
     if (lastPathRef.current && pageEntryTimeRef.current > 0) {
@@ -298,6 +307,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   // Track scroll depth
   useEffect(() => {
     const handleScroll = () => {
+      if (isExcludedRef.current) return; // Skip analytics for excluded visitors
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight <= 0) return;
@@ -343,6 +353,8 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   const trackEvent = useCallback((eventType: EventType, data?: Record<string, string | number | boolean>) => {
+    if (isExcludedRef.current) return; // Skip analytics for excluded visitors
+
     // Update lead score for this event type
     const eventScore = calculateEventScore(eventType, lastPathRef.current || pathname, data);
     leadScoreRef.current += eventScore;
@@ -373,6 +385,8 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   }, [trackEvent]);
 
   const trackFormSubmit = useCallback((formName: string, success: boolean) => {
+    if (isExcludedRef.current) return; // Skip analytics for excluded visitors
+
     // Update lead score for form submit
     const eventScore = calculateEventScore("form_submit", lastPathRef.current || pathname, { formName, success });
     leadScoreRef.current += eventScore;
@@ -414,6 +428,8 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   }, [trackEvent]);
 
   const trackChatLead = useCallback(() => {
+    if (isExcludedRef.current) return; // Skip analytics for excluded visitors
+
     // Update lead score for chat lead
     const eventScore = calculateEventScore("chat_lead_detected", lastPathRef.current || pathname);
     leadScoreRef.current += eventScore;

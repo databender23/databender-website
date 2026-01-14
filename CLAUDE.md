@@ -452,6 +452,22 @@ The site includes a custom analytics system (`src/lib/analytics/`) that tracks:
 
 Data is stored in DynamoDB and viewable in the admin dashboard at `/admin/analytics`.
 
+**Excluding Internal Team from Analytics:**
+
+Internal team members can be excluded from analytics tracking by adding their visitor ID to the `EXCLUDED_VISITOR_IDS` set in `src/lib/analytics/visitor-id.ts`.
+
+To find your visitor ID: Open browser DevTools → Application → Local Storage → look for `db_visitor_id`.
+
+```typescript
+// src/lib/analytics/visitor-id.ts
+const EXCLUDED_VISITOR_IDS = new Set([
+  "2ae176ee-90d0-4bb9-8ba3-fe231fdcb1e9", // Grant Bender
+  // Add more team member IDs here with a comment identifying them
+]);
+```
+
+Excluded visitors will not generate any analytics events (pageviews, scroll depth, clicks, form submissions, chat events).
+
 ### SEO & Structured Data
 
 The site implements comprehensive SEO for both traditional search engines and AI search tools.

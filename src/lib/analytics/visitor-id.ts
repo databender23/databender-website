@@ -1,5 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 
+// Visitor IDs to exclude from analytics (internal team members)
+const EXCLUDED_VISITOR_IDS = new Set([
+  "2ae176ee-90d0-4bb9-8ba3-fe231fdcb1e9", // Grant Bender
+]);
+
 const VISITOR_ID_KEY = "db_visitor_id";
 const SESSION_ID_KEY = "db_session_id";
 const SESSION_EXPIRY_KEY = "db_session_expiry";
@@ -39,6 +44,14 @@ export function getVisitorId(): string {
     localStorage.setItem(VISIT_COUNT_KEY, "1");
   }
   return visitorId;
+}
+
+/**
+ * Check if a visitor ID should be excluded from analytics tracking.
+ * Used to filter out internal team members from analytics data.
+ */
+export function isExcludedVisitor(visitorId: string): boolean {
+  return EXCLUDED_VISITOR_IDS.has(visitorId);
 }
 
 export function isReturningVisitor(): boolean {

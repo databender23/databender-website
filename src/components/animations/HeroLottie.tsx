@@ -42,6 +42,12 @@ interface HeroLottieProps {
    * Default: 400
    */
   maxSize?: number
+  /**
+   * Percentage of animation height to crop from the top (0-50).
+   * Useful for Lottie files with built-in whitespace.
+   * Default: 0
+   */
+  cropTop?: number
 }
 
 /**
@@ -63,6 +69,7 @@ export default function HeroLottie({
   maxSizeRatio = 0.9,
   minSize = 150,
   maxSize = 400,
+  cropTop = 0,
 }: HeroLottieProps) {
   const [animationSize, setAnimationSize] = useState<number>(maxSize)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -106,6 +113,10 @@ export default function HeroLottie({
     }
   }, [heroTextHeight, maxSizeRatio, minSize, maxSize])
 
+  // Calculate crop offset in pixels
+  const cropOffset = cropTop > 0 ? Math.floor(animationSize * (cropTop / 100)) : 0
+  const visibleHeight = animationSize - cropOffset
+
   return (
     <motion.div
       ref={containerRef}
@@ -115,23 +126,31 @@ export default function HeroLottie({
       className={`flex justify-center items-center ${className}`}
     >
       <div
-        className="transition-all duration-300 ease-out"
+        className="transition-all duration-300 ease-out overflow-hidden"
         style={{
           width: animationSize,
-          height: animationSize,
+          height: cropTop > 0 ? visibleHeight : animationSize,
           maxWidth: '100%',
         }}
       >
-        <LottieWrapper
-          animationUrl={lottieUrl}
-          className="w-full h-full"
-          speed={speed}
-          loop={loop}
-          autoplay={isActive}
-          priority={priority}
-          freezeAfterFirstLoop={!keepPlayingOnMobile}
-          mobileOptimized={true}
-        />
+        <div
+          style={{
+            width: animationSize,
+            height: animationSize,
+            marginTop: cropTop > 0 ? -cropOffset : 0,
+          }}
+        >
+          <LottieWrapper
+            animationUrl={lottieUrl}
+            className="w-full h-full"
+            speed={speed}
+            loop={loop}
+            autoplay={isActive}
+            priority={priority}
+            freezeAfterFirstLoop={!keepPlayingOnMobile}
+            mobileOptimized={true}
+          />
+        </div>
       </div>
     </motion.div>
   )
