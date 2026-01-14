@@ -406,7 +406,7 @@ export default function HomePage() {
           {/* Lottie Animation - dynamically sized to fit viewport */}
           <HeroLottie
             lottieUrl="/animations/hero-data.json"
-            className="mb-4"
+            className=""
             loop={false}
             heroTextHeight={240}
             maxSize={580}
