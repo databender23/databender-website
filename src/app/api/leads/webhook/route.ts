@@ -128,7 +128,21 @@ export async function POST(request: Request): Promise<NextResponse<WebhookRespon
     }
 
     // Find lead by email
-    const lead = await getLeadByEmail(email);
+    let lead;
+    try {
+      lead = await getLeadByEmail(email);
+    } catch (dbError) {
+      console.error("DynamoDB error looking up lead:", dbError);
+      logWebhookCall(action, email, false, {
+        reason: "database_error",
+        error: dbError instanceof Error ? dbError.message : String(dbError)
+      });
+      return NextResponse.json(
+        { success: false, error: "Database error looking up lead" },
+        { status: 503 }
+      );
+    }
+
     if (!lead) {
       logWebhookCall(action, email, false, { reason: "lead_not_found" });
       return NextResponse.json(

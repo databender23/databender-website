@@ -46,19 +46,28 @@ export async function GET(request: NextRequest) {
   }
 
   // Process the unsubscribe
-  const success = await unsubscribeFromSequence(payload.email);
+  try {
+    const success = await unsubscribeFromSequence(payload.email);
 
-  if (success) {
+    if (success) {
+      return createHtmlResponse(
+        "Successfully Unsubscribed",
+        `You have been unsubscribed from our email sequence. You will no longer receive automated follow-up emails from us.`,
+        true
+      );
+    } else {
+      return createHtmlResponse(
+        "Unsubscribe Processed",
+        "Your unsubscribe request has been processed. If you continue to receive emails, please contact support.",
+        true
+      );
+    }
+  } catch (error) {
+    console.error("Unsubscribe error:", error);
     return createHtmlResponse(
-      "Successfully Unsubscribed",
-      `You have been unsubscribed from our email sequence. You will no longer receive automated follow-up emails from us.`,
-      true
-    );
-  } else {
-    return createHtmlResponse(
-      "Unsubscribe Processed",
-      "Your unsubscribe request has been processed. If you continue to receive emails, please contact support.",
-      true
+      "Something Went Wrong",
+      "We encountered an issue processing your request. Please try again later or contact support.",
+      false
     );
   }
 }
