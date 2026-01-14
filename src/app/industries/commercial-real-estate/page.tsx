@@ -4,7 +4,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Commercial Real Estate Data & AI Solutions | Deal Intelligence | Databender",
+  title: "Commercial Real Estate Data & AI Solutions | Deal Intelligence",
   description:
     "AI solutions for CRE professionals. Untangle complex ownership structures, speed up due diligence, and identify off-market opportunities before competitors. Data stays on your servers.",
   keywords: [

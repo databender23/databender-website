@@ -4,7 +4,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Manufacturing Data & AI Solutions | Private AI for Growth | Databender",
+  title: "Manufacturing Data & AI Solutions | Private AI for Growth",
   description: "On-premise AI for manufacturers. Clean messy customer data, score leads based on what actually predicts sales, and find any product spec in seconds. Your pricing and costs stay private.",
   keywords: [
     "manufacturing AI",

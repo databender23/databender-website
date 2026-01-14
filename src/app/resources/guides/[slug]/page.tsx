@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${guide.title} | Databender Resources`,
+    title: `${guide.title} | Free Guide`,
     description: guide.description,
     openGraph: {
       title: guide.title,
