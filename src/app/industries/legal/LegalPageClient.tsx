@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
 import { EmailCaptureForm } from "@/components/forms";
-import { ResponsiveAnimation, LegalAnimation } from "@/components/animations";
+import { HeroLottie } from "@/components/animations";
 import { legalAudits, legalGuides } from "@/lib/lead-magnets-data";
 import { industryContent } from "@/lib/industries-data";
 
@@ -46,16 +46,7 @@ const iconMap: Record<string, React.FC> = {
 
 export default function LegalPageClient() {
   const [selectedAudit, setSelectedAudit] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
   const content = industryContent["legal"];
-
-  // Detect mobile for conditional loop behavior
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   return (
     <>
@@ -66,22 +57,15 @@ export default function LegalPageClient() {
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation - Above Hero */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="flex justify-center items-center mb-8"
-          >
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-              <ResponsiveAnimation
-                lottieUrl={LEGAL_LOTTIE_URL}
-                MobileComponent={LegalAnimation}
-                loop={!isMobile}
-                className="w-full aspect-square"
-              />
-            </div>
-          </motion.div>
+          {/* Lottie Animation - dynamically sized to fit viewport */}
+          <HeroLottie
+            lottieUrl={LEGAL_LOTTIE_URL}
+            className="mb-6"
+            loop={true}
+            heroTextHeight={200}
+            maxSize={420}
+            minSize={200}
+          />
 
           {/* Hero Content */}
           <div className="max-w-3xl mx-auto text-center">

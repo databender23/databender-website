@@ -1,22 +1,11 @@
 "use client";
 
-import { ComponentType, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { ResponsiveAnimation, HealthcareAnimation, RealEstateAnimation, ManufacturingAnimation, ProfessionalServicesAnimation, FloatingNodes } from "@/components/animations";
+import { HeroLottie, FloatingNodes } from "@/components/animations";
 import { industryContent, type IndustryWithCta } from "@/lib/industries-data";
-
-const mobileAnimations: Record<string, ComponentType<{className?: string; isActive?: boolean}>> = {
-  'healthcare': HealthcareAnimation,
-  'commercial-real-estate': RealEstateAnimation,
-  'manufacturing': ManufacturingAnimation,
-  'professional-services': ProfessionalServicesAnimation,
-};
-
-// Industries that should not loop on mobile
-const noLoopOnMobile = ['commercial-real-estate', 'manufacturing'];
 
 interface Props {
   industry: IndustryWithCta;
@@ -25,19 +14,6 @@ interface Props {
 export default function IndustryPageClient({ industry }: Props) {
   const slug = industry.slug;
   const content = industryContent[slug];
-  const MobileComponent = mobileAnimations[slug];
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Detect mobile for conditional loop behavior
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  // Determine if animation should loop
-  const shouldLoop = !(isMobile && noLoopOnMobile.includes(slug));
 
   const defaultContent = {
     challenges: [
@@ -80,23 +56,16 @@ export default function IndustryPageClient({ industry }: Props) {
         <FloatingNodes nodeCount={15} showConnections={true} />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Animation - Above Hero */}
-          {industry.lottie && MobileComponent && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="flex justify-center items-center mb-8"
-            >
-              <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-                <ResponsiveAnimation
-                  lottieUrl={industry.lottie}
-                  MobileComponent={MobileComponent}
-                  className="w-full aspect-square"
-                  loop={shouldLoop}
-                />
-              </div>
-            </motion.div>
+          {/* Lottie Animation - dynamically sized to fit viewport */}
+          {industry.lottie && (
+            <HeroLottie
+              lottieUrl={industry.lottie}
+              className="mb-6"
+              loop={true}
+              heroTextHeight={200}
+              maxSize={420}
+              minSize={200}
+            />
           )}
 
           {/* Hero Content */}
