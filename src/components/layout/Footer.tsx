@@ -129,7 +129,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-text-muted text-sm">
-            &copy; {currentYear} Databender. All rights reserved.
+            &copy; {currentYear} Databender Consulting. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
             <Link
