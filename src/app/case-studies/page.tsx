@@ -13,6 +13,13 @@ export const metadata: Metadata = {
     description:
       "See real results from data and AI projects. 125x cost savings, 31% higher conversion rates, and more. Filter by industry, challenge, or service.",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Case Studies | Real Data & AI Results from DataBender Projects",
+    description:
+      "See real results from data and AI projects. 125x cost savings, 31% higher conversion rates, and more. Filter by industry, challenge, or service.",
+    images: ["/images/databender-og.png"],
+  },
 };
 
 export default function CaseStudiesPage() {

@@ -10,6 +10,13 @@ export const metadata: Metadata = {
     description:
       "DataBender delivers enterprise-grade data analytics and AI solutions with boutique attention. Founded by Grant Bender with 8+ years of Fortune 500 consulting experience.",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "About DataBender | Data & AI Consultancy Founded by Grant Bender",
+    description:
+      "DataBender delivers enterprise-grade data analytics and AI solutions with boutique attention. Founded by Grant Bender with 8+ years of Fortune 500 consulting experience.",
+    images: ["/images/databender-og.png"],
+  },
 };
 
 export default function AboutPage() {
