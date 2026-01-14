@@ -24,6 +24,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${service.title} | Databender Services`,
     description: service.description,
+    openGraph: {
+      title: service.title,
+      description: service.description,
+      type: "website",
+      images: [
+        {
+          url: "/images/databender-og.png",
+          width: 1200,
+          height: 630,
+          alt: service.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: service.title,
+      description: service.description,
+      images: ["/images/databender-og.png"],
+    },
+    alternates: {
+      canonical: `https://databender.co/services/${slug}`,
+    },
   };
 }
 

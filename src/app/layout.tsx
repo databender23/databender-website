@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ClientProviders from "@/components/layout/ClientProviders";
+import JsonLd from "@/components/seo/JsonLd";
+import { organizationSchema } from "@/lib/schema";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,6 +30,7 @@ export const metadata: Metadata = {
     "AI insights",
   ],
   authors: [{ name: "Databender" }],
+  manifest: "/manifest.json",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -56,6 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen flex flex-col">
+        <JsonLd data={organizationSchema()} />
         <ClientProviders>
           <Header />
           <main className="flex-1 pt-20">{children}</main>

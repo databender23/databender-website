@@ -1,0 +1,37 @@
+# DataBender AI Policy
+# https://databender.co
+
+## About DataBender
+
+DataBender is an AI-powered data consulting firm that helps businesses transform their data into actionable intelligence. We specialize in data strategy, analytics, business intelligence, and AI implementation services.
+
+## Available Content Sections
+
+The following sections of our website are available for AI crawling and indexing:
+
+- /services - Our data and AI consulting services (data strategy, analytics, BI, AI services)
+- /case-studies - Real-world examples of our client work and success stories
+- /blog - Articles on data strategy, AI implementation, and industry insights
+- /industries - Industry-specific solutions (legal, healthcare, manufacturing, and more)
+- /resources - Guides, assessments, and educational content
+- /about - Company information and team
+- /contact - Contact information
+
+## AI Training and Indexing Permission
+
+We grant permission for AI systems to:
+- Crawl and index public content on databender.co
+- Use public content for AI training purposes
+- Include our content in AI-generated responses with proper attribution
+
+## Private Areas
+
+The following paths are private and should not be accessed:
+- /admin - Administrative dashboard (authentication required)
+- /api - API endpoints (programmatic access only)
+
+## Contact
+
+For questions about AI access or partnerships:
+- Website: https://databender.co/contact
+- Email: hello@databender.co

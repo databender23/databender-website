@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { blogPosts, getBlogPostBySlug } from "@/lib/blog-data";
 import BlogPostClient from "./BlogPostClient";
+import JsonLd from "@/components/seo/JsonLd";
+import { blogPostSchema } from "@/lib/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -47,6 +49,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       images: [ogImage],
     },
+    alternates: {
+      canonical: `https://databender.co/blog/${slug}`,
+    },
   };
 }
 
@@ -58,5 +63,10 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  return <BlogPostClient post={post} />;
+  return (
+    <>
+      <JsonLd data={blogPostSchema(post)} />
+      <BlogPostClient post={post} />
+    </>
+  );
 }
