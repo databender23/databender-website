@@ -125,6 +125,144 @@ export const legalGuides: Guide[] = [
   },
 ];
 
+// Healthcare Guides
+export const healthcareGuides: Guide[] = [
+  {
+    slug: "hipaa-compliant-ai",
+    title: "HIPAA-Compliant AI",
+    subtitle: "How to Deploy AI That Never Leaves Your Building",
+    description: "Learn how to evaluate and deploy AI tools that meet HIPAA requirements, run on your own infrastructure, and keep patient data where it belongs.",
+    topics: [
+      "On-premise AI deployment options and requirements",
+      "Evaluating vendors for true data privacy",
+      "Getting compliance and legal approval",
+      "Building the business case for private AI",
+    ],
+    targetAudience: "CIOs, Compliance Officers, IT Directors",
+    icon: "shield",
+  },
+  {
+    slug: "institutional-knowledge-healthcare",
+    title: "Capturing Institutional Knowledge",
+    subtitle: "Before Your Best People Retire, Capture What They Know",
+    description: "Your experienced staff carry decades of knowledge that walks out the door when they leave. This guide shows you how to capture it before it's too late.",
+    topics: [
+      "Knowledge capture systems that actually get used",
+      "Making expertise searchable for everyone",
+      "Cutting new hire training time in half",
+      "Succession planning that preserves what matters",
+    ],
+    targetAudience: "COOs, Department Heads, HR Directors",
+    icon: "brain",
+  },
+  {
+    slug: "document-intelligence-healthcare",
+    title: "Document Intelligence for Healthcare",
+    subtitle: "From Scattered PDFs to Instant Answers",
+    description: "Stop hunting through folders. Learn how AI-powered document search lets your team ask questions in plain English and get instant answers from your own files.",
+    topics: [
+      "Building searchable document systems",
+      "Protocol and policy lookup in seconds",
+      "Connecting to your existing EHR systems",
+      "Training staff on AI-assisted search",
+    ],
+    targetAudience: "Operations Directors, Clinical Informatics",
+    icon: "document-search",
+  },
+];
+
+// Manufacturing Guides
+export const manufacturingGuides: Guide[] = [
+  {
+    slug: "data-cleanup-manufacturing",
+    title: "The Data Cleanup Playbook",
+    subtitle: "Fix Your Customer Data in Weeks, Not Months",
+    description: "Your customer database is a mess. Same person listed five ways, contacts at the wrong companies, duplicates everywhere. Here's how to fix it fast.",
+    topics: [
+      "Identifying and merging duplicate records",
+      "AI-powered entity matching at scale",
+      "CRM cleanup without losing history",
+      "Preventing data decay going forward",
+    ],
+    targetAudience: "COOs, IT Directors, Sales Operations",
+    icon: "database",
+  },
+  {
+    slug: "lead-scoring-manufacturing",
+    title: "Lead Scoring That Actually Works",
+    subtitle: "What 3 Years of Sales Data Taught Us",
+    description: "Most lead scores are based on guesses. We analyzed three years of actual sales data to find what really predicts who buys. Some answers will surprise you.",
+    topics: [
+      "Building scores from actual win data",
+      "The features that matter (and don't)",
+      "Validating models before deployment",
+      "Getting sales to trust the scores",
+    ],
+    targetAudience: "Sales VPs, Marketing Directors",
+    icon: "chart-bar",
+  },
+  {
+    slug: "operational-visibility",
+    title: "Real-Time Operational Visibility",
+    subtitle: "Know What's Happening Without Making Phone Calls",
+    description: "Sales doesn't know what shipped. Production doesn't know what's promised. Stop playing telephone and start seeing everything in one place.",
+    topics: [
+      "Connecting systems without replacing them",
+      "Dashboards that people actually check",
+      "Alerts that catch problems early",
+      "Breaking down departmental silos",
+    ],
+    targetAudience: "COOs, Operations Directors",
+    icon: "eye",
+  },
+];
+
+// Commercial Real Estate Guides
+export const creGuides: Guide[] = [
+  {
+    slug: "entity-resolution-cre",
+    title: "Untangling Ownership",
+    subtitle: "How to Find the Real Decision-Maker Behind LLCs and Trusts",
+    description: "The property is owned by an LLC, owned by a trust, managed by another LLC. Learn how to trace through the layers and find the actual person who makes decisions.",
+    topics: [
+      "Tracing ownership through entity structures",
+      "Matching names across messy databases",
+      "Building verified contact lists",
+      "Getting to decision-makers faster than competitors",
+    ],
+    targetAudience: "Acquisition Directors, Deal Teams",
+    icon: "link",
+  },
+  {
+    slug: "data-room-review",
+    title: "AI-Powered Due Diligence",
+    subtitle: "Review Data Rooms Overnight Instead of Next Month",
+    description: "Data room reviews take weeks because someone has to read every document. AI changes the math. Get summaries in the morning instead of next month.",
+    topics: [
+      "Automated document extraction and analysis",
+      "Flagging risks before you're committed",
+      "Lease term extraction at scale",
+      "Financial document review and comparison",
+    ],
+    targetAudience: "Acquisitions, Asset Managers",
+    icon: "folder-open",
+  },
+  {
+    slug: "deal-prioritization",
+    title: "Smart Deal Prioritization",
+    subtitle: "Know Which 100 of 10,000 Targets to Call First",
+    description: "You have thousands of potential targets. Only some will trade. Learn to score opportunities based on what actually predicts a sale.",
+    topics: [
+      "Building scoring models from transaction data",
+      "Signals that indicate motivated sellers",
+      "Timing outreach to market conditions",
+      "Focusing BD resources where they'll hit",
+    ],
+    targetAudience: "Business Development, Investment Teams",
+    icon: "trending-up",
+  },
+];
+
 // Manufacturing - Self-Service Assessment
 export const manufacturingAssessments: Assessment[] = [
   {
@@ -162,15 +300,23 @@ export const industryLeadMagnets = {
   },
   manufacturing: {
     assessments: manufacturingAssessments,
+    guides: manufacturingGuides,
     headline: "Is Your Data Ready for Scale?",
     subheadline: "Take our 5-minute assessment to find out where you stand and what to prioritize.",
     ctaText: "Start Assessment",
   },
   healthcare: {
     assessments: healthcareAssessments,
-    headline: "How Do Your Prices Compare?",
-    subheadline: "Get a preview of your competitive position in the market.",
-    ctaText: "See Your Benchmark",
+    guides: healthcareGuides,
+    headline: "Resources for Healthcare Leaders",
+    subheadline: "Practical guides for deploying AI that keeps patient data private and captures institutional knowledge.",
+    ctaText: "Download Free Guide",
+  },
+  "commercial-real-estate": {
+    guides: creGuides,
+    headline: "Resources for CRE Professionals",
+    subheadline: "Guides to finding owners, speeding due diligence, and prioritizing deals.",
+    ctaText: "Download Free Guide",
   },
 };
 
@@ -179,7 +325,23 @@ export function getAuditBySlug(slug: string): Audit | undefined {
 }
 
 export function getGuideBySlug(slug: string): Guide | undefined {
-  return legalGuides.find((g) => g.slug === slug);
+  const allGuides = [...legalGuides, ...healthcareGuides, ...manufacturingGuides, ...creGuides];
+  return allGuides.find((g) => g.slug === slug);
+}
+
+export function getGuidesByIndustry(industry: string): Guide[] {
+  switch (industry) {
+    case "legal":
+      return legalGuides;
+    case "healthcare":
+      return healthcareGuides;
+    case "manufacturing":
+      return manufacturingGuides;
+    case "commercial-real-estate":
+      return creGuides;
+    default:
+      return [];
+  }
 }
 
 export function getAssessmentBySlug(slug: string): Assessment | undefined {

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { legalGuides, getGuideBySlug } from "@/lib/lead-magnets-data";
+import { legalGuides, healthcareGuides, manufacturingGuides, creGuides, getGuideBySlug } from "@/lib/lead-magnets-data";
 import GuidePageClient from "./GuidePageClient";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
@@ -10,7 +10,8 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return legalGuides.map((guide) => ({
+  const allGuides = [...legalGuides, ...healthcareGuides, ...manufacturingGuides, ...creGuides];
+  return allGuides.map((guide) => ({
     slug: guide.slug,
   }));
 }

@@ -24,7 +24,7 @@ interface HeroLottieProps {
   /**
    * Estimated height of hero text content in pixels.
    * Used to calculate available space for animation.
-   * Default: 280 (title + subtitle + CTA buttons)
+   * Default: 200 (title + subtitle only, buttons can be below fold)
    */
   heroTextHeight?: number
   /**
@@ -59,7 +59,7 @@ export default function HeroLottie({
   loop = true,
   priority = true,
   keepPlayingOnMobile = false,
-  heroTextHeight = 280,
+  heroTextHeight = 200,
   maxSizeRatio = 0.9,
   minSize = 150,
   maxSize = 400,

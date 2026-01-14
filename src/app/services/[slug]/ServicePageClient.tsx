@@ -128,15 +128,21 @@ export default function ServicePageClient({ service }: Props) {
         />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation - Above Hero */}
+          {/* Lottie Animation - CSS viewport constrained for data-management.json compatibility */}
           {hasLottie && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
-              className="flex justify-center items-center mb-8"
+              className="flex justify-center items-center mb-6"
             >
-              <div className="w-full max-w-md aspect-square">
+              <div
+                className="w-full aspect-square"
+                style={{
+                  maxWidth: 'min(380px, calc(100vh - 380px))',
+                  minWidth: '150px',
+                }}
+              >
                 <LottieWrapper
                   animationUrl={LOTTIE_URLS[service.slug]}
                   speed={ANIMATION_SPEEDS[service.slug] || 1}

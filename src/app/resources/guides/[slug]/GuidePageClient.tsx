@@ -4,7 +4,24 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui";
 import { EmailCaptureForm } from "@/components/forms";
-import { legalGuides, type Guide } from "@/lib/lead-magnets-data";
+import { legalGuides, healthcareGuides, manufacturingGuides, creGuides, type Guide } from "@/lib/lead-magnets-data";
+
+// Helper to determine guide industry
+function getGuideIndustry(slug: string): { name: string; href: string; guides: Guide[] } {
+  if (legalGuides.some(g => g.slug === slug)) {
+    return { name: "Legal Resources", href: "/industries/legal", guides: legalGuides };
+  }
+  if (healthcareGuides.some(g => g.slug === slug)) {
+    return { name: "Healthcare Resources", href: "/industries/healthcare", guides: healthcareGuides };
+  }
+  if (manufacturingGuides.some(g => g.slug === slug)) {
+    return { name: "Manufacturing Resources", href: "/industries/manufacturing", guides: manufacturingGuides };
+  }
+  if (creGuides.some(g => g.slug === slug)) {
+    return { name: "Commercial Real Estate Resources", href: "/industries/commercial-real-estate", guides: creGuides };
+  }
+  return { name: "Resources", href: "/resources", guides: [] };
+}
 import { getGuideContentBySlug } from "@/lib/guide-content-data";
 
 // Icon components for topic bullets
@@ -20,6 +37,7 @@ interface Props {
 
 export default function GuidePageClient({ guide }: Props) {
   const guideContent = getGuideContentBySlug(guide.slug);
+  const industry = getGuideIndustry(guide.slug);
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -37,10 +55,10 @@ export default function GuidePageClient({ guide }: Props) {
                 className="flex items-center gap-2 mb-4"
               >
                 <Link
-                  href="/industries/legal"
+                  href={industry.href}
                   className="text-text-secondary hover:text-teal-500 transition-colors text-sm"
                 >
-                  Legal Resources
+                  {industry.name}
                 </Link>
                 <span className="text-text-muted">/</span>
                 <span className="text-teal-500 text-sm font-medium">Free Guide</span>
@@ -186,11 +204,11 @@ export default function GuidePageClient({ guide }: Props) {
       <section className="py-16">
         <div className="container mx-auto px-6">
           <h2 className="text-2xl font-bold text-text-primary mb-8 text-center">
-            More Resources for Legal
+            More {industry.name}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {legalGuides
+            {industry.guides
               .filter((g) => g.slug !== guide.slug)
               .slice(0, 3)
               .map((otherGuide, index) => (
@@ -220,8 +238,8 @@ export default function GuidePageClient({ guide }: Props) {
           </div>
 
           <div className="text-center mt-8">
-            <Button variant="secondary" href="/industries/legal">
-              View All Legal Resources
+            <Button variant="secondary" href={industry.href}>
+              View All {industry.name}
             </Button>
           </div>
         </div>
