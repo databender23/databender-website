@@ -1,6 +1,9 @@
 import type { PageJourneyStep, UTMParams } from "../analytics/events";
 import type { EmailSequence } from "../sequences/types";
 
+// Re-export EmailSequence for convenience
+export type { EmailSequence };
+
 export type LeadStatus =
   | "new"
   | "contacted"

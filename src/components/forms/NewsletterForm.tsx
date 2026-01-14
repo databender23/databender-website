@@ -60,7 +60,7 @@ export default function NewsletterForm({ className = "" }: NewsletterFormProps) 
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className={`flex items-center gap-2 text-teal-400 ${className}`}
+        className={`flex items-center gap-2 text-teal-500 ${className}`}
       >
         <svg
           className="w-5 h-5 flex-shrink-0"
@@ -89,7 +89,7 @@ export default function NewsletterForm({ className = "" }: NewsletterFormProps) 
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
           required
-          className="flex-1 min-w-0 px-4 py-2.5 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/50 text-sm focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors"
+          className="flex-1 min-w-0 px-4 py-2.5 bg-white border border-black/10 rounded-lg text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors"
         />
         <button
           type="submit"
@@ -100,7 +100,7 @@ export default function NewsletterForm({ className = "" }: NewsletterFormProps) 
         </button>
       </div>
       {error && (
-        <p className="mt-2 text-red-400 text-xs">{error}</p>
+        <p className="mt-2 text-red-500 text-xs">{error}</p>
       )}
     </form>
   );

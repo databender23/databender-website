@@ -46,7 +46,7 @@ export default function Button({
 
   const variants = {
     primary:
-      "bg-teal-500 text-white hover:bg-[#1A1A1A] shadow-lg hover:shadow-teal-500/25",
+      "bg-teal-500 text-white hover:bg-teal-600 shadow-lg hover:shadow-teal-500/25",
     secondary:
       "bg-transparent border border-black/20 text-text-primary hover:bg-black/5 hover:border-teal-500/50",
     ghost: "bg-transparent text-text-secondary hover:text-text-primary hover:bg-black/5",
