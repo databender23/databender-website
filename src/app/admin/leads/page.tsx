@@ -24,6 +24,7 @@ export default function LeadsDashboard() {
   const [data, setData] = useState<LeadsApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [dataFetchedAt, setDataFetchedAt] = useState<Date | null>(null);
 
   // Filter state
   const [status, setStatus] = useState<LeadStatus>("all");
@@ -70,6 +71,7 @@ export default function LeadsDashboard() {
         throw new Error(result.details || result.error || "Failed to fetch leads");
       }
       setData(result);
+      setDataFetchedAt(new Date());
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load leads data");
     } finally {
@@ -158,6 +160,11 @@ export default function LeadsDashboard() {
           <h1 className="text-2xl font-bold text-text-primary">Leads Dashboard</h1>
           <p className="text-text-muted">
             Manage and track all leads from the website
+            {dataFetchedAt && (
+              <span className="ml-3 text-xs">
+                • Data as of: {dataFetchedAt.toLocaleString()}
+              </span>
+            )}
           </p>
         </div>
         <button

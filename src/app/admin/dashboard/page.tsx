@@ -67,6 +67,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [days, setDays] = useState(7);
+  const [dataFetchedAt, setDataFetchedAt] = useState<Date | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -79,6 +80,7 @@ export default function Dashboard() {
       if (!response.ok) throw new Error("Failed to fetch dashboard data");
       const result = await response.json();
       setData(result);
+      setDataFetchedAt(new Date());
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load dashboard");
     } finally {
@@ -110,6 +112,11 @@ export default function Dashboard() {
           <h1 className="text-2xl font-bold text-text-primary">Lead Generation Command Center</h1>
           <p className="text-text-muted">
             {data.period.start} to {data.period.end}
+            {dataFetchedAt && (
+              <span className="ml-3 text-xs">
+                • Data as of: {dataFetchedAt.toLocaleString()}
+              </span>
+            )}
           </p>
         </div>
         <div className="flex items-center gap-4">

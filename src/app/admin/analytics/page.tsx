@@ -210,6 +210,9 @@ export default function AnalyticsDashboard() {
   const [companiesData, setCompaniesData] = useState<CompaniesData | null>(null);
   const [companiesLoading, setCompaniesLoading] = useState(true);
 
+  // Data freshness timestamp
+  const [dataFetchedAt, setDataFetchedAt] = useState<Date | null>(null);
+
   // Date range state
   const [dateRange, setDateRange] = useState<DateRange>("7");
   const days = parseInt(dateRange, 10) || 7;
@@ -223,6 +226,7 @@ export default function AnalyticsDashboard() {
       const result = await response.json();
       setOverviewData(result);
       setOverviewError("");
+      setDataFetchedAt(new Date());
     } catch {
       setOverviewError("Failed to load overview data");
     } finally {
@@ -421,6 +425,11 @@ export default function AnalyticsDashboard() {
             {overviewData && (
               <p className="text-text-muted mt-1">
                 {overviewData.period.start} to {overviewData.period.end}
+                {dataFetchedAt && (
+                  <span className="ml-3 text-xs">
+                    • Data as of: {dataFetchedAt.toLocaleString()}
+                  </span>
+                )}
               </p>
             )}
           </div>

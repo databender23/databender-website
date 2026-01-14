@@ -252,6 +252,9 @@ Defined in `src/app/globals.css` using Tailwind CSS 4's `@theme` directive:
 - `/api/admin/leads/stats` - Lead statistics
 - `/api/cron/sequences/process` - Daily cron to send scheduled nurture emails
 - `/api/leads/webhook` - External webhook for automation tools (Instantly, Apollo.io, Dripify)
+- `/api/admin/sequences` - Sequence management (list, pause, resume, check)
+- `/api/admin/leads/import` - Bulk CSV lead import with sequence enrollment
+- `/api/webhooks/ses-events` - AWS SES bounce/complaint/delivery webhook
 
 ### Environment Variables
 
@@ -529,6 +532,8 @@ Automated nurture email sequences in `src/lib/sequences/`:
 - `guide-legal` - For legal guide downloaders
 - `guide-general` - For general guide downloaders
 
+**Sequence Statuses:** `active`, `completed`, `paused`, `unsubscribed`, `bounced`
+
 **How It Works:**
 1. Lead completes assessment or downloads guide → Auto-enrolled in appropriate sequence
 2. Day 0 email sent immediately
@@ -538,6 +543,22 @@ Automated nurture email sequences in `src/lib/sequences/`:
 **Email Templates:** `src/lib/sequences/templates/` with 15 templates (5 per sequence)
 
 **Cron Setup:** Call `/api/cron/sequences/process` daily with `Authorization: Bearer {CRON_SECRET}`
+
+**Bounce/Reply Detection:**
+- SES webhook at `/api/webhooks/ses-events` receives bounce/complaint events
+- Hard bounce → Marks sequence as `bounced` (permanent, cannot re-enroll)
+- Soft bounce → Counts bounces, pauses after 3 soft bounces
+- Complaint → Auto-unsubscribes (cannot re-enroll)
+- Reply detection → Pauses sequence for manual follow-up
+
+**Sequence Management API** (`/api/admin/sequences`):
+- `GET ?email=x` - Check sequence status for specific email
+- `POST action=pause` - Pause with reason
+- `POST action=resume` - Resume paused sequence
+- `POST action=reply` - Mark as replied (pauses sequence)
+- `POST action=check` - Check if email can be enrolled
+
+**AWS SES Setup:** See `docs/ses-events-setup.md` for SNS topic and webhook configuration
 
 ### Lead Management & Automation Support
 
@@ -564,6 +585,24 @@ Lead hub at `/admin/leads` with:
 | `record_contact` | Log contact via LinkedIn/email |
 | `add_note` | Add notes from automation tools |
 | `update_tier` | Update lead tier |
+
+**Bulk Lead Import:**
+`POST /api/admin/leads/import` (requires admin auth)
+
+| Query Param | Purpose |
+|-------------|---------|
+| `dryRun=true` | Validate CSV without importing |
+| `skipExisting=true` | Skip leads that already exist |
+| `sequenceType=assessment` | Auto-enroll in email sequence |
+
+CSV columns: `email` (required), `firstName`, `lastName`, `company`, `industry`, `tier`, `tags`, `notes`
+
+```bash
+# Example import with dry run
+curl -X POST 'https://databender.co/api/admin/leads/import?dryRun=true' \
+  -b 'admin_authenticated=true' \
+  -F 'file=@leads.csv'
+```
 
 ### DynamoDB Tables
 
@@ -602,5 +641,21 @@ AWS_PROFILE=databender npx tsx scripts/clear-tables.ts
   - Steps: Unlock domain → Get auth code → Transfer via Route 53 console
 
 - **Daily Cron**: Set up scheduled trigger for `/api/cron/sequences/process`
-  - Requires: CloudWatch Events or external cron service
+  - Requires: AWS EventBridge or external cron service
   - Auth: `Authorization: Bearer {CRON_SECRET}` header
+
+- **SES Event Notifications**: Configure bounce/complaint webhook
+  - Create SNS topic for SES events
+  - Subscribe webhook endpoint: `https://databender.co/api/webhooks/ses-events`
+  - Configure SES identity to publish to SNS topic
+  - See `docs/ses-events-setup.md` for detailed steps
+
+### Test Scripts
+
+```bash
+# Test email sequence system (requires npm run dev)
+./scripts/test-sequences.sh http://localhost:3000
+
+# Tests: SES webhook, sequence management, lead import
+# All tests should pass before deployment
+```

@@ -8,10 +8,10 @@ import { getLeadByEmail, updateLead, scanLeadsWithActiveSequences } from "../lea
 import type { Lead } from "../leads/types";
 import type {
   SequenceType,
-  SequenceStatus,
   SequenceDay,
   EmailSequence,
-  SEQUENCE_SCHEDULE,
+  BounceType,
+  PauseReason,
 } from "./types";
 
 /**
@@ -318,4 +318,238 @@ function formatCategoryName(key: string): string {
     .replace(/_/g, " ")
     .replace(/^\w/, (c) => c.toUpperCase())
     .trim();
+}
+
+/**
+ * Handle an email bounce event
+ * - Hard bounces: permanently pause the sequence (invalid address)
+ * - Soft bounces: increment counter, pause after 3 soft bounces
+ */
+export async function handleBounce(
+  email: string,
+  bounceType: BounceType,
+  reason?: string
+): Promise<{ success: boolean; action: string }> {
+  const lead = await getLeadByEmail(email.toLowerCase());
+
+  if (!lead) {
+    console.log(`[Sequence] Bounce for unknown email: ${email}`);
+    return { success: false, action: "lead_not_found" };
+  }
+
+  const currentSequence = lead.emailSequence;
+  const bounceCount = (currentSequence?.bounceCount || 0) + 1;
+  const now = new Date().toISOString();
+
+  // Hard bounce = immediately mark as bounced
+  if (bounceType === "hard") {
+    const updatedSequence: EmailSequence = {
+      ...(currentSequence || {
+        sequenceType: "assessment" as SequenceType,
+        enrolledAt: now,
+        currentDay: 0,
+        emailsSent: {},
+      }),
+      status: "bounced",
+      bounceType: "hard",
+      bounceCount,
+      lastBounceAt: now,
+      lastBounceReason: reason,
+      pausedAt: now,
+      pauseReason: "bounce_hard" as PauseReason,
+    };
+
+    await updateLead(lead.email, lead.createdAt, { emailSequence: updatedSequence });
+    console.log(`[Sequence] Hard bounce for ${email}, sequence marked as bounced`);
+    return { success: true, action: "bounced" };
+  }
+
+  // Soft bounce = increment counter, pause after 3
+  const shouldPause = bounceCount >= 3;
+  const updatedSequence: EmailSequence = {
+    ...(currentSequence || {
+      sequenceType: "assessment" as SequenceType,
+      enrolledAt: now,
+      currentDay: 0,
+      emailsSent: {},
+    }),
+    status: shouldPause ? "paused" : (currentSequence?.status || "active"),
+    bounceType: "soft",
+    bounceCount,
+    lastBounceAt: now,
+    lastBounceReason: reason,
+    ...(shouldPause && {
+      pausedAt: now,
+      pauseReason: "bounce_soft" as PauseReason,
+    }),
+  };
+
+  await updateLead(lead.email, lead.createdAt, { emailSequence: updatedSequence });
+
+  if (shouldPause) {
+    console.log(`[Sequence] Soft bounce count ${bounceCount} for ${email}, sequence paused`);
+    return { success: true, action: "paused_soft_bounce" };
+  }
+
+  console.log(`[Sequence] Soft bounce count ${bounceCount} for ${email}, continuing`);
+  return { success: true, action: "soft_bounce_recorded" };
+}
+
+/**
+ * Handle an email complaint (spam report)
+ * Immediately unsubscribe the lead
+ */
+export async function handleComplaint(email: string): Promise<boolean> {
+  const lead = await getLeadByEmail(email.toLowerCase());
+
+  if (!lead) {
+    console.log(`[Sequence] Complaint for unknown email: ${email}`);
+    return false;
+  }
+
+  const now = new Date().toISOString();
+  const updatedSequence: EmailSequence = {
+    ...(lead.emailSequence || {
+      sequenceType: "assessment" as SequenceType,
+      enrolledAt: now,
+      currentDay: 0,
+      emailsSent: {},
+    }),
+    status: "unsubscribed",
+    unsubscribedAt: now,
+    complainedAt: now,
+    pauseReason: "complaint" as PauseReason,
+  };
+
+  try {
+    await updateLead(lead.email, lead.createdAt, { emailSequence: updatedSequence });
+    console.log(`[Sequence] Complaint from ${email}, unsubscribed`);
+    return true;
+  } catch (error) {
+    console.error(`[Sequence] Failed to handle complaint for ${email}:`, error);
+    return false;
+  }
+}
+
+/**
+ * Handle a reply detection
+ * Pause the sequence so we don't send automated emails while in conversation
+ */
+export async function handleReply(email: string): Promise<boolean> {
+  const lead = await getLeadByEmail(email.toLowerCase());
+
+  if (!lead || !lead.emailSequence) {
+    console.log(`[Sequence] Reply from unknown/unenrolled email: ${email}`);
+    return false;
+  }
+
+  // Only pause if currently active
+  if (lead.emailSequence.status !== "active") {
+    console.log(`[Sequence] Reply from ${email} but sequence not active, ignoring`);
+    return false;
+  }
+
+  const now = new Date().toISOString();
+  const updatedSequence: EmailSequence = {
+    ...lead.emailSequence,
+    status: "paused",
+    pauseReason: "replied" as PauseReason,
+    pausedAt: now,
+    repliedAt: now,
+  };
+
+  try {
+    await updateLead(lead.email, lead.createdAt, { emailSequence: updatedSequence });
+    console.log(`[Sequence] Reply detected from ${email}, sequence paused`);
+    return true;
+  } catch (error) {
+    console.error(`[Sequence] Failed to handle reply for ${email}:`, error);
+    return false;
+  }
+}
+
+/**
+ * Resume a paused sequence
+ * Only resumes if pause reason allows it (not hard bounce, not complaint)
+ */
+export async function resumeSequence(email: string): Promise<{ success: boolean; reason?: string }> {
+  const lead = await getLeadByEmail(email.toLowerCase());
+
+  if (!lead || !lead.emailSequence) {
+    return { success: false, reason: "Lead or sequence not found" };
+  }
+
+  const seq = lead.emailSequence;
+
+  // Can't resume unsubscribed or bounced
+  if (seq.status === "unsubscribed") {
+    return { success: false, reason: "Cannot resume unsubscribed lead" };
+  }
+
+  if (seq.status === "bounced") {
+    return { success: false, reason: "Cannot resume bounced lead (hard bounce)" };
+  }
+
+  // Can't resume if not paused
+  if (seq.status !== "paused") {
+    return { success: false, reason: `Sequence is ${seq.status}, not paused` };
+  }
+
+  // Check pause reason - don't resume hard bounces or complaints
+  if (seq.pauseReason === "complaint") {
+    return { success: false, reason: "Cannot resume after spam complaint" };
+  }
+
+  const now = new Date().toISOString();
+  const updatedSequence: EmailSequence = {
+    ...seq,
+    status: "active",
+    resumedAt: now,
+    // Reset soft bounce count on manual resume
+    ...(seq.pauseReason === "bounce_soft" && { bounceCount: 0 }),
+  };
+
+  try {
+    await updateLead(lead.email, lead.createdAt, { emailSequence: updatedSequence });
+    console.log(`[Sequence] Resumed sequence for ${email}`);
+    return { success: true };
+  } catch (error) {
+    console.error(`[Sequence] Failed to resume sequence for ${email}:`, error);
+    return { success: false, reason: "Database update failed" };
+  }
+}
+
+/**
+ * Check if a lead can be enrolled (not bounced, not complained)
+ */
+export async function canEnroll(email: string): Promise<{ canEnroll: boolean; reason?: string }> {
+  const lead = await getLeadByEmail(email.toLowerCase());
+
+  if (!lead) {
+    return { canEnroll: true }; // New lead, can enroll after creation
+  }
+
+  const seq = lead.emailSequence;
+  if (!seq) {
+    return { canEnroll: true }; // Never enrolled
+  }
+
+  if (seq.status === "active") {
+    return { canEnroll: false, reason: "Already in active sequence" };
+  }
+
+  if (seq.status === "unsubscribed") {
+    return { canEnroll: false, reason: "Previously unsubscribed" };
+  }
+
+  if (seq.status === "bounced" || seq.bounceType === "hard") {
+    return { canEnroll: false, reason: "Email address bounced (invalid)" };
+  }
+
+  if (seq.complainedAt) {
+    return { canEnroll: false, reason: "Previously marked as spam" };
+  }
+
+  // Completed or paused can re-enroll
+  return { canEnroll: true };
 }

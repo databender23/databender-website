@@ -22,6 +22,15 @@ export type LeadFormType =
   | "chat"
   | "newsletter";
 
+export type LeadSource =
+  | "website"        // Form submission on website
+  | "csv-import"     // Imported via CSV upload
+  | "linkedin"       // Added from LinkedIn outreach
+  | "referral"       // Referral from partner/client
+  | "event"          // Met at conference/event
+  | "cold-research"  // Manually researched and added
+  | "other";
+
 export type BehaviorTier = "Cold" | "Warm" | "Hot" | "Very Hot";
 
 export interface LeadNote {
@@ -90,6 +99,7 @@ export interface Lead {
   status: LeadStatus;
   tier?: LeadTier;
   industry?: string;
+  leadSource: LeadSource;
   notes?: LeadNote[];
   tags?: string[];
   contactHistory?: ContactRecord[];
@@ -152,6 +162,9 @@ export interface CreateLeadInput {
   assessmentScores?: Record<string, number>;
   assessmentTier?: string;
 
+  // Lead source tracking
+  leadSource?: LeadSource;
+
   // Email sequence (optional - usually set by enrollInSequence)
   emailSequence?: EmailSequence;
 }
@@ -171,6 +184,7 @@ export interface LeadQueryParams {
   tier?: LeadTier;
   industry?: string;
   formType?: LeadFormType;
+  leadSource?: LeadSource;
   startDate?: string;
   endDate?: string;
   minScore?: number;
@@ -195,6 +209,7 @@ export interface LeadStats {
   byTier: Record<string, number>;
   byIndustry: Record<string, number>;
   byFormType: Record<LeadFormType, number>;
+  byLeadSource: Record<LeadSource, number>;
   avgBehaviorScore: number;
   leadsByDay: { date: string; count: number }[];
   topSources: { source: string; count: number }[];

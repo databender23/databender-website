@@ -100,6 +100,7 @@ export async function POST(request: Request) {
             ? `${assessmentType.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())} Assessment`
             : "Data & AI Readiness Assessment",
           sourcePage: sourcePage || "/assessments/data-ai-readiness",
+          leadSource: "website",
           visitorId,
           sessionId,
           assessmentScores,

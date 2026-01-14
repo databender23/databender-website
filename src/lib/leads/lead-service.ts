@@ -20,6 +20,7 @@ import type {
   LeadNote,
   LeadStatus,
   LeadFormType,
+  LeadSource,
   BehaviorTier,
   ContactChannel,
   ContactRecord,
@@ -120,6 +121,7 @@ export async function createLead(input: CreateLeadInput): Promise<Lead> {
     assessmentScores: input.assessmentScores,
     assessmentTier: input.assessmentTier,
     status: "new",
+    leadSource: input.leadSource || "website",
     createdAt: now,
     updatedAt: now,
   };
@@ -397,6 +399,16 @@ export async function getLeadStats(
     newsletter: 0,
   };
 
+  const byLeadSource: Record<LeadSource, number> = {
+    website: 0,
+    "csv-import": 0,
+    linkedin: 0,
+    referral: 0,
+    event: 0,
+    "cold-research": 0,
+    other: 0,
+  };
+
   const sourceCount: Record<string, number> = {};
   const leadsByDayMap: Record<string, number> = {};
   let totalBehaviorScore = 0;
@@ -419,6 +431,10 @@ export async function getLeadStats(
 
     // Count by form type
     byFormType[lead.formType]++;
+
+    // Count by lead source
+    const leadSourceVal = lead.leadSource || "website";
+    byLeadSource[leadSourceVal] = (byLeadSource[leadSourceVal] || 0) + 1;
 
     // Track sources
     const source =
@@ -456,6 +472,7 @@ export async function getLeadStats(
     byTier,
     byIndustry,
     byFormType,
+    byLeadSource,
     avgBehaviorScore:
       behaviorScoreCount > 0 ? totalBehaviorScore / behaviorScoreCount : 0,
     leadsByDay,

@@ -45,12 +45,22 @@ const assessments: Assessment[] = [
     industry: "healthcare",
     icon: "heart",
   },
+  {
+    slug: "commercial-real-estate",
+    title: "Portfolio Analytics Assessment",
+    description: "See where your portfolio analytics stand and what centralized visibility could unlock. Built for property managers with 5-50 properties.",
+    time: "5 minutes",
+    href: "/assessments/commercial-real-estate",
+    industry: "real-estate",
+    icon: "building",
+  },
 ];
 
 const industries = [
   { value: "all", label: "All Industries" },
   { value: "manufacturing", label: "Manufacturing" },
   { value: "healthcare", label: "Healthcare" },
+  { value: "real-estate", label: "Real Estate" },
 ];
 
 const AssessmentIcon = ({ icon }: { icon: string }) => {
@@ -68,6 +78,11 @@ const AssessmentIcon = ({ icon }: { icon: string }) => {
     heart: (
       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+    ),
+    building: (
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
       </svg>
     ),
   };

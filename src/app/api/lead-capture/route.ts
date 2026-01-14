@@ -200,6 +200,7 @@ export async function POST(request: Request) {
           resourceSlug,
           resourceTitle,
           sourcePage: sourcePage || `/resources/guides/${resourceSlug}`,
+          leadSource: "website",
           visitorId,
           sessionId,
           ...analyticsData,

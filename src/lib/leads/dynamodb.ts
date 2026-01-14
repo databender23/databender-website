@@ -184,6 +184,7 @@ export async function scanLeads(params: LeadQueryParams): Promise<LeadQueryResul
     tier,
     industry,
     formType,
+    leadSource,
     startDate,
     endDate,
     minScore,
@@ -217,6 +218,11 @@ export async function scanLeads(params: LeadQueryParams): Promise<LeadQueryResul
   if (formType) {
     filterExpressions.push("formType = :formType");
     expressionAttributeValues[":formType"] = formType;
+  }
+
+  if (leadSource) {
+    filterExpressions.push("leadSource = :leadSource");
+    expressionAttributeValues[":leadSource"] = leadSource;
   }
 
   if (startDate) {

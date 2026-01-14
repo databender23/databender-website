@@ -166,6 +166,7 @@ export default function AttributionReport() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [days, setDays] = useState(30);
+  const [dataFetchedAt, setDataFetchedAt] = useState<Date | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -179,6 +180,7 @@ export default function AttributionReport() {
       if (!response.ok) throw new Error("Failed to fetch");
       const result = await response.json();
       setData(result);
+      setDataFetchedAt(new Date());
     } catch {
       setError("Failed to load attribution data");
     } finally {
@@ -212,6 +214,11 @@ export default function AttributionReport() {
           <h2 className="text-xl font-bold text-text-primary">Content Attribution</h2>
           <p className="text-text-muted text-sm">
             {data.period.start} to {data.period.end}
+            {dataFetchedAt && (
+              <span className="ml-3 text-xs">
+                • Data as of: {dataFetchedAt.toLocaleString()}
+              </span>
+            )}
           </p>
         </div>
         <select

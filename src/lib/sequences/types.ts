@@ -6,7 +6,17 @@
 
 export type SequenceType = "assessment" | "guide-legal" | "guide-general";
 
-export type SequenceStatus = "active" | "completed" | "paused" | "unsubscribed";
+export type SequenceStatus = "active" | "completed" | "paused" | "unsubscribed" | "bounced";
+
+export type BounceType = "hard" | "soft" | "undetermined";
+
+export type PauseReason =
+  | "manual"
+  | "bounce_hard"
+  | "bounce_soft"
+  | "complaint"
+  | "replied"
+  | "out_of_office";
 
 export type SequenceDay = 0 | 2 | 7 | 14 | 21;
 
@@ -21,7 +31,7 @@ export interface EmailSequence {
   sequenceType: SequenceType;
   enrolledAt: string;
   status: SequenceStatus;
-  pauseReason?: string;
+  pauseReason?: PauseReason | string;
   currentDay: number;
   emailsSent: {
     day0?: EmailSentRecord;
@@ -32,6 +42,15 @@ export interface EmailSequence {
   };
   completedAt?: string;
   unsubscribedAt?: string;
+  // Bounce/complaint tracking
+  bounceType?: BounceType;
+  bounceCount?: number;
+  lastBounceAt?: string;
+  lastBounceReason?: string;
+  complainedAt?: string;
+  repliedAt?: string;
+  pausedAt?: string;
+  resumedAt?: string;
 }
 
 export interface SequenceEmailParams {
