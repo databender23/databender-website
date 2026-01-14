@@ -245,7 +245,7 @@ export async function POST(request: Request) {
           formType: formType as LeadFormType,
           resourceSlug: resourceSlug || (formType === "newsletter" ? "newsletter" : undefined),
           resourceTitle: resourceTitle || (formType === "newsletter" ? "Newsletter Subscription" : undefined),
-          sourcePage: sourcePage || (formType === "newsletter" ? sourcePage : `/resources/guides/${resourceSlug}`),
+          sourcePage: sourcePage || (formType === "newsletter" ? "/" : `/resources/guides/${resourceSlug}`),
           leadSource: "website",
           visitorId,
           sessionId,
@@ -283,17 +283,17 @@ export async function POST(request: Request) {
     }).catch((err) => console.error("Slack notification failed:", err));
 
     // Handle guide downloads
-    if (formType === "guide") {
+    if (formType === "guide" && resourceSlug) {
       const guideContent = getGuideContentBySlug(resourceSlug);
 
-      if (guideContent) {
+      if (guideContent && firstName && lastName) {
         // Send guide email via SES
         const emailSent = await sendGuideEmail({
           firstName,
           lastName,
           email,
           company,
-          guideTitle: resourceTitle,
+          guideTitle: resourceTitle || guideContent.title,
           guideSlug: resourceSlug,
           downloadUrl: guideContent.pdfUrl,
           contentUrl: `/resources/guides/${resourceSlug}/content`,

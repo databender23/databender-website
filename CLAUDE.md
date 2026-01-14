@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Important Rules
+
+**NEVER DELETE FILES** - Instead of deleting files, always move them to a `to_delete/` folder. This allows for review before permanent removal and prevents accidental data loss.
+
 ## Commands
 
 ```bash
