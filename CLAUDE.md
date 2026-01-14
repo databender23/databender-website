@@ -301,16 +301,24 @@ To add/update environment variables:
 
 ### Lottie Animation System
 
-All Lottie animations use the optimized `LottieWrapper` component (`src/components/animations/LottieWrapper.tsx`), NOT raw `lottie-react`.
+All Lottie animations use the optimized `LottieWrapper` component (`src/components/animations/LottieWrapper.tsx`), which uses `lottie-react` under the hood.
+
+**CRITICAL: data-management.json CANNOT be compressed to .lottie format!**
+
+> ⚠️ **WARNING**: The `data-management.json` animation (used on `/services/data-ai-strategy`) has embedded assets that break when converted to `.lottie` format. This animation MUST:
+> - Use the raw `.json` file, NOT `.lottie`
+> - Be rendered with `lottie-react`, NOT `@lottiefiles/dotlottie-react`
+> - Never be auto-converted or compressed
+>
+> The `LottieWrapper` component fetches JSON directly and passes it to `lottie-react` to handle this correctly. DO NOT attempt to optimize this animation by converting to `.lottie` format - it will break rendering on both desktop and mobile.
 
 **Key components:**
-- `LottieWrapper` - Core optimized component using `@lottiefiles/dotlottie-react`
+- `LottieWrapper` - Core component using `lottie-react` (fetches JSON, handles mobile optimizations)
 - `ResponsiveAnimation` - Wrapper with sensible defaults for hero animations
 
 **Optimizations built-in:**
-- Auto-converts `.json` URLs to compressed `.lottie` format (~50% smaller)
 - Lazy loading via intersection observer
-- Mobile optimizations: 0.5x speed, freezes after first loop, disabled frame interpolation
+- Mobile optimizations: 0.5x speed, freezes after first loop
 - Respects `prefers-reduced-motion` accessibility setting
 - Priority preloading for hero animations
 
@@ -331,7 +339,7 @@ All Lottie animations use the optimized `LottieWrapper` component (`src/componen
 />
 ```
 
-**Animation files:** Both `.json` (source) and `.lottie` (compressed) versions in `public/animations/`. The component auto-selects `.lottie` for smaller file sizes.
+**Animation files:** Located in `public/animations/`. Use `.json` format for all animations (the `.lottie` compressed versions exist but are not currently used due to compatibility issues).
 
 ### Dynamic Routes
 
