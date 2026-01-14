@@ -62,7 +62,7 @@ export default function IndustryPageClient({ industry }: Props) {
               lottieUrl={industry.lottie}
               className="mb-6"
               loop={true}
-              heroTextHeight={200}
+              heroTextHeight={280}
               maxSize={420}
               minSize={200}
             />

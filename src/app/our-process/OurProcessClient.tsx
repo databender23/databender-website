@@ -170,7 +170,7 @@ export default function OurProcessClient() {
             lottieUrl="/animations/workflow-process.json"
             className="mb-6"
             loop={true}
-            heroTextHeight={200}
+            heroTextHeight={280}
             maxSize={400}
             minSize={180}
           />

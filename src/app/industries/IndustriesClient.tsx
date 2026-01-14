@@ -54,7 +54,7 @@ export default function IndustriesClient() {
             lottieUrl="/animations/data-viz.json"
             className="mb-6"
             loop={true}
-            heroTextHeight={200}
+            heroTextHeight={280}
             maxSize={420}
             minSize={200}
           />

@@ -62,7 +62,7 @@ export default function LegalPageClient() {
             lottieUrl={LEGAL_LOTTIE_URL}
             className="mb-6"
             loop={true}
-            heroTextHeight={200}
+            heroTextHeight={280}
             maxSize={420}
             minSize={200}
           />

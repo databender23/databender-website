@@ -68,7 +68,7 @@ export default function CaseStudiesClient() {
               lottieUrl="/animations/growth-chart.json"
               className="mb-6"
               loop={true}
-              heroTextHeight={200}
+              heroTextHeight={280}
               maxSize={400}
               minSize={180}
             />

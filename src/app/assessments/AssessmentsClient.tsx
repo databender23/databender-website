@@ -112,7 +112,7 @@ export default function AssessmentsClient() {
               lottieUrl="/animations/automation.json"
               className="mb-6"
               loop={true}
-              heroTextHeight={200}
+              heroTextHeight={280}
               maxSize={400}
               minSize={180}
             />

@@ -139,7 +139,7 @@ export default function ServicePageClient({ service }: Props) {
               <div
                 className="w-full aspect-square"
                 style={{
-                  maxWidth: 'min(380px, calc(100vh - 380px))',
+                  maxWidth: 'min(380px, calc(100vh - 440px))',
                   minWidth: '150px',
                 }}
               >
