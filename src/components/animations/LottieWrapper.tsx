@@ -244,7 +244,7 @@ export default function LottieWrapper({
     <div
       ref={viewRef}
       className={className}
-      style={style}
+      style={{ minHeight: '100px', ...style }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -257,6 +257,7 @@ export default function LottieWrapper({
         autoplay={shouldAutoplay}
         renderConfig={renderConfig}
         useFrameInterpolation={!isMobile} // Disable frame interpolation on mobile for performance
+        style={{ width: '100%', height: '100%' }}
       />
     </div>
   );

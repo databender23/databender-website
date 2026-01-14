@@ -136,7 +136,7 @@ export default function ServicePageClient({ service }: Props) {
               transition={{ duration: 0.6 }}
               className="flex justify-center items-center mb-8"
             >
-              <div className="w-full max-w-md">
+              <div className="w-full max-w-md aspect-square">
                 <LottieWrapper
                   animationUrl={LOTTIE_URLS[service.slug]}
                   speed={ANIMATION_SPEEDS[service.slug] || 1}
@@ -145,7 +145,7 @@ export default function ServicePageClient({ service }: Props) {
                   mobileOptimized={true}
                   mobileSpeed={0.5}
                   freezeAfterFirstLoop={true}
-                  className="w-full h-auto"
+                  className="w-full h-full"
                 />
               </div>
             </motion.div>
