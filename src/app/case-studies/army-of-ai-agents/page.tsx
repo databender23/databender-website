@@ -13,6 +13,7 @@ import {
   BusinessOutcome,
   RevealNumbers,
 } from './components'
+import { CaseStudyDiagram } from '@/components/case-studies/CaseStudyDiagrams'
 import { industryCards } from './components/DiagramConfig'
 
 export default function EntityResolutionCaseStudy() {
@@ -28,48 +29,81 @@ export default function EntityResolutionCaseStudy() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section - Split Layout */}
       <section className="pt-24 pb-16 bg-gradient-to-b from-bg-secondary to-white">
         <div className="container mx-auto px-6">
-          {/* Header */}
-          <div className="text-center mb-8">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center justify-center gap-2 mb-8"
+          >
+            <span className="px-3 py-1 text-xs font-medium uppercase tracking-wider bg-teal-500/10 text-teal-500 rounded-full border border-teal-500/20">
+              Case Study
+            </span>
+            <span className="text-text-muted">|</span>
+            <span className="text-sm text-text-muted">Entity Resolution</span>
+          </motion.div>
+
+          {/* Split Hero: Text Left, Diagram Right */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
+            {/* Left: Title and Subtitle */}
+            <div className="text-center lg:text-left">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-text-primary mb-6"
+              >
+                An Army of AI Agents vs.{' '}
+                <span className="text-teal-500">1.69 Million Broken Records</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl text-text-secondary max-w-xl mx-auto lg:mx-0"
+              >
+                How AI agents that reason through data chaos turned an unsolvable problem into a competitive advantage
+              </motion.p>
+            </div>
+
+            {/* Right: Animated Diagram */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center justify-center gap-2 mb-4"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="relative"
             >
-              <span className="px-3 py-1 text-xs font-medium uppercase tracking-wider bg-teal-500/10 text-teal-500 rounded-full border border-teal-500/20">
-                Case Study
-              </span>
-              <span className="text-text-muted">|</span>
-              <span className="text-sm text-text-muted">Entity Resolution</span>
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/20">
+                <div className="aspect-square max-w-md mx-auto lg:max-w-none">
+                  <CaseStudyDiagram
+                    type="entity-resolution"
+                    compact={false}
+                    interactive={true}
+                    className="w-full h-full"
+                  />
+                </div>
+                {/* Hero Metric Overlay */}
+                <motion.div
+                  className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm rounded-lg px-4 py-3 text-right"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <div className="text-2xl font-bold text-white">125x</div>
+                  <div className="text-sm text-white/80">Cost Savings</div>
+                </motion.div>
+              </div>
             </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-4"
-            >
-              An Army of AI Agents vs.{' '}
-              <span className="text-teal-500">1.69 Million Broken Records</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-text-secondary max-w-2xl mx-auto"
-            >
-              How AI agents that reason through data chaos turned an unsolvable problem into a competitive advantage
-            </motion.p>
           </div>
 
           {/* Executive Summary */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.4 }}
             className="max-w-5xl mx-auto"
           >
             <ExecutiveSummaryCard />

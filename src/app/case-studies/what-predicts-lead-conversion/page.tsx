@@ -9,86 +9,122 @@ import {
   SimplifiedPipeline,
   FeatureImportanceV2,
 } from './components'
+import { CaseStudyDiagram } from '@/components/case-studies/CaseStudyDiagrams'
 
 export default function LeadScoringCaseStudy() {
   return (
     <div className="min-h-screen bg-bg-primary">
-      {/* Hero Section - Lead with a question, not a pitch */}
-      <section className="relative pt-20 md:pt-24 pb-20 lg:pb-28 overflow-hidden">
+      {/* Hero Section - Split Layout */}
+      <section className="relative pt-20 md:pt-24 pb-16 overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-purple-50/50 to-bg-primary" />
 
         <div className="container mx-auto px-6 relative">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-border mb-8"
-            >
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex justify-center mb-8"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-border">
               <span className="px-2 py-0.5 text-xs font-medium bg-purple-500/10 text-purple-600 rounded-full">
                 Research Insight
               </span>
               <span className="text-sm text-text-muted">Lead Scoring</span>
-            </motion.div>
+            </div>
+          </motion.div>
 
-            {/* Educational headline - question framing */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6 leading-tight"
-            >
-              What Actually Predicts{' '}
-              <span className="text-purple-600">Lead Conversion</span>?
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl text-text-secondary mb-4"
-            >
-              An analysis of 3 years of sales data revealed surprising patterns.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-lg text-text-muted max-w-2xl mx-auto mb-10"
-            >
-              Most sales teams prioritize leads based on intuition and surface-level signals.
-              When we trained a model on actual conversion outcomes, it contradicted years of
-              assumptions about what makes a "good" lead.
-            </motion.p>
-
-            {/* Single CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <a
-                href="#demo"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-text-primary bg-white border border-border rounded-xl hover:bg-bg-secondary transition-colors"
+          {/* Split Hero: Text Left, Diagram Right */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
+            {/* Left: Title and Subtitle */}
+            <div className="text-center lg:text-left">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-text-primary mb-6 leading-tight"
               >
-                Test Your Intuition
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </a>
+                What Actually Predicts{' '}
+                <span className="text-purple-600">Lead Conversion</span>?
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl md:text-2xl text-text-secondary mb-4"
+              >
+                An analysis of 3 years of sales data revealed surprising patterns.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-lg text-text-muted max-w-xl mx-auto lg:mx-0 mb-8"
+              >
+                Most sales teams prioritize leads based on intuition and surface-level signals.
+                When we trained a model on actual conversion outcomes, it contradicted years of
+                assumptions about what makes a &quot;good&quot; lead.
+              </motion.p>
+
+              {/* CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <a
+                  href="#demo"
+                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-text-primary bg-white border border-border rounded-xl hover:bg-bg-secondary transition-colors"
+                >
+                  Test Your Intuition
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </a>
+              </motion.div>
+            </div>
+
+            {/* Right: Animated Diagram */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="relative"
+            >
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/20">
+                <div className="aspect-square max-w-md mx-auto lg:max-w-none">
+                  <CaseStudyDiagram
+                    type="lead-scoring"
+                    compact={false}
+                    interactive={true}
+                    className="w-full h-full"
+                  />
+                </div>
+                {/* Hero Metric Overlay */}
+                <motion.div
+                  className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm rounded-lg px-4 py-3 text-right"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <div className="text-2xl font-bold text-white">31%</div>
+                  <div className="text-sm text-white/80">Higher Success Rate</div>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
-        </div>
-      </section>
 
-      {/* Executive Summary Card */}
-      <section className="py-12">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto">
+          {/* Executive Summary */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="max-w-3xl mx-auto"
+          >
             <ExecutiveSummaryCard />
-          </div>
+          </motion.div>
         </div>
       </section>
 

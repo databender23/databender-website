@@ -13,6 +13,7 @@ import {
   AICapabilities,
   industryCards,
 } from './components'
+import { CaseStudyDiagram } from '@/components/case-studies/CaseStudyDiagrams'
 
 export default function DocumentIntelligenceCaseStudy() {
   const [sectionInView, setSectionInView] = useState({
@@ -34,53 +35,84 @@ export default function DocumentIntelligenceCaseStudy() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-bg-secondary to-bg-primary">
-      {/* Hero Section */}
+      {/* Hero Section - Split Layout */}
       <section className="pt-20 md:pt-24 pb-12 md:pb-16">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-4xl mx-auto">
-            {/* Badge */}
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center justify-center gap-2 mb-8"
+          >
+            <span className="px-3 py-1 text-xs font-medium uppercase tracking-wider bg-teal-500/10 text-teal-600 rounded-full border border-teal-500/20">
+              Document Intelligence
+            </span>
+          </motion.div>
+
+          {/* Split Hero: Text Left, Diagram Right */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
+            {/* Left: Title and Subtitle */}
+            <div className="text-center lg:text-left">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-text-primary mb-6"
+              >
+                Turn Your Documents Into
+                <span className="text-teal-500"> AI-Ready Knowledge</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-lg md:text-xl text-text-secondary max-w-xl mx-auto lg:mx-0"
+              >
+                Decades of expertise trapped in PDFs, scans, and spreadsheets. We turn them into
+                a searchable knowledge base that powers AI assistants, workflows, and applications.
+              </motion.p>
+            </div>
+
+            {/* Right: Animated Diagram */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center justify-center gap-2 mb-6"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="relative"
             >
-              <span className="px-3 py-1 text-xs font-medium uppercase tracking-wider bg-teal-500/10 text-teal-600 rounded-full border border-teal-500/20">
-                Document Intelligence
-              </span>
-            </motion.div>
-
-            {/* Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6"
-            >
-              Turn Your Documents Into
-              <span className="text-teal-500"> AI-Ready Knowledge</span>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-lg md:text-xl text-text-secondary mb-6 md:mb-8 max-w-2xl mx-auto px-2"
-            >
-              Decades of expertise trapped in PDFs, scans, and spreadsheets. We turn them into
-              a searchable knowledge base that powers AI assistants, workflows, and applications.
-            </motion.p>
-
-            {/* Executive Summary */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="mb-8"
-            >
-              <ExecutiveSummaryCard />
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/20">
+                <div className="aspect-square max-w-md mx-auto lg:max-w-none">
+                  <CaseStudyDiagram
+                    type="document-intelligence"
+                    compact={false}
+                    interactive={true}
+                    className="w-full h-full"
+                  />
+                </div>
+                {/* Hero Metric Overlay */}
+                <motion.div
+                  className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm rounded-lg px-4 py-3 text-right"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <div className="text-2xl font-bold text-white">Instant</div>
+                  <div className="text-sm text-white/80">AI Answers</div>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
+
+          {/* Executive Summary */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="max-w-5xl mx-auto"
+          >
+            <ExecutiveSummaryCard />
+          </motion.div>
         </div>
       </section>
 
