@@ -411,7 +411,7 @@ export default function HomePage() {
             heroTextHeight={280}
             maxSize={500}
             minSize={220}
-            cropTop={20}
+            cropTop={25}
           />
 
           {/* Hero Content */}

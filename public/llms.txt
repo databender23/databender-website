@@ -71,7 +71,13 @@ A: Boutique strategy with enterprise delivery. Our AI-augmented approach deliver
 A: Mid-market companies - typically $10M-$500M revenue. Large enough to have real data challenges, small enough that we can move fast without enterprise bureaucracy.
 
 **Q: Do you offer assessments or evaluations?**
-A: Yes. Free online assessments at /assessments including Data & AI Readiness Assessment and Manufacturing AI Assessment. These help you understand where you stand before any engagement.
+A: Yes. Free online assessments at /assessments including:
+- Data & AI Readiness Assessment (general)
+- Manufacturing AI Assessment
+- Healthcare AI Readiness Assessment
+- Legal AI Readiness Assessment
+- Commercial Real Estate Data Assessment
+These 5-minute self-assessments help you understand where you stand before any engagement, with personalized recommendations based on your answers.
 
 ## Featured Case Studies
 
@@ -108,11 +114,40 @@ The following sections of our website are available for AI crawling and indexing
 - `/industries/legal` - Legal industry AI and data solutions
 - `/industries/healthcare` - Healthcare data and HIPAA-compliant AI
 - `/industries/manufacturing` - Manufacturing AI and operational analytics
+- `/industries/commercial-real-estate` - Commercial real estate data and AI solutions
 - `/resources` - Guides, assessments, and educational content
-- `/resources/guides` - Downloadable guides and lead magnets
-- `/assessments` - Free online assessments (Data & AI Readiness, Manufacturing AI)
+- `/resources/guides` - Downloadable guides by industry (Legal, Healthcare, Manufacturing, CRE)
+- `/assessments` - Free online assessments hub
+- `/assessments/data-ai-readiness` - General Data & AI Readiness Assessment
+- `/assessments/manufacturing` - Manufacturing AI Assessment
+- `/assessments/healthcare-ai-readiness` - Healthcare AI Readiness Assessment
+- `/assessments/legal` - Legal AI Readiness Assessment
+- `/assessments/commercial-real-estate` - Commercial Real Estate Data Assessment
 - `/about` - Company information, founder background, approach
 - `/contact` - Contact form and booking information
+
+## Free Guides by Industry
+
+### Legal Industry Guides
+- `/resources/guides/associate-multiplier` - How to multiply associate leverage with AI
+- `/resources/guides/win-more-pitches` - Data-driven strategies for winning more pitches
+- `/resources/guides/partner-succession` - Knowledge transfer and succession planning
+- `/resources/guides/last-vendor` - Evaluating AI vendors for law firms
+
+### Healthcare Industry Guides
+- `/resources/guides/hipaa-compliant-ai` - HIPAA-Compliant AI: Deploy AI That Never Leaves Your Building
+- `/resources/guides/institutional-knowledge-healthcare` - Capturing Institutional Knowledge Before Your Best People Retire
+- `/resources/guides/document-intelligence-healthcare` - Document Intelligence for Healthcare: From Scattered PDFs to Instant Answers
+
+### Manufacturing Industry Guides
+- `/resources/guides/data-cleanup-manufacturing` - The Data Cleanup Playbook: Fix Your Customer Data in Weeks, Not Months
+- `/resources/guides/lead-scoring-manufacturing` - Lead Scoring That Actually Works: What 3 Years of Sales Data Taught Us
+- `/resources/guides/operational-visibility` - Real-Time Operational Visibility: Know What's Happening Without Making Phone Calls
+
+### Commercial Real Estate Guides
+- `/resources/guides/entity-resolution-cre` - Untangling Ownership: How to Find the Real Decision-Maker Behind LLCs
+- `/resources/guides/data-room-review` - AI-Powered Due Diligence: Review Data Rooms Overnight
+- `/resources/guides/deal-prioritization` - Smart Deal Prioritization: Know Which 100 of 10,000 Targets to Call First
 
 ## Client Testimonials
 

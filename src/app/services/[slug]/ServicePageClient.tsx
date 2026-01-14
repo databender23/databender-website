@@ -136,23 +136,32 @@ export default function ServicePageClient({ service }: Props) {
               transition={{ duration: 0.6 }}
               className="flex justify-center items-center mb-6"
             >
+              {/* Outer container clips the animation, inner container positions it */}
               <div
-                className="w-full aspect-square"
+                className="overflow-hidden"
                 style={{
                   maxWidth: 'min(340px, calc(100vh - 440px))',
                   minWidth: '150px',
+                  width: '100%',
                 }}
               >
-                <LottieWrapper
-                  animationUrl={LOTTIE_URLS[service.slug]}
-                  speed={ANIMATION_SPEEDS[service.slug] || 1}
-                  loop={false}
-                  priority={true}
-                  mobileOptimized={true}
-                  mobileSpeed={0.5}
-                  freezeAfterFirstLoop={true}
-                  className="w-full h-full"
-                />
+                <div
+                  className="w-full aspect-square"
+                  style={{
+                    marginTop: '-20%',
+                  }}
+                >
+                  <LottieWrapper
+                    animationUrl={LOTTIE_URLS[service.slug]}
+                    speed={ANIMATION_SPEEDS[service.slug] || 1}
+                    loop={false}
+                    priority={true}
+                    mobileOptimized={true}
+                    mobileSpeed={0.5}
+                    freezeAfterFirstLoop={true}
+                    className="w-full h-full"
+                  />
+                </div>
               </div>
             </motion.div>
           )}

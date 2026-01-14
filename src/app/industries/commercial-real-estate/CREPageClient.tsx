@@ -64,9 +64,9 @@ export default function CREPageClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
-              Untangle complex ownership structures. Speed up due diligence on deals.
-              Identify off-market opportunities before your competitors.
-              AI tools for CRE that run on your own systems.
+              The property&apos;s owned by an LLC, owned by a trust, managed by another LLC.
+              We untangled 1.69 million records to find 1.25 million actual owners.
+              Now you know who to call.
             </motion.p>
 
             <motion.div

@@ -85,6 +85,7 @@ export default function ServicesPageClient() {
             heroTextHeight={280}
             maxSize={480}
             minSize={200}
+            cropTop={20}
           />
 
           {/* Hero Content */}

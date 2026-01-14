@@ -64,9 +64,9 @@ export default function ManufacturingPageClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
-              Clean up messy customer data in hours instead of months.
-              Score leads based on who actually buys. Find any product spec in seconds.
-              AI that delivers real results—and stays inside your building.
+              Your customer data is a mess. Duplicates, bad addresses, records that point nowhere.
+              We cleaned 1.69 million records at 125x less cost than doing it manually.
+              Same AI can work for you.
             </motion.p>
 
             <motion.div
