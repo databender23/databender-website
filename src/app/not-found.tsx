@@ -1,20 +1,31 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui'
+import { FloatingNodes } from '@/components/animations'
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
-      <div className="text-center max-w-lg">
+    <div className="relative min-h-[80vh] flex items-center justify-center px-4 overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
+
+      {/* Teal glow spots */}
+      <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-40" />
+      <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-30" />
+
+      {/* Floating nodes background */}
+      <FloatingNodes nodeCount={15} showConnections={true} />
+
+      <div className="relative z-10 text-center max-w-lg">
         <LostRobot />
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="text-4xl md:text-5xl font-bold text-white mt-8 mb-4"
+          className="text-4xl md:text-5xl font-bold text-text-primary mt-8 mb-4"
         >
           404 - Data Not Found
         </motion.h1>
@@ -23,7 +34,7 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="text-gray-400 text-lg mb-8"
+          className="text-text-secondary text-lg mb-8"
         >
           Looks like this data got lost in the pipeline. Our AI is searching, but
           it seems this page doesn&apos;t exist.
@@ -35,27 +46,36 @@ export default function NotFound() {
           transition={{ delay: 0.9 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <Link
+          <Button
+            variant="primary"
+            size="lg"
             href="/"
-            className="px-6 py-3 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 transition-colors"
+            icon={
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+            }
+            iconPosition="left"
           >
-            ← Back to Homepage
-          </Link>
-          <Link
+            Back to Homepage
+          </Button>
+          <Button
+            variant="secondary"
+            size="lg"
             href="/contact"
-            className="px-6 py-3 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:border-teal-500 hover:text-white transition-colors"
           >
             Contact Support
-          </Link>
+          </Button>
         </motion.div>
       </div>
-    </main>
+    </div>
   )
 }
 
 function LostRobot() {
   const [lookDirection, setLookDirection] = useState<'left' | 'right' | 'up'>('left')
   const [isThinking, setIsThinking] = useState(false)
+  const [isHappy, setIsHappy] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -67,6 +87,12 @@ function LostRobot() {
       if (Math.random() > 0.7) {
         setIsThinking(true)
         setTimeout(() => setIsThinking(false), 1500)
+      }
+
+      // Occasionally show happy expression
+      if (Math.random() > 0.85) {
+        setIsHappy(true)
+        setTimeout(() => setIsHappy(false), 2000)
       }
     }, 2000)
 
@@ -91,12 +117,12 @@ function LostRobot() {
         <motion.div
           animate={{ rotate: [0, 5, -5, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-gray-500"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-gray-300"
         >
           <motion.div
             animate={{
               scale: [1, 1.2, 1],
-              boxShadow: ['0 0 10px #14b8a6', '0 0 20px #14b8a6', '0 0 10px #14b8a6']
+              boxShadow: ['0 0 10px #1A9988', '0 0 20px #1A9988', '0 0 10px #1A9988']
             }}
             transition={{ repeat: Infinity, duration: 1.5 }}
             className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-teal-500 rounded-full"
@@ -105,33 +131,52 @@ function LostRobot() {
 
         {/* Head */}
         <motion.div
-          animate={{ y: [0, -2, 0] }}
-          transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-          className="absolute top-10 left-1/2 -translate-x-1/2 w-32 h-28 bg-gray-700 rounded-2xl border-4 border-gray-600"
+          animate={{
+            y: [0, -2, 0],
+            rotate: isThinking ? 8 : 0
+          }}
+          transition={{
+            y: { repeat: Infinity, duration: 3, ease: 'easeInOut' },
+            rotate: { duration: 0.3 }
+          }}
+          className="absolute top-10 left-1/2 -translate-x-1/2 w-32 h-28 bg-[#F8F9FA] rounded-2xl border-2 border-gray-200 shadow-lg"
         >
           {/* Face screen */}
-          <div className="absolute inset-2 bg-gray-900 rounded-lg overflow-hidden">
+          <div className="absolute inset-2 bg-white rounded-lg overflow-hidden border border-gray-100">
             {/* Eyes */}
-            <div className="flex justify-center gap-6 mt-4">
-              <motion.div
-                animate={eyeOffset[lookDirection]}
-                className="relative w-8 h-8 bg-teal-500 rounded-full"
-              >
-                <div className="absolute top-1 left-1 w-3 h-3 bg-white rounded-full opacity-50" />
-              </motion.div>
-              <motion.div
-                animate={eyeOffset[lookDirection]}
-                className="relative w-8 h-8 bg-teal-500 rounded-full"
-              >
-                <div className="absolute top-1 left-1 w-3 h-3 bg-white rounded-full opacity-50" />
-              </motion.div>
+            <div className="flex justify-center gap-4 mt-3">
+              {isHappy ? (
+                // Happy crescent eyes
+                <>
+                  <div className="w-10 h-5 border-b-4 border-teal-500 rounded-b-full" />
+                  <div className="w-10 h-5 border-b-4 border-teal-500 rounded-b-full" />
+                </>
+              ) : (
+                // Normal eyes with sparkles
+                <>
+                  <motion.div
+                    animate={eyeOffset[lookDirection]}
+                    className="relative w-10 h-10 bg-teal-500 rounded-full shadow-[0_0_12px_rgba(26,153,136,0.5)]"
+                  >
+                    <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full opacity-70" />
+                    <div className="absolute top-4 left-4 w-2 h-2 bg-white rounded-full opacity-50" />
+                  </motion.div>
+                  <motion.div
+                    animate={eyeOffset[lookDirection]}
+                    className="relative w-10 h-10 bg-teal-500 rounded-full shadow-[0_0_12px_rgba(26,153,136,0.5)]"
+                  >
+                    <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full opacity-70" />
+                    <div className="absolute top-4 left-4 w-2 h-2 bg-white rounded-full opacity-50" />
+                  </motion.div>
+                </>
+              )}
             </div>
 
             {/* Mouth */}
             <motion.div
-              animate={isThinking ? { width: ['60%', '20%', '60%'] } : {}}
-              transition={{ repeat: Infinity, duration: 0.5 }}
-              className="mx-auto mt-4 w-12 h-2 bg-teal-500 rounded-full"
+              animate={isHappy ? { scaleX: [1, 1.2, 1] } : isThinking ? { width: ['60%', '20%', '60%'] } : {}}
+              transition={{ repeat: Infinity, duration: isHappy ? 0.8 : 0.5 }}
+              className={`mx-auto mt-3 h-2 bg-teal-500 rounded-full ${isHappy ? 'w-14' : 'w-10'}`}
             />
 
             {/* Thinking dots */}
@@ -151,37 +196,37 @@ function LostRobot() {
         </motion.div>
 
         {/* Body */}
-        <div className="absolute top-[138px] left-1/2 -translate-x-1/2 w-24 h-20 bg-gray-700 rounded-xl border-4 border-gray-600">
+        <div className="absolute top-[138px] left-1/2 -translate-x-1/2 w-24 h-20 bg-[#F8F9FA] rounded-xl border-2 border-gray-200 shadow-lg">
           {/* Chest light */}
           <motion.div
             animate={{
-              backgroundColor: ['#ef4444', '#14b8a6', '#ef4444'],
-              boxShadow: ['0 0 10px #ef4444', '0 0 10px #14b8a6', '0 0 10px #ef4444']
+              backgroundColor: ['#ef4444', '#1A9988', '#ef4444'],
+              boxShadow: ['0 0 10px #ef4444', '0 0 10px #1A9988', '0 0 10px #ef4444']
             }}
             transition={{ repeat: Infinity, duration: 2 }}
             className="absolute top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full"
           />
 
           {/* Panel lines */}
-          <div className="absolute top-10 left-2 right-2 h-px bg-gray-600" />
-          <div className="absolute top-12 left-2 right-2 h-px bg-gray-600" />
+          <div className="absolute top-10 left-2 right-2 h-px bg-gray-200" />
+          <div className="absolute top-12 left-2 right-2 h-px bg-gray-200" />
         </div>
 
         {/* Arms */}
         <motion.div
           animate={{ rotate: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
-          className="absolute top-[145px] left-4 w-3 h-16 bg-gray-600 rounded-full origin-top"
+          className="absolute top-[145px] left-4 w-3 h-16 bg-gray-200 rounded-full origin-top"
         >
-          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-5 h-5 bg-gray-500 rounded-full" />
+          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-5 h-5 bg-gray-300 rounded-full" />
         </motion.div>
 
         <motion.div
           animate={{ rotate: [0, -10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute top-[145px] right-4 w-3 h-16 bg-gray-600 rounded-full origin-top"
+          className="absolute top-[145px] right-4 w-3 h-16 bg-gray-200 rounded-full origin-top"
         >
-          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-5 h-5 bg-gray-500 rounded-full" />
+          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-5 h-5 bg-gray-300 rounded-full" />
         </motion.div>
 
         {/* Question marks floating */}
@@ -192,7 +237,7 @@ function LostRobot() {
             x: [-20, -30, -20]
           }}
           transition={{ repeat: Infinity, duration: 3, delay: 0 }}
-          className="absolute -top-4 left-0 text-2xl text-teal-400"
+          className="absolute -top-4 left-0 text-2xl text-teal-500 font-bold"
         >
           ?
         </motion.span>
@@ -203,7 +248,7 @@ function LostRobot() {
             x: [20, 30, 20]
           }}
           transition={{ repeat: Infinity, duration: 3, delay: 1 }}
-          className="absolute -top-4 right-0 text-2xl text-teal-400"
+          className="absolute -top-4 right-0 text-2xl text-teal-500 font-bold"
         >
           ?
         </motion.span>
@@ -211,9 +256,9 @@ function LostRobot() {
 
       {/* Shadow */}
       <motion.div
-        animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.2, 0.3] }}
+        animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.1, 0.2] }}
         transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-4 bg-gray-800 rounded-full blur-sm"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-4 bg-gray-300 rounded-full blur-sm"
       />
     </motion.div>
   )
