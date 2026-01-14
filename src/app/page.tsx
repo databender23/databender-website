@@ -10,7 +10,7 @@ import { testimonials } from "@/lib/case-studies-data";
 import { CaseStudyDiagram } from "@/components/case-studies/CaseStudyDiagrams";
 import { useState, useEffect } from "react";
 import { preloadLottie } from "@/components/animations/LottieWrapper";
-import { ResponsiveAnimation, HeroDataAnimation } from "@/components/animations";
+import { HeroLottie } from "@/components/animations";
 
 // Icons for features
 const DataIcon = () => (
@@ -403,22 +403,15 @@ export default function HomePage() {
         />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation - Above Hero */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="flex justify-center items-center mb-8"
-          >
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-              <ResponsiveAnimation
-                lottieUrl="/animations/hero-data.json"
-                MobileComponent={HeroDataAnimation}
-                className="w-full aspect-square"
-                loop={false}
-              />
-            </div>
-          </motion.div>
+          {/* Lottie Animation - dynamically sized to fit viewport */}
+          <HeroLottie
+            lottieUrl="/animations/hero-data.json"
+            className="mb-6"
+            loop={false}
+            heroTextHeight={350}
+            maxSize={380}
+            minSize={180}
+          />
 
           {/* Hero Content */}
           <div className="max-w-3xl mx-auto text-center">
