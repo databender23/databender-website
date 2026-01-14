@@ -574,3 +574,4 @@ export function shouldAlertForScore(score: number): { shouldAlert: boolean; tier
   if (score >= 26) return { shouldAlert: true, tier: "Warm" };
   return { shouldAlert: false };
 }
+// Force rebuild 1768366381
