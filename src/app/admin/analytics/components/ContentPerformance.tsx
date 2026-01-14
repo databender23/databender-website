@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface PageData {
   page: string;
@@ -16,24 +16,122 @@ interface Props {
   isLoading?: boolean;
 }
 
-type SortColumn = "page" | "views" | "uniqueVisitors" | "leads" | "conversionRate";
+interface ParsedPage {
+  section: string;
+  pageName: string;
+  fullPath: string;
+}
+
+type SortColumn = "section" | "pageName" | "views" | "uniqueVisitors" | "leads" | "conversionRate";
 type SortDirection = "asc" | "desc";
 
-function formatPagePath(path: string): { display: string; label?: string } {
-  // Handle homepage
-  if (path === "" || path === "/") {
-    return { display: "/", label: "Homepage" };
+// Mapping of slug to human-readable names
+const PAGE_NAMES: Record<string, string> = {
+  // Services
+  "data-ai-strategy": "Data & AI Strategy",
+  "analytics-bi": "Analytics & BI",
+  "ai-services": "AI Services",
+  "data-engineering": "Data Engineering",
+  // Industries
+  "legal": "Legal",
+  "healthcare": "Healthcare",
+  "manufacturing": "Manufacturing",
+  "commercial-real-estate": "Commercial Real Estate",
+  // Resources
+  "guides": "Guides",
+  "case-studies": "Case Studies",
+  // Assessments
+  "data-ai-readiness": "Data & AI Readiness",
+  "healthcare-benchmark": "Healthcare Benchmark",
+  // Case studies
+  "agentic-document-intelligence": "Agentic Document Intelligence",
+  "army-of-ai-agents": "Army of AI Agents",
+  "what-predicts-lead-conversion": "Lead Conversion Prediction",
+  // Guides
+  "associate-multiplier": "Associate Multiplier",
+  "win-more-pitches": "Win More Pitches",
+  "partner-succession": "Partner Succession",
+  "last-vendor": "Last Vendor Guide",
+};
+
+function parsePath(path: string): ParsedPage {
+  // Handle empty or root path
+  if (!path || path === "/" || path === "") {
+    return { section: "Home", pageName: "Homepage", fullPath: "/" };
   }
 
-  // Remove leading slash for display
-  const cleanPath = path.startsWith("/") ? path : "/" + path;
+  // Remove leading/trailing slashes and split
+  const cleanPath = path.replace(/^\/+|\/+$/g, "");
+  const segments = cleanPath.split("/");
 
-  // Truncate long paths
-  if (cleanPath.length > 35) {
-    return { display: "..." + cleanPath.slice(-32) };
+  // Determine section based on first segment
+  const firstSegment = segments[0]?.toLowerCase() || "";
+
+  let section = "Other";
+  let pageName = "";
+
+  switch (firstSegment) {
+    case "services":
+      section = "Services";
+      pageName = segments[1] ? (PAGE_NAMES[segments[1]] || formatSlug(segments[1])) : "Overview";
+      break;
+    case "industries":
+      section = "Industries";
+      pageName = segments[1] ? (PAGE_NAMES[segments[1]] || formatSlug(segments[1])) : "Overview";
+      break;
+    case "resources":
+      section = "Resources";
+      if (segments[1] === "guides" && segments[2]) {
+        pageName = PAGE_NAMES[segments[2]] || formatSlug(segments[2]);
+      } else {
+        pageName = segments[1] ? formatSlug(segments[1]) : "Overview";
+      }
+      break;
+    case "blog":
+      section = "Blog";
+      pageName = segments[1] ? formatSlug(segments[1]) : "Blog Index";
+      break;
+    case "case-studies":
+      section = "Case Studies";
+      pageName = segments[1] ? (PAGE_NAMES[segments[1]] || formatSlug(segments[1])) : "Overview";
+      break;
+    case "assessments":
+      section = "Assessments";
+      if (segments[1]) {
+        pageName = PAGE_NAMES[segments[1]] || formatSlug(segments[1]);
+        if (segments[2] === "results") {
+          pageName += " Results";
+        }
+      } else {
+        pageName = "Assessment Hub";
+      }
+      break;
+    case "about":
+      section = "Company";
+      pageName = "About Us";
+      break;
+    case "contact":
+      section = "Company";
+      pageName = "Contact";
+      break;
+    case "our-process":
+      section = "Company";
+      pageName = "Our Process";
+      break;
+    default:
+      section = "Other";
+      pageName = formatSlug(firstSegment);
   }
 
-  return { display: cleanPath };
+  return { section, pageName, fullPath: path };
+}
+
+function formatSlug(slug: string): string {
+  if (!slug) return "";
+  return slug
+    .split("-")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 function getConversionBadgeStyle(rate: number): string {
@@ -46,26 +144,18 @@ function getConversionBadgeStyle(rate: number): string {
   return "bg-gray-100 text-gray-600 border-gray-200";
 }
 
-function getRankBadge(index: number): { gradient: string; shadow: string } | null {
-  if (index === 0) {
-    return {
-      gradient: "from-amber-400 to-amber-500",
-      shadow: "shadow-amber-200",
-    };
-  }
-  if (index === 1) {
-    return {
-      gradient: "from-slate-300 to-slate-400",
-      shadow: "shadow-slate-200",
-    };
-  }
-  if (index === 2) {
-    return {
-      gradient: "from-orange-300 to-orange-400",
-      shadow: "shadow-orange-200",
-    };
-  }
-  return null;
+function getSectionColor(section: string): string {
+  const colors: Record<string, string> = {
+    "Home": "bg-teal-100 text-teal-700",
+    "Services": "bg-blue-100 text-blue-700",
+    "Industries": "bg-purple-100 text-purple-700",
+    "Resources": "bg-amber-100 text-amber-700",
+    "Blog": "bg-pink-100 text-pink-700",
+    "Case Studies": "bg-indigo-100 text-indigo-700",
+    "Assessments": "bg-emerald-100 text-emerald-700",
+    "Company": "bg-slate-100 text-slate-700",
+  };
+  return colors[section] || "bg-gray-100 text-gray-700";
 }
 
 function SortIcon({
@@ -80,7 +170,7 @@ function SortIcon({
   if (sortColumn !== column) {
     return (
       <svg
-        className="w-4 h-4 text-text-muted opacity-0 group-hover:opacity-100 transition-opacity"
+        className="w-3.5 h-3.5 text-text-muted opacity-0 group-hover:opacity-100 transition-opacity"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -99,7 +189,7 @@ function SortIcon({
     <motion.svg
       initial={{ scale: 0.8 }}
       animate={{ scale: 1 }}
-      className="w-4 h-4 text-teal-500"
+      className="w-3.5 h-3.5 text-teal-500"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -120,24 +210,6 @@ function SortIcon({
         />
       )}
     </motion.svg>
-  );
-}
-
-function PageIcon() {
-  return (
-    <svg
-      className="w-4 h-4 text-text-muted flex-shrink-0"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.5}
-        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-      />
-    </svg>
   );
 }
 
@@ -164,28 +236,8 @@ function LoadingSkeleton() {
     <div className="animate-pulse space-y-3">
       <div className="h-10 bg-gray-100 rounded-lg" />
       {[...Array(5)].map((_, i) => (
-        <div key={i} className="h-14 bg-gray-50 rounded-lg" />
+        <div key={i} className="h-12 bg-gray-50 rounded-lg" />
       ))}
-    </div>
-  );
-}
-
-function ViewsBar({ views, maxViews }: { views: number; maxViews: number }) {
-  const percentage = maxViews > 0 ? (views / maxViews) * 100 : 0;
-
-  return (
-    <div className="flex items-center gap-2">
-      <span className="text-lg font-bold text-text-primary min-w-[60px] text-right">
-        {views.toLocaleString()}
-      </span>
-      <div className="w-16 h-2 bg-gray-100 rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: `${percentage}%` }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="h-full bg-gradient-to-r from-teal-400 to-teal-500 rounded-full"
-        />
-      </div>
     </div>
   );
 }
@@ -193,6 +245,12 @@ function ViewsBar({ views, maxViews }: { views: number; maxViews: number }) {
 export default function ContentPerformance({ pages, isLoading }: Props) {
   const [sortColumn, setSortColumn] = useState<SortColumn>("views");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+
+  // Parse all pages
+  const parsedPages = pages.map(page => ({
+    ...page,
+    parsed: parsePath(page.page),
+  }));
 
   const handleSort = (column: SortColumn) => {
     if (sortColumn === column) {
@@ -203,9 +261,20 @@ export default function ContentPerformance({ pages, isLoading }: Props) {
     }
   };
 
-  const sortedPages = [...pages].sort((a, b) => {
-    const aVal = a[sortColumn];
-    const bVal = b[sortColumn];
+  const sortedPages = [...parsedPages].sort((a, b) => {
+    let aVal: string | number;
+    let bVal: string | number;
+
+    if (sortColumn === "section") {
+      aVal = a.parsed.section;
+      bVal = b.parsed.section;
+    } else if (sortColumn === "pageName") {
+      aVal = a.parsed.pageName;
+      bVal = b.parsed.pageName;
+    } else {
+      aVal = a[sortColumn];
+      bVal = b[sortColumn];
+    }
 
     if (typeof aVal === "string" && typeof bVal === "string") {
       return sortDirection === "asc"
@@ -219,14 +288,6 @@ export default function ContentPerformance({ pages, isLoading }: Props) {
   });
 
   const maxViews = Math.max(...pages.map((p) => p.views), 1);
-
-  const columns: { key: SortColumn; label: string; align?: "right" | "center" }[] = [
-    { key: "page", label: "Page" },
-    { key: "views", label: "Views", align: "right" },
-    { key: "uniqueVisitors", label: "Unique", align: "right" },
-    { key: "leads", label: "Leads", align: "right" },
-    { key: "conversionRate", label: "Conv Rate", align: "right" },
-  ];
 
   return (
     <motion.div
@@ -275,102 +336,130 @@ export default function ContentPerformance({ pages, isLoading }: Props) {
             <table className="min-w-full">
               <thead>
                 <tr className="border-b border-border">
-                  {columns.map((col) => (
-                    <th
-                      key={col.key}
-                      onClick={() => handleSort(col.key)}
-                      className={`px-4 py-3 text-xs font-semibold uppercase tracking-wider cursor-pointer select-none group transition-colors ${
-                        sortColumn === col.key
-                          ? "text-teal-600"
-                          : "text-text-muted hover:text-text-primary"
-                      } ${col.align === "right" ? "text-right" : "text-left"}`}
-                    >
-                      <div
-                        className={`flex items-center gap-1.5 ${
-                          col.align === "right" ? "justify-end" : ""
-                        }`}
-                      >
-                        {col.label}
-                        <SortIcon
-                          column={col.key}
-                          sortColumn={sortColumn}
-                          sortDirection={sortDirection}
-                        />
-                      </div>
-                    </th>
-                  ))}
+                  <th
+                    onClick={() => handleSort("section")}
+                    className={`px-3 py-3 text-xs font-semibold uppercase tracking-wider cursor-pointer select-none group transition-colors text-left ${
+                      sortColumn === "section" ? "text-teal-600" : "text-text-muted hover:text-text-primary"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1">
+                      Section
+                      <SortIcon column="section" sortColumn={sortColumn} sortDirection={sortDirection} />
+                    </div>
+                  </th>
+                  <th
+                    onClick={() => handleSort("pageName")}
+                    className={`px-3 py-3 text-xs font-semibold uppercase tracking-wider cursor-pointer select-none group transition-colors text-left ${
+                      sortColumn === "pageName" ? "text-teal-600" : "text-text-muted hover:text-text-primary"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1">
+                      Page
+                      <SortIcon column="pageName" sortColumn={sortColumn} sortDirection={sortDirection} />
+                    </div>
+                  </th>
+                  <th
+                    onClick={() => handleSort("views")}
+                    className={`px-3 py-3 text-xs font-semibold uppercase tracking-wider cursor-pointer select-none group transition-colors text-right ${
+                      sortColumn === "views" ? "text-teal-600" : "text-text-muted hover:text-text-primary"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1 justify-end">
+                      Views
+                      <SortIcon column="views" sortColumn={sortColumn} sortDirection={sortDirection} />
+                    </div>
+                  </th>
+                  <th
+                    onClick={() => handleSort("uniqueVisitors")}
+                    className={`px-3 py-3 text-xs font-semibold uppercase tracking-wider cursor-pointer select-none group transition-colors text-right ${
+                      sortColumn === "uniqueVisitors" ? "text-teal-600" : "text-text-muted hover:text-text-primary"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1 justify-end">
+                      Unique
+                      <SortIcon column="uniqueVisitors" sortColumn={sortColumn} sortDirection={sortDirection} />
+                    </div>
+                  </th>
+                  <th
+                    onClick={() => handleSort("leads")}
+                    className={`px-3 py-3 text-xs font-semibold uppercase tracking-wider cursor-pointer select-none group transition-colors text-right ${
+                      sortColumn === "leads" ? "text-teal-600" : "text-text-muted hover:text-text-primary"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1 justify-end">
+                      Leads
+                      <SortIcon column="leads" sortColumn={sortColumn} sortDirection={sortDirection} />
+                    </div>
+                  </th>
+                  <th
+                    onClick={() => handleSort("conversionRate")}
+                    className={`px-3 py-3 text-xs font-semibold uppercase tracking-wider cursor-pointer select-none group transition-colors text-right ${
+                      sortColumn === "conversionRate" ? "text-teal-600" : "text-text-muted hover:text-text-primary"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1 justify-end">
+                      Conv
+                      <SortIcon column="conversionRate" sortColumn={sortColumn} sortDirection={sortDirection} />
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                  {sortedPages.map((page, index) => {
-                    const pathInfo = formatPagePath(page.page);
-                    const rankBadge = getRankBadge(index);
-                    const conversionStyle = getConversionBadgeStyle(page.conversionRate);
+                {sortedPages.map((page, index) => {
+                  const conversionStyle = getConversionBadgeStyle(page.conversionRate);
+                  const sectionColor = getSectionColor(page.parsed.section);
+                  const viewsPercentage = maxViews > 0 ? (page.views / maxViews) * 100 : 0;
 
-                    return (
-                      <tr
-                        key={page.page}
-                        className="border-b border-border/50 hover:bg-teal-50/30 transition-colors"
-                      >
-                        <td className="py-4 px-4">
-                          <div className="flex items-center gap-3">
-                            {rankBadge ? (
-                              <motion.span
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{
-                                  type: "spring",
-                                  stiffness: 400,
-                                  damping: 15,
-                                  delay: index * 0.05,
-                                }}
-                                className={`w-6 h-6 rounded-full bg-gradient-to-br ${rankBadge.gradient} ${rankBadge.shadow} shadow text-white text-xs font-bold flex items-center justify-center flex-shrink-0`}
-                              >
-                                {index + 1}
-                              </motion.span>
-                            ) : (
-                              <span className="w-6 h-6 rounded-full bg-gray-100 text-gray-500 text-xs font-medium flex items-center justify-center flex-shrink-0">
-                                {index + 1}
-                              </span>
-                            )}
-                            <div className="flex items-center gap-2 min-w-0">
-                              <PageIcon />
-                              <div className="min-w-0" title={page.page}>
-                                <span className="font-medium text-text-primary text-sm block truncate">
-                                  {pathInfo.display}
-                                </span>
-                                {pathInfo.label && (
-                                  <span className="text-xs text-text-muted">
-                                    {pathInfo.label}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
+                  return (
+                    <tr
+                      key={page.page}
+                      className="border-b border-border/50 hover:bg-teal-50/30 transition-colors"
+                    >
+                      <td className="py-3 px-3">
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${sectionColor}`}>
+                          {page.parsed.section}
+                        </span>
+                      </td>
+                      <td className="py-3 px-3">
+                        <div className="min-w-0" title={page.parsed.fullPath}>
+                          <span className="font-medium text-text-primary text-sm">
+                            {page.parsed.pageName}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-3 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <div className="w-12 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-gradient-to-r from-teal-400 to-teal-500 rounded-full"
+                              style={{ width: `${viewsPercentage}%` }}
+                            />
                           </div>
-                        </td>
-                        <td className="py-4 px-4 text-right">
-                          <ViewsBar views={page.views} maxViews={maxViews} />
-                        </td>
-                        <td className="py-4 px-4 text-right">
-                          <span className="text-sm text-text-secondary font-medium">
-                            {page.uniqueVisitors.toLocaleString()}
+                          <span className="text-sm font-semibold text-text-primary min-w-[40px] text-right">
+                            {page.views.toLocaleString()}
                           </span>
-                        </td>
-                        <td className="py-4 px-4 text-right">
-                          <span className="text-sm text-text-secondary font-medium">
-                            {page.leads.toLocaleString()}
-                          </span>
-                        </td>
-                        <td className="py-4 px-4 text-right">
-                          <span
-                            className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${conversionStyle}`}
-                          >
-                            {page.conversionRate.toFixed(1)}%
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                        </div>
+                      </td>
+                      <td className="py-3 px-3 text-right">
+                        <span className="text-sm text-text-secondary">
+                          {page.uniqueVisitors.toLocaleString()}
+                        </span>
+                      </td>
+                      <td className="py-3 px-3 text-right">
+                        <span className="text-sm text-text-secondary">
+                          {page.leads.toLocaleString()}
+                        </span>
+                      </td>
+                      <td className="py-3 px-3 text-right">
+                        <span
+                          className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold border ${conversionStyle}`}
+                        >
+                          {page.conversionRate.toFixed(1)}%
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
