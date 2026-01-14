@@ -461,7 +461,8 @@ To find your visitor ID: Open browser DevTools → Application → Local Storage
 ```typescript
 // src/lib/analytics/visitor-id.ts
 const EXCLUDED_VISITOR_IDS = new Set([
-  "2ae176ee-90d0-4bb9-8ba3-fe231fdcb1e9", // Grant Bender
+  "2ae176ee-90d0-4bb9-8ba3-fe231fdcb1e9", // Grant Bender (desktop)
+  "bc58fd1a-3ed0-4bf2-a99b-8b8b5bf9afb0", // Grant Bender (mobile)
   // Add more team member IDs here with a comment identifying them
 ]);
 ```

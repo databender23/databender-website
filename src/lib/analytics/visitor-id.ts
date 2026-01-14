@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from "uuid";
 
 // Visitor IDs to exclude from analytics (internal team members)
 const EXCLUDED_VISITOR_IDS = new Set([
-  "2ae176ee-90d0-4bb9-8ba3-fe231fdcb1e9", // Grant Bender
+  "2ae176ee-90d0-4bb9-8ba3-fe231fdcb1e9", // Grant Bender (desktop)
+  "bc58fd1a-3ed0-4bf2-a99b-8b8b5bf9afb0", // Grant Bender (mobile)
 ]);
 
 const VISITOR_ID_KEY = "db_visitor_id";
