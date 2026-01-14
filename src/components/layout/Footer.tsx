@@ -10,16 +10,14 @@ export default function Footer() {
       {/* Newsletter Section */}
       <div>
         <div className="container mx-auto px-6 py-12">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div className="max-w-md">
-              <h3 className="text-text-primary text-lg font-semibold mb-2">
-                Get Data & AI Insights
-              </h3>
-              <p className="text-text-secondary text-sm">
-                Practical strategies for turning your data into competitive advantage. No fluff, just actionable insights.
-              </p>
-            </div>
-            <div className="w-full md:w-auto md:min-w-[360px]">
+          <div className="max-w-xl mx-auto text-center">
+            <h3 className="text-text-primary text-lg font-semibold mb-2">
+              Get Data & AI Insights
+            </h3>
+            <p className="text-text-secondary text-sm mb-6">
+              Practical strategies for turning your data into competitive advantage. No fluff, just actionable insights.
+            </p>
+            <div className="max-w-md mx-auto">
               <NewsletterForm />
             </div>
           </div>
