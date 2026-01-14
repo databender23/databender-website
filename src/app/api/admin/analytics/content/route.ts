@@ -78,9 +78,11 @@ export async function GET(request: NextRequest) {
       }),
     ]);
 
-    // Filter out bot traffic
+    // Filter out bot traffic and admin pages
     const humanEvents = events.filter((e) => !e.isBot);
-    const pageviewEvents = humanEvents.filter((e) => e.eventType === "pageview");
+    const pageviewEvents = humanEvents.filter(
+      (e) => e.eventType === "pageview" && !e.page.startsWith("/admin")
+    );
 
     // Aggregate page metrics
     const pageMetricsMap = aggregatePageMetrics(pageviewEvents, leadsResult.leads);
@@ -180,7 +182,8 @@ function calculateEntryPages(
 
   for (const session of sessions) {
     const entryPage = session.entryPage;
-    if (entryPage) {
+    // Exclude admin pages from entry pages
+    if (entryPage && !entryPage.startsWith("/admin")) {
       entryPageCounts[entryPage] = (entryPageCounts[entryPage] || 0) + 1;
     }
   }

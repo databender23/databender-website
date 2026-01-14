@@ -30,12 +30,15 @@ export async function GET(request: NextRequest) {
       getConversionPathsForDateRange(startStr, endStr),
     ]);
 
-    // Filter out bot traffic for metrics
+    // Filter out bot traffic and admin pages for metrics
     const humanEvents = events.filter((e) => !e.isBot);
     const humanSessions = sessions; // Sessions are only created for non-bots in pageviews
 
-    // Calculate metrics
-    const pageviews = humanEvents.filter((e) => e.eventType === "pageview").length;
+    // Helper to check if a page is an admin page
+    const isAdminPage = (page: string) => page.startsWith("/admin");
+
+    // Calculate metrics (excluding admin pages)
+    const pageviews = humanEvents.filter((e) => e.eventType === "pageview" && !isAdminPage(e.page)).length;
     const uniqueVisitors = new Set(humanEvents.map((e) => e.visitorId)).size;
     const totalSessions = humanSessions.length;
     const conversions = humanSessions.filter((s) => s.isConverted).length;
@@ -55,18 +58,18 @@ export async function GET(request: NextRequest) {
       ? Math.round(sessionsWithDuration.reduce((sum, s) => sum + (s.duration || 0), 0) / sessionsWithDuration.length)
       : 0;
 
-    // Top pages with time on page
+    // Top pages with time on page (excluding admin pages)
     const pageCounts: Record<string, { count: number; totalTime: number }> = {};
     humanEvents
-      .filter((e) => e.eventType === "pageview")
+      .filter((e) => e.eventType === "pageview" && !isAdminPage(e.page))
       .forEach((e) => {
         if (!pageCounts[e.page]) pageCounts[e.page] = { count: 0, totalTime: 0 };
         pageCounts[e.page].count += 1;
       });
 
-    // Add time data from page_exit events
+    // Add time data from page_exit events (excluding admin pages)
     humanEvents
-      .filter((e) => e.eventType === "page_exit" && e.timeOnPage)
+      .filter((e) => e.eventType === "page_exit" && e.timeOnPage && !isAdminPage(e.page))
       .forEach((e) => {
         if (pageCounts[e.page]) {
           pageCounts[e.page].totalTime += e.timeOnPage || 0;
@@ -82,10 +85,10 @@ export async function GET(request: NextRequest) {
         avgTime: data.count > 0 ? Math.round(data.totalTime / data.count) : 0,
       }));
 
-    // Pageviews by day
+    // Pageviews by day (excluding admin pages)
     const pageviewsByDay: Record<string, number> = {};
     humanEvents
-      .filter((e) => e.eventType === "pageview")
+      .filter((e) => e.eventType === "pageview" && !isAdminPage(e.page))
       .forEach((e) => {
         const day = e.timestamp.split("T")[0];
         pageviewsByDay[day] = (pageviewsByDay[day] || 0) + 1;
@@ -153,10 +156,10 @@ export async function GET(request: NextRequest) {
         }
       });
 
-    // Calculate bounce rate (sessions with only 1 pageview)
+    // Calculate bounce rate (sessions with only 1 pageview, excluding admin pages)
     const sessionPageCounts: Record<string, number> = {};
     humanEvents
-      .filter((e) => e.eventType === "pageview")
+      .filter((e) => e.eventType === "pageview" && !isAdminPage(e.page))
       .forEach((e) => {
         sessionPageCounts[e.sessionId] = (sessionPageCounts[e.sessionId] || 0) + 1;
       });
@@ -215,10 +218,10 @@ export async function GET(request: NextRequest) {
       ? Math.round(totalLeadScore / sessionsWithScores.length)
       : 0;
 
-    // Calculate page contributions to lead scores
+    // Calculate page contributions to lead scores (excluding admin pages)
     const pageScoreContributions: Record<string, { score: number; visits: number }> = {};
     sessionsWithScores.forEach((s) => {
-      const pages = s.pagesVisited || [];
+      const pages = (s.pagesVisited || []).filter((page) => !isAdminPage(page));
       pages.forEach((page) => {
         const pageScore = calculatePageScore(page);
         if (!pageScoreContributions[page]) {
@@ -263,11 +266,13 @@ export async function GET(request: NextRequest) {
       : 0;
     const singlePageConversions = conversionPaths.filter((c) => c.journeyLength === 1).length;
 
-    // Top first-touch pages (entry points that lead to conversions)
+    // Top first-touch pages (entry points that lead to conversions, excluding admin pages)
     const firstTouchCounts: Record<string, number> = {};
     conversionPaths.forEach((c) => {
       const page = c.firstTouchPage;
-      firstTouchCounts[page] = (firstTouchCounts[page] || 0) + 1;
+      if (!isAdminPage(page)) {
+        firstTouchCounts[page] = (firstTouchCounts[page] || 0) + 1;
+      }
     });
 
     const topFirstTouchPages = Object.entries(firstTouchCounts)
@@ -275,11 +280,13 @@ export async function GET(request: NextRequest) {
       .slice(0, 5)
       .map(([page, count]) => ({ page, count }));
 
-    // Top last-touch pages (pages where conversions happen)
+    // Top last-touch pages (pages where conversions happen, excluding admin pages)
     const lastTouchCounts: Record<string, number> = {};
     conversionPaths.forEach((c) => {
       const page = c.lastTouchPage;
-      lastTouchCounts[page] = (lastTouchCounts[page] || 0) + 1;
+      if (!isAdminPage(page)) {
+        lastTouchCounts[page] = (lastTouchCounts[page] || 0) + 1;
+      }
     });
 
     const topLastTouchPages = Object.entries(lastTouchCounts)

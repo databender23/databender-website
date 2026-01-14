@@ -41,9 +41,9 @@ export async function GET(request: NextRequest) {
   try {
     const sessions = await getSessionsForDateRange(startStr, endStr);
 
-    // Filter to sessions with geo data
+    // Filter to sessions with geo data, excluding admin-only sessions
     const sessionsWithGeo = sessions.filter(
-      (s) => s.country && s.country !== "Unknown"
+      (s) => s.country && s.country !== "Unknown" && !s.entryPage?.startsWith("/admin")
     );
 
     // Aggregate by region

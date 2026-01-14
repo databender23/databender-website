@@ -153,8 +153,11 @@ function aggregateBySource(sessions: Session[], leads: Lead[]): SourceMetrics[] 
     });
   }
 
-  // Process sessions
+  // Process sessions (excluding admin sessions)
   for (const session of sessions) {
+    // Skip sessions that started on admin pages
+    if (session.entryPage?.startsWith("/admin")) continue;
+
     const source = categorizeSource(
       session.referrerSource || null,
       undefined, // UTM source not stored directly on session
@@ -222,9 +225,11 @@ function aggregateByReferrer(sessions: Session[], leads: Lead[]): ReferrerMetric
     scoreCount: number;
   }>();
 
-  // Process sessions
+  // Process sessions (excluding admin sessions)
   for (const session of sessions) {
     if (!session.referrerSource) continue;
+    // Skip sessions that started on admin pages
+    if (session.entryPage?.startsWith("/admin")) continue;
 
     const domain = extractDomain(session.referrerSource);
 
