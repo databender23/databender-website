@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="bg-white">
       {/* Newsletter Section */}
-      <div className="container mx-auto px-6 pt-16 pb-24 md:pb-32 lg:pb-40">
+      <div className="container mx-auto px-6 pt-16 pb-16">
         <div className="max-w-xl mx-auto text-center">
           <h3 className="text-text-primary text-lg font-semibold mb-2">
             Get Data & AI Insights
@@ -22,7 +22,11 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Spacer */}
+      <div className="h-24 md:h-32 lg:h-40" />
+
       {/* Footer Links */}
+      <div className="bg-gray-50 pt-16">
       <div className="container mx-auto px-6 pb-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
           {/* Brand Column */}
@@ -142,6 +146,7 @@ export default function Footer() {
             </Link>
           </div>
         </div>
+      </div>
       </div>
     </footer>
   );
