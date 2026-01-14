@@ -8,23 +8,22 @@ export default function Footer() {
   return (
     <footer className="bg-white">
       {/* Newsletter Section */}
-      <div>
-        <div className="container mx-auto px-6 py-12">
-          <div className="max-w-xl mx-auto text-center">
-            <h3 className="text-text-primary text-lg font-semibold mb-2">
-              Get Data & AI Insights
-            </h3>
-            <p className="text-text-secondary text-sm mb-6">
-              Practical strategies for turning your data into competitive advantage. No fluff, just actionable insights.
-            </p>
-            <div className="max-w-md mx-auto">
-              <NewsletterForm />
-            </div>
+      <div className="container mx-auto px-6 py-16">
+        <div className="max-w-xl mx-auto text-center">
+          <h3 className="text-text-primary text-lg font-semibold mb-2">
+            Get Data & AI Insights
+          </h3>
+          <p className="text-text-secondary text-sm mb-6">
+            Practical strategies for turning your data into competitive advantage. No fluff, just actionable insights.
+          </p>
+          <div className="max-w-md mx-auto">
+            <NewsletterForm />
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-6 pt-16 pb-16">
+      {/* Footer Links */}
+      <div className="container mx-auto px-6 pb-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="col-span-2">
