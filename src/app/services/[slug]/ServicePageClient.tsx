@@ -100,6 +100,13 @@ const ANIMATION_SPEEDS: Record<string, number> = {
   "ai-services": 1,
 };
 
+// Animation crop percentages per service (crops from top)
+const ANIMATION_CROPS: Record<string, number> = {
+  "data-ai-strategy": 12,
+  "analytics-bi": 12,
+  "ai-services": 12,
+};
+
 export default function ServicePageClient({ service }: Props) {
   const hasLottie = service.slug in LOTTIE_URLS;
 
@@ -148,7 +155,7 @@ export default function ServicePageClient({ service }: Props) {
                 <div
                   className="w-full aspect-square"
                   style={{
-                    marginTop: '-20%',
+                    marginTop: `-${ANIMATION_CROPS[service.slug] || 20}%`,
                   }}
                 >
                   <LottieWrapper

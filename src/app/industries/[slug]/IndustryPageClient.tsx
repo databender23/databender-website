@@ -7,6 +7,11 @@ import { Button } from "@/components/ui";
 import { HeroLottie, FloatingNodes } from "@/components/animations";
 import { industryContent, type IndustryWithCta } from "@/lib/industries-data";
 
+// Crop percentages per industry (crops from top)
+const INDUSTRY_CROPS: Record<string, number> = {
+  "commercial-real-estate": 20,
+};
+
 interface Props {
   industry: IndustryWithCta;
 }
@@ -65,6 +70,7 @@ export default function IndustryPageClient({ industry }: Props) {
               heroTextHeight={280}
               maxSize={420}
               minSize={200}
+              cropTop={INDUSTRY_CROPS[slug] || 0}
             />
           )}
 

@@ -70,6 +70,7 @@ export default function CaseStudiesClient() {
               loop={true}
               heroTextHeight={280}
               maxSize={400}
+              cropTop={10}
               minSize={180}
             />
 
