@@ -234,3 +234,27 @@ export function reviewSchema(testimonials: Testimonial[]) {
     })),
   };
 }
+
+/**
+ * FAQ schema for FAQ sections
+ * Generates FAQ rich snippets in search results
+ */
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export function faqSchema(faqs: FAQItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+}

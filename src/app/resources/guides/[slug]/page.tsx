@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { legalGuides, getGuideBySlug } from "@/lib/lead-magnets-data";
 import GuidePageClient from "./GuidePageClient";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -57,5 +59,16 @@ export default async function GuidePage({ params }: Props) {
     notFound();
   }
 
-  return <GuidePageClient guide={guide} />;
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Resources", url: "/resources" },
+    { name: guide.title, url: `/resources/guides/${slug}` },
+  ];
+
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema(breadcrumbs)} />
+      <GuidePageClient guide={guide} />
+    </>
+  );
 }

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { blogPosts, getBlogPostBySlug } from "@/lib/blog-data";
 import BlogPostClient from "./BlogPostClient";
 import JsonLd from "@/components/seo/JsonLd";
-import { blogPostSchema } from "@/lib/schema";
+import { blogPostSchema, breadcrumbSchema } from "@/lib/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -63,9 +63,16 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: post.title, url: `/blog/${slug}` },
+  ];
+
   return (
     <>
       <JsonLd data={blogPostSchema(post)} />
+      <JsonLd data={breadcrumbSchema(breadcrumbs)} />
       <BlogPostClient post={post} />
     </>
   );

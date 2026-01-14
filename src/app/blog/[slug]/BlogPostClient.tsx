@@ -79,7 +79,7 @@ export default function BlogPostClient({ post }: Props) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={post.featuredImage}
-                  alt={post.title}
+                  alt={`Featured image for ${post.title}`}
                   className="w-full h-full object-cover"
                 />
               </motion.div>

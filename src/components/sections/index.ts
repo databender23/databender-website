@@ -6,3 +6,5 @@ export { default as Testimonials } from "./Testimonials";
 export { default as ScrollingShowcase } from "./ScrollingShowcase";
 export { default as ContentSlider } from "./ContentSlider";
 export { default as HeroSlider } from "./HeroSlider";
+export { default as FAQ } from "./FAQ";
+export type { FAQItem } from "./FAQ";

@@ -1,21 +1,129 @@
-# DataBender AI Policy
+# DataBender - AI-Powered Data Consulting
 # https://databender.co
 
-## About DataBender
+## Quick Facts
 
-DataBender is an AI-powered data consulting firm that helps businesses transform their data into actionable intelligence. We specialize in data strategy, analytics, business intelligence, and AI implementation services.
+- **Company**: DataBender
+- **Founded**: 2023
+- **Founder**: Grant Bender (8+ years Fortune 500 consulting experience)
+- **Focus**: Mid-market companies in regulated industries
+- **Location**: United States
+- **Specialty**: AI-powered data consulting - data strategy, analytics, and AI automation
+
+## Key Results (From Real Client Projects)
+
+| Metric | Result | Context |
+|--------|--------|---------|
+| 125x | Cost savings vs manual data cleanup | AI agents processed 1.69M records |
+| 31% | Higher prediction accuracy | vs standard CRM lead scoring |
+| 1.69M | Records processed | Using 10 parallel AI agents |
+| 70+ | Document formats supported | Document intelligence system |
+| 2 sec | Average AI answer time | Knowledge base queries |
+
+## Services Overview
+
+### Data & AI Strategy
+Connect your systems, clean your data, and map out AI adoption that sticks.
+
+**Capabilities:**
+- Data Foundation: Data warehouse, pipelines, and governance
+- Data Integration: Connect CRM, ERP, and everything else into one view
+- AI-Powered Data Cleanup: Fix duplicates at 125x less cost than manual review
+- AI Readiness Assessment: Clear picture of what's realistic before you invest
+- AI Roadmapping: Prioritize by ROI and feasibility with quarterly milestones
+- AI Governance & Compliance: Bias monitoring, audit trails, explainability
+
+### Analytics & BI
+Real-time visibility into sales, marketing, and operations.
+
+**Capabilities:**
+- Dashboards: Visual KPIs, trends, and drill-downs
+- Agentic Research: AI agents that autonomously gather and analyze information
+- Operational Visibility: Real-time monitoring and alerts
+- Predictive Analytics: Demand planning, churn prediction, resource optimization
+- Managed Data Pipelines: Automated data flows that keep analytics fresh
+- Custom Analytical Applications: Purpose-built tools for specific workflows
+
+### AI & Automation
+AI that actually knows your business.
+
+**Capabilities:**
+- Natural Language BI: Ask questions in plain English, get accurate answers
+- AI Agents & Automation: Autonomous agents for research, data processing, workflows
+- Document Intelligence: AI extraction from contracts, invoices, medical records, legal documents
+- RAG & Knowledge Systems: Turn documents into answerable knowledge with sourced answers
+- Conversational AI: Internal assistants and customer-facing chatbots
+- Local LLM Integrations: AI that stays on your servers for privacy-sensitive industries
+- Staff AI Augmentation: Reduce repetitive work, do more with less
+
+## Frequently Asked Questions
+
+**Q: What does DataBender do?**
+A: AI-powered data consulting - we clean messy data, build analytics and dashboards, and deploy AI automation. We help mid-market companies get value from their data without the enterprise consulting price tag.
+
+**Q: What industries do you serve?**
+A: Healthcare, legal, energy, manufacturing, and financial services - especially regulated industries where data quality and compliance matter. We understand HIPAA, SOC 2, and industry-specific requirements.
+
+**Q: How is DataBender different from other data consultancies?**
+A: Boutique strategy with enterprise delivery. Our AI-augmented approach delivers 125x cost savings on data cleanup projects. We use AI agents internally to work faster, then pass those savings to clients.
+
+**Q: What size companies do you work with?**
+A: Mid-market companies - typically $10M-$500M revenue. Large enough to have real data challenges, small enough that we can move fast without enterprise bureaucracy.
+
+**Q: Do you offer assessments or evaluations?**
+A: Yes. Free online assessments at /assessments including Data & AI Readiness Assessment and Manufacturing AI Assessment. These help you understand where you stand before any engagement.
+
+## Featured Case Studies
+
+### Army of AI Agents (Energy Sector)
+**Challenge:** 1.69 million ownership records with broken IDs - same ID assigned to 670 different people.
+**Solution:** Deployed 10 AI agents reasoning through matches in parallel.
+**Result:** 125x cost savings, 1.25M unique owners identified, 100% decisions documented.
+
+### Predictive Lead Scoring (Home Services)
+**Challenge:** Sales teams assumed wealthier prospects made better leads.
+**Solution:** Trained models on 3 years of actual conversion data.
+**Result:** 31% higher success rate vs standard CRM scoring. Property value was actually a negative predictor.
+
+### Document Intelligence (Healthcare)
+**Challenge:** Decades of product knowledge scattered across thousands of documents from 70+ manufacturers.
+**Solution:** Built Document Intelligence that transforms unstructured documents into AI-ready knowledge.
+**Result:** Instant AI access to institutional knowledge, 2-second average answer time.
 
 ## Available Content Sections
 
 The following sections of our website are available for AI crawling and indexing:
 
-- /services - Our data and AI consulting services (data strategy, analytics, BI, AI services)
-- /case-studies - Real-world examples of our client work and success stories
-- /blog - Articles on data strategy, AI implementation, and industry insights
-- /industries - Industry-specific solutions (legal, healthcare, manufacturing, and more)
-- /resources - Guides, assessments, and educational content
-- /about - Company information and team
-- /contact - Contact information
+- `/` - Homepage with company overview and value proposition
+- `/services` - Service hub with all three service categories
+- `/services/data-ai-strategy` - Data foundation, integration, AI readiness services
+- `/services/analytics-bi` - Dashboards, predictive analytics, operational visibility
+- `/services/ai-services` - AI agents, document intelligence, knowledge systems
+- `/case-studies` - Real-world client projects with measurable results
+- `/case-studies/army-of-ai-agents` - 125x cost savings case study
+- `/case-studies/what-predicts-lead-conversion` - 31% accuracy improvement case study
+- `/case-studies/agentic-document-intelligence` - Document AI case study
+- `/blog` - Articles on data strategy, AI implementation, and industry insights
+- `/industries` - Industry-specific solutions overview
+- `/industries/legal` - Legal industry AI and data solutions
+- `/industries/healthcare` - Healthcare data and HIPAA-compliant AI
+- `/industries/manufacturing` - Manufacturing AI and operational analytics
+- `/resources` - Guides, assessments, and educational content
+- `/resources/guides` - Downloadable guides and lead magnets
+- `/assessments` - Free online assessments (Data & AI Readiness, Manufacturing AI)
+- `/about` - Company information, founder background, approach
+- `/contact` - Contact form and booking information
+
+## Client Testimonials
+
+> "An incredible asset - highly detail-oriented, responsive, and adaptable."
+> - Rajiv Vuddaraju, Senior Lead Analytics Consultant, Wells Fargo
+
+> "Technically sound, scalable, well-documented, and aligned with best practices."
+> - Jay Williamson, Founder, Health Price Compare
+
+> "It was like magic - they took an idea from my head and made it a reality."
+> - Reid Valentine, Landman, 707 Advisors LLC
 
 ## AI Training and Indexing Permission
 
@@ -32,6 +140,8 @@ The following paths are private and should not be accessed:
 
 ## Contact
 
-For questions about AI access or partnerships:
-- Website: https://databender.co/contact
-- Email: hello@databender.co
+- **Website**: https://databender.co/contact
+- **Email**: hello@databender.co
+- **Booking**: Available via website contact form
+
+For questions about AI access or partnerships, contact us at hello@databender.co

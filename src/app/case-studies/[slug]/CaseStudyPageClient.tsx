@@ -80,7 +80,7 @@ export default function CaseStudyPageClient({ study }: Props) {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={image}
-                      alt={`${study.title} - Page ${index + 1}`}
+                      alt={`${study.title} case study illustration ${index + 1}`}
                       className="w-full h-auto"
                     />
                   </motion.div>

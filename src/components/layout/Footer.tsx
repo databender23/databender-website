@@ -31,7 +31,7 @@ export default function Footer() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/logo-icon.png"
-                alt="Databender"
+                alt="Databender logo - link to homepage"
                 className="h-12 w-12"
               />
             </Link>

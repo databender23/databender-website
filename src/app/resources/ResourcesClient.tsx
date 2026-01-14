@@ -345,7 +345,7 @@ export default function ResourcesClient() {
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={blogPosts[blogIndex].featuredImage}
-                            alt={blogPosts[blogIndex].title}
+                            alt={`Featured image for ${blogPosts[blogIndex].title}`}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                         </div>
@@ -388,7 +388,7 @@ export default function ResourcesClient() {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={post.featuredImage}
-                          alt={post.title}
+                          alt={`Thumbnail for ${post.title}`}
                           className="w-full h-full object-cover"
                         />
                       </div>

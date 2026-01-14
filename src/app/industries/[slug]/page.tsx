@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import IndustryPageClient from "./IndustryPageClient";
 import { industries, getIndustryBySlug, type IndustryWithCta } from "@/lib/industries-data";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -57,5 +59,16 @@ export default async function IndustryPage({ params }: Props) {
     notFound();
   }
 
-  return <IndustryPageClient industry={industry} />;
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Industries", url: "/industries" },
+    { name: industry.title, url: `/industries/${slug}` },
+  ];
+
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema(breadcrumbs)} />
+      <IndustryPageClient industry={industry} />
+    </>
+  );
 }

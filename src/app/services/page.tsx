@@ -2,14 +2,37 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { CTA } from "@/components/sections";
+import { CTA, FAQ } from "@/components/sections";
+import type { FAQItem } from "@/components/sections";
 import { Button } from "@/components/ui";
 import { ResponsiveAnimation, DataManagementAnimation } from "@/components/animations";
+import JsonLd from "@/components/seo/JsonLd";
+import { faqSchema } from "@/lib/schema";
 import {
   services,
   serviceCategories,
   serviceDecisionHelper,
 } from "@/lib/services-data";
+
+// FAQ data for the services page
+const servicesFAQs: FAQItem[] = [
+  {
+    question: "What services does Databender offer?",
+    answer: "Databender offers three core services that work together: Data & AI Strategy (building your data foundation), Analytics & BI (dashboards and reporting that reveal insights), and AI Services (intelligent automation and AI agents). You can engage us for one service or combine all three for a complete data transformation."
+  },
+  {
+    question: "How long do projects typically take?",
+    answer: "Project timelines vary based on scope and complexity. Quick wins like dashboard builds or data cleanup projects can be completed in 2-4 weeks. Larger initiatives such as data platform modernization or custom AI solutions typically run 2-4 months. We always start with a discovery phase to provide accurate timelines for your specific situation."
+  },
+  {
+    question: "What industries do you work with?",
+    answer: "We work with mid-market companies across multiple industries including manufacturing, healthcare, legal services, financial services, and professional services. Our approach adapts to industry-specific challenges while leveraging cross-industry best practices in data management and AI implementation."
+  },
+  {
+    question: "How is Databender different from other consultancies?",
+    answer: "Unlike large consultancies that sell strategy decks, we build and deliver working solutions. We combine strategic thinking with hands-on implementation, meaning the same team that designs your solution also builds it. Our focus on mid-market companies means you get enterprise-grade capabilities without enterprise complexity or pricing."
+  }
+];
 
 // Service icons
 const ServiceIcon = ({ icon }: { icon: string }) => {
@@ -49,6 +72,8 @@ export default function ServicesPage() {
 
   return (
     <>
+      <JsonLd data={faqSchema(servicesFAQs)} />
+
       {/* Hero with Lottie */}
       <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center overflow-hidden pt-20 md:pt-24">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
@@ -337,6 +362,12 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQ
+        faqs={servicesFAQs}
+        subtitle="Common questions about working with Databender"
+      />
 
       {/* CTA */}
       <CTA

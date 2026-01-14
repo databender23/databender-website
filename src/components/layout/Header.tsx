@@ -34,7 +34,7 @@ export default function Header() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/logo-color.png"
-              alt="Databender"
+              alt="Databender logo - link to homepage"
               className="h-24 w-auto"
             />
           </Link>

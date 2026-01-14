@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import CaseStudyPageClient from "./CaseStudyPageClient";
 import { caseStudies, getCaseStudyBySlug } from "@/lib/case-studies-data";
 import JsonLd from "@/components/seo/JsonLd";
-import { caseStudySchema } from "@/lib/schema";
+import { caseStudySchema, breadcrumbSchema } from "@/lib/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -61,9 +61,16 @@ export default async function CaseStudyPage({ params }: Props) {
     notFound();
   }
 
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Case Studies", url: "/case-studies" },
+    { name: study.title, url: `/case-studies/${slug}` },
+  ];
+
   return (
     <>
       <JsonLd data={caseStudySchema(study)} />
+      <JsonLd data={breadcrumbSchema(breadcrumbs)} />
       <CaseStudyPageClient study={study} />
     </>
   );
