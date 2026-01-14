@@ -274,6 +274,340 @@ export default function LegalPageClient() {
         </div>
       </section>
 
+      {/* Document Intelligence Section */}
+      <section id="document-intelligence" className="section bg-[#F8F9FA] scroll-mt-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+                >
+                  Document Intelligence
+                </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
+                >
+                  Find Any Precedent in Seconds
+                </motion.h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
+                >
+                  <p>
+                    Your firm has decades of work product. Briefs, memos, contracts, research.
+                    It&apos;s all there somewhere. But when you need it, nobody can find it.
+                    Associates reinvent the wheel instead of building on past work.
+                  </p>
+                  <p>
+                    We built a system where you ask questions in plain English and get answers
+                    with citations <strong className="text-text-primary">in seconds</strong>.
+                    &ldquo;What arguments worked in our last employment case?&rdquo;
+                    The AI pulls the relevant passages from your own work product.
+                  </p>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="mt-6"
+                >
+                  <Button variant="secondary" href="/case-studies/agentic-document-intelligence" className="min-h-[48px]">
+                    See the Case Study
+                  </Button>
+                </motion.div>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
+              >
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
+                  What becomes searchable
+                </h3>
+                <ul className="space-y-3 sm:space-y-4">
+                  {[
+                    {
+                      title: "Past briefs and motions",
+                      description: "Every argument you've ever made, indexed and searchable by topic."
+                    },
+                    {
+                      title: "Contract templates and precedents",
+                      description: "Find the right clause from past deals. See how similar issues were handled."
+                    },
+                    {
+                      title: "Research memos and opinions",
+                      description: "All that analysis your associates wrote—now it's findable."
+                    },
+                    {
+                      title: "Deposition transcripts",
+                      description: "Search across hundreds of depositions. Find every mention of a topic."
+                    },
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start gap-2 sm:gap-3">
+                      <svg
+                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                      <div>
+                        <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
+                        <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Entity Resolution Section */}
+      <section id="entity-resolution" className="section scroll-mt-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="order-2 lg:order-1"
+              >
+                <div className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-8 rounded-2xl border border-teal-500/20">
+                  <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
+                    What AI reveals
+                  </h3>
+                  <ul className="space-y-3 sm:space-y-4">
+                    {[
+                      {
+                        title: "Beneficial owners identified",
+                        description: "See through shell companies to find the actual people involved."
+                      },
+                      {
+                        title: "Related parties mapped",
+                        description: "Connections between entities that aren't obvious from public records."
+                      },
+                      {
+                        title: "Corporate hierarchies untangled",
+                        description: "Who owns what, through how many layers of holding companies."
+                      },
+                      {
+                        title: "Conflict checks automated",
+                        description: "Run comprehensive checks in minutes instead of hours."
+                      },
+                    ].map((item, index) => (
+                      <li key={index} className="flex items-start gap-2 sm:gap-3">
+                        <svg
+                          className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13 10V3L4 14h7v7l9-11h-7z"
+                          />
+                        </svg>
+                        <div>
+                          <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
+                          <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+
+              <div className="order-1 lg:order-2">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+                >
+                  Entity Resolution
+                </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
+                >
+                  Know Who You&apos;re Really Dealing With
+                </motion.h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
+                >
+                  <p>
+                    LLCs owned by trusts managed by other LLCs. The opposing party is a web of entities
+                    and you need to know who&apos;s actually behind it. Due diligence takes forever
+                    when you&apos;re tracing ownership by hand.
+                  </p>
+                  <p>
+                    We processed <strong className="text-text-primary">1.69 million records</strong> and
+                    resolved them to <strong className="text-text-primary">1.25 million actual owners</strong>.
+                    AI that untangles ownership structures at <strong className="text-text-primary">125x less cost</strong> than
+                    doing it manually.
+                  </p>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="mt-6"
+                >
+                  <Button variant="secondary" href="/case-studies/army-of-ai-agents" className="min-h-[48px]">
+                    See the Case Study
+                  </Button>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Predictive Analytics Section */}
+      <section id="predictive-analytics" className="section bg-[#F8F9FA] scroll-mt-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+                >
+                  Predictive Analytics
+                </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
+                >
+                  Know Which Clients Will Actually Hire You
+                </motion.h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
+                >
+                  <p>
+                    Business development spends hours on prospects who were never going to hire you.
+                    Meanwhile, the real opportunities get the same generic follow-up as everyone else.
+                    Your gut says some leads are better than others, but you can&apos;t prove it.
+                  </p>
+                  <p>
+                    We analyzed 3 years of pitch data for a client and built a model that predicts
+                    which prospects will convert. Result: <strong className="text-text-primary">31% higher win rate</strong> by
+                    focusing effort on the leads that actually close.
+                  </p>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="mt-6"
+                >
+                  <Button variant="secondary" href="/case-studies/what-predicts-lead-conversion" className="min-h-[48px]">
+                    See the Case Study
+                  </Button>
+                </motion.div>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
+              >
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
+                  What the model predicts
+                </h3>
+                <ul className="space-y-3 sm:space-y-4">
+                  {[
+                    {
+                      title: "Which prospects will convert",
+                      description: "Score leads based on actual patterns from your wins and losses."
+                    },
+                    {
+                      title: "When to follow up",
+                      description: "Timing matters more than you think. Know when prospects are ready to move."
+                    },
+                    {
+                      title: "What messaging works",
+                      description: "Different client types respond to different approaches. Stop guessing."
+                    },
+                    {
+                      title: "Where to focus resources",
+                      description: "Your top partners' time is limited. Put it where it'll actually land work."
+                    },
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start gap-2 sm:gap-3">
+                      <svg
+                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                        />
+                      </svg>
+                      <div>
+                        <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
+                        <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Custom Audits Section */}
       <section id="audits" className="section bg-[#F8F9FA] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
@@ -417,7 +751,7 @@ export default function LegalPageClient() {
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {legalGuides.map((guide, index) => (
               <motion.div
                 key={guide.slug}
@@ -453,140 +787,6 @@ export default function LegalPageClient() {
                   </ul>
                   <span className="inline-flex items-center gap-1 text-teal-500 font-medium text-xs sm:text-sm group-hover:gap-2 transition-all">
                     Get the Guide
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </span>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Solutions Section */}
-      <section className="section">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10 sm:mb-16">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-            >
-              Our Solutions
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary"
-            >
-              How we help
-            </motion.h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            {content.solutions.map((solution, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-5 sm:p-6 rounded-xl bg-[#F8F9FA] border border-black/10"
-              >
-                <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2 sm:mb-3">
-                  {solution.title}
-                </h3>
-                <p
-                  className="text-text-secondary text-sm sm:text-base"
-                  dangerouslySetInnerHTML={{ __html: solution.description }}
-                />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Proof Points Section */}
-      <section className="section bg-[#F8F9FA]">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10 sm:mb-16">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-            >
-              Proven Results
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-3 sm:mb-4"
-            >
-              See what&apos;s possible
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto"
-            >
-              These capabilities aren&apos;t theoretical. Here&apos;s what we&apos;ve delivered.
-            </motion.p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            {[
-              {
-                metric: "125x",
-                label: "Cost Savings",
-                title: "Messy Data Fixed Fast",
-                description: "Work that would take 50 people months, done by AI in hours. Same accuracy, fraction of the cost.",
-                href: "/case-studies/army-of-ai-agents",
-              },
-              {
-                metric: "Instant",
-                label: "AI Answers",
-                title: "Document Search That Works",
-                description: "Ask questions about your documents in plain English. Get answers with citations in seconds, not hours of digging.",
-                href: "/case-studies/agentic-document-intelligence",
-              },
-              {
-                metric: "31%",
-                label: "Higher Success",
-                title: "Find What Wins Pitches",
-                description: "Stop guessing what makes clients say yes. We analyze your actual wins and losses to find what really works.",
-                href: "/case-studies/what-predicts-lead-conversion",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link
-                  href={item.href}
-                  className="block p-5 sm:p-6 rounded-xl bg-white border border-black/10 hover:border-teal-500/30 hover:shadow-lg transition-all group h-full"
-                >
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className="text-3xl sm:text-4xl font-bold text-teal-500">{item.metric}</span>
-                    <span className="text-text-muted text-sm">{item.label}</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-teal-500 transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-text-secondary text-sm mb-3">{item.description}</p>
-                  <span className="inline-flex items-center gap-1 text-teal-500 font-medium text-sm group-hover:gap-2 transition-all">
-                    See the case study
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>

@@ -82,9 +82,9 @@ export default function ServicesPageClient() {
             lottieUrl="/animations/assistant-bot.json"
             className="mb-6"
             loop={true}
-            heroTextHeight={280}
-            maxSize={480}
-            minSize={200}
+            heroTextHeight={240}
+            maxSize={550}
+            minSize={230}
             cropTop={20}
           />
 

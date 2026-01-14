@@ -381,7 +381,7 @@ export default function HomePage() {
   return (
     <>
       {/* 1. Hero Section */}
-      <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden pt-16 md:pt-20">
+      <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden pt-12 md:pt-16">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
 
@@ -408,9 +408,9 @@ export default function HomePage() {
             lottieUrl="/animations/hero-data.json"
             className="mb-4"
             loop={false}
-            heroTextHeight={280}
-            maxSize={500}
-            minSize={220}
+            heroTextHeight={240}
+            maxSize={580}
+            minSize={250}
             cropTop={20}
           />
 
