@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
@@ -109,6 +110,44 @@ const ANIMATION_CROPS: Record<string, number> = {
 
 export default function ServicePageClient({ service }: Props) {
   const hasLottie = service.slug in LOTTIE_URLS;
+  const [animationSize, setAnimationSize] = useState<number>(340);
+  const lastWidthRef = useRef<number>(0);
+  const initializedRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    const calculateSize = (forceRecalc = false) => {
+      const currentWidth = window.innerWidth;
+
+      // Only recalculate if width changed or on initial mount
+      // This prevents resize events from mobile URL bar changes
+      if (!forceRecalc && initializedRef.current && currentWidth === lastWidthRef.current) {
+        return;
+      }
+
+      lastWidthRef.current = currentWidth;
+      initializedRef.current = true;
+
+      const vh = window.innerHeight;
+      // Calculate size based on viewport, constrained between 150-340px
+      const size = Math.max(150, Math.min(340, vh - 440));
+      setAnimationSize(size);
+    };
+
+    calculateSize(true);
+
+    const handleResize = () => calculateSize(false);
+    window.addEventListener('resize', handleResize);
+
+    const handleOrientationChange = () => {
+      setTimeout(() => calculateSize(true), 100);
+    };
+    window.addEventListener('orientationchange', handleOrientationChange);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleOrientationChange);
+    };
+  }, []);
 
   return (
     <>
@@ -135,7 +174,7 @@ export default function ServicePageClient({ service }: Props) {
         />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation - CSS viewport constrained for data-management.json compatibility */}
+          {/* Lottie Animation - JS viewport constrained for data-management.json compatibility */}
           {hasLottie && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -147,15 +186,16 @@ export default function ServicePageClient({ service }: Props) {
               <div
                 className="overflow-hidden"
                 style={{
-                  maxWidth: 'min(340px, calc(100vh - 440px))',
-                  minWidth: '150px',
-                  width: '100%',
+                  width: animationSize,
+                  height: animationSize * (1 - (ANIMATION_CROPS[service.slug] || 20) / 100),
+                  maxWidth: '100%',
                 }}
               >
                 <div
-                  className="w-full aspect-square"
                   style={{
-                    marginTop: `-${ANIMATION_CROPS[service.slug] || 20}%`,
+                    width: animationSize,
+                    height: animationSize,
+                    marginTop: -(animationSize * (ANIMATION_CROPS[service.slug] || 20) / 100),
                   }}
                 >
                   <LottieWrapper

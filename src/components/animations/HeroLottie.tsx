@@ -73,17 +73,30 @@ export default function HeroLottie({
 }: HeroLottieProps) {
   const [animationSize, setAnimationSize] = useState<number>(maxSize)
   const containerRef = useRef<HTMLDivElement>(null)
+  const lastWidthRef = useRef<number>(0)
+  const initializedRef = useRef<boolean>(false)
 
   useEffect(() => {
-    const calculateSize = () => {
+    const calculateSize = (forceRecalc = false) => {
+      const currentWidth = window.innerWidth
+
+      // Only recalculate if width changed or on initial mount
+      // This prevents resize events from mobile URL bar changes (which only affect height)
+      if (!forceRecalc && initializedRef.current && currentWidth === lastWidthRef.current) {
+        return
+      }
+
+      lastWidthRef.current = currentWidth
+      initializedRef.current = true
+
       // Get viewport height
       const vh = window.innerHeight
 
       // Estimate header height (varies by breakpoint)
-      const headerHeight = window.innerWidth >= 768 ? 80 : 64
+      const headerHeight = currentWidth >= 768 ? 80 : 64
 
       // Padding (pt-20 = 80px on mobile, pt-24 = 96px on desktop)
-      const topPadding = window.innerWidth >= 768 ? 96 : 80
+      const topPadding = currentWidth >= 768 ? 96 : 80
 
       // Bottom margin/padding
       const bottomPadding = 40
@@ -99,17 +112,22 @@ export default function HeroLottie({
     }
 
     // Calculate on mount
-    calculateSize()
+    calculateSize(true)
 
-    // Recalculate on resize
-    window.addEventListener('resize', calculateSize)
+    // Recalculate on resize (but only if width changed)
+    const handleResize = () => calculateSize(false)
+    window.addEventListener('resize', handleResize)
 
-    // Also recalculate on orientation change (mobile)
-    window.addEventListener('orientationchange', calculateSize)
+    // Orientation change always triggers recalc
+    const handleOrientationChange = () => {
+      // Small delay to let the browser settle after orientation change
+      setTimeout(() => calculateSize(true), 100)
+    }
+    window.addEventListener('orientationchange', handleOrientationChange)
 
     return () => {
-      window.removeEventListener('resize', calculateSize)
-      window.removeEventListener('orientationchange', calculateSize)
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('orientationchange', handleOrientationChange)
     }
   }, [heroTextHeight, maxSizeRatio, minSize, maxSize])
 
