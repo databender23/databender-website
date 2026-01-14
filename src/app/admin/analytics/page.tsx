@@ -103,24 +103,31 @@ interface ContentData {
 }
 
 interface GeographicData {
-  countries: {
-    country: string;
-    sessions: number;
-    uniqueVisitors: number;
-    conversions: number;
-    conversionRate: number;
-    avgScore: number;
-  }[];
-  regions: {
+  byRegion: {
     region: string;
+    regionCode: string;
+    country: string;
+    countryCode: string;
+    visitors: number;
     sessions: number;
-    conversions: number;
-    conversionRate: number;
+    leads: number;
+  }[];
+  byCity: {
+    city: string;
+    region: string;
+    regionCode: string;
+    country: string;
+    countryCode: string;
+    visitors: number;
+    leads: number;
   }[];
   summary: {
-    totalCountries: number;
+    totalVisitors: number;
+    totalSessions: number;
+    totalLeads: number;
+    uniqueCountries: number;
+    uniqueRegions: number;
     topCountry: string;
-    usPercent: number;
   };
 }
 
@@ -510,9 +517,28 @@ export default function AnalyticsDashboard() {
               isLoading={sourcesLoading}
             />
             <GeographicBreakdownNew
-              countries={geographicData?.countries || []}
-              regions={geographicData?.regions || []}
-              summary={geographicData?.summary || { totalCountries: 0, topCountry: "N/A", usPercent: 0 }}
+              countries={geographicData?.byRegion?.map(r => ({
+                country: r.country,
+                sessions: r.sessions,
+                uniqueVisitors: r.visitors,
+                conversions: r.leads,
+                conversionRate: r.visitors > 0 ? (r.leads / r.visitors) * 100 : 0,
+                avgScore: 0,
+              })) || []}
+              regions={geographicData?.byRegion?.filter(r => r.country === "United States" || r.countryCode === "US").map(r => ({
+                region: r.region,
+                sessions: r.sessions,
+                conversions: r.leads,
+                conversionRate: r.visitors > 0 ? (r.leads / r.visitors) * 100 : 0,
+              })) || []}
+              summary={{
+                totalCountries: geographicData?.summary?.uniqueCountries || 0,
+                topCountry: geographicData?.summary?.topCountry || "N/A",
+                usPercent: geographicData?.summary?.totalVisitors ? Math.round(
+                  (geographicData.byRegion?.filter(r => r.country === "United States" || r.countryCode === "US")
+                    .reduce((sum, r) => sum + r.visitors, 0) / geographicData.summary.totalVisitors) * 100
+                ) : 0,
+              }}
               loading={geographicLoading}
             />
           </div>
