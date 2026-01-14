@@ -28,6 +28,12 @@ interface CompanyData {
   isLead: boolean;
   leadStatus?: string;
   contactedVia?: ContactChannel[];
+  // Additional fields for filtering
+  trafficSource?: string;
+  country?: string;
+  region?: string;
+  city?: string;
+  device?: string;
 }
 
 interface CompanyTotals {
@@ -171,10 +177,19 @@ export async function GET(request: NextRequest) {
   // Parse query parameters
   const industryFilter = searchParams.get("industry") || null;
   const minScore = parseInt(searchParams.get("minScore") || "0", 10);
+  const maxScore = searchParams.get("maxScore") ? parseInt(searchParams.get("maxScore")!, 10) : null;
   const notContactedOnly = searchParams.get("notContacted") === "true";
   const startDateParam = searchParams.get("startDate");
   const endDateParam = searchParams.get("endDate");
   const days = parseInt(searchParams.get("days") || "30", 10);
+
+  // New filter parameters for outreach optimization
+  const trafficSourceFilter = searchParams.get("trafficSource") || null;
+  const countryFilter = searchParams.get("country") || null;
+  const regionFilter = searchParams.get("region") || null;
+  const deviceFilter = searchParams.get("device") || null;
+  const keyPageFilter = searchParams.get("keyPage") || null; // Filter by specific key page visited
+  const recencyFilter = searchParams.get("recency") || null; // "24h", "7d", "30d", "stale"
 
   // Calculate date range
   const endDate = endDateParam ? new Date(endDateParam) : new Date();
@@ -215,6 +230,11 @@ export async function GET(request: NextRequest) {
       industry?: string;
       events: TrackedEvent[];
       sessions: Session[];
+      trafficSources: Set<string>;
+      countries: Set<string>;
+      regions: Set<string>;
+      cities: Set<string>;
+      devices: Set<string>;
     }>();
 
     for (const event of companyEvents) {
@@ -226,6 +246,11 @@ export async function GET(request: NextRequest) {
           industry: event.companyIndustry,
           events: [],
           sessions: [],
+          trafficSources: new Set(),
+          countries: new Set(),
+          regions: new Set(),
+          cities: new Set(),
+          devices: new Set(),
         });
       }
       companiesMap.get(key)!.events.push(event);
@@ -240,9 +265,26 @@ export async function GET(request: NextRequest) {
           industry: session.companyIndustry,
           events: [],
           sessions: [],
+          trafficSources: new Set(),
+          countries: new Set(),
+          regions: new Set(),
+          cities: new Set(),
+          devices: new Set(),
         });
       }
-      companiesMap.get(key)!.sessions.push(session);
+      const companyData = companiesMap.get(key)!;
+      companyData.sessions.push(session);
+
+      // Collect additional data for filtering
+      if (session.referrerSource) {
+        companyData.trafficSources.add(session.referrerSource);
+      } else {
+        companyData.trafficSources.add("direct");
+      }
+      if (session.country) companyData.countries.add(session.country);
+      if (session.region) companyData.regions.add(session.region);
+      if (session.city) companyData.cities.add(session.city);
+      if (session.device) companyData.devices.add(session.device);
     }
 
     // Build company analytics
@@ -315,10 +357,53 @@ export async function GET(request: NextRequest) {
       if (isLead) totalWithLeads++;
       if (!hasBeenContacted) totalNotContacted++;
 
+      // Compute primary traffic source (most common)
+      const trafficSourceArray = Array.from(data.trafficSources);
+      const primaryTrafficSource = trafficSourceArray[0] || "direct";
+
+      // Compute primary location (most common)
+      const primaryCountry = Array.from(data.countries)[0];
+      const primaryRegion = Array.from(data.regions)[0];
+      const primaryCity = Array.from(data.cities)[0];
+      const primaryDevice = Array.from(data.devices)[0];
+
       // Apply filters
       if (behaviorScore < minScore) continue;
+      if (maxScore !== null && behaviorScore > maxScore) continue;
       if (industryFilter && data.industry !== industryFilter) continue;
       if (notContactedOnly && hasBeenContacted) continue;
+
+      // New filters for outreach optimization
+      if (trafficSourceFilter) {
+        const hasMatchingSource = trafficSourceArray.some((s) =>
+          s.toLowerCase().includes(trafficSourceFilter.toLowerCase())
+        );
+        if (!hasMatchingSource) continue;
+      }
+      if (countryFilter && !data.countries.has(countryFilter)) continue;
+      if (regionFilter && !data.regions.has(regionFilter)) continue;
+      if (deviceFilter && !data.devices.has(deviceFilter)) continue;
+
+      // Key page filter - check if they visited a specific high-intent page
+      if (keyPageFilter) {
+        const hasKeyPage = keyPages.some((p) =>
+          p.toLowerCase().includes(keyPageFilter.toLowerCase())
+        );
+        if (!hasKeyPage) continue;
+      }
+
+      // Recency filter
+      if (recencyFilter) {
+        const lastVisitDate = new Date(lastVisit);
+        const now = new Date();
+        const hoursSinceVisit = (now.getTime() - lastVisitDate.getTime()) / (1000 * 60 * 60);
+        const daysSinceVisit = hoursSinceVisit / 24;
+
+        if (recencyFilter === "24h" && hoursSinceVisit > 24) continue;
+        if (recencyFilter === "7d" && daysSinceVisit > 7) continue;
+        if (recencyFilter === "30d" && daysSinceVisit > 30) continue;
+        if (recencyFilter === "stale" && daysSinceVisit <= 30) continue; // Only stale (>30 days)
+      }
 
       companies.push({
         company: data.name,
@@ -333,6 +418,12 @@ export async function GET(request: NextRequest) {
         isLead,
         leadStatus,
         contactedVia: contactedVia.length > 0 ? contactedVia : undefined,
+        // Additional fields for display/filtering
+        trafficSource: primaryTrafficSource,
+        country: primaryCountry,
+        region: primaryRegion,
+        city: primaryCity,
+        device: primaryDevice,
       });
     }
 

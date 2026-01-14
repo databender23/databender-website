@@ -17,6 +17,25 @@ interface CompanyData {
   isLead: boolean;
   leadStatus?: string;
   contactedVia?: string[];
+  // Additional fields for filtering
+  trafficSource?: string;
+  country?: string;
+  region?: string;
+  city?: string;
+  device?: string;
+}
+
+export interface CompanyFilters {
+  industry?: string;
+  minScore?: number;
+  maxScore?: number;
+  notContacted?: boolean;
+  trafficSource?: string;
+  country?: string;
+  region?: string;
+  device?: string;
+  keyPage?: string;
+  recency?: string;
 }
 
 interface Props {
@@ -28,11 +47,7 @@ interface Props {
     notContacted: number;
   };
   isLoading?: boolean;
-  onFilterChange?: (filters: {
-    industry?: string;
-    minScore?: number;
-    notContacted?: boolean;
-  }) => void;
+  onFilterChange?: (filters: CompanyFilters) => void;
 }
 
 type SortColumn = "company" | "industry" | "score" | "visitors" | "lastVisit";
@@ -172,26 +187,87 @@ export default function CompanyIntelligence({
   isLoading = false,
   onFilterChange,
 }: Props) {
+  // Filter state
   const [industryFilter, setIndustryFilter] = useState<string>("all");
   const [minScoreFilter, setMinScoreFilter] = useState<number>(0);
+  const [maxScoreFilter, setMaxScoreFilter] = useState<number>(100);
   const [notContactedFilter, setNotContactedFilter] = useState<boolean>(false);
+  const [trafficSourceFilter, setTrafficSourceFilter] = useState<string>("all");
+  const [recencyFilter, setRecencyFilter] = useState<string>("all");
+  const [keyPageFilter, setKeyPageFilter] = useState<string>("all");
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState<boolean>(false);
+
+  // UI state
   const [expandedCompany, setExpandedCompany] = useState<string | null>(null);
   const [sortColumn, setSortColumn] = useState<SortColumn>("score");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
-  const handleFilterChange = (
-    industry: string,
-    minScore: number,
-    notContacted: boolean
-  ) => {
-    setIndustryFilter(industry);
-    setMinScoreFilter(minScore);
-    setNotContactedFilter(notContacted);
-    onFilterChange?.({
-      industry: industry !== "all" ? industry : undefined,
-      minScore: minScore > 0 ? minScore : undefined,
-      notContacted: notContacted || undefined,
+  // Compute available filter options from data
+  const availableTrafficSources = useMemo(() => {
+    const sources = new Set<string>();
+    companies.forEach((c) => {
+      if (c.trafficSource) sources.add(c.trafficSource);
     });
+    return Array.from(sources).sort();
+  }, [companies]);
+
+  const availableKeyPages = useMemo(() => {
+    const pages = new Set<string>();
+    companies.forEach((c) => {
+      c.keyPages.forEach((p) => pages.add(p));
+    });
+    return Array.from(pages).sort();
+  }, [companies]);
+
+  const handleFilterChange = (filters: Partial<CompanyFilters>) => {
+    onFilterChange?.({
+      industry: industryFilter !== "all" ? industryFilter : undefined,
+      minScore: minScoreFilter > 0 ? minScoreFilter : undefined,
+      maxScore: maxScoreFilter < 100 ? maxScoreFilter : undefined,
+      notContacted: notContactedFilter || undefined,
+      trafficSource: trafficSourceFilter !== "all" ? trafficSourceFilter : undefined,
+      recency: recencyFilter !== "all" ? recencyFilter : undefined,
+      keyPage: keyPageFilter !== "all" ? keyPageFilter : undefined,
+      ...filters,
+    });
+  };
+
+  // Quick filter presets for lead tiers
+  const applyTierFilter = (tier: "hot" | "warm" | "cold" | "all") => {
+    let min = 0;
+    let max = 100;
+    switch (tier) {
+      case "hot":
+        min = 70;
+        max = 100;
+        break;
+      case "warm":
+        min = 40;
+        max = 69;
+        break;
+      case "cold":
+        min = 0;
+        max = 39;
+        break;
+      case "all":
+      default:
+        min = 0;
+        max = 100;
+    }
+    setMinScoreFilter(min);
+    setMaxScoreFilter(max);
+    handleFilterChange({ minScore: min > 0 ? min : undefined, maxScore: max < 100 ? max : undefined });
+  };
+
+  const clearAllFilters = () => {
+    setIndustryFilter("all");
+    setMinScoreFilter(0);
+    setMaxScoreFilter(100);
+    setNotContactedFilter(false);
+    setTrafficSourceFilter("all");
+    setRecencyFilter("all");
+    setKeyPageFilter("all");
+    onFilterChange?.({});
   };
 
   const handleSort = (column: SortColumn) => {
@@ -206,17 +282,45 @@ export default function CompanyIntelligence({
   const filteredAndSortedCompanies = useMemo(() => {
     let filtered = companies;
 
-    // Apply filters
+    // Apply filters (client-side filtering in addition to API filtering)
     if (industryFilter !== "all") {
       filtered = filtered.filter((c) => c.industry === industryFilter);
     }
     if (minScoreFilter > 0) {
       filtered = filtered.filter((c) => c.behaviorScore >= minScoreFilter);
     }
+    if (maxScoreFilter < 100) {
+      filtered = filtered.filter((c) => c.behaviorScore <= maxScoreFilter);
+    }
     if (notContactedFilter) {
       filtered = filtered.filter(
         (c) => !c.contactedVia || c.contactedVia.length === 0
       );
+    }
+    if (trafficSourceFilter !== "all") {
+      filtered = filtered.filter((c) =>
+        c.trafficSource?.toLowerCase().includes(trafficSourceFilter.toLowerCase())
+      );
+    }
+    if (keyPageFilter !== "all") {
+      filtered = filtered.filter((c) =>
+        c.keyPages.some((p) => p.toLowerCase().includes(keyPageFilter.toLowerCase()))
+      );
+    }
+    if (recencyFilter !== "all") {
+      const now = new Date();
+      filtered = filtered.filter((c) => {
+        const lastVisitDate = new Date(c.lastVisit);
+        const hoursSince = (now.getTime() - lastVisitDate.getTime()) / (1000 * 60 * 60);
+        const daysSince = hoursSince / 24;
+        switch (recencyFilter) {
+          case "24h": return hoursSince <= 24;
+          case "7d": return daysSince <= 7;
+          case "30d": return daysSince <= 30;
+          case "stale": return daysSince > 30;
+          default: return true;
+        }
+      });
     }
 
     // Apply sorting
@@ -264,13 +368,23 @@ export default function CompanyIntelligence({
     companies,
     industryFilter,
     minScoreFilter,
+    maxScoreFilter,
     notContactedFilter,
+    trafficSourceFilter,
+    keyPageFilter,
+    recencyFilter,
     sortColumn,
     sortDirection,
   ]);
 
   const hasActiveFilters =
-    industryFilter !== "all" || minScoreFilter > 0 || notContactedFilter;
+    industryFilter !== "all" ||
+    minScoreFilter > 0 ||
+    maxScoreFilter < 100 ||
+    notContactedFilter ||
+    trafficSourceFilter !== "all" ||
+    recencyFilter !== "all" ||
+    keyPageFilter !== "all";
 
   if (isLoading) {
     return (
@@ -325,69 +439,232 @@ export default function CompanyIntelligence({
           </div>
         </div>
 
-        {/* Filter Bar */}
-        <div className="flex flex-wrap items-end gap-4 mb-6 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-100">
-          <div>
-            <label className="block text-xs font-medium text-text-muted mb-1.5">
-              Industry
-            </label>
-            <select
-              value={industryFilter}
-              onChange={(e) =>
-                handleFilterChange(e.target.value, minScoreFilter, notContactedFilter)
-              }
-              className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-text-primary focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none min-w-[160px] transition-all"
-            >
-              <option value="all">All Industries</option>
-              {availableIndustries.map((industry) => (
-                <option key={industry} value={industry}>
-                  {industry}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-xs font-medium text-text-muted mb-1.5">
-              Min Score
-            </label>
-            <input
-              type="number"
-              min={0}
-              max={100}
-              value={minScoreFilter || ""}
-              onChange={(e) =>
-                handleFilterChange(
-                  industryFilter,
-                  parseInt(e.target.value) || 0,
-                  notContactedFilter
-                )
-              }
-              placeholder="0"
-              className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-text-primary focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none w-24 transition-all"
-            />
-          </div>
-
+        {/* Quick Filter Buttons - Lead Tier */}
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          <span className="text-xs font-medium text-text-muted mr-2">Quick filters:</span>
           <button
-            onClick={() =>
-              handleFilterChange(industryFilter, minScoreFilter, !notContactedFilter)
-            }
-            className={`px-4 py-2.5 text-sm font-medium rounded-full transition-all ${
-              notContactedFilter
-                ? "bg-teal-500 text-white shadow-sm"
-                : "bg-white text-text-secondary border border-gray-200 hover:border-teal-500 hover:text-teal-600"
+            onClick={() => applyTierFilter("hot")}
+            className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all ${
+              minScoreFilter >= 70 && maxScoreFilter === 100
+                ? "bg-red-500 text-white"
+                : "bg-red-50 text-red-600 border border-red-200 hover:bg-red-100"
             }`}
           >
-            Not Contacted
+            🔥 Hot (70+)
           </button>
+          <button
+            onClick={() => applyTierFilter("warm")}
+            className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all ${
+              minScoreFilter === 40 && maxScoreFilter === 69
+                ? "bg-amber-500 text-white"
+                : "bg-amber-50 text-amber-600 border border-amber-200 hover:bg-amber-100"
+            }`}
+          >
+            🌡️ Warm (40-69)
+          </button>
+          <button
+            onClick={() => applyTierFilter("cold")}
+            className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all ${
+              minScoreFilter === 0 && maxScoreFilter === 39
+                ? "bg-gray-500 text-white"
+                : "bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100"
+            }`}
+          >
+            ❄️ Cold (0-39)
+          </button>
+          <button
+            onClick={() => {
+              setNotContactedFilter(!notContactedFilter);
+              handleFilterChange({ notContacted: !notContactedFilter || undefined });
+            }}
+            className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all ${
+              notContactedFilter
+                ? "bg-teal-500 text-white"
+                : "bg-teal-50 text-teal-600 border border-teal-200 hover:bg-teal-100"
+            }`}
+          >
+            📭 Not Contacted
+          </button>
+          <button
+            onClick={() => {
+              setRecencyFilter(recencyFilter === "24h" ? "all" : "24h");
+              handleFilterChange({ recency: recencyFilter === "24h" ? undefined : "24h" });
+            }}
+            className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all ${
+              recencyFilter === "24h"
+                ? "bg-green-500 text-white"
+                : "bg-green-50 text-green-600 border border-green-200 hover:bg-green-100"
+            }`}
+          >
+            ⚡ Last 24h
+          </button>
+        </div>
 
-          {hasActiveFilters && (
+        {/* Filter Bar */}
+        <div className="mb-6 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-100">
+          <div className="flex flex-wrap items-end gap-4">
+            {/* Industry Filter */}
+            <div>
+              <label className="block text-xs font-medium text-text-muted mb-1.5">
+                Industry
+              </label>
+              <select
+                value={industryFilter}
+                onChange={(e) => {
+                  setIndustryFilter(e.target.value);
+                  handleFilterChange({ industry: e.target.value !== "all" ? e.target.value : undefined });
+                }}
+                className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-text-primary focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none min-w-[140px] transition-all"
+              >
+                <option value="all">All Industries</option>
+                {availableIndustries.map((industry) => (
+                  <option key={industry} value={industry}>
+                    {industry}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Traffic Source Filter */}
+            <div>
+              <label className="block text-xs font-medium text-text-muted mb-1.5">
+                Traffic Source
+              </label>
+              <select
+                value={trafficSourceFilter}
+                onChange={(e) => {
+                  setTrafficSourceFilter(e.target.value);
+                  handleFilterChange({ trafficSource: e.target.value !== "all" ? e.target.value : undefined });
+                }}
+                className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-text-primary focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none min-w-[140px] transition-all"
+              >
+                <option value="all">All Sources</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="google">Google (Organic)</option>
+                <option value="direct">Direct</option>
+                {availableTrafficSources
+                  .filter((s) => !["linkedin", "google", "direct"].some((k) => s.toLowerCase().includes(k)))
+                  .map((source) => (
+                    <option key={source} value={source}>
+                      {source}
+                    </option>
+                  ))}
+              </select>
+            </div>
+
+            {/* Recency Filter */}
+            <div>
+              <label className="block text-xs font-medium text-text-muted mb-1.5">
+                Last Visit
+              </label>
+              <select
+                value={recencyFilter}
+                onChange={(e) => {
+                  setRecencyFilter(e.target.value);
+                  handleFilterChange({ recency: e.target.value !== "all" ? e.target.value : undefined });
+                }}
+                className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-text-primary focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none min-w-[120px] transition-all"
+              >
+                <option value="all">Any Time</option>
+                <option value="24h">Last 24 hours</option>
+                <option value="7d">Last 7 days</option>
+                <option value="30d">Last 30 days</option>
+                <option value="stale">Stale (30+ days)</option>
+              </select>
+            </div>
+
+            {/* Key Pages Filter */}
+            <div>
+              <label className="block text-xs font-medium text-text-muted mb-1.5">
+                Viewed Page
+              </label>
+              <select
+                value={keyPageFilter}
+                onChange={(e) => {
+                  setKeyPageFilter(e.target.value);
+                  handleFilterChange({ keyPage: e.target.value !== "all" ? e.target.value : undefined });
+                }}
+                className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-text-primary focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none min-w-[140px] transition-all"
+              >
+                <option value="all">Any Page</option>
+                <option value="contact">Contact Page</option>
+                <option value="pricing">Pricing Page</option>
+                <option value="case-stud">Case Studies</option>
+                <option value="assessment">Assessment</option>
+                {availableKeyPages
+                  .filter((p) => !["contact", "pricing", "case-stud", "assessment"].some((k) => p.toLowerCase().includes(k)))
+                  .map((page) => (
+                    <option key={page} value={page}>
+                      {page}
+                    </option>
+                  ))}
+              </select>
+            </div>
+
+            {/* Advanced Toggle */}
             <button
-              onClick={() => handleFilterChange("all", 0, false)}
-              className="px-4 py-2.5 text-sm font-medium text-text-muted hover:text-red-500 border border-gray-200 rounded-lg hover:border-red-200 transition-all ml-auto"
+              onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+              className="px-3 py-2.5 text-sm font-medium text-text-muted hover:text-teal-600 transition-all"
             >
-              Clear Filters
+              {showAdvancedFilters ? "Less ▲" : "More ▼"}
             </button>
+
+            {/* Clear Filters */}
+            {hasActiveFilters && (
+              <button
+                onClick={clearAllFilters}
+                className="px-4 py-2.5 text-sm font-medium text-text-muted hover:text-red-500 border border-gray-200 rounded-lg hover:border-red-200 transition-all ml-auto"
+              >
+                Clear All
+              </button>
+            )}
+          </div>
+
+          {/* Advanced Filters Row */}
+          {showAdvancedFilters && (
+            <div className="flex flex-wrap items-end gap-4 mt-4 pt-4 border-t border-gray-100">
+              {/* Score Range */}
+              <div>
+                <label className="block text-xs font-medium text-text-muted mb-1.5">
+                  Score Range
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={minScoreFilter || ""}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value) || 0;
+                      setMinScoreFilter(val);
+                      handleFilterChange({ minScore: val > 0 ? val : undefined });
+                    }}
+                    placeholder="Min"
+                    className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-text-primary focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none w-20 transition-all"
+                  />
+                  <span className="text-text-muted">-</span>
+                  <input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={maxScoreFilter === 100 ? "" : maxScoreFilter}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value) || 100;
+                      setMaxScoreFilter(val);
+                      handleFilterChange({ maxScore: val < 100 ? val : undefined });
+                    }}
+                    placeholder="Max"
+                    className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-text-primary focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none w-20 transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Filter Stats */}
+              <div className="text-sm text-text-muted ml-auto">
+                Showing <span className="font-semibold text-teal-600">{filteredAndSortedCompanies.length}</span> of{" "}
+                <span className="font-semibold">{companies.length}</span> companies
+              </div>
+            </div>
           )}
         </div>
 
