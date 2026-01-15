@@ -94,7 +94,7 @@ export default function LinkedInCoverPage() {
               animate={{ opacity: 1 }}
               className="text-2xl font-bold text-[#1A1A1A]"
             >
-              Boutique Strategy. <span className="text-teal-500">Enterprise Delivery.</span>
+              Senior Expertise. <span className="text-teal-500">AI-Powered Speed.</span>
             </motion.p>
           </div>
 
@@ -217,7 +217,7 @@ export default function LinkedInCoverPage() {
 
           {/* Bottom - Subtle tagline */}
           <p className="absolute bottom-44 right-48 text-sm italic text-[#6B7280] z-10">
-            Boutique Strategy. <span className="text-teal-500">Enterprise Delivery.</span>
+            Senior Expertise. <span className="text-teal-500">AI-Powered Speed.</span>
           </p>
         </div>
       </div>
@@ -273,7 +273,7 @@ export default function LinkedInCoverPage() {
 
           {/* Bottom right - Subtle tagline */}
           <p className="absolute bottom-4 right-8 text-sm italic text-[#6B7280]">
-            Boutique Strategy. <span className="text-teal-500">Enterprise Delivery.</span>
+            Senior Expertise. <span className="text-teal-500">AI-Powered Speed.</span>
           </p>
         </div>
       </div>

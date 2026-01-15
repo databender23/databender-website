@@ -33,7 +33,7 @@ export default function AboutClient() {
                 transition={{ delay: 0.1 }}
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
               >
-                Boutique strategy. Enterprise delivery.
+                Senior expertise. AI-powered speed.
               </motion.h1>
 
               <motion.p

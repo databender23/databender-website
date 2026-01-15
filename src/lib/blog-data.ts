@@ -174,7 +174,7 @@ export const blogPosts: BlogPost[] = [
 
 <p>We build data foundations that work. We build analytics people actually use. We automate the repetitive stuff so your team can focus on what matters. When AI makes sense, when the use case is clear and the data is ready, we build that too.</p>
 
-<p>Boutique strategy. Enterprise delivery. No magic. Just results.</p>
+<p>Senior expertise. AI-powered speed. No magic. Just results.</p>
 
 <h3>Where to Start</h3>
 

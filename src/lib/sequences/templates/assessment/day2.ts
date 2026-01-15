@@ -207,7 +207,7 @@ export function getDay2AssessmentTemplate(params: Day2AssessmentParams): Sequenc
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Boutique strategy. Enterprise delivery.
+                Databender - Senior expertise. AI-powered speed.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -252,7 +252,7 @@ Best,
 Grant
 
 ---
-Databender - Boutique strategy. Enterprise delivery.
+Databender - Senior expertise. AI-powered speed.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

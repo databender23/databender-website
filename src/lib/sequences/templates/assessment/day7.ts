@@ -182,7 +182,7 @@ export function getDay7AssessmentTemplate(params: Day7AssessmentParams): Sequenc
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Boutique strategy. Enterprise delivery.
+                Databender - Senior expertise. AI-powered speed.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="${unsubscribeUrl}" style="color: #9ca3af; text-decoration: underline;">Unsubscribe</a>
@@ -218,7 +218,7 @@ Grant
 Schedule a quick call if you'd like to chat: ${calendarUrl}
 
 ---
-Databender - Boutique strategy. Enterprise delivery.
+Databender - Senior expertise. AI-powered speed.
 Unsubscribe: ${unsubscribeUrl}
   `.trim();
 

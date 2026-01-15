@@ -40,7 +40,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-text-secondary mb-6 max-w-md">
-              Boutique strategy. Enterprise delivery.
+              Senior expertise. AI-powered speed.
             </p>
             <div className="flex gap-4">
               <a

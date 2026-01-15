@@ -56,6 +56,12 @@ const CogIcon = () => (
   </svg>
 );
 
+const BoltIcon = () => (
+  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+  </svg>
+);
+
 
 // Animated Counter Component
 function AnimatedCounter({
@@ -123,7 +129,7 @@ function TheShiftSection() {
             viewport={{ once: true }}
             className="text-teal-500 font-medium mb-4 tracking-wide text-sm"
           >
-            The Tactical Advantage
+            The New Economics
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -132,7 +138,7 @@ function TheShiftSection() {
             transition={{ delay: 0.1 }}
             className="text-3xl md:text-4xl font-bold text-text-primary mb-4"
           >
-            Precision over headcount
+            Custom solutions at a fraction of the old cost
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -141,7 +147,7 @@ function TheShiftSection() {
             transition={{ delay: 0.2 }}
             className="text-text-secondary text-lg"
           >
-            Better fit. Faster ROI. Zero overhead. Total ownership.
+            What used to require offshore teams and months now takes weeks. Better fit. Zero overhead. You own it.
           </motion.p>
         </div>
 
@@ -617,6 +623,12 @@ export default function HomePage() {
       icon: <LightbulbIcon />,
     },
     {
+      title: "From Insight to Action",
+      description:
+        "We don't stop at dashboards. Insights wire into operations: automated alerts, triggered workflows, decisions that execute.",
+      icon: <BoltIcon />,
+    },
+    {
       title: "Regulated-Ready",
       description:
         "HIPAA, GDPR, SOC 2 from day one. Healthcare, legal, finance. We know what auditors look for.",
@@ -691,9 +703,9 @@ export default function HomePage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto"
             >
-              Purpose-built software that automates the tedious, augments your team, and keeps working while you sleep.
+              For growing companies tired of software that doesn&apos;t fit. Purpose-built solutions that automate the tedious, augment your team, and keep working while you sleep.
               <br className="hidden sm:block" />
-              <em className="block mt-4 text-sm md:text-base">Your specs. Weeks to delivery. Tailored to your needs.</em>
+              <em className="block mt-4 text-sm md:text-base">Your specs. Weeks to delivery. No enterprise bloat.</em>
             </motion.p>
 
             <motion.div
@@ -759,7 +771,7 @@ export default function HomePage() {
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
             {differentiators.map((item, index) => (
               <motion.div
                 key={index}
