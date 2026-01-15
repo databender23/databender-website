@@ -2,13 +2,13 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Features, CTA } from "@/components/sections";
-import { Badge, Button } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { FloatingNodes } from "@/components/animations";
 import Link from "next/link";
 import { caseStudies } from "@/lib/case-studies-data";
 import { testimonials } from "@/lib/case-studies-data";
 import { CaseStudyDiagram } from "@/components/case-studies/CaseStudyDiagrams";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { preloadLottie } from "@/components/animations/LottieWrapper";
 import { HeroLottie } from "@/components/animations";
 
@@ -57,6 +57,248 @@ const CogIcon = () => (
 );
 
 
+// Animated Counter Component
+function AnimatedCounter({
+  from,
+  to,
+  duration = 1.5,
+  suffix = "",
+  isInView
+}: {
+  from: number;
+  to: number;
+  duration?: number;
+  suffix?: string;
+  isInView: boolean;
+}) {
+  const [count, setCount] = useState(from);
+  const hasAnimated = React.useRef(false);
+
+  useEffect(() => {
+    if (!isInView || hasAnimated.current) {
+      return;
+    }
+
+    hasAnimated.current = true;
+    const startTime = Date.now();
+    const diff = to - from;
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / (duration * 1000), 1);
+
+      // Easing function for smooth animation
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(from + diff * easeOut);
+
+      setCount(current);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [isInView, from, to, duration]);
+
+  return <>{count}{suffix}</>;
+}
+
+// The Shift - Precision Over Headcount
+function TheShiftSection() {
+  const [isInView, setIsInView] = useState(false);
+
+  return (
+    <motion.section
+      className="section bg-[#F8F9FA]"
+      onViewportEnter={() => setIsInView(true)}
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      <div className="container mx-auto px-4 sm:px-6">
+        {/* Header */}
+        <div className="text-center mb-10 sm:mb-14">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+          >
+            The Tactical Advantage
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl md:text-4xl font-bold text-text-primary mb-4"
+          >
+            Precision over headcount
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-text-secondary text-lg"
+          >
+            Better fit. Faster ROI. Zero overhead. Total ownership.
+          </motion.p>
+        </div>
+
+        {/* Hero Stats - 4 Animated Stat Cards */}
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+
+            {/* Software Fit */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="relative bg-white rounded-2xl p-6 sm:p-8 border border-black/5 shadow-sm overflow-hidden group hover:shadow-lg transition-shadow duration-300"
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-teal-500/10 to-transparent rounded-bl-full" />
+              <div className="relative">
+                <p className="text-sm font-medium text-text-muted uppercase tracking-wide mb-3">Software Fit</p>
+                <div className="flex items-baseline gap-2 sm:gap-3 mb-2">
+                  <span className="text-4xl sm:text-5xl font-bold text-text-muted/30 line-through decoration-2">
+                    <AnimatedCounter from={0} to={70} isInView={isInView} />%
+                  </span>
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                  <span className="text-4xl sm:text-5xl font-bold text-gradient">
+                    <AnimatedCounter from={70} to={100} isInView={isInView} />%
+                  </span>
+                </div>
+                <p className="text-text-secondary text-sm">
+                  Off-the-shelf almost fits. Custom fits exactly.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Time to ROI */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="relative bg-white rounded-2xl p-6 sm:p-8 border border-black/5 shadow-sm overflow-hidden group hover:shadow-lg transition-shadow duration-300"
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-teal-500/10 to-transparent rounded-bl-full" />
+              <div className="relative">
+                <p className="text-sm font-medium text-text-muted uppercase tracking-wide mb-3">Time to ROI</p>
+                <div className="flex items-baseline gap-2 sm:gap-3 mb-2">
+                  <div className="flex items-baseline">
+                    <span className="text-4xl sm:text-5xl font-bold text-text-muted/30 line-through decoration-2">
+                      <AnimatedCounter from={0} to={12} isInView={isInView} />
+                    </span>
+                    <span className="text-xl sm:text-2xl font-bold text-text-muted/30 line-through decoration-2 ml-1">mo</span>
+                  </div>
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                  <div className="flex items-baseline">
+                    <span className="text-4xl sm:text-5xl font-bold text-gradient">
+                      <AnimatedCounter from={12} to={4} isInView={isInView} />
+                    </span>
+                    <span className="text-xl sm:text-2xl font-bold text-teal-500 ml-1">wk</span>
+                  </div>
+                </div>
+                <p className="text-text-secondary text-sm">
+                  Enterprise software takes forever. This pays back fast.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Management Overhead */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="relative bg-white rounded-2xl p-6 sm:p-8 border border-black/5 shadow-sm overflow-hidden group hover:shadow-lg transition-shadow duration-300"
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-teal-500/10 to-transparent rounded-bl-full" />
+              <div className="relative">
+                <p className="text-sm font-medium text-text-muted uppercase tracking-wide mb-3">Management Overhead</p>
+                <div className="flex items-baseline gap-2 sm:gap-3 mb-2">
+                  <div className="flex items-baseline">
+                    <span className="text-4xl sm:text-5xl font-bold text-text-muted/30 line-through decoration-2">
+                      <AnimatedCounter from={0} to={20} isInView={isInView} />
+                    </span>
+                    <span className="text-xl sm:text-2xl font-bold text-text-muted/30 line-through decoration-2 ml-1">hrs</span>
+                  </div>
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                  <div className="flex items-baseline">
+                    <span className="text-4xl sm:text-5xl font-bold text-gradient">
+                      <AnimatedCounter from={20} to={0} isInView={isInView} />
+                    </span>
+                    <span className="text-xl sm:text-2xl font-bold text-teal-500 ml-1">hrs</span>
+                  </div>
+                </div>
+                <p className="text-text-secondary text-sm">
+                  No timezones. No status meetings. No translation layers.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Ownership */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="relative bg-white rounded-2xl p-6 sm:p-8 border border-black/5 shadow-sm overflow-hidden group hover:shadow-lg transition-shadow duration-300"
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-teal-500/10 to-transparent rounded-bl-full" />
+              <div className="relative">
+                <p className="text-sm font-medium text-text-muted uppercase tracking-wide mb-3">Code Ownership</p>
+                <div className="flex items-baseline gap-2 sm:gap-3 mb-2">
+                  <span className="text-4xl sm:text-5xl font-bold text-text-muted/30 line-through decoration-2">
+                    <AnimatedCounter from={100} to={0} isInView={isInView} />%
+                  </span>
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                  <span className="text-4xl sm:text-5xl font-bold text-gradient">
+                    <AnimatedCounter from={0} to={100} isInView={isInView} />%
+                  </span>
+                </div>
+                <p className="text-text-secondary text-sm">
+                  You own the code. No SaaS fees. No vendor lock-in.
+                </p>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+
+        {/* Link to blog post */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.7 }}
+          className="text-center mt-10"
+        >
+          <Link
+            href="/blog/ai-augmented-onshore-vs-offshore"
+            className="inline-flex items-center gap-2 text-teal-500 hover:text-teal-600 transition-colors font-medium"
+          >
+            Read: The Math Has Changed
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+}
+
 // Results Grid - Show all case studies with animated diagrams
 function ResultsGrid() {
   // Get case studies with diagram types (ordered by impact)
@@ -79,10 +321,19 @@ function ResultsGrid() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl md:text-4xl font-bold text-text-primary"
+            className="text-3xl md:text-4xl font-bold text-text-primary mb-4"
           >
-            See how we deliver results
+            See the difference
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-text-secondary text-lg max-w-2xl mx-auto"
+          >
+            Real outcomes from custom-built solutions
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -324,51 +575,51 @@ function SocialProofSection() {
 export default function HomePage() {
   const capabilities = [
     {
-      title: "Get your data in order",
+      title: "Data Foundations That Scale",
       description:
-        "We connect, clean, and organize so you can leverage the full power of data & AI.",
+        "Not another 18-month data warehouse migration. Clean, connected data in weeks. The foundation AI actually needs.",
       icon: <DataIcon />,
-      href: "/services",
+      href: "/services/data-ai-strategy",
     },
     {
-      title: "See what's happening",
+      title: "Intelligence Built on Your Data",
       description:
-        "Stop guessing what's working. Analytics that reveal what actually drives results, not what you assume. Make decisions based on evidence, not gut feelings.",
+        "Not generic dashboards from a BI vendor. Analytics and ML trained on your business, your patterns, your competitive advantage.",
       icon: <ChartIcon />,
-      href: "/services",
+      href: "/services/analytics-bi",
     },
     {
-      title: "Work smarter with AI",
+      title: "AI Agents That Know Your Business",
       description:
-        "AI that knows your business, not just the internet. Ask questions in plain English. Automate tedious work. Get answers from your own data in seconds.",
+        "Not ChatGPT with a wrapper. Custom agents with your business logic, your documents, your workflows.",
       icon: <AIIcon />,
-      href: "/services",
+      href: "/services/ai-services",
     },
   ];
 
   const differentiators = [
     {
-      title: "AI-Augmented Team",
+      title: "Senior Expertise, AI Velocity",
       description:
-        "Senior consultants with AI integrated into every workflow. Strategy and judgment stay human. Repetitive work gets automated. Enterprise quality, boutique pricing.",
+        "Human strategy and judgment. AI handles the repetitive work. What used to require a team now takes one expert with the right tools.",
       icon: <UsersIcon />,
     },
     {
-      title: "AI That Works",
+      title: "Build First, Not Configure",
       description:
-        "AI that gives accurate answers—because we fix the data first. Most AI projects fail on bad data. We build on solid foundations, not wishful thinking.",
-      icon: <LightbulbIcon />,
+        "We don't spend months configuring off-the-shelf. We build custom software that fits your business, not the other way around.",
+      icon: <CogIcon />,
     },
     {
-      title: "From Insight to Action",
+      title: "Data Foundation First",
       description:
-        "We don't stop at dashboards. We wire insights into daily operations—automated alerts, triggered workflows, decisions that execute without you.",
-      icon: <CogIcon />,
+        "AI built on clean data. We fix the foundation first. No shortcuts. No 'garbage in, garbage out.'",
+      icon: <LightbulbIcon />,
     },
     {
       title: "Regulated-Ready",
       description:
-        "HIPAA, GDPR, SOC 2—compliance built in from day one. We've delivered in healthcare, legal, and finance. We know what auditors look for.",
+        "HIPAA, GDPR, SOC 2 from day one. Healthcare, legal, finance. We know what auditors look for.",
       icon: <ShieldIcon />,
     },
   ];
@@ -422,17 +673,26 @@ export default function HomePage() {
               transition={{ duration: 0.5 }}
               className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
             >
-              Data Analytics & AI Solutions
+              The Agentic Development Era
             </motion.p>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-text-primary mb-6"
+              className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-text-primary mb-4"
             >
-              Boutique Strategy. Enterprise Delivery.
+              Custom Software. Finally Fast.
             </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="text-teal-600 font-semibold text-lg md:text-xl mb-4"
+            >
+              Expert builders. AI-powered delivery.
+            </motion.p>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -440,7 +700,9 @@ export default function HomePage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto"
             >
-              Databender empowers firms to work efficiently, compliantly, and intelligently using data and AI.
+              Your specs. Weeks to delivery. Tailored to your needs.
+              <br className="hidden sm:block" />
+              <span className="block mt-2 sm:mt-0">Software that automates the tedious, augments your team, and keeps working while you sleep.</span>
             </motion.p>
 
             <motion.div
@@ -469,18 +731,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. What We Do Section */}
+      {/* 2. The Shift - Old vs New Comparison */}
+      <TheShiftSection />
+
+      {/* 3. What We Build Section */}
       <Features
-        subtitle="What We Do"
-        title="Three capabilities. One partner."
+        subtitle="What We Build"
+        title="Custom systems that actually fit"
         features={capabilities}
         columns={3}
       />
 
-      {/* 3. Results & Case Studies */}
+      {/* 4. Results & Case Studies */}
       <ResultsGrid />
 
-      {/* 4. Why Us Section */}
+      {/* 5. Why Us Section */}
       <section className="section">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 md:mb-12">
@@ -526,13 +791,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. Social Proof */}
+      {/* 6. Social Proof */}
       <SocialProofSection />
 
-      {/* 6. Final CTA */}
+      {/* 7. Final CTA */}
       <CTA
-        title="Ready to see what's possible?"
-        description="30 minutes. We'll talk about your situation and see if we can help."
+        title="Ready to build something that actually fits?"
+        description="30 minutes. We'll talk about your situation and see what's possible."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "Take Assessment First", href: "/assessments/data-ai-readiness" }}
         variant="gradient"

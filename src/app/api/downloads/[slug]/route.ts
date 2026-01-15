@@ -9,6 +9,8 @@ const VALID_GUIDES: Record<string, string> = {
   "last-vendor": "last-vendor.pdf",
   "partner-succession": "partner-succession.pdf",
   "win-more-pitches": "win-more-pitches.pdf",
+  "own-your-ai": "own-your-ai.pdf",
+  "economics-of-legal-ai": "economics-of-legal-ai.pdf",
   // Healthcare guides
   "hipaa-compliant-ai": "hipaa-compliant-ai.pdf",
   "institutional-knowledge-healthcare": "institutional-knowledge-healthcare.pdf",
