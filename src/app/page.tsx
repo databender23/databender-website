@@ -172,7 +172,7 @@ function TheShiftSection() {
                   </span>
                 </div>
                 <p className="text-text-secondary text-sm">
-                  Off-the-shelf almost fits. Custom fits exactly.
+                  Off-the-shelf almost fits. Precision fits exactly.
                 </p>
               </div>
             </motion.div>
@@ -332,7 +332,7 @@ function ResultsGrid() {
             transition={{ delay: 0.2 }}
             className="text-text-secondary text-lg max-w-2xl mx-auto"
           >
-            Real outcomes from custom-built solutions
+            Real outcomes from purpose-built solutions
           </motion.p>
         </div>
 
@@ -591,7 +591,7 @@ export default function HomePage() {
     {
       title: "AI Agents That Know Your Business",
       description:
-        "Not ChatGPT with a wrapper. Custom agents with your business logic, your documents, your workflows.",
+        "Not ChatGPT with a wrapper. Purpose-built agents trained on your business logic, your documents, your workflows.",
       icon: <AIIcon />,
       href: "/services/ai-services",
     },
@@ -607,7 +607,7 @@ export default function HomePage() {
     {
       title: "Build First, Not Configure",
       description:
-        "We don't spend months configuring off-the-shelf. We build custom software that fits your business, not the other way around.",
+        "We don't spend months configuring off-the-shelf. We craft software that fits your business, not the other way around.",
       icon: <CogIcon />,
     },
     {
@@ -667,15 +667,6 @@ export default function HomePage() {
 
           {/* Hero Content */}
           <div className="max-w-3xl mx-auto text-center">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-teal-500 font-medium mb-4 tracking-wide text-sm"
-            >
-              The Agentic Development Era
-            </motion.p>
-
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -734,7 +725,7 @@ export default function HomePage() {
       {/* 2. What We Build Section */}
       <Features
         subtitle="What We Build"
-        title="Custom systems that actually fit"
+        title="Precision systems that actually fit"
         features={capabilities}
         columns={3}
       />
