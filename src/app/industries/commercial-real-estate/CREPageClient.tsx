@@ -64,7 +64,7 @@ export default function CREPageClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
-              The owner&apos;s hidden behind three LLCs. Your portfolio data lives in four different systems. Neither problem solves itself. We help brokers find decision-makers and property managers see their whole portfolio in one place.
+              The owners hidden behind three LLCs. Your portfolio data lives in four different systems. Neither problem solves itself. We help brokers find decision-makers and property managers see their whole portfolio in one place.
             </motion.p>
 
             <motion.div

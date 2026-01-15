@@ -51,6 +51,7 @@ export function getDay0GuideGeneralTemplate(params: Day0GuideGeneralParams): Seq
           <!-- Header -->
           <tr>
             <td style="padding: 32px 40px; background: linear-gradient(135deg, #1A9988 0%, #147a6c 100%);">
+              <img src="https://databender.co/images/logo-white.png" alt="Databender" style="height: 32px; margin-bottom: 16px;" />
               <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">
                 Your Guide is Ready
               </h1>
@@ -111,7 +112,7 @@ export function getDay0GuideGeneralTemplate(params: Day0GuideGeneralParams): Seq
               </table>
 
               <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6; font-style: italic;">
-                P.S. Have questions as you read through? Just reply to this email. I read and respond to every message personally.
+                P.S. Have questions as you read through? Just reply to this email. We read and respond to every message personally.
               </p>
             </td>
           </tr>
@@ -120,7 +121,7 @@ export function getDay0GuideGeneralTemplate(params: Day0GuideGeneralParams): Seq
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Data & AI for growing businesses
+                Databender - Boutique strategy. Enterprise delivery.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -159,10 +160,10 @@ Schedule a conversation: ${calendarUrl}
 
 ---
 
-P.S. Have questions as you read through? Just reply to this email. I read and respond to every message personally.
+P.S. Have questions as you read through? Just reply to this email. We read and respond to every message personally.
 
 ---
-Databender - Data & AI for growing businesses
+Databender - Boutique strategy. Enterprise delivery.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

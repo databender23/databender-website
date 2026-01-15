@@ -122,7 +122,7 @@ export function getDay21GuideGeneralTemplate(params: Day21GuideGeneralParams): S
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Data & AI for growing businesses
+                Databender - Boutique strategy. Enterprise delivery.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -167,7 +167,7 @@ Grant
 P.S. If timing isn't right now but might be in a few months, just reply and let me know. I'll make a note to check back in then.
 
 ---
-Databender - Data & AI for growing businesses
+Databender - Boutique strategy. Enterprise delivery.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

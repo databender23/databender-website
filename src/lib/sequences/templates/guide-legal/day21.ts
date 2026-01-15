@@ -137,7 +137,7 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Data & AI for growing businesses
+                Databender - Boutique strategy. Enterprise delivery.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -185,7 +185,7 @@ Grant
 P.S. If timing is not right now but might be in a few months - perhaps after a busy litigation period or once budget planning begins - just reply and let me know. I will follow up then rather than now.
 
 ---
-Databender - Data & AI for growing businesses
+Databender - Boutique strategy. Enterprise delivery.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

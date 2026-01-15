@@ -19,16 +19,29 @@ interface ResultsData {
   };
 }
 
+// Cache for useSyncExternalStore to avoid infinite loops
+let cachedResults: ResultsData | null = null;
+let cachedRaw: string | null = null;
+
 // Helper to read from sessionStorage without triggering lint warnings
 function getStoredResults(): ResultsData | null {
   if (typeof window === "undefined") return null;
   const stored = sessionStorage.getItem("healthcareAIReadinessResults");
-  if (!stored) return null;
-  try {
-    return JSON.parse(stored);
-  } catch {
+  if (!stored) {
+    cachedResults = null;
+    cachedRaw = null;
     return null;
   }
+  // Only re-parse if the raw string changed
+  if (stored !== cachedRaw) {
+    cachedRaw = stored;
+    try {
+      cachedResults = JSON.parse(stored);
+    } catch {
+      cachedResults = null;
+    }
+  }
+  return cachedResults;
 }
 
 // Subscribe function for useSyncExternalStore (no-op for sessionStorage)

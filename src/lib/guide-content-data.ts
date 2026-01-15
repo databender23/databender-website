@@ -1489,63 +1489,53 @@ export const guideContents: GuideContent[] = [
 
 <p>And then there was property value. The assumed positive predictor that turned out to be negative. Why? Digging deeper revealed the answer: high-value properties tended to involve more complex approval processes, more stakeholders, longer timelines, and more competitors. Mid-market properties had simpler decision paths and fewer alternatives.</p>
 
-<h3>Feature Selection: What Actually Predicts</h3>
+<h3>What Actually Predicts a Sale</h3>
 
-<p>Building a good scoring model requires identifying which variables genuinely predict outcomes and which are just correlated with something else or pure noise.</p>
+<p>Your CRM tracks dozens of data points on every lead. Most of them don't matter. The analysis separates signal from noise.</p>
 
-<p>We typically evaluate 40-60 potential features for a B2B lead scoring model. Most turn out to be useless. Maybe 8-12 end up mattering.</p>
+<p>For manufacturing companies, the patterns that actually predict closes tend to cluster around four areas:</p>
 
-<p>For manufacturing companies, we often find that these categories contain the strongest predictors:</p>
+<p><strong>Timing.</strong> When did they engage? Budget season inquiries close at higher rates than random Tuesday clicks. Planning-cycle timing beats browsing-phase timing. The calendar tells you more than the form fill.</p>
 
-<p><strong>Timing signals.</strong> When in the fiscal year did they engage? Are they in a planning cycle or execution phase? Did they reach out around budget season?</p>
+<p><strong>How they engaged, not just that they engaged.</strong> A prospect who spent 20 minutes on your technical specs is different from one who bounced after the homepage. Someone who downloaded the CAD files is further along than someone who grabbed the brochure. Depth beats breadth.</p>
 
-<p><strong>Engagement depth.</strong> Not just page views, but time on page. Not just form fills, but which forms. Technical content engagement often beats marketing content engagement as a predictor.</p>
+<p><strong>What's happening at their company.</strong> Recent expansion. New facility. Acquisition. These dynamic signals outperform static ones like company size. A growing $30M manufacturer often converts better than a stagnant $200M one.</p>
 
-<p><strong>Company characteristics.</strong> Industry sub-segment, company growth rate, recent events (expansion, acquisition, new facility). Static firmographics like company size matter less than you'd think. Dynamic signals matter more.</p>
+<p><strong>How they found you.</strong> Referrals close differently than trade show leads. Paid search converts differently than organic. The path to your door predicts what happens after they walk through it.</p>
 
-<p><strong>Referral source.</strong> Where did they come from? Referrals close at different rates than trade shows which close at different rates than paid search. The path to you predicts their likelihood to buy from you.</p>
+<p>What doesn't predict much? Job title, surprisingly. Everyone assumes C-level leads are better. In complex B2B sales, directors often make the actual decision while executives just approve it. The data doesn't care about org charts.</p>
 
-<p>Counterintuitively, some commonly tracked signals add little predictive value. Job title, for example. Everyone assumes C-level leads are better than director-level leads. The data often shows minimal difference, or even inverts in complex B2B sales where the C-level evaluates but the director decides.</p>
+<h3>Proving It Works Before You Bet On It</h3>
 
-<h3>Model Validation: Proving It Works</h3>
+<p>A scoring model is only useful if it actually predicts what happens next. We test ours against deals it's never seen.</p>
 
-<p>A model that fits historical data perfectly might just be memorizing noise. The test is whether it predicts outcomes it hasn't seen.</p>
+<p>For the building materials client, the proof was in the separation. Leads scored in the top 20% closed at 4.7x the rate of bottom-tier leads. That gap didn't exist in their old scoring system. Their "best" leads performed barely better than average.</p>
 
-<p>We validate lead scoring models using holdout testing. Train the model on 80% of historical data. Test it against the remaining 20%. If the predictions hold, you've built something real. If they fall apart, you've overfit.</p>
+<p>The test also catches blind spots. Does the model undervalue certain industries that should convert well? Does it get fooled by signals that are easy to fake? If the scores don't hold up against fresh data, we rebuild until they do.</p>
 
-<p>For the building materials client, validation showed that leads scored in the top 20% by the new model closed at 4.7x the rate of leads in the bottom 20%. That separation didn't exist in their old scoring system. The old system's top quintile was barely better than average.</p>
+<p><strong>Sometimes the validation reveals uncomfortable truths.</strong> One client's "proprietary scoring methodology" that they'd used for years? Performed worse than random selection. Their sales team had been systematically chasing the wrong leads for half a decade. Nobody had ever tested it against actual outcomes.</p>
 
-<p>We also test for bias and edge cases. Does the model disadvantage certain industries or company sizes that should actually convert well? Does it overweight signals that are easy to manipulate? A good model is accurate, fair, and holds up under real-world conditions.</p>
+<h3>Scores That Actually Get Used</h3>
 
-<p><strong>The validation phase often reveals embarrassing truths.</strong> One client's "proprietary scoring methodology" they'd used for years turned out to perform worse than random selection. Their sales team had been systematically prioritizing the wrong leads for half a decade.</p>
+<p>A scoring model that lives in a spreadsheet doesn't help anyone. The score needs to show up where your reps already work.</p>
 
-<h3>CRM Integration: Making It Usable</h3>
+<p>When a new lead hits Salesforce, they get scored immediately. When behavior changes, the score updates. Your reps see a color-coded priority right on the lead record. No hunting, no extra clicks.</p>
 
-<p>A model that lives in a spreadsheet doesn't help salespeople. The score needs to appear where reps work: in the CRM, in their morning call list, in the pipeline view.</p>
+<p>But a number by itself isn't enough. A score of 85 means nothing without the "why." Your reps need to see what made this lead promising: recent facility expansion, technical spec engagement, budget-season timing. The score opens the conversation. The reasoning helps them have a better one.</p>
 
-<p>Integration means several things.</p>
+<p>High-score leads shouldn't wait in the round-robin queue while low-score leads get called first. Routing should follow the data. Your best opportunities should reach your best closers, fast.</p>
 
-<p>Real-time scoring. When a new lead enters the system, they get scored immediately. When an existing lead's behavior changes, their score updates. Stale scores are useless scores.</p>
+<p>We've done this with Salesforce, HubSpot, Dynamics, Zoho, and industry-specific platforms. If your CRM has an API, we can put scores into it. Most integrations take a few days, not months.</p>
 
-<p>Score visibility. The number should be prominent. Not buried three clicks deep in a record. Front and center. Color-coded. Impossible to miss.</p>
+<h3>Scores That Get Smarter Over Time</h3>
 
-<p>Context alongside the score. A score of 85 means nothing without knowing why. What signals drove that score? What makes this lead promising? Reps need intelligence, not just numbers. The score opens the door. The reasoning helps them walk through it.</p>
+<p>Launch day isn't the finish line. It's where the model starts learning your business.</p>
 
-<p>Routing based on scores. High-priority leads shouldn't wait for round-robin assignment. They should jump the queue. Scores should drive workflows, not just reports.</p>
+<p>Markets shift. Your product mix changes. New competitors show up. The signals that predicted deals last quarter might weaken this quarter. A scoring model that doesn't adapt becomes the static assumptions you were trying to escape.</p>
 
-<p>We've integrated with every major CRM: Salesforce, HubSpot, Microsoft Dynamics, Zoho, industry-specific platforms. The technical work varies. The goal is the same: put the right information in front of salespeople when it matters.</p>
+<p>Every closed deal and every lost opportunity teaches the model something. When a rep marks a high-score lead as "not qualified," that's useful. When a low-score lead closes unexpectedly, that's even more useful. The model gets sharper with every outcome.</p>
 
-<h3>Continuous Improvement</h3>
-
-<p>Deploy day one isn't the end. It's the start of refinement.</p>
-
-<p>Markets shift. Products change. New competitors emerge. The signals that predicted deals last year might weaken this year. Models need ongoing calibration.</p>
-
-<p>We build monitoring into every deployment. Track actual conversion rates by score tier over time. When the tiers start blending together, when high scores stop outperforming medium scores, the model needs retraining.</p>
-
-<p>Feedback loops accelerate improvement. When a sales rep marks a lead as "not qualified" despite a high score, that's data. When a low-score lead closes unexpectedly, that's data. Every outcome teaches the model something.</p>
-
-<p>Most clients retrain quarterly. Some with faster sales cycles retrain monthly. The cadence depends on volume and market dynamics. What matters is that you don't treat the model as static truth.</p>
+<p>Most of our manufacturing clients refresh their models quarterly. Some with shorter sales cycles do it monthly. The point isn't a specific cadence. The point is that your scoring reflects what's actually happening now, not what happened two years ago.</p>
 
 <h3>The Human Element</h3>
 
@@ -1569,21 +1559,23 @@ export const guideContents: GuideContent[] = [
 
 <p>These results aren't unique to that client. They're the pattern we see when scoring reflects reality instead of assumption. Your numbers will differ. The direction will match.</p>
 
-<h3>Getting Started</h3>
+<h3>What You Need (And What You Don't)</h3>
 
-<p>You need three things to build a predictive lead scoring model worth having.</p>
+<p>Most manufacturers already have what they need to get started. They just don't realize it.</p>
 
-<p>First, historical data. At minimum, 12 months of closed-loop CRM data with both wins and losses tracked. More is better. Three years is ideal. If you can't connect leads to outcomes, you can't build a model that predicts outcomes.</p>
+<p><strong>You need historical data.</strong> At least 12 months of CRM records showing which leads closed and which didn't. Three years is better. If you've been using Salesforce or HubSpot and tracking opportunities, you probably have this already.</p>
 
-<p>Second, willingness to challenge assumptions. The data will contradict beliefs. Some of what you "know" about your buyers will turn out to be wrong. If you're not prepared to accept that, stick with your current approach.</p>
+<p><strong>You need willingness to hear uncomfortable truths.</strong> The data will contradict beliefs. What you "know" about your buyers might be wrong. The building materials manufacturer assumed property value predicted big deals. The data said the opposite. If you're not prepared to follow the data, there's no point starting.</p>
 
-<p>Third, commitment to action. A score that nobody uses is waste. The organization needs to actually prioritize based on the model. Sales managers need to coach to it. Reps need to trust it enough to change behavior.</p>
+<p><strong>You don't need a data team.</strong> You don't need to understand the statistics. You don't need to build infrastructure. That's our job. You need to be willing to act on what we find.</p>
 
-<p>If you have those three things, you're ready. If you don't, work on getting them first. A sophisticated model on a weak foundation helps no one.</p>
+<p>If your reps won't change how they prioritize, even when the evidence is clear, stop here. A scoring model nobody uses is just an expensive spreadsheet. But if your team is ready to focus on leads that actually convert? That's where 31% improvement comes from.</p>
 
 <hr/>
 
-<p><em>Ready to find out what actually predicts your wins? <a href="/contact">Schedule a conversation</a> about building a scoring model that reflects your reality, or explore our full <a href="/industries/manufacturing">manufacturing solutions</a>.</em></p>`,
+<p><strong>See the full case study:</strong> <a href="/case-studies/what-predicts-lead-conversion">What Actually Predicts Lead Conversion?</a> — How we analyzed 3 years of sales data and found a 31% improvement hiding in plain sight.</p>
+
+<p><em>Most manufacturers already have years of sales data sitting in their CRM. The patterns are there. You just need to ask the right questions. <a href="/contact">Schedule a conversation</a> about what your data might reveal, or take our <a href="/assessments/manufacturing">5-minute Manufacturing Readiness Assessment</a> to see where you stand.</em></p>`,
   },
   {
     slug: "operational-visibility-playbook",
@@ -1606,7 +1598,7 @@ export const guideContents: GuideContent[] = [
 
 <p>The goal isn't pretty charts. The goal is eliminating the phone calls, the chasing, the "let me check on that and get back to you." Every question that requires a human lookup is a visibility failure.</p>
 
-<p>Consider what happens when a customer calls asking about their order. In a low-visibility organization, the service rep has to find the sales rep, who has to contact operations, who has to check the ERP, who has to verify with shipping. Fifteen minutes to answer a simple question. The customer waits. Multiple employees are interrupted.</p>
+<p>What happens when a customer calls asking about their order? In a low-visibility organization, the service rep has to find the sales rep, who has to contact operations, who has to check the ERP, who has to verify with shipping. Fifteen minutes to answer a simple question. The customer waits. Multiple employees are interrupted.</p>
 
 <p>In a high-visibility organization, the service rep pulls up the customer record and sees the answer immediately. Order shipped Tuesday, tracking number is here, estimated delivery is Thursday. Fifteen seconds.</p>
 
@@ -1634,9 +1626,11 @@ export const guideContents: GuideContent[] = [
 
 <p>Integration layers sit between your existing systems and share data among them. When an order is entered in the CRM, it automatically creates a sales order in the ERP. When a shipment goes out, the tracking information flows back to the CRM. When a payment is received, the customer record updates.</p>
 
-<p>No system replacement. No massive implementation project. No retraining everyone on new software they didn't ask for. The existing systems stay in place. The gaps between them close.</p>
+<p>No system replacement. No massive rollout project. No retraining everyone on new software they didn't ask for. The existing systems stay in place. The gaps between them close.</p>
 
-<p>Modern integration platforms (iPaaS tools like Workato, Celigo, or custom middleware) make this feasible at costs that mid-sized companies can absorb. What used to require custom development for every connection is now configuration. The technical barrier has dropped dramatically.</p>
+<p>Modern integration platforms—tools like Workato or Celigo that connect systems without custom coding—make this feasible at costs that mid-sized companies can absorb. What used to require custom development for every connection is now configuration. The technical barrier has dropped dramatically.</p>
+
+<p>For manufacturers concerned about competitive data leaving their building, these integrations can run entirely on-premise. Your pricing, customer lists, and margin data never touch outside servers. The visibility improves without the security tradeoffs.</p>
 
 <h3>Building the Dashboard Layer</h3>
 
@@ -1725,18 +1719,20 @@ export const guideContents: GuideContent[] = [
 
 <hr/>
 
-<p><em>Ready to see your operations clearly? <a href="/contact">Schedule a conversation</a> about what visibility could look like for your organization, or explore our full <a href="/industries/manufacturing">manufacturing solutions</a>.</em></p>`,
+<p><em>Ready to see your operations clearly? We've built visibility systems for manufacturers across building products, industrial distribution, and precision machining. <a href="/contact">Schedule a conversation</a> about what this could look like for your specific systems, or explore our full <a href="/industries/manufacturing">manufacturing solutions</a>.</em></p>`,
   },
   {
     slug: "manufacturing-ai-privacy",
     title: "AI Without the Cloud Risk",
     subtitle: "Keep Your Competitive Data Where It Belongs",
     pdfUrl: "/api/downloads/manufacturing-ai-privacy",
-    content: `<p>Your pricing formulas. Your cost structures. Your customer lists. Your margin data. That's competitive advantage, built over years. And most AI tools want you to send it to their servers.</p>
+    content: `<p>A manufacturer we work with wanted to analyze three years of customer data. Which accounts were trending down? Which product lines had margin erosion? Which sales reps were winning deals others couldn't close?</p>
 
-<p>That's not caution. That's reality.</p>
+<p>Their operations team was ready to go. Legal killed it in one meeting.</p>
 
-<p>When you use ChatGPT or Claude or any cloud AI, your prompts go to their infrastructure. Your data becomes training material unless you pay extra to opt out. Your competitive intelligence sits on servers you don't control, protected by policies you can't enforce.</p>
+<p>The problem wasn't the analysis. It was where the data would go. Cloud AI means your pricing, your costs, your customer relationships sitting on servers you don't control. For a company whose margins depend on competitors not knowing their cost structure, that's not paranoia. That's a real business risk.</p>
+
+<p>When you use ChatGPT or Claude or any cloud AI, your prompts go to their infrastructure. Your data becomes training material unless you pay extra to opt out. Your competitive intelligence sits on servers protected by policies you can't enforce.</p>
 
 <p>For casual questions, that's fine. For business-critical data, it's a non-starter.</p>
 
@@ -1754,29 +1750,47 @@ export const guideContents: GuideContent[] = [
 
 <p>Everything you'd want to do with cloud AI, minus the exposure.</p>
 
-<p><strong>Document search.</strong> Ask questions about your product specs, procedures, and customer records. Get answers with sources. New hires find information without asking around. Veterans find information without remembering where it lives.</p>
+<p><strong>Supplier document search.</strong> You've got spec sheets from 70+ suppliers scattered across shared drives, email attachments, and that one folder only Mike knows about. Private AI makes them all searchable. "What's the torque rating on the X200 motor?" Answer in two seconds, with the source PDF. New hires stop interrupting veterans. Veterans stop digging through folders they created five years ago.</p>
 
-<p><strong>Data analysis.</strong> Query your sales history in plain English. "Which customers haven't ordered in 90 days?" "What's our average margin by product line?" "Which territories are underperforming?" Answers in seconds, not spreadsheets.</p>
+<p><strong>Margin and cost analysis.</strong> Your ERP has three years of data you've never had time to analyze properly. Private AI lets you ask questions in plain English without exposing your cost structure to anyone. "Which product lines have margin erosion over 5% this year?" "Which customers are ordering less but costing more to serve?" "Where are we losing money on freight?" The answers stay on your servers.</p>
 
-<p><strong>Process automation.</strong> AI agents that read invoices, match them to POs, flag discrepancies, and route for approval. Workflows that used to require humans watching screens, now handled automatically.</p>
+<p><strong>Quote and order processing.</strong> AI agents that read incoming RFQs, pull relevant specs from your catalog, check inventory availability, and draft responses for review. The same agents that match invoices to POs, flag discrepancies, and route exceptions. Workflows that used to require someone watching a screen, handled automatically.</p>
 
-<p><strong>Competitive intelligence.</strong> Build models on your actual data. Lead scoring based on your wins. Demand forecasting based on your history. Customer churn prediction based on your patterns. All the AI capabilities, trained on your reality, staying inside your walls.</p>
+<p><strong>Sales intelligence that stays private.</strong> Train lead scoring models on your actual wins, not industry averages. We analyzed three years of sales data for one manufacturer and found their assumptions were backwards. Property value was a negative predictor. Project urgency and financial capacity drove conversions. That analysis required their complete sales history, their pricing, their close rates. None of it left their building.</p>
+
+<h3>What This Looks Like in Your Plant</h3>
+
+<p>Abstract benefits don't close deals. Here's what private AI actually looks like in daily operations.</p>
+
+<p><strong>Monday morning, 7:15 AM.</strong> Customer calls about the Henderson order. Used to be: check the ERP, call shipping, dig through emails, call the customer back in 30 minutes with a partial answer. Now: type "Henderson order status" into the AI interface. Full history appears in seconds. Order confirmed, shipped Thursday, tracking shows delivery scheduled for tomorrow, no quality holds. Call the customer back in 90 seconds with complete information. Your data never left your network.</p>
+
+<p><strong>Tuesday afternoon, sales meeting.</strong> VP asks which accounts are at risk of churning. Used to be: pull a report next week, maybe. Now: ask the system "Which accounts ordered less this quarter than last quarter, sorted by revenue impact?" The answer comes back with 12 accounts, ranked by how much you'd lose. None of that customer data, none of those revenue figures, none of those buying patterns went anywhere except your own servers.</p>
+
+<p><strong>Wednesday, new hire's first week.</strong> She needs the thermal tolerance specs for the 400 series. Used to be: ask three people who might know, wait for someone to remember where the file lives, hope it's the current version. Now: she types "400 series thermal tolerance" and gets the answer with a link to the source document. She found it herself. She learned something. She didn't interrupt anyone. The AI that helped her runs on your equipment, trained on your documents, never sharing your specs with anyone.</p>
+
+<p><strong>Thursday, quoting a new prospect.</strong> They want pricing on a custom configuration. Used to be: pull standard pricing, estimate the custom work, hope your margins are right. Now: ask the system "What have we charged for similar configurations in the past two years?" See actual quotes, actual costs, actual margins. Price competitively without guessing. All that pricing history, all those margin calculations, stayed right where they belong.</p>
+
+<p><strong>Friday, production planning.</strong> Need to know which orders are at risk of missing ship dates. Used to be: manually compare promised dates against production schedule, probably miss something. Now: the system flags three orders that are tracking behind based on current production velocity. You catch them Friday instead of scrambling Monday. The production data, the customer commitments, the scheduling algorithms all run inside your walls.</p>
+
+<p>Every one of these scenarios involves competitive information. Customer relationships. Pricing strategies. Operational efficiency. Production capacity. That's the data that makes your business yours. Private AI keeps it that way.</p>
 
 <h3>The Cost Conversation</h3>
 
 <p>Private AI costs more than cloud AI. Let's be honest about that upfront.</p>
 
-<p>Cloud AI is cheap because you're sharing infrastructure with millions of users. The cost spreads across everyone. You pay per query, and the per-query cost is pennies.</p>
+<p>Cloud AI runs about $20-50 per user per month for basic access. Enterprise agreements with data protection add-ons push that to $100-200 per user. For a 50-person company using it heavily, you're looking at $60,000-120,000 annually in subscription fees. And your data still travels to external servers.</p>
 
-<p>Private AI requires dedicated resources. Hardware or cloud instances you control. Setup and configuration. Ongoing maintenance. The cost is real.</p>
+<p>Private AI has different economics. A document search system covering your supplier specs and procedures runs $35,000-50,000 to build, with minimal ongoing costs. A custom analytics layer on your ERP data runs $40,000-60,000. Lead scoring trained on your sales history, $25,000-40,000.</p>
 
-<p>But the comparison isn't private AI versus cloud AI. It's private AI versus the alternative.</p>
+<p>The comparison that matters isn't private AI versus cloud AI. It's private AI versus what you're doing now.</p>
 
-<p>If you can't use cloud AI because of data sensitivity, the alternative is humans doing the work manually. Analysts building reports. Staff searching through documents. People calling each other to find answers.</p>
+<p>Take document search. Your team spends an average of 30 minutes finding a spec that should take 30 seconds. If that happens 10 times per day across your organization, you're burning 50 hours per week on searching. That's $75,000-100,000 in loaded labor cost annually. A $45,000 private AI deployment pays for itself in six months.</p>
 
-<p>Compare private AI to that, and the math changes. A $50,000 private AI deployment that saves one FTE's time pays for itself in months. A system that reduces errors by 30% might pay back faster than that.</p>
+<p>Or consider the cost of getting it wrong. One manufacturer we talked to had a sales rep quote incorrect specs because he couldn't find the updated sheet. The rework cost $34,000. A searchable spec library would have prevented it.</p>
 
-<p>The question isn't whether private AI is expensive. It's whether it's expensive compared to what you're doing now.</p>
+<p>The question isn't whether private AI is expensive. It's expensive compared to what? Cloud subscriptions that still expose your data? Staff time spent searching instead of producing? Errors from outdated information?</p>
+
+<p>Run your own numbers. How many hours does your team spend searching for information each week? What's the loaded cost of that time? What did your last data-related error cost to fix?</p>
 
 <h3>What IT Needs to Know</h3>
 

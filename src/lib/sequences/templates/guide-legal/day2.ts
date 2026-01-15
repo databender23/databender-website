@@ -166,7 +166,7 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Data & AI for growing businesses
+                Databender - Boutique strategy. Enterprise delivery.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -215,7 +215,7 @@ Best,
 Grant
 
 ---
-Databender - Data & AI for growing businesses
+Databender - Boutique strategy. Enterprise delivery.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}
