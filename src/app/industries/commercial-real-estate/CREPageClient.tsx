@@ -243,6 +243,11 @@ export default function CREPageClient() {
                       label: "Cost savings",
                       description: "What would have taken 50 people months to do manually, AI did in hours."
                     },
+                    {
+                      stat: "14hrs",
+                      label: "Total processing time",
+                      description: "Start to finish. Not weeks, not months. Hours."
+                    },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <div className="flex-shrink-0 w-16 text-right">
@@ -348,7 +353,7 @@ export default function CREPageClient() {
                   <p>
                     Data room reviews take weeks because someone has to read
                     every document. Rent rolls, leases, financials, environmental
-                    reports—it all takes time you don&apos;t have when you&apos;re
+                    reports. It all takes time you don&apos;t have when you&apos;re
                     competing for a deal.
                   </p>
                   <p>
@@ -725,7 +730,7 @@ export default function CREPageClient() {
                     },
                     {
                       title: "Negotiation windows",
-                      description: "The optimal time to reach out for each renewal. Not too early, not too late."
+                      description: "The right time to reach out for each renewal. Not too early, not too late."
                     },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -840,13 +845,13 @@ export default function CREPageClient() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Your deal pipeline, your portfolio performance, your investor reports. That&apos;s valuable information you don&apos;t want going to a third party.
+                    Your deal pipeline. Your portfolio performance. Your investor reports. That&apos;s not information you want floating around on someone else&apos;s servers.
                   </p>
                   <p>
-                    Everything runs on your own systems. No sensitive data goes to external AI services. Your competitive intelligence stays yours.
+                    Most AI tools send your data to the cloud. Ours doesn&apos;t. Everything runs on your own systems. No sensitive data goes to external AI services. Your competitive intelligence stays yours.
                   </p>
                   <p className="font-medium text-text-primary">
-                    Full AI capabilities without giving away your edge.
+                    Full AI capabilities. Zero data leakage.
                   </p>
                 </motion.div>
               </div>

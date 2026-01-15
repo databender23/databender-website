@@ -2279,7 +2279,7 @@ export const guideContents: GuideContent[] = [
 
 <p>Theoretically, yes. Practically, no.</p>
 
-<p>Most teams don't have the systems to combine multiple data sources into actionable scores. Most teams don't update their data frequently enough to catch time-sensitive signals. Most teams don't measure their prioritization effectiveness and improve over time.</p>
+<p>Most teams don't have the systems to combine multiple data sources into scores they can act on. Most teams don't update their data frequently enough to catch time-sensitive signals. Most teams don't measure their prioritization effectiveness and improve over time.</p>
 
 <p>The data advantage isn't about having data others don't have. It's about using data others don't use.</p>
 
@@ -2359,22 +2359,15 @@ export const guideContents: GuideContent[] = [
 
 <p>This isn't about fancy technology. It's about having information when you need it instead of spending hours retrieving it.</p>
 
-<h3>The Technical Reality</h3>
+<h3>How It Actually Works</h3>
 
 <p>Building integrations used to require expensive custom development. That's changed.</p>
 
-<p>Yardi, AppFolio, MRI, and most modern property management systems offer API access. Some charge extra for it. Some include it in higher-tier plans. But the capability exists.</p>
+<p>Yardi, AppFolio, MRI, and most modern property management systems have built-in ways to share data with other systems. Some charge extra for it. Some include it in higher-tier plans. But the capability exists.</p>
 
-<p>The integration layer sits between your source systems and your dashboards. It handles:</p>
+<p>The connection pulls information from each of your systems on a schedule, makes all the data look the same regardless of where it came from, and feeds it into dashboards you can actually use.</p>
 
-<ul>
-<li><strong>Data extraction:</strong> Pulling information from each system on a schedule</li>
-<li><strong>Transformation:</strong> Converting different formats into a common structure</li>
-<li><strong>Storage:</strong> Maintaining a unified database that updates automatically</li>
-<li><strong>Presentation:</strong> Dashboards and reports that read from the unified data</li>
-</ul>
-
-<p>For a 20-property portfolio across two or three systems, a competent implementation takes weeks, not months. The complexity scales with the number of systems and the depth of data you need, but the basic architecture is well-established.</p>
+<p>For a 20-property portfolio across two or three systems, a competent implementation takes weeks, not months. The complexity scales with the number of systems and the depth of data you need, but this is well-established work.</p>
 
 <h3>What You Actually Need to Track</h3>
 
@@ -2415,7 +2408,7 @@ export const guideContents: GuideContent[] = [
 
 <h3>The Cost Question</h3>
 
-<p>Integration projects range widely based on scope. A basic dashboard connecting two systems to show occupancy and collections might cost $15,000-25,000. A comprehensive platform with deep financial integration, automated reporting, and advanced analytics might run $50,000-100,000.</p>
+<p>Integration projects range widely based on scope. A basic dashboard connecting two systems to show occupancy and collections might cost $15,000-25,000. A full platform with deep financial integration, automated reporting, and advanced analytics might run $50,000-100,000.</p>
 
 <p>Compare that to the alternative: continuing to spend 15 hours per week on manual consolidation ($40,000+ per year), making decisions on stale data, and scrambling every quarter to produce investor reports.</p>
 
@@ -2432,6 +2425,14 @@ export const guideContents: GuideContent[] = [
 <p><strong>Hybrid approach:</strong> Use an off-the-shelf platform for standard integrations and layer custom reporting on top. Balances speed with flexibility.</p>
 
 <p>The right choice depends on your specific systems, your reporting requirements, and whether you have internal technical resources. There's no universal answer.</p>
+
+<h3>Your Data Stays Yours</h3>
+
+<p>Your portfolio data stays on your systems.</p>
+
+<p>The integration reads from your property management software, but your occupancy numbers, NOI, and tenant information don't get shipped to some vendor's cloud. Your competitive information stays yours. Nobody else sees your portfolio performance or your investor reports.</p>
+
+<p>This matters more than most people think until they think about it. Your deal pipeline, your tenant relationships, your financial performance. That's not information you want floating around on someone else's servers.</p>
 
 <h3>Getting Started</h3>
 
@@ -2480,13 +2481,13 @@ export const guideContents: GuideContent[] = [
 
 <p>Reporting errors rarely come from bad data at the source. Property management systems track what they track with reasonable accuracy. The errors creep in during assembly.</p>
 
-<p><strong>Copy-paste mistakes:</strong> Someone copies the wrong cell. Someone pastes into the wrong row. The total looks reasonable, so nobody catches it.</p>
+<p>Copy-paste mistakes are the silent killer. Someone copies the wrong cell, pastes into the wrong row, and the total looks reasonable enough that nobody catches it until an investor does.</p>
 
-<p><strong>Formula drift:</strong> Last quarter's template had 15 properties. This quarter you have 17. Someone added rows but didn't extend all the formulas. Some calculations include the new properties. Some don't.</p>
+<p><strong>Formula drift</strong> is sneakier. Last quarter's template had 15 properties. This quarter you have 17. Someone added rows but didn't extend all the formulas. Some calculations include the new properties. Some don't. The report looks complete. It isn't.</p>
 
-<p><strong>Version confusion:</strong> Three people are working on the report. Each saves their own version. Which one has the latest numbers? Which one has the approved commentary? Nobody's sure.</p>
+<p>Then there's version confusion. Three people working on the same report, each saving their own copy. Which one has the latest numbers? Which one has the approved commentary? Good luck figuring that out at 6pm on deadline day.</p>
 
-<p><strong>Timing mismatches:</strong> You pulled Property A's data on Tuesday and Property B's on Thursday. Something changed at Property A on Wednesday. Your report shows mismatched timeframes that nobody notices.</p>
+<p>Timing mismatches round out the list: you pulled Property A's data on Tuesday and Property B's on Thursday. Something changed at Property A on Wednesday. Your report now shows mismatched timeframes, and nobody will notice until someone asks why the numbers don't add up.</p>
 
 <p>These aren't complicated problems. They're the inevitable result of manual processes repeated under time pressure.</p>
 
@@ -2520,15 +2521,15 @@ export const guideContents: GuideContent[] = [
 
 <p>Large institutional investors have set expectations for what they receive. Meeting those expectations isn't optional if you want to raise future funds.</p>
 
-<p><strong>Standardized format:</strong> Property financials presented consistently across the portfolio. Same line items, same categorization, same level of detail.</p>
+<p>Start with standardized format. Property financials need to be presented consistently across the portfolio: same line items, same categorization, same level of detail. An LP reviewing 12 properties shouldn't have to decode 12 different reporting styles.</p>
 
-<p><strong>Benchmark context:</strong> How does each property compare to budget? To prior year? To market benchmarks? Numbers without context are just numbers.</p>
+<p><strong>Benchmark context matters more than most teams realize.</strong> How does each property compare to budget? To prior year? To market benchmarks? Numbers without context are just numbers. Investors want to know if 92% occupancy is good or bad for that submarket.</p>
 
-<p><strong>Variance explanations:</strong> When something deviates from expectation, explain why. Don't make investors ask.</p>
+<p>When something deviates from expectation, explain why. Don't make investors ask. A variance explanation that arrives with the report builds confidence. A variance explanation that arrives after three follow-up emails does not.</p>
 
-<p><strong>Forward visibility:</strong> Lease expiration schedules. Capital expenditure plans. Known risks and opportunities. Investors want to see around corners.</p>
+<p><strong>Forward visibility:</strong> Lease expiration schedules. Capital expenditure plans. Known risks and opportunities. Investors want to see around corners, not just where you've been.</p>
 
-<p><strong>Audit-ready detail:</strong> Supporting schedules available on request. Clear trail from summary numbers to source documents.</p>
+<p>Finally, everything needs to be audit-ready. Supporting schedules available on request. Clear trail from summary numbers to source documents. When an LP's accountant asks how you calculated NOI, the answer should take seconds, not hours.</p>
 
 <p>Meeting these standards manually is possible but painful. Meeting them with automation is straightforward. The system produces what institutional investors expect because that's how you designed it.</p>
 
@@ -2546,7 +2547,7 @@ export const guideContents: GuideContent[] = [
 
 <p><strong>Distribution system:</strong> Secure delivery to investors. Version tracking. Access controls.</p>
 
-<p>This sounds like a lot because it is. But it's build-once infrastructure. Once it exists, quarterly reporting becomes a matter of review and commentary, not construction.</p>
+<p>This sounds like a lot because it is. You don't need to understand every technical detail here. What matters is knowing that this infrastructure exists, it works, and once it's built, quarterly reporting becomes a matter of review and commentary instead of construction.</p>
 
 <h3>The Build vs. Buy Question</h3>
 
@@ -2562,19 +2563,15 @@ export const guideContents: GuideContent[] = [
 
 <h3>Implementation Timeline</h3>
 
-<p>Building automated reporting infrastructure typically follows this arc:</p>
+<p>Building automated reporting infrastructure typically takes 6-8 weeks. Here's how that time breaks down.</p>
 
-<p><strong>Weeks 1-2:</strong> Discovery. Inventory current systems. Document current reporting requirements. Identify gaps between what you have and what you need.</p>
+<p>Discovery takes longer than you'd expect. Two weeks, minimum. You're inventorying every system that touches reporting, documenting what investors actually need to see, and finding the gaps between current state and target state. Skip this phase or rush it, and you'll pay for it later when integrations don't connect or reports miss critical data.</p>
 
-<p><strong>Weeks 3-4:</strong> Integration development. Connect source systems to central database. Validate that data is pulling correctly.</p>
+<p><strong>Weeks 3-4</strong> are about integration: connecting source systems to a central database and validating that data pulls correctly. <strong>Weeks 5-6</strong> shift to calculations and templates, building the formulas and report structures, then testing against prior quarters to make sure the numbers match.</p>
 
-<p><strong>Weeks 5-6:</strong> Calculation and template development. Build the formulas and report structures. Test against known good reports from prior quarters.</p>
+<p>The final stretch is user acceptance testing. Run the automated process in parallel with your manual process for one quarter. Compare outputs. Fix discrepancies. Build trust in the new system before you retire the old one.</p>
 
-<p><strong>Weeks 7-8:</strong> User acceptance testing. Run parallel with your manual process for one quarter. Verify that automated reports match manual reports. Fix discrepancies.</p>
-
-<p><strong>Ongoing:</strong> Refinement based on actual use. Add new reports as needs emerge. Maintain integrations as source systems change.</p>
-
-<p>Figure 6-8 weeks for initial deployment, with the first fully automated quarter coming the following period. Some teams try to rush this. Rushing leads to reports you don't trust, which defeats the purpose.</p>
+<p>Some teams try to compress this timeline. Don't. Rushing leads to reports you don't trust, which defeats the entire purpose.</p>
 
 <h3>What Changes Beyond Reporting</h3>
 
@@ -2588,17 +2585,17 @@ export const guideContents: GuideContent[] = [
 
 <p>Acquisition due diligence improves. When you're considering a new property, you can immediately model how it fits into portfolio-level reporting.</p>
 
-<p>The quarterly report is the forcing function. The value extends far beyond four times per year.</p>
+<p>Quarterly reporting forces you to build this infrastructure. Once you have it, you'll wonder how you ever managed without it.</p>
 
 <h3>Getting Started</h3>
 
 <p>You don't need to automate everything immediately. Start with what hurts most.</p>
 
-<p>If financial consolidation is the bottleneck, build the data warehouse and integration layer first. Get all your property financials flowing into one place. Report generation can stay manual initially while you validate the underlying data.</p>
+<p>For most teams, that's financial consolidation. Build the data warehouse and integration layer first. Get all your property financials flowing into one place. Report generation can stay manual initially while you validate the underlying data.</p>
 
-<p>If formatting and presentation consume the most time, start with report templates. Build the structure that pulls from your existing consolidation spreadsheets. Automate the output before automating the inputs.</p>
+<p>Maybe your bottleneck is different. Some teams spend more time on formatting and presentation than on the numbers themselves. If that's you, start with report templates. Build the structure that pulls from your existing consolidation spreadsheets. Automate the output before automating the inputs.</p>
 
-<p>If accuracy concerns keep you up at night, focus on validation. Build checks that compare source system data against reported data. Catch discrepancies before they reach investors.</p>
+<p>Accuracy concerns are trickier. If you're losing sleep over whether the numbers are right, focus on validation first. Build checks that compare source system data against reported data. Catch discrepancies before they reach investors. The automation comes after you trust the foundation.</p>
 
 <p>Each piece you build reduces the scramble. Eventually, there's no scramble left.</p>
 
@@ -2623,9 +2620,9 @@ export const guideContents: GuideContent[] = [
 
 <p>Thirty days isn't enough time to negotiate properly. The tenant has all the leverage. They can demand concessions knowing you can't afford the vacancy. Or they can leave knowing you don't have time to respond.</p>
 
-<p>It's not enough time to market the space. Finding a quality replacement tenant takes months, not weeks. Starting the search 30 days out means months of vacancy even if you move fast.</p>
+<p>Marketing the space? Finding a quality replacement tenant takes months, not weeks. Starting the search 30 days out means months of vacancy even if you move fast.</p>
 
-<p>It's not enough time to make strategic decisions. Should you let this tenant go and reposition the space? Should you offer concessions to retain them? These questions require analysis. Analysis requires time you don't have.</p>
+<p>Strategic decisions get squeezed out entirely. Should you let this tenant go and reposition the space? Should you offer concessions to retain them? These questions require analysis. Analysis requires time you don't have.</p>
 
 <p>The notice period exists for legal compliance. It's not a management tool. Managing with 30-day visibility is like driving with your headlights off.</p>
 
@@ -2645,7 +2642,7 @@ export const guideContents: GuideContent[] = [
 
 <h3>Building the Renewal Pipeline</h3>
 
-<p>A renewal pipeline is just a structured way to track and manage upcoming expirations. It has four components:</p>
+<p>A renewal pipeline is just a structured way to track and manage upcoming expirations. It has five components:</p>
 
 <p><strong>Data foundation:</strong> Every lease expiration date, extracted and organized. Not buried in PDF files. Not scattered across property management systems. Consolidated, visible, current.</p>
 
@@ -2654,6 +2651,8 @@ export const guideContents: GuideContent[] = [
 <p><strong>Status tracking:</strong> Where is each renewal in the process? Early conversation? Active negotiation? Agreed but not signed? Declined and marketing? Clear stages with clear ownership.</p>
 
 <p><strong>Priority ranking:</strong> Not all expirations matter equally. A 500 square foot tenant expiring in six months is different from a 50,000 square foot anchor. Revenue impact determines attention.</p>
+
+<p><strong>Market context:</strong> Current rates for comparable space in your submarket. Without this, you can't identify below-market leases or know what terms to target in renewals.</p>
 
 <p>This isn't complicated technology. It's organization applied to information you already have.</p>
 
@@ -2670,6 +2669,8 @@ export const guideContents: GuideContent[] = [
 <p>A 10,000 square foot tenant at $6 below market represents $60,000 per year in potential upside. A 2,000 square foot tenant at the same gap represents $12,000. Both matter, but not equally.</p>
 
 <p>Knowing your below-market leases before renewal conversations start changes how you approach those conversations. You're not just renewing. You're capturing value.</p>
+
+<p>One portfolio manager we worked with discovered 23% of their leases were 15% or more below market. Six figures in annual opportunity, sitting in files nobody was reviewing systematically.</p>
 
 <h3>The Revenue-at-Risk View</h3>
 
@@ -2693,11 +2694,11 @@ export const guideContents: GuideContent[] = [
 
 <p>Too late, and you've lost leverage. They've already made decisions. They're informing you, not negotiating with you.</p>
 
-<p>The optimal window depends on the tenant and the lease size:</p>
+<p>The best window depends on the tenant and the lease size:</p>
 
 <p><strong>Small tenants (under 5,000 SF):</strong> 4-6 months out. These decisions are simpler. Tenants don't need extensive time to evaluate options.</p>
 
-<p><strong>Mid-size tenants (5,000-20,000 SF):</strong> 6-9 months out. More stakeholders involved. More consideration of alternatives. More time needed.</p>
+<p><strong>Mid-size tenants (5,000-20,000 SF):</strong> 6 to 9 months out. More stakeholders involved. More consideration of alternatives. More time needed.</p>
 
 <p><strong>Large tenants (over 20,000 SF):</strong> 9-12 months out. Major business decisions. Multiple approval levels. Potentially involving brokers and lawyers.</p>
 
