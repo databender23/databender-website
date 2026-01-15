@@ -216,7 +216,7 @@ function formatLeadMessage(alert: LeadAlert): object {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `${emoji} *${alert.tier} Lead* — Score: *${alert.score}*\n${quickAssessment}`
+        text: `${emoji} *${alert.tier} Lead* | Score: *${alert.score}*\n${quickAssessment}`
       }
     }
   ];

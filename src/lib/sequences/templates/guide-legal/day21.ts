@@ -63,11 +63,11 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                I have sent you a few emails since you downloaded <strong>${guideTitle}</strong> a few weeks ago. I know inboxes get crowded - especially in legal where you are managing client communications, opposing counsel, and internal matters all at once.
+                We have sent you a few emails since you downloaded <strong>${guideTitle}</strong> a few weeks ago. We know inboxes get crowded - especially in legal where you are managing client communications, opposing counsel, and internal matters all at once.
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                This will be my last follow-up for now. I wanted to let you know the door is always open if the topics we discussed become a priority down the road.
+                This will be our last follow-up for now. We wanted to let you know the door is always open if the topics we discussed become a priority down the road.
               </p>
 
               <!-- Option Box -->
@@ -78,7 +78,7 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
                       If you would like to connect
                     </p>
                     <p style="margin: 0; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                      I am happy to have a confidential conversation about knowledge management, AI readiness, or data strategy whenever timing makes sense for your firm${companyContext}. No pressure, no pitch - just an honest discussion about what is realistic and worthwhile.
+                      We are happy to have a confidential conversation about knowledge management, AI readiness, or data strategy whenever timing makes sense for your firm${companyContext}. No pressure, no pitch - just an honest discussion about what is realistic and worthwhile.
                     </p>
                   </td>
                 </tr>
@@ -125,7 +125,7 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
                 <tr>
                   <td style="padding: 16px 20px; border-left: 3px solid #e5e7eb;">
                     <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
-                      <strong style="color: #4a4a4a;">P.S.</strong> If timing is not right now but might be in a few months - perhaps after a busy litigation period or once budget planning begins - just reply and let me know. I will follow up then rather than now.
+                      <strong style="color: #4a4a4a;">P.S.</strong> If timing is not right now but might be in a few months - perhaps after a busy litigation period or once budget planning begins - just reply and let us know. We will follow up then rather than now.
                     </p>
                   </td>
                 </tr>
@@ -157,15 +157,15 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
 
   const textBody = `Hi ${firstName},
 
-I have sent you a few emails since you downloaded ${guideTitle} a few weeks ago. I know inboxes get crowded - especially in legal where you are managing client communications, opposing counsel, and internal matters all at once.
+We have sent you a few emails since you downloaded ${guideTitle} a few weeks ago. We know inboxes get crowded - especially in legal where you are managing client communications, opposing counsel, and internal matters all at once.
 
-This will be my last follow-up for now. I wanted to let you know the door is always open if the topics we discussed become a priority down the road.
+This will be our last follow-up for now. We wanted to let you know the door is always open if the topics we discussed become a priority down the road.
 
 ---
 
 IF YOU WOULD LIKE TO CONNECT
 
-I am happy to have a confidential conversation about knowledge management, AI readiness, or data strategy whenever timing makes sense for your firm${companyContext}. No pressure, no pitch - just an honest discussion about what is realistic and worthwhile.
+We are happy to have a confidential conversation about knowledge management, AI readiness, or data strategy whenever timing makes sense for your firm${companyContext}. No pressure, no pitch - just an honest discussion about what is realistic and worthwhile.
 
 Schedule when convenient: ${calendarUrl}
 
@@ -182,7 +182,7 @@ Thank you for taking the time to explore these topics. Wishing you and the team$
 Best regards,
 Grant
 
-P.S. If timing is not right now but might be in a few months - perhaps after a busy litigation period or once budget planning begins - just reply and let me know. I will follow up then rather than now.
+P.S. If timing is not right now but might be in a few months - perhaps after a busy litigation period or once budget planning begins - just reply and let us know. We will follow up then rather than now.
 
 ---
 Databender - Boutique strategy. Enterprise delivery.

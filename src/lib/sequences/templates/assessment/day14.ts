@@ -44,7 +44,7 @@ function getCaseStudyContent(industry?: string): CaseStudyContent {
         result:
           "Within 6 months, they improved margins on their top 50 procedures by 8-12% and eliminated nearly all manual reconciliation work.",
         closingThought:
-          "The interesting part: the technology was straightforward. The real value was in understanding how to structure the data for actionable insights, not just compliance reporting.",
+          "The interesting part: the technology was straightforward. The real value was in understanding how to structure the data for practical insights, not just compliance reporting.",
       };
 
     case "legal":
@@ -139,7 +139,7 @@ export function getDay14AssessmentTemplate(params: Day14AssessmentParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                I wanted to share a quick story that might resonate with some of the challenges you mentioned in your assessment.
+                We wanted to share a quick story that might resonate with some of the challenges you mentioned in your assessment.
               </p>
 
               <!-- Case Study Box -->
@@ -194,7 +194,7 @@ export function getDay14AssessmentTemplate(params: Day14AssessmentParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                If any of this resonates, I'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
+                If any of this resonates, we'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
               </p>
 
               <!-- CTA Button -->
@@ -240,7 +240,7 @@ export function getDay14AssessmentTemplate(params: Day14AssessmentParams): Seque
   const textBody = `
 Hi ${firstName},
 
-I wanted to share a quick story that might resonate with some of the challenges you mentioned in your assessment.
+We wanted to share a quick story that might resonate with some of the challenges you mentioned in your assessment.
 
 ---
 
@@ -264,7 +264,7 @@ ${content.closingThought}
 
 Sound familiar?
 
-If any of this resonates, I'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
+If any of this resonates, we'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
 
 Schedule a call: ${calendarUrl}
 

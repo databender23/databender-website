@@ -31,7 +31,7 @@ function getCategoryInsight(category: string, _score: number): CategoryInsight {
 
   if (categoryLower.includes("data quality") || categoryLower === "data quality") {
     return {
-      headline: "Your data quality score caught my attention",
+      headline: "Your data quality score caught our attention",
       insight:
         "Organizations with data quality challenges often find themselves making decisions based on incomplete or inconsistent information. The hidden cost isn't just inaccurate reports - it's the hours spent reconciling data, the opportunities missed because insights came too late, and the erosion of trust in analytics across your team.",
       statistic:
@@ -49,7 +49,7 @@ function getCategoryInsight(category: string, _score: number): CategoryInsight {
     return {
       headline: "Finding information shouldn't be this hard",
       insight:
-        "Your score suggests your team may be spending significant time just locating the data they need. This 'search tax' is one of the most overlooked productivity drains in organizations - knowledge workers can spend up to 30% of their day searching for information.",
+        "Your score suggests your team may be spending considerable time just locating the data they need. This 'search tax' is one of the most overlooked productivity drains in organizations - knowledge workers can spend up to 30% of their day searching for information.",
       statistic:
         "Organizations that improve data accessibility typically save 5-10 hours per employee per week - time that can be redirected to analysis and action.",
       recommendation:
@@ -61,11 +61,11 @@ function getCategoryInsight(category: string, _score: number): CategoryInsight {
     return {
       headline: "Manual processes are holding you back",
       insight:
-        "Your automation score indicates there may be significant manual work in your data workflows. Every manual step is a potential bottleneck, error source, and scaling constraint. More importantly, it's keeping your team focused on data mechanics instead of strategic insights.",
+        "Your automation score indicates there may be substantial manual work in your data workflows. Every manual step is a potential bottleneck, error source, and scaling constraint. More importantly, it's keeping your team focused on data mechanics instead of strategic insights.",
       statistic:
         "Teams that automate routine data tasks typically reclaim 20-40% of their time for higher-value analysis and decision support.",
       recommendation:
-        "The path forward doesn't require replacing everything at once. Strategic automation of your highest-friction processes can deliver immediate relief while building toward a more scalable future.",
+        "The path forward doesn't require replacing everything at once. Strategic automation of your highest-friction processes can deliver immediate relief while building toward a more sustainable future.",
     };
   }
 
@@ -139,7 +139,7 @@ export function getDay2AssessmentTemplate(params: Day2AssessmentParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                I was reviewing your ${assessmentName} results and wanted to share a specific observation.
+                We were reviewing your ${assessmentName} results and wanted to share a specific observation.
               </p>
 
               <!-- Score Highlight Box -->
@@ -182,7 +182,7 @@ export function getDay2AssessmentTemplate(params: Day2AssessmentParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                I'd be happy to walk through your results in more detail and discuss practical next steps. No pitch, just a conversation about what makes sense for your situation.
+                We'd be happy to walk through your results in more detail and discuss practical next steps. No pitch, just a conversation about what makes sense for your situation.
               </p>
 
               <!-- CTA Button -->
@@ -228,7 +228,7 @@ export function getDay2AssessmentTemplate(params: Day2AssessmentParams): Sequenc
   const textBody = `
 Hi ${firstName},
 
-I was reviewing your ${assessmentName} results and wanted to share a specific observation.
+We were reviewing your ${assessmentName} results and wanted to share a specific observation.
 
 AREA OF FOCUS: ${lowestCategory} - ${scoreDisplay}/100
 
@@ -244,7 +244,7 @@ ${insight.recommendation}
 
 Want to explore what this could look like${companyContext}?
 
-I'd be happy to walk through your results in more detail and discuss practical next steps. No pitch, just a conversation about what makes sense for your situation.
+We'd be happy to walk through your results in more detail and discuss practical next steps. No pitch, just a conversation about what makes sense for your situation.
 
 Schedule a call: ${calendarUrl}
 

@@ -34,10 +34,10 @@ function getIndustryContent(industry?: string, company?: string): IndustryConten
         subject: "Resource: Price transparency data insights for healthcare organizations",
         headline: "Quick insight: What price transparency data reveals",
         intro:
-          "I came across some interesting patterns in healthcare price transparency data that I thought might be relevant for organizations like yours.",
+          "We came across some interesting patterns in healthcare price transparency data that we thought might be relevant for organizations like yours.",
         insights: [
           "Organizations using transparency data for payer negotiations are seeing 8-15% better rates on average",
-          "The most actionable data often comes from analyzing competitor pricing within specific service lines, not broad comparisons",
+          "The most useful data often comes from analyzing competitor pricing within specific service lines, not broad comparisons",
           "Early adopters are building internal benchmarking tools that update automatically as new data is published",
         ],
         closingThought:
@@ -49,7 +49,7 @@ function getIndustryContent(industry?: string, company?: string): IndustryConten
         subject: "Resource: AI adoption advantages for smaller law firms",
         headline: "Quick insight: Why smaller firms are winning the AI race",
         intro:
-          "I wanted to share a pattern we are seeing in legal AI adoption that runs counter to what most people expect.",
+          "We wanted to share a pattern we are seeing in legal AI adoption that runs counter to what most people expect.",
         insights: [
           "Firms under 50 attorneys are implementing AI 3x faster than AmLaw 100 firms on average",
           "The advantage is not resources. It is decision-making speed and willingness to experiment",
@@ -64,14 +64,14 @@ function getIndustryContent(industry?: string, company?: string): IndustryConten
         subject: "Resource: Sales pipeline patterns in manufacturing",
         headline: "Quick insight: What predicts manufacturing deal velocity",
         intro:
-          "I have been looking at sales pipeline data from manufacturing companies and noticed some patterns that might be useful for your team.",
+          "We have been looking at sales pipeline data from manufacturing companies and noticed some patterns that might be useful for your team.",
         insights: [
           "Deals with engineering involvement before the proposal stage close 40% faster",
           "The biggest predictor of deal size is not company revenue. It is the number of stakeholders engaged early",
           "Quote-to-close cycles are 2x longer when pricing discussions happen before technical validation",
         ],
         closingThought:
-          "The common thread is front-loading the technical conversation. Companies treating sales as purely a relationship game are leaving significant revenue on the table.",
+          "The common thread is front-loading the technical conversation. Companies treating sales as purely a relationship game are leaving real revenue on the table.",
       };
 
     default:
@@ -79,7 +79,7 @@ function getIndustryContent(industry?: string, company?: string): IndustryConten
         subject: "Thought you might find this useful",
         headline: "Quick insight: The real cost of data problems",
         intro:
-          `I was thinking about our conversation and wanted to share a framework that might be useful for ${companyName}.`,
+          `We were thinking about your assessment results and wanted to share a framework that might be useful for ${companyName}.`,
         insights: [
           "Most companies underestimate data problem costs by 5-10x because they only count direct impacts",
           "The hidden costs are in delayed decisions, manual workarounds, and opportunities never pursued",

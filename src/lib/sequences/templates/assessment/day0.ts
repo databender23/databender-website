@@ -57,6 +57,7 @@ export function getDay0AssessmentTemplate(params: Day0AssessmentParams): EmailTe
           <!-- Header -->
           <tr>
             <td style="padding: 32px 40px; background: linear-gradient(135deg, #1A9988 0%, #147a6c 100%);">
+              <img src="https://databender.co/images/logo-white.png" alt="Databender" style="height: 32px; margin-bottom: 16px;" />
               <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">
                 Your Assessment Results
               </h1>
@@ -122,7 +123,7 @@ export function getDay0AssessmentTemplate(params: Day0AssessmentParams): EmailTe
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                I'd be happy to walk through your assessment results and share specific recommendations for improving your ${lowestCategory.toLowerCase()} capabilities. No sales pitch, just practical advice.
+                We'd be happy to walk through your assessment results and share specific recommendations for improving your ${lowestCategory.toLowerCase()} capabilities. No sales pitch, just practical advice.
               </p>
 
               <!-- CTA Button -->
@@ -139,7 +140,7 @@ export function getDay0AssessmentTemplate(params: Day0AssessmentParams): EmailTe
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;" />
 
               <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6; font-style: italic;">
-                P.S. Have questions about your results? Just reply to this email. I read and respond to every message personally.
+                P.S. Have questions about your results? Just reply to this email. We read and respond to every message personally.
               </p>
             </td>
           </tr>
@@ -177,13 +178,13 @@ Biggest Opportunity: ${lowestCategory}
 
 Want to discuss your results?
 
-I'd be happy to walk through your assessment results and share specific recommendations for improving your ${lowestCategory.toLowerCase()} capabilities. No sales pitch, just practical advice.
+We'd be happy to walk through your assessment results and share specific recommendations for improving your ${lowestCategory.toLowerCase()} capabilities. No sales pitch, just practical advice.
 
 Schedule a call: ${calendarUrl}
 
 ---
 
-P.S. Have questions about your results? Just reply to this email. I read and respond to every message personally.
+P.S. Have questions about your results? Just reply to this email. We read and respond to every message personally.
 
 ---
 Databender - Boutique strategy. Enterprise delivery.

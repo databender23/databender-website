@@ -1090,7 +1090,7 @@ export const guideContents: GuideContent[] = [
     title: "Capturing Institutional Knowledge",
     subtitle: "Before Your Best People Retire, Capture What They Know",
     pdfUrl: "/api/downloads/institutional-knowledge-healthcare",
-    content: `<p>Your charge nurse knows which payers will deny a claim if the documentation doesn't include specific language—not because it's written anywhere, but because she's seen it happen forty times.</p>
+    content: `<p>Your charge nurse knows which payers will deny a claim if the documentation doesn't include specific language. Not because it's written anywhere, but because she's seen it happen forty times.</p>
 
 <p>The veteran coder remembers the audit from 2019 that changed how you handle medical necessity. The OR scheduler knows why Dr. Patel never books Tuesdays. The administrator who's been there since the Clinton years knows why that policy exists, even though the original reason isn't in any manual.</p>
 
@@ -1098,11 +1098,11 @@ export const guideContents: GuideContent[] = [
 
 <h3>The Retirement Wave Nobody's Ready For</h3>
 
-<p>Healthcare is losing experienced staff faster than anyone wants to admit. Baby boomers are retiring in waves—the nurses who trained three generations of new hires, the coders who memorized every payer quirk, the administrators who built processes that actually work.</p>
+<p>Healthcare is losing experienced staff faster than anyone wants to admit. Baby boomers are retiring in waves: the nurses who trained three generations of new hires, the coders who memorized every payer quirk, the administrators who built processes that actually work.</p>
 
 <p>New hires show up smart and motivated, but they don't know what they don't know, and nobody has time to teach them everything the departing staff learned over thirty years of hard-won experience.</p>
 
-<p>One regional health system tracked this pattern carefully: coders in year one had 23% more documentation errors than five-year veterans, translating to $180,000 annually in their revenue cycle alone—and that's just one department, one facility, one type of error.</p>
+<p>One regional health system tracked this pattern carefully: coders in year one had 23% more documentation errors than five-year veterans, translating to $180,000 annually in their revenue cycle alone. And that's just one department, one facility, one type of error.</p>
 
 <p>The clinical side is harder to quantify but hits just as hard. Consider the pharmacist who catches interactions the EHR misses because she's seen the edge cases, or the wound care nurse who knows Dr. Martinez's actual preferences rather than the ones documented in the system. Pattern recognition built over years, gone in a day.</p>
 
@@ -1110,23 +1110,23 @@ export const guideContents: GuideContent[] = [
 
 <p>Organizations see retirements coming and try to prepare, but most efforts fall flat for predictable reasons.</p>
 
-<p><strong>Exit interviews capture almost nothing useful.</strong> Two hours at retirement can't transfer three decades of expertise—the retiring employee mentions what comes to mind, not what will matter when a specific situation arises next February, by which point they're on a beach somewhere unreachable.</p>
+<p><strong>Exit interviews capture almost nothing useful.</strong> Two hours at retirement can't transfer three decades of expertise. The retiring employee mentions what comes to mind, not what will matter when a specific situation arises next February, by which point they're on a beach somewhere unreachable.</p>
 
-<p><strong>Nobody reads the policy manuals.</strong> Healthcare organizations create mountains of documentation—protocols, SOPs, reference guides—but staff don't use them because finding the right page takes longer than asking someone or figuring it out themselves. The knowledge exists on paper, yet it's functionally inaccessible.</p>
+<p><strong>Nobody reads the policy manuals.</strong> Healthcare organizations create mountains of documentation (protocols, SOPs, reference guides) but staff don't use them because finding the right page takes longer than asking someone or figuring it out themselves. The knowledge exists on paper, yet it's functionally inaccessible.</p>
 
 <p><strong>Training covers the basics.</strong> Orientation teaches what everyone needs, but it can't teach what becomes obvious only after three years on the floor, which is exactly where institutional knowledge lives: in the gap between "knows the procedures" and "actually gets things done."</p>
 
-<p><strong>Shadowing works but doesn't scale.</strong> Having a new hire follow a veteran for months transfers knowledge well, but most departments can't spare experienced staff for that long. And verbal transfer is inconsistent—one expert explains things one way, another explains them differently, and context gets lost.</p>
+<p><strong>Shadowing works but doesn't scale.</strong> Having a new hire follow a veteran for months transfers knowledge well, but most departments can't spare experienced staff for that long. And verbal transfer is inconsistent: one expert explains things one way, another explains them differently, and context gets lost.</p>
 
 <h3>What Actually Works</h3>
 
-<p>Better documentation isn't the answer—you've tried that, and it doesn't get used.</p>
+<p>Better documentation isn't the answer. You've tried that, and it doesn't get used.</p>
 
 <p>What works: systems that capture knowledge while people use it and surface it when others need it. The capture has to be effortless. The retrieval has to feel like asking a colleague. Anything harder gets ignored.</p>
 
 <p><strong>Capture in the moment.</strong> After a coding dispute gets resolved, record why; after a tricky patient situation, note what worked. Don't wait for exit interviews when you can build the habit of documenting insights as they happen, in the context where they actually make sense.</p>
 
-<p>The method matters more than the platform—if recording something means opening a new system, logging in, finding the right category, and typing a formatted entry, nobody will do it, ever.</p>
+<p>The method matters more than the platform. If recording something means opening a new system, logging in, finding the right category, and typing a formatted entry, nobody will do it, ever.</p>
 
 <p>Voice notes work, thirty-second dictations between tasks work, and quick end-of-shift reflections work. Make it easier than not doing it.</p>
 
@@ -1159,7 +1159,7 @@ export const guideContents: GuideContent[] = [
 
 <p>Organizations buy knowledge management software and wonder why nobody uses it, but the pattern is predictable.</p>
 
-<p><strong>The system lives outside daily work.</strong> If coders work in one app and knowledge lives in another, they won't switch—ever. The best setups surface answers inside tools staff already use, answering questions before they're even asked.</p>
+<p><strong>The system lives outside daily work.</strong> If coders work in one app and knowledge lives in another, they won't switch. Ever. The best setups surface answers inside tools staff already use, answering questions before they're even asked.</p>
 
 <p><strong>Capture feels like extra work.</strong> Asking already-busy clinical staff to document things without making it dead simple guarantees failure, because integration matters more than features.</p>
 
@@ -1175,7 +1175,7 @@ export const guideContents: GuideContent[] = [
 
 <p>Some organizations tie retention bonuses to documented knowledge transfer. The veteran coder who creates guides for common denial scenarios earns a bonus for that contribution. The organization gets permanent access to hard-won expertise. The employee feels fairly compensated.</p>
 
-<p>Either way, address this directly—don't assume people will share just because you built a system.</p>
+<p>Either way, address this directly. Don't assume people will share just because you built a system.</p>
 
 <h3>Compressing Training Time</h3>
 
@@ -1183,7 +1183,7 @@ export const guideContents: GuideContent[] = [
 
 <p>Knowledge systems compress this gap by making veteran judgment accessible from day one, transforming how new staff learn the job.</p>
 
-<p>Instead of learning by trial and error, new staff search for how experienced colleagues handled similar situations, turning mistakes that used to take months to learn from into findable lessons before they occur—the coded knowledge of dozens of veterans, accessible to everyone who needs it.</p>
+<p>Instead of learning by trial and error, new staff search for how experienced colleagues handled similar situations, turning mistakes that used to take months to learn from into findable lessons before they occur. The coded knowledge of dozens of veterans, accessible to everyone who needs it.</p>
 
 <p>Organizations measuring this see 20-40% reduction in ramp-up time, which isn't theory but months of productive work per employee, multiplied across every hire.</p>
 
@@ -1193,7 +1193,7 @@ export const guideContents: GuideContent[] = [
 
 <p>Identify successors early and create structured timelines. Document the decisions, relationships, vendor histories, and political context that never appears in job descriptions.</p>
 
-<p>For clinical leadership specifically, capture why policies exist, not just what they say—because new leaders inherit rules without context and, when the reasoning disappears, they either follow outdated practices blindly or change things that worked for good reasons they don't understand.</p>
+<p>For clinical leadership specifically, capture why policies exist, not just what they say. Because new leaders inherit rules without context and, when the reasoning disappears, they either follow outdated practices blindly or change things that worked for good reasons they don't understand.</p>
 
 <p>One health system's CNO recorded brief explanations whenever policies got created or modified. Why this decision. What alternatives got considered. What problem prompted the change. Her successor inherited not just the policies but the thinking behind them. The transition was smooth because continuity was maintained.</p>
 
@@ -1203,21 +1203,21 @@ export const guideContents: GuideContent[] = [
 
 <p><strong>Usage.</strong> How often do staff search the system, what queries come up repeatedly, and which content gets accessed most? Low usage means low awareness or low value, and either needs fixing.</p>
 
-<p><strong>Time savings.</strong> Survey staff on how much time knowledge access saves weekly—if 200 people each save 30 minutes per week, that's 5,200 hours annually, and you can calculate what that costs in payroll.</p>
+<p><strong>Time savings.</strong> Survey staff on how much time knowledge access saves weekly. If 200 people each save 30 minutes per week, that's 5,200 hours annually, and you can calculate what that costs in payroll.</p>
 
 <p><strong>Error reduction.</strong> Compare error rates in departments with active knowledge capture to those without, and track whether new hire mistakes decline after the system launches.</p>
 
-<p><strong>Retention.</strong> Organizations with strong knowledge systems sometimes see better retention because new staff who feel supported and ramp up faster are less likely to leave—worth tracking even if causation is hard to prove.</p>
+<p><strong>Retention.</strong> Organizations with strong knowledge systems sometimes see better retention because new staff who feel supported and ramp up faster are less likely to leave. Worth tracking even if causation is hard to prove.</p>
 
 <h3>Where to Start</h3>
 
-<p>Don't try to build an enterprise knowledge system as step one—start small, prove value, then expand.</p>
+<p>Don't try to build an enterprise knowledge system as step one. Start small, prove value, then expand.</p>
 
-<p>Pick one department facing imminent retirement of key people. Revenue cycle and nursing usually have the highest vulnerability. Start with simple capture methods—voice recordings and shared docs work fine initially. Build the habit before investing in technology.</p>
+<p>Pick one department facing imminent retirement of key people. Revenue cycle and nursing usually have the highest vulnerability. Start with simple capture methods (voice recordings and shared docs work fine initially). Build the habit before investing in technology.</p>
 
 <p>Run a pilot for three to six months, measuring what staff actually find useful and learning which capture methods they'll use so you can apply those lessons to something larger.</p>
 
-<p>The organizations winning at knowledge preservation aren't waiting for perfect systems—they're capturing what they can, with whatever works, while the people who know things are still around to share.</p>
+<p>The organizations winning at knowledge preservation aren't waiting for perfect systems. They're capturing what they can, with whatever works, while the people who know things are still around to share.</p>
 
 <p>Your most experienced staff are getting older, and what they know took decades to build. The question isn't whether it's valuable but whether you'll capture it before it's gone.</p>
 
@@ -1573,7 +1573,7 @@ export const guideContents: GuideContent[] = [
 
 <hr/>
 
-<p><strong>See the full case study:</strong> <a href="/case-studies/what-predicts-lead-conversion">What Actually Predicts Lead Conversion?</a> — How we analyzed 3 years of sales data and found a 31% improvement hiding in plain sight.</p>
+<p><strong>See the full case study:</strong> <a href="/case-studies/what-predicts-lead-conversion">What Actually Predicts Lead Conversion?</a>: How we analyzed 3 years of sales data and found a 31% improvement hiding in plain sight.</p>
 
 <p><em>Most manufacturers already have years of sales data sitting in their CRM. The patterns are there. You just need to ask the right questions. <a href="/contact">Schedule a conversation</a> about what your data might reveal, or take our <a href="/assessments/manufacturing">5-minute Manufacturing Readiness Assessment</a> to see where you stand.</em></p>`,
   },
@@ -1628,7 +1628,7 @@ export const guideContents: GuideContent[] = [
 
 <p>No system replacement. No massive rollout project. No retraining everyone on new software they didn't ask for. The existing systems stay in place. The gaps between them close.</p>
 
-<p>Modern integration platforms—tools like Workato or Celigo that connect systems without custom coding—make this feasible at costs that mid-sized companies can absorb. What used to require custom development for every connection is now configuration. The technical barrier has dropped dramatically.</p>
+<p>Modern integration platforms (tools like Workato or Celigo that connect systems without custom coding) make this feasible at costs that mid-sized companies can absorb. What used to require custom development for every connection is now configuration. The technical barrier has dropped dramatically.</p>
 
 <p>For manufacturers concerned about competitive data leaving their building, these integrations can run entirely on-premise. Your pricing, customer lists, and margin data never touch outside servers. The visibility improves without the security tradeoffs.</p>
 

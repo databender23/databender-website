@@ -57,11 +57,11 @@ export function getDay21AssessmentTemplate(params: Day21AssessmentParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                I've sent you a few emails since you completed the ${assessmentName} a few weeks ago. I know inboxes get crowded, so I wanted to let you know this will be my last follow-up for now.
+                We've sent you a few emails since you completed the ${assessmentName} a few weeks ago. We know inboxes get crowded, so we wanted to let you know this will be our last follow-up for now.
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                ${challengeContext}, I'm always happy to have a conversation. No pressure, no pitch - just a chance to talk through what you're facing and see if there's a way I can help.
+                ${challengeContext}, we're always happy to have a conversation. No pressure, no pitch - just a chance to talk through what you're facing and see if there's a way we can help.
               </p>
 
               <!-- CTA Button -->
@@ -76,7 +76,7 @@ export function getDay21AssessmentTemplate(params: Day21AssessmentParams): Seque
               </table>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                Going forward, you'll continue to receive our monthly insights email with practical tips on data and AI - the kind of content I wish someone had shared with me when I was navigating these challenges. Of course, you can unsubscribe anytime if it's not useful.
+                Going forward, you'll continue to receive our monthly insights email with practical tips on data and AI - the kind of content we wish someone had shared with us when we were navigating these challenges. Of course, you can unsubscribe anytime if it's not useful.
               </p>
 
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;" />
@@ -95,7 +95,7 @@ export function getDay21AssessmentTemplate(params: Day21AssessmentParams): Seque
                 <tr>
                   <td style="background-color: #f8f9fa; padding: 16px 20px; border-radius: 8px;">
                     <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
-                      <strong style="color: #4a4a4a;">P.S.</strong> If timing isn't right now but might be in a few months, just reply and let me know. I'll check back in then.
+                      <strong style="color: #4a4a4a;">P.S.</strong> If timing isn't right now but might be in a few months, just reply and let us know. We'll check back in then.
                     </p>
                   </td>
                 </tr>
@@ -128,13 +128,13 @@ export function getDay21AssessmentTemplate(params: Day21AssessmentParams): Seque
   const textBody = `
 Hi ${firstName},
 
-I've sent you a few emails since you completed the ${assessmentName} a few weeks ago. I know inboxes get crowded, so I wanted to let you know this will be my last follow-up for now.
+We've sent you a few emails since you completed the ${assessmentName} a few weeks ago. We know inboxes get crowded, so we wanted to let you know this will be our last follow-up for now.
 
-${challengeContext}, I'm always happy to have a conversation. No pressure, no pitch - just a chance to talk through what you're facing and see if there's a way I can help.
+${challengeContext}, we're always happy to have a conversation. No pressure, no pitch - just a chance to talk through what you're facing and see if there's a way we can help.
 
 Schedule a call when convenient: ${calendarUrl}
 
-Going forward, you'll continue to receive our monthly insights email with practical tips on data and AI - the kind of content I wish someone had shared with me when I was navigating these challenges. Of course, you can unsubscribe anytime if it's not useful.
+Going forward, you'll continue to receive our monthly insights email with practical tips on data and AI - the kind of content we wish someone had shared with us when we were navigating these challenges. Of course, you can unsubscribe anytime if it's not useful.
 
 ---
 
@@ -143,7 +143,7 @@ Wishing you and the team${companyContext} all the best.
 Best,
 Grant
 
-P.S. If timing isn't right now but might be in a few months, just reply and let me know. I'll check back in then.
+P.S. If timing isn't right now but might be in a few months, just reply and let us know. We'll check back in then.
 
 ---
 Databender - Boutique strategy. Enterprise delivery.

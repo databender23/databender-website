@@ -66,7 +66,7 @@ export function getDay0GuideGeneralTemplate(params: Day0GuideGeneralParams): Seq
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                Thank you for downloading <strong>${guideTitle}</strong>. I put this together based on patterns I've seen working with organizations like yours, and I hope you find it valuable.
+                Thank you for downloading <strong>${guideTitle}</strong>. We put this together based on patterns we've seen working with organizations like yours, and we hope you find it valuable.
               </p>
 
               <!-- Download Box -->
@@ -97,7 +97,7 @@ export function getDay0GuideGeneralTemplate(params: Day0GuideGeneralParams): Seq
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                I'd be happy to have a quick conversation about what you're working on and share ideas for putting these concepts into practice. No pitch, just a chance to talk through your specific situation.
+                We'd be happy to have a quick conversation about what you're working on and share ideas for putting these concepts into practice. No pitch, just a chance to talk through your specific situation.
               </p>
 
               <!-- CTA Button -->
@@ -142,7 +142,7 @@ export function getDay0GuideGeneralTemplate(params: Day0GuideGeneralParams): Seq
   const textBody = `
 Hi ${firstName},
 
-Thank you for downloading "${guideTitle}". I put this together based on patterns I've seen working with organizations like yours, and I hope you find it valuable.
+Thank you for downloading "${guideTitle}". We put this together based on patterns we've seen working with organizations like yours, and we hope you find it valuable.
 
 DOWNLOAD YOUR GUIDE: ${downloadUrl}
 
@@ -154,7 +154,7 @@ As you go through the guide, you'll find practical frameworks and approaches tha
 
 Want to discuss how these strategies apply${companyContext}?
 
-I'd be happy to have a quick conversation about what you're working on and share ideas for putting these concepts into practice. No pitch, just a chance to talk through your specific situation.
+We'd be happy to have a quick conversation about what you're working on and share ideas for putting these concepts into practice. No pitch, just a chance to talk through your specific situation.
 
 Schedule a conversation: ${calendarUrl}
 

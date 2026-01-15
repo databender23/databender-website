@@ -124,7 +124,7 @@ export const healthcareQuestions: HealthcareQuestion[] = [
       { value: 1, label: "Haven't thought about it", description: "No AI-specific compliance work" },
       { value: 2, label: "Aware of it", description: "Know the requirements, no framework" },
       { value: 3, label: "Working on it", description: "Building governance policies" },
-      { value: 4, label: "Handled", description: "Comprehensive framework in place" },
+      { value: 4, label: "Handled", description: "Full framework in place" },
     ],
   },
   {
@@ -133,7 +133,7 @@ export const healthcareQuestions: HealthcareQuestion[] = [
     question: "Data governance: serious or aspirational?",
     options: [
       { value: 1, label: "Nonexistent", description: "No formal processes" },
-      { value: 2, label: "Basic", description: "Some initiatives, not comprehensive" },
+      { value: 2, label: "Basic", description: "Some initiatives, not complete" },
       { value: 3, label: "Solid", description: "Established with quality metrics" },
       { value: 4, label: "Mature", description: "AI-specific considerations built in" },
     ],

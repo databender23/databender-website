@@ -51,6 +51,7 @@ export function getDay0GuideLegalTemplate(params: Day0GuideLegalParams): Sequenc
           <!-- Header -->
           <tr>
             <td style="padding: 32px 40px; background: linear-gradient(135deg, #1A9988 0%, #147a6c 100%);">
+              <img src="https://databender.co/images/logo-white.png" alt="Databender" style="height: 32px; margin-bottom: 16px;" />
               <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">
                 Your Guide Is Ready
               </h1>
@@ -86,7 +87,7 @@ export function getDay0GuideLegalTemplate(params: Day0GuideLegalParams): Sequenc
               </table>
 
               <p style="margin: 24px 0; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                This guide addresses the questions we hear most often from law firm leaders navigating AI and knowledge management decisions. We have tried to provide practical, actionable guidance rather than vendor hype.
+                This guide addresses the questions we hear most often from law firm leaders navigating AI and knowledge management decisions. We have tried to provide practical, usable guidance rather than vendor hype.
               </p>
 
               <!-- Security Note -->
@@ -107,7 +108,7 @@ export function getDay0GuideLegalTemplate(params: Day0GuideLegalParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                I am happy to discuss the specific challenges you are facing and share what we have seen work at other firms. No sales pressure - just a candid conversation about what makes sense for your situation.
+                We are happy to discuss the specific challenges you are facing and share what we have seen work at other firms. No sales pressure - just a candid conversation about what makes sense for your situation.
               </p>
 
               <!-- CTA Button -->
@@ -124,7 +125,7 @@ export function getDay0GuideLegalTemplate(params: Day0GuideLegalParams): Sequenc
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;" />
 
               <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6; font-style: italic;">
-                P.S. Have questions about the guide content? Just reply to this email. I read and respond to every message personally.
+                P.S. Have questions about the guide content? Just reply to this email. We read and respond to every message personally.
               </p>
             </td>
           </tr>
@@ -159,7 +160,7 @@ DOWNLOAD YOUR GUIDE: ${downloadUrl}
 
 Or read online: ${contentUrl}
 
-This guide addresses the questions we hear most often from law firm leaders navigating AI and knowledge management decisions. We have tried to provide practical, actionable guidance rather than vendor hype.
+This guide addresses the questions we hear most often from law firm leaders navigating AI and knowledge management decisions. We have tried to provide practical, usable guidance rather than vendor hype.
 
 A note on confidentiality: We understand the sensitive nature of legal work. Any conversations we have about your firm's data practices remain strictly confidential.
 
@@ -167,13 +168,13 @@ A note on confidentiality: We understand the sensitive nature of legal work. Any
 
 Have questions about applying this to your firm${companyText}?
 
-I am happy to discuss the specific challenges you are facing and share what we have seen work at other firms. No sales pressure - just a candid conversation about what makes sense for your situation.
+We are happy to discuss the specific challenges you are facing and share what we have seen work at other firms. No sales pressure - just a candid conversation about what makes sense for your situation.
 
 Schedule a discussion: ${calendarUrl}
 
 ---
 
-P.S. Have questions about the guide content? Just reply to this email. I read and respond to every message personally.
+P.S. Have questions about the guide content? Just reply to this email. We read and respond to every message personally.
 
 ---
 Databender - Boutique strategy. Enterprise delivery.

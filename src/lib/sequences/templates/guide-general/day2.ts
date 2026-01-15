@@ -36,30 +36,30 @@ function getGuideInsight(guideTitle: string, guideSlug: string): GuideInsight {
       subject: "The challenge nobody warns you about",
       headline: "One challenge that trips up most data strategies",
       challenge:
-        "Most organizations start their data strategy journey focused on tools and technology. But the biggest challenge I see isn't choosing the right platform - it's getting people to actually use the data once it's available.",
+        "Most organizations start their data strategy journey focused on tools and technology. But the biggest challenge we see isn't choosing the right platform. It's getting people to actually use the data once it's available.",
       insights: [
         "80% of data initiatives fail not because of technology, but because of adoption",
         "The organizations that succeed treat data literacy as a change management project, not an IT project",
         "Starting with a single team's pain point builds momentum faster than company-wide rollouts",
       ],
       recommendation:
-        "The most successful data strategies I've seen start small - solving one real problem for one team - and expand from there. Quick wins build the trust that makes bigger initiatives possible.",
+        "The most successful data strategies we've seen start small. They solve one real problem for one team and expand from there. Quick wins build the trust that makes bigger initiatives possible.",
     };
   }
 
   if (slugLower.includes("ai") || slugLower.includes("automation")) {
     return {
-      subject: "What I wish someone told me about AI projects",
+      subject: "What we wish someone told us about AI projects",
       headline: "The AI challenge nobody talks about",
       challenge:
-        "After working on dozens of AI implementations, I've noticed a pattern: the technical work is rarely what determines success or failure. It's usually something more fundamental.",
+        "After working on dozens of AI implementations, we've noticed a pattern: the technical work is rarely what determines success or failure. It's usually something more fundamental.",
       insights: [
         "Most AI projects stall because of data quality, not algorithm sophistication",
         "Starting with 'What AI should we use?' instead of 'What problem are we solving?' leads to expensive dead ends",
-        "The best AI use cases are often boring - automating tedious manual work, not replacing human judgment",
+        "The best AI use cases are often boring: automating tedious manual work, not replacing human judgment",
       ],
       recommendation:
-        "Before investing in any AI initiative, I recommend a simple exercise: identify the three tasks your team spends the most time on that feel like they should be automated. That's usually where the real opportunity lives.",
+        "Before investing in any AI initiative, try a simple exercise: identify the three tasks your team spends the most time on that feel like they should be automated. That's usually where the real opportunity lives.",
     };
   }
 
@@ -68,10 +68,10 @@ function getGuideInsight(guideTitle: string, guideSlug: string): GuideInsight {
       subject: "Why most dashboards go unused",
       headline: "The analytics trap most organizations fall into",
       challenge:
-        "I've seen this pattern countless times: an organization invests in a beautiful analytics platform, builds dozens of dashboards, and then... nobody uses them. The data is there, but decisions are still made on gut instinct.",
+        "We've seen this pattern countless times: an organization invests in a beautiful analytics platform, builds dozens of dashboards, and then... nobody uses them. The data is there, but decisions are still made on gut instinct.",
       insights: [
-        "The problem isn't usually the tool - it's that the dashboards answer questions nobody is asking",
-        "Successful analytics programs start with decisions, not data - 'What will you do differently if you had this number?'",
+        "The problem isn't usually the tool. It's that the dashboards answer questions nobody is asking",
+        "Successful analytics programs start with decisions, not data: 'What will you do differently if you had this number?'",
         "A single metric that drives action is worth more than a hundred reports that get ignored",
       ],
       recommendation:
@@ -81,12 +81,12 @@ function getGuideInsight(guideTitle: string, guideSlug: string): GuideInsight {
 
   // Default fallback for general guides
   return {
-    subject: "A common pattern I see",
-    headline: "One thing I keep seeing organizations struggle with",
+    subject: "A common pattern we see",
+    headline: "One thing we keep seeing organizations struggle with",
     challenge:
       "After working with many organizations on data and technology challenges, there's one pattern that comes up again and again: the gap between having data and actually using it to make better decisions.",
       insights: [
-        "Most organizations have more data than they can effectively use - the constraint is rarely access, it's action",
+        "Most organizations have more data than they can effectively use. The constraint is rarely access, it's action",
         "The 'perfect solution' mindset often delays progress for months or years",
         "Small, focused improvements compound faster than big transformation projects",
       ],
@@ -140,7 +140,7 @@ export function getDay2GuideGeneralTemplate(params: Day2GuideGeneralParams): Seq
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                I wanted to follow up on the guide you downloaded - <strong>${guideTitle}</strong> - with something I've been thinking about.
+                We wanted to follow up on the guide you downloaded (<strong>${guideTitle}</strong>) with something we've been thinking about.
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
@@ -152,7 +152,7 @@ export function getDay2GuideGeneralTemplate(params: Day2GuideGeneralParams): Seq
                 <tr>
                   <td style="padding: 24px;">
                     <p style="margin: 0 0 16px; color: #1a1a1a; font-size: 15px; font-weight: 600;">
-                      What I've observed:
+                      What we've observed:
                     </p>
                     <table width="100%" cellpadding="0" cellspacing="0">
                       ${insight.insights
@@ -185,7 +185,7 @@ export function getDay2GuideGeneralTemplate(params: Day2GuideGeneralParams): Seq
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                If you'd like to talk through your specific situation, I'm happy to chat. Sometimes just having a sounding board helps clarify the path forward.
+                If you'd like to talk through your specific situation, we're happy to chat. Sometimes just having a sounding board helps clarify the path forward.
               </p>
 
               <!-- CTA Button -->
@@ -231,13 +231,13 @@ export function getDay2GuideGeneralTemplate(params: Day2GuideGeneralParams): Seq
   const textBody = `
 Hi ${firstName},
 
-I wanted to follow up on the guide you downloaded - "${guideTitle}" - with something I've been thinking about.
+We wanted to follow up on the guide you downloaded ("${guideTitle}") with something we've been thinking about.
 
 ${insight.headline}
 
 ${insight.challenge}
 
-WHAT I'VE OBSERVED:
+WHAT WE'VE OBSERVED:
 
 ${insight.insights.map((item) => `- ${item}`).join("\n")}
 
@@ -247,7 +247,7 @@ ${insight.recommendation}
 
 Does any of this resonate with what you're seeing${companyContext}?
 
-If you'd like to talk through your specific situation, I'm happy to chat. Sometimes just having a sounding board helps clarify the path forward.
+If you'd like to talk through your specific situation, we're happy to chat. Sometimes just having a sounding board helps clarify the path forward.
 
 Schedule a conversation: ${calendarUrl}
 

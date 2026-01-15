@@ -63,7 +63,7 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                I hope you found the <strong>${guideTitle}</strong> useful. I wanted to follow up with a specific observation that comes up in nearly every conversation I have with law firm leaders.
+                We hope you found the <strong>${guideTitle}</strong> useful. We wanted to follow up with a specific observation that comes up in nearly every conversation we have with law firm leaders.
               </p>
 
               <!-- Insight Box -->
@@ -124,7 +124,7 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
                 <tr>
                   <td style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center;">
                     <p style="margin: 0; color: #1a1a1a; font-size: 15px; line-height: 1.6; font-style: italic;">
-                      "Studies suggest knowledge workers spend 20-30% of their time searching for information. In law firms, where time is billed in six-minute increments, this represents significant unrealized value."
+                      "Studies suggest knowledge workers spend 20-30% of their time searching for information. In law firms, where time is billed in six-minute increments, this represents substantial unrealized value."
                     </p>
                   </td>
                 </tr>
@@ -141,7 +141,7 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                I would be glad to share what we have seen work at firms addressing this challenge. No pitch - just a conversation about whether there is a practical path forward for your situation.
+                We would be glad to share what we have seen work at firms addressing this challenge. No pitch - just a conversation about whether there is a practical path forward for your situation.
               </p>
 
               <!-- CTA Button -->
@@ -186,7 +186,7 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
 
   const textBody = `Hi ${firstName},
 
-I hope you found the ${guideTitle} useful. I wanted to follow up with a specific observation that comes up in nearly every conversation I have with law firm leaders.
+We hope you found the ${guideTitle} useful. We wanted to follow up with a specific observation that comes up in nearly every conversation we have with law firm leaders.
 
 THE HIDDEN COST OF INSTITUTIONAL KNOWLEDGE
 
@@ -199,7 +199,7 @@ The pattern we see repeatedly:
 - Work gets recreated because it is faster than finding the original
 - When partners retire, their institutional knowledge leaves with them
 
-"Studies suggest knowledge workers spend 20-30% of their time searching for information. In law firms, where time is billed in six-minute increments, this represents significant unrealized value."
+"Studies suggest knowledge workers spend 20-30% of their time searching for information. In law firms, where time is billed in six-minute increments, this represents substantial unrealized value."
 
 The good news: modern semantic search technology can make your existing knowledge base discoverable without requiring attorneys to change how they work. The search finds relevant documents based on meaning, not just keywords - the way a knowledgeable colleague would.
 
@@ -207,7 +207,7 @@ The good news: modern semantic search technology can make your existing knowledg
 
 Does this resonate with what you are seeing${companyContext}?
 
-I would be glad to share what we have seen work at firms addressing this challenge. No pitch - just a conversation about whether there is a practical path forward for your situation.
+We would be glad to share what we have seen work at firms addressing this challenge. No pitch - just a conversation about whether there is a practical path forward for your situation.
 
 Schedule a confidential discussion: ${calendarUrl}
 

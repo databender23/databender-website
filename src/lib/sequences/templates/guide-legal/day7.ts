@@ -59,7 +59,7 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                I wanted to share an observation that runs counter to what most people assume about AI adoption in legal.
+                We wanted to share an observation that runs counter to what most people assume about AI adoption in legal.
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
@@ -95,7 +95,7 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
                             1. Faster Decision-Making
                           </p>
                           <p style="margin: 0; color: #4a4a4a; font-size: 15px; line-height: 1.5;">
-                            No committees, no six-month approval processes. When partners see value, they can act. Large firm technology decisions often take 12-18 months; smaller firms regularly implement in 60-90 days.
+                            No committees, no six-month approval processes. When partners see value, they can act. Large firm technology decisions often take 12-18 months; smaller firms regularly deploy in 60-90 days.
                           </p>
                         </td>
                       </tr>
@@ -136,7 +136,7 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
               </table>
 
               <p style="margin: 24px 0; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                The firms getting this right are not trying to boil the ocean. They pick one high-value use case, implement it thoughtfully with proper security controls, and build confidence from there.
+                The firms getting this right are not trying to boil the ocean. They pick one high-value use case, deploy it thoughtfully with proper security controls, and build confidence from there.
               </p>
 
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;" />
@@ -146,7 +146,7 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                I am happy to discuss which use cases typically deliver the fastest ROI and what security architecture makes sense for legal environments. Confidential conversation - no pressure.
+                We are happy to discuss which use cases typically deliver the fastest ROI and what security architecture makes sense for legal environments. Confidential conversation - no pressure.
               </p>
 
               <!-- CTA Button -->
@@ -191,7 +191,7 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
 
   const textBody = `Hi ${firstName},
 
-I wanted to share an observation that runs counter to what most people assume about AI adoption in legal.
+We wanted to share an observation that runs counter to what most people assume about AI adoption in legal.
 
 Conventional wisdom says large firms have the advantage. More resources, dedicated IT teams, vendor relationships. But the data tells a different story.
 
@@ -201,7 +201,7 @@ Firms under 50 attorneys are implementing AI 3x faster than AmLaw 100 firms on a
 Why? It comes down to three structural advantages smaller firms possess:
 
 1. FASTER DECISION-MAKING
-No committees, no six-month approval processes. When partners see value, they can act. Large firm technology decisions often take 12-18 months; smaller firms regularly implement in 60-90 days.
+No committees, no six-month approval processes. When partners see value, they can act. Large firm technology decisions often take 12-18 months; smaller firms regularly deploy in 60-90 days.
 
 2. LESS LEGACY TECHNOLOGY
 Large firms are often locked into enterprise contracts and complex integrations. Smaller firms have more flexibility to adopt modern solutions without navigating years of technical debt.
@@ -211,13 +211,13 @@ Contrary to perception, sophisticated AI solutions can now run entirely within y
 
 "The most successful implementations we see start with a specific, bounded use case - not a firm-wide transformation. Document review, contract analysis, or research assistance. Prove value there, then expand."
 
-The firms getting this right are not trying to boil the ocean. They pick one high-value use case, implement it thoughtfully with proper security controls, and build confidence from there.
+The firms getting this right are not trying to boil the ocean. They pick one high-value use case, deploy it thoughtfully with proper security controls, and build confidence from there.
 
 ---
 
 Curious what a practical first step might look like for your firm?
 
-I am happy to discuss which use cases typically deliver the fastest ROI and what security architecture makes sense for legal environments. Confidential conversation - no pressure.
+We are happy to discuss which use cases typically deliver the fastest ROI and what security architecture makes sense for legal environments. Confidential conversation - no pressure.
 
 Schedule a discussion: ${calendarUrl}
 

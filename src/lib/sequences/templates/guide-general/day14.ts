@@ -62,7 +62,7 @@ export function getDay14GuideGeneralTemplate(params: Day14GuideGeneralParams): S
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                I wanted to share a quick story that might resonate with some of what you're dealing with.
+                We wanted to share a quick story that might resonate with some of what you're dealing with.
               </p>
 
               <!-- Case Study Box -->
@@ -138,7 +138,7 @@ export function getDay14GuideGeneralTemplate(params: Day14GuideGeneralParams): S
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                If any of this resonates with what you're experiencing${companyContext}, I'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
+                If any of this resonates with what you're experiencing${companyContext}, we'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
               </p>
 
               <!-- CTA Button -->
@@ -184,7 +184,7 @@ export function getDay14GuideGeneralTemplate(params: Day14GuideGeneralParams): S
   const textBody = `
 Hi ${firstName},
 
-I wanted to share a quick story that might resonate with some of what you're dealing with.
+We wanted to share a quick story that might resonate with some of what you're dealing with.
 
 ---
 
@@ -213,7 +213,7 @@ The interesting thing: the technology wasn't complicated. What made the differen
 
 Sound familiar?
 
-If any of this resonates with what you're experiencing${companyContext}, I'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
+If any of this resonates with what you're experiencing${companyContext}, we'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
 
 Schedule a call: ${calendarUrl}
 

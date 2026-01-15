@@ -59,7 +59,7 @@ export function getDay14GuideLegalTemplate(params: Day14GuideLegalParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                I wanted to share a story that illustrates what we discussed in the guide. This is a real engagement - details adjusted to protect confidentiality.
+                We wanted to share a story that illustrates what we discussed in the guide. This is a real engagement - details adjusted to protect confidentiality.
               </p>
 
               <!-- Case Study Box -->
@@ -71,7 +71,7 @@ export function getDay14GuideLegalTemplate(params: Day14GuideLegalParams): Seque
                       The Firm
                     </p>
                     <p style="margin: 0 0 20px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                      A 40-attorney firm with three practice areas: commercial litigation, corporate transactions, and employment law. In business for 25+ years, with significant work product accumulated across network drives, a document management system, and partner email archives.
+                      A 40-attorney firm with three practice areas: commercial litigation, corporate transactions, and employment law. In business for 25+ years, with substantial work product accumulated across network drives, a document management system, and partner email archives.
                     </p>
 
                     <!-- The Challenge -->
@@ -142,7 +142,7 @@ export function getDay14GuideLegalTemplate(params: Day14GuideLegalParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                If the challenges here resonate with what your firm is experiencing, I would be glad to discuss what a similar approach might look like for your situation. Every firm is different, but the underlying patterns are often similar.
+                If the challenges here resonate with what your firm is experiencing, we would be glad to discuss what a similar approach might look like for your situation. Every firm is different, but the underlying patterns are often similar.
               </p>
 
               <!-- CTA Button -->
@@ -187,14 +187,14 @@ export function getDay14GuideLegalTemplate(params: Day14GuideLegalParams): Seque
 
   const textBody = `Hi ${firstName},
 
-I wanted to share a story that illustrates what we discussed in the guide. This is a real engagement - details adjusted to protect confidentiality.
+We wanted to share a story that illustrates what we discussed in the guide. This is a real engagement - details adjusted to protect confidentiality.
 
 ---
 
 CASE STUDY: KNOWLEDGE THAT PAYS FOR ITSELF
 
 THE FIRM
-A 40-attorney firm with three practice areas: commercial litigation, corporate transactions, and employment law. In business for 25+ years, with significant work product accumulated across network drives, a document management system, and partner email archives.
+A 40-attorney firm with three practice areas: commercial litigation, corporate transactions, and employment law. In business for 25+ years, with substantial work product accumulated across network drives, a document management system, and partner email archives.
 
 THE CHALLENGE
 Associates routinely spent hours searching for relevant precedents. The firm's document management system search was keyword-based and returned hundreds of results for any general query. Partners knew the work existed somewhere but could not point people to it efficiently. When senior partners retired, their institutional knowledge effectively disappeared.
@@ -215,7 +215,7 @@ After six months of use, the firm measured the impact. Associates recovered an a
 
 Sound familiar?
 
-If the challenges here resonate with what your firm is experiencing, I would be glad to discuss what a similar approach might look like for your situation. Every firm is different, but the underlying patterns are often similar.
+If the challenges here resonate with what your firm is experiencing, we would be glad to discuss what a similar approach might look like for your situation. Every firm is different, but the underlying patterns are often similar.
 
 Schedule a discussion: ${calendarUrl}
 
