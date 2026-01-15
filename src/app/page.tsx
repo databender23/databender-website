@@ -110,7 +110,7 @@ function TheShiftSection() {
 
   return (
     <motion.section
-      className="section bg-[#F8F9FA]"
+      className="section"
       onViewportEnter={() => setIsInView(true)}
       viewport={{ once: true, amount: 0.3 }}
     >
@@ -121,7 +121,7 @@ function TheShiftSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            className="text-teal-500 font-medium mb-4 tracking-wide text-sm"
           >
             The Tactical Advantage
           </motion.p>
@@ -159,7 +159,7 @@ function TheShiftSection() {
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-teal-500/10 to-transparent rounded-bl-full" />
               <div className="relative">
-                <p className="text-sm font-medium text-text-muted uppercase tracking-wide mb-3">Software Fit</p>
+                <p className="text-sm font-medium text-text-muted tracking-wide mb-3">Software Fit</p>
                 <div className="flex items-baseline gap-2 sm:gap-3 mb-2">
                   <span className="text-4xl sm:text-5xl font-bold text-text-muted/30 line-through decoration-2">
                     <AnimatedCounter from={0} to={70} isInView={isInView} />%
@@ -187,7 +187,7 @@ function TheShiftSection() {
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-teal-500/10 to-transparent rounded-bl-full" />
               <div className="relative">
-                <p className="text-sm font-medium text-text-muted uppercase tracking-wide mb-3">Time to ROI</p>
+                <p className="text-sm font-medium text-text-muted tracking-wide mb-3">Time to ROI</p>
                 <div className="flex items-baseline gap-2 sm:gap-3 mb-2">
                   <div className="flex items-baseline">
                     <span className="text-4xl sm:text-5xl font-bold text-text-muted/30 line-through decoration-2">
@@ -221,7 +221,7 @@ function TheShiftSection() {
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-teal-500/10 to-transparent rounded-bl-full" />
               <div className="relative">
-                <p className="text-sm font-medium text-text-muted uppercase tracking-wide mb-3">Management Overhead</p>
+                <p className="text-sm font-medium text-text-muted tracking-wide mb-3">Management Overhead</p>
                 <div className="flex items-baseline gap-2 sm:gap-3 mb-2">
                   <div className="flex items-baseline">
                     <span className="text-4xl sm:text-5xl font-bold text-text-muted/30 line-through decoration-2">
@@ -255,7 +255,7 @@ function TheShiftSection() {
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-teal-500/10 to-transparent rounded-bl-full" />
               <div className="relative">
-                <p className="text-sm font-medium text-text-muted uppercase tracking-wide mb-3">Code Ownership</p>
+                <p className="text-sm font-medium text-text-muted tracking-wide mb-3">Code Ownership</p>
                 <div className="flex items-baseline gap-2 sm:gap-3 mb-2">
                   <span className="text-4xl sm:text-5xl font-bold text-text-muted/30 line-through decoration-2">
                     <AnimatedCounter from={100} to={0} isInView={isInView} />%
@@ -312,7 +312,7 @@ function ResultsGrid() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            className="text-teal-500 font-medium mb-4 tracking-wide text-sm"
           >
             Real Results
           </motion.p>
@@ -467,7 +467,7 @@ function SocialProofSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+            className="text-teal-500 font-medium mb-4 tracking-wide text-sm"
           >
             Client Success
           </motion.p>
@@ -671,7 +671,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              className="text-teal-500 font-medium mb-4 tracking-wide text-sm"
             >
               The Agentic Development Era
             </motion.p>
@@ -731,16 +731,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. The Shift - Old vs New Comparison */}
-      <TheShiftSection />
-
-      {/* 3. What We Build Section */}
+      {/* 2. What We Build Section */}
       <Features
         subtitle="What We Build"
         title="Custom systems that actually fit"
         features={capabilities}
         columns={3}
       />
+
+      {/* 3. The Tactical Advantage */}
+      <TheShiftSection />
 
       {/* 4. Results & Case Studies */}
       <ResultsGrid />
@@ -753,7 +753,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              className="text-teal-500 font-medium mb-4 tracking-wide text-sm"
             >
               Why Databender
             </motion.p>

@@ -49,7 +49,7 @@ export default function Features({
   };
 
   return (
-    <section className="section">
+    <section className="section bg-[#F8F9FA]">
       <div className="container mx-auto px-6">
         {(title || subtitle) && (
           <div className="text-center mb-16">
@@ -58,7 +58,7 @@ export default function Features({
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+                className="text-teal-500 font-medium mb-4 tracking-wide text-sm"
               >
                 {subtitle}
               </motion.p>
