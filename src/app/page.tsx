@@ -591,7 +591,7 @@ export default function HomePage() {
     {
       title: "AI Agents That Know Your Business",
       description:
-        "Not ChatGPT with a wrapper. Purpose-built agents trained on your business logic, your documents, your workflows.",
+        "Not ChatGPT with a wrapper. Custom agents trained on your business logic, your documents, your workflows.",
       icon: <AIIcon />,
       href: "/services/ai-services",
     },
@@ -725,7 +725,7 @@ export default function HomePage() {
       {/* 2. What We Build Section */}
       <Features
         subtitle="What We Build"
-        title="Precision systems that actually fit"
+        title="Purpose-built systems that actually fit"
         features={capabilities}
         columns={3}
       />
