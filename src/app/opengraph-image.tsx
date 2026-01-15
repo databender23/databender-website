@@ -18,16 +18,30 @@ export default async function Image() {
           width: "100%",
           height: "100%",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          fontFamily: "Inter, system-ui, sans-serif",
         }}
       >
+        {/* Logo */}
         <img
           src="https://databender.co/images/logo-color.png"
           alt="Databender"
-          width={400}
-          height={400}
+          width={280}
+          height={280}
         />
+        {/* Tagline */}
+        <p
+          style={{
+            fontSize: 32,
+            color: "#4A4A4A",
+            marginTop: 24,
+            letterSpacing: "0.02em",
+          }}
+        >
+          Boutique Strategy. Enterprise Delivery.
+        </p>
       </div>
     ),
     {

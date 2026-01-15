@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Resources | Case Studies, Assessments, Blog & Guides",
     description:
       "Free data and AI resources: diagnostic assessments, case studies with real results, practical blog articles, and industry guides. No hype, just actionable insights.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
 };
 

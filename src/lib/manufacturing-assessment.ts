@@ -16,34 +16,34 @@ export const manufacturingQuestions: ManufacturingQuestion[] = [
   {
     id: "erp-integration",
     category: "dataInfrastructure",
-    question: "How integrated is your ERP with other business systems?",
+    question: "When someone asks 'Where's my order?', how many systems do you check?",
     options: [
-      { value: 1, label: "Standalone", description: "ERP runs independently, data exported manually" },
-      { value: 2, label: "Partially connected", description: "Some systems connected, but gaps exist" },
-      { value: 3, label: "Mostly integrated", description: "Most key systems connected with some manual processes" },
-      { value: 4, label: "Fully integrated", description: "Real-time data flows between all major systems" },
+      { value: 1, label: "3+ systems", description: "ERP, shipping, maybe email or phone calls" },
+      { value: 2, label: "2 systems", description: "Usually ERP plus one other place" },
+      { value: 3, label: "1-2 systems", description: "Most info in one place, occasional checking elsewhere" },
+      { value: 4, label: "One place", description: "Everything we need is in one view" },
     ],
   },
   {
     id: "data-quality",
     category: "dataInfrastructure",
-    question: "How would you rate your master data quality (customers, products, suppliers)?",
+    question: "How often does your team chase down wrong contacts or outdated info?",
     options: [
-      { value: 1, label: "Major issues", description: "Duplicates, inconsistencies, missing data common" },
-      { value: 2, label: "Some problems", description: "Known issues but manageable" },
-      { value: 3, label: "Generally good", description: "Occasional cleanup needed" },
-      { value: 4, label: "Excellent", description: "Clean, consistent, well-governed" },
+      { value: 1, label: "Constantly", description: "Duplicates, wrong contacts, outdated info everywhere" },
+      { value: 2, label: "Weekly", description: "Known issues, we work around them" },
+      { value: 3, label: "Occasionally", description: "Rare cleanup needed" },
+      { value: 4, label: "Almost never", description: "Data is clean and current" },
     ],
   },
   {
     id: "single-source",
     category: "dataInfrastructure",
-    question: "Do you have a single source of truth for key business metrics?",
+    question: "When sales and production look at the same metric, do they see the same number?",
     options: [
-      { value: 1, label: "No", description: "Different departments use different numbers" },
-      { value: 2, label: "Partially", description: "Some metrics standardized, others not" },
-      { value: 3, label: "Mostly", description: "Most KPIs come from one source" },
-      { value: 4, label: "Yes", description: "Centralized data warehouse/BI platform for all metrics" },
+      { value: 1, label: "Rarely", description: "Different spreadsheets, different answers" },
+      { value: 2, label: "Sometimes", description: "Some metrics match, others don't" },
+      { value: 3, label: "Usually", description: "Most numbers align" },
+      { value: 4, label: "Always", description: "One source of truth everyone uses" },
     ],
   },
 
@@ -51,34 +51,34 @@ export const manufacturingQuestions: ManufacturingQuestion[] = [
   {
     id: "sales-production-link",
     category: "salesProduction",
-    question: "How connected are your sales forecasts to production planning?",
+    question: "How does production find out what sales promised?",
     options: [
-      { value: 1, label: "Not connected", description: "Sales and production operate independently" },
-      { value: 2, label: "Manual handoff", description: "Periodic meetings to share forecasts" },
-      { value: 3, label: "Shared visibility", description: "Both can see each other's data" },
-      { value: 4, label: "Integrated planning", description: "Real-time S&OP with automated adjustments" },
+      { value: 1, label: "Phone calls or emails", description: "Someone has to ask or chase it down" },
+      { value: 2, label: "Weekly meetings", description: "Updates shared periodically" },
+      { value: 3, label: "Shared system", description: "Both can see the same data" },
+      { value: 4, label: "Real-time sync", description: "Production sees commitments as they're made" },
     ],
   },
   {
     id: "demand-forecasting",
     category: "salesProduction",
-    question: "How do you forecast demand?",
+    question: "How do you figure out what to build next month?",
     options: [
-      { value: 1, label: "Gut feel", description: "Based on experience and intuition" },
-      { value: 2, label: "Historical averages", description: "Simple trending from past sales" },
-      { value: 3, label: "Spreadsheet models", description: "More sophisticated but manual analysis" },
-      { value: 4, label: "Predictive analytics", description: "ML/AI-powered forecasting with multiple inputs" },
+      { value: 1, label: "Gut feel", description: "Experience and intuition" },
+      { value: 2, label: "Last year's numbers", description: "Simple trending from history" },
+      { value: 3, label: "Spreadsheet models", description: "Manual analysis, reasonably accurate" },
+      { value: 4, label: "Predictive system", description: "Data-driven forecasts with multiple inputs" },
     ],
   },
   {
     id: "cost-visibility",
     category: "salesProduction",
-    question: "How accurate is your product costing?",
+    question: "How confident are you in your product margins right now?",
     options: [
-      { value: 1, label: "Rough estimates", description: "Standard costs rarely updated" },
-      { value: 2, label: "Periodic updates", description: "Costs reviewed quarterly/annually" },
-      { value: 3, label: "Good visibility", description: "Regular updates, most costs captured" },
-      { value: 4, label: "Real-time costing", description: "Actual costs tracked with overhead allocation" },
+      { value: 1, label: "Rough estimates", description: "Standard costs from years ago" },
+      { value: 2, label: "Quarterly updates", description: "Reviewed periodically" },
+      { value: 3, label: "Pretty accurate", description: "Regular updates, most costs captured" },
+      { value: 4, label: "Real-time", description: "Actual costs tracked as they happen" },
     ],
   },
 
@@ -86,34 +86,34 @@ export const manufacturingQuestions: ManufacturingQuestion[] = [
   {
     id: "production-visibility",
     category: "visibility",
-    question: "How real-time is your production visibility?",
+    question: "If an order is running late, when do you find out?",
     options: [
-      { value: 1, label: "End of day/week", description: "Reports after the fact" },
-      { value: 2, label: "Same day", description: "Know status by end of shift" },
-      { value: 3, label: "Near real-time", description: "Updates every few hours" },
-      { value: 4, label: "Real-time", description: "Live dashboards with machine data" },
+      { value: 1, label: "When it's already late", description: "Customer calls before we know" },
+      { value: 2, label: "End of day", description: "Morning-after reports" },
+      { value: 3, label: "Same day", description: "Updates every few hours" },
+      { value: 4, label: "Before it happens", description: "Alerts flag at-risk orders early" },
     ],
   },
   {
     id: "quality-tracking",
     category: "visibility",
-    question: "How do you track and analyze quality issues?",
+    question: "When there's a quality issue, how long does it take to trace back to the cause?",
     options: [
-      { value: 1, label: "Paper-based", description: "Manual logs and inspection sheets" },
-      { value: 2, label: "Basic digital", description: "Spreadsheets or simple database" },
-      { value: 3, label: "QMS software", description: "Dedicated quality management system" },
-      { value: 4, label: "Integrated analytics", description: "Real-time quality metrics with trend analysis" },
+      { value: 1, label: "Hours or days", description: "Paper logs, manual searching" },
+      { value: 2, label: "An hour or two", description: "Spreadsheets and digging" },
+      { value: 3, label: "Minutes", description: "Quality system with decent tracking" },
+      { value: 4, label: "Instantly", description: "Full traceability in one system" },
     ],
   },
   {
     id: "kpi-access",
     category: "visibility",
-    question: "How easily can managers access key operational KPIs?",
+    question: "When you need to know how the floor is running, what do you do?",
     options: [
-      { value: 1, label: "Request reports", description: "Need to ask someone to pull data" },
-      { value: 2, label: "Static reports", description: "Scheduled reports delivered periodically" },
-      { value: 3, label: "Self-service", description: "Can access dashboards but limited customization" },
-      { value: 4, label: "Full self-service", description: "Interactive dashboards with drill-down capabilities" },
+      { value: 1, label: "Ask someone", description: "Call or walk over to find out" },
+      { value: 2, label: "Wait for reports", description: "Check email for scheduled updates" },
+      { value: 3, label: "Check a dashboard", description: "Self-service, mostly current" },
+      { value: 4, label: "Glance at a screen", description: "Real-time visibility always available" },
     ],
   },
 
@@ -121,34 +121,34 @@ export const manufacturingQuestions: ManufacturingQuestion[] = [
   {
     id: "process-automation",
     category: "automation",
-    question: "What level of process automation do you have?",
+    question: "How much of your reporting happens automatically?",
     options: [
-      { value: 1, label: "Mostly manual", description: "Key processes require human intervention" },
-      { value: 2, label: "Some automation", description: "Basic workflows automated" },
-      { value: 3, label: "Significant automation", description: "Many processes automated with exceptions" },
-      { value: 4, label: "Highly automated", description: "End-to-end automation with AI/ML elements" },
+      { value: 1, label: "Almost none", description: "Someone builds every report by hand" },
+      { value: 2, label: "Some", description: "A few scheduled reports, most manual" },
+      { value: 3, label: "Most", description: "Key reports generate automatically" },
+      { value: 4, label: "Nearly all", description: "Reports update themselves, we just review" },
     ],
   },
   {
     id: "data-team",
     category: "automation",
-    question: "Do you have dedicated data/analytics resources?",
+    question: "Who handles data and reporting?",
     options: [
-      { value: 1, label: "No", description: "IT handles data ad-hoc" },
-      { value: 2, label: "Part-time", description: "Someone does data work alongside other duties" },
-      { value: 3, label: "Small team", description: "1-2 dedicated data analysts" },
-      { value: 4, label: "Full team", description: "Data team with analysts, engineers, and/or data scientists" },
+      { value: 1, label: "Whoever has time", description: "Ad-hoc, usually IT or a manager" },
+      { value: 2, label: "Part-time", description: "Someone does it alongside other work" },
+      { value: 3, label: "Dedicated person", description: "1-2 people focused on data" },
+      { value: 4, label: "Full team", description: "Analysts, maybe engineers" },
     ],
   },
   {
     id: "ai-interest",
     category: "automation",
-    question: "What's your current AI/ML adoption?",
+    question: "Where are you with AI for operations?",
     options: [
-      { value: 1, label: "Not started", description: "Haven't explored AI applications" },
-      { value: 2, label: "Exploring", description: "Researching possibilities" },
-      { value: 3, label: "Piloting", description: "One or more AI projects in progress" },
-      { value: 4, label: "Production", description: "AI/ML in production for business processes" },
+      { value: 1, label: "Haven't started", description: "Not sure where it would help" },
+      { value: 2, label: "Curious", description: "Looking into it, nothing concrete" },
+      { value: 3, label: "Testing", description: "Piloting something specific" },
+      { value: 4, label: "Using it", description: "AI helping with real decisions" },
     ],
   },
 ];
@@ -223,16 +223,16 @@ export function calculateManufacturingScores(
   sortedCategories.slice(0, 2).forEach(([category]) => {
     switch (category) {
       case "dataInfrastructure":
-        recommendations.push("Prioritize data integration and quality improvements to build a solid foundation");
+        recommendations.push("Connect your systems so answers live in one place, not scattered across spreadsheets");
         break;
       case "salesProduction":
-        recommendations.push("Connect sales forecasting with production planning to improve demand accuracy");
+        recommendations.push("Get sales and production seeing the same numbers so nobody's scrambling at the last minute");
         break;
       case "visibility":
-        recommendations.push("Invest in real-time dashboards and operational visibility tools");
+        recommendations.push("Build visibility that catches problems before they become fires");
         break;
       case "automation":
-        recommendations.push("Start with high-ROI automation opportunities before advancing to AI");
+        recommendations.push("Automate the reporting that eats up your team's time");
         break;
     }
   });
@@ -247,39 +247,39 @@ export function calculateManufacturingScores(
 
 export const tierDescriptions = {
   early: {
-    title: "Early Stage",
-    description: "Your data infrastructure needs foundational work before scaling. Focus on integration and data quality first.",
+    title: "Firefighting Mode",
+    description: "You're spending too much time hunting for answers and reacting to problems. The good news: small changes can free up real time.",
     nextSteps: [
-      "Audit current data sources and identify integration gaps",
-      "Establish data governance policies",
-      "Create a single source of truth for key metrics",
+      "Connect your core systems so 'Where's my order?' has one answer",
+      "Get sales and production looking at the same numbers",
+      "Build one dashboard for the metrics you check every day",
     ],
   },
   emerging: {
-    title: "Emerging",
-    description: "You have some data capabilities in place. Now it's time to connect systems and improve visibility.",
+    title: "Getting Organized",
+    description: "You have some visibility, but gaps remain. Focus on connecting the dots so problems surface earlier.",
     nextSteps: [
-      "Integrate ERP with CRM and production systems",
-      "Implement self-service dashboards for team leads and decision-makers",
-      "Develop demand forecasting capabilities",
+      "Link your ERP to shipping and quality systems",
+      "Build alerts that flag at-risk orders before they're late",
+      "Create self-service dashboards so managers stop asking for reports",
     ],
   },
   developing: {
-    title: "Developing",
-    description: "Your data infrastructure is solid. Focus on advanced analytics and automation opportunities.",
+    title: "Running Smooth",
+    description: "Your basics are solid. Now you can start catching problems before they happen and automating the repetitive work.",
     nextSteps: [
-      "Implement predictive analytics for demand and quality",
-      "Explore AI/ML use cases for your biggest pain points",
-      "Build automated workflows for repetitive processes",
+      "Add predictive alerts for demand and quality issues",
+      "Automate the reports your team builds by hand every week",
+      "Look for AI opportunities in your biggest time sinks",
     ],
   },
   advanced: {
-    title: "Advanced",
-    description: "You're ahead of most manufacturers. Look for competitive advantages through AI and advanced automation.",
+    title: "Ahead of the Pack",
+    description: "You're running tighter than most. Look for competitive advantages in AI and automation.",
     nextSteps: [
-      "Deploy production AI/ML models",
-      "Implement end-to-end process automation",
-      "Explore emerging technologies like digital twins",
+      "Deploy AI for decisions you currently make manually",
+      "Automate end-to-end processes, not just reporting",
+      "Explore predictive maintenance and quality optimization",
     ],
   },
 };

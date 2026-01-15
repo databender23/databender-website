@@ -349,10 +349,10 @@ export default function LegalResultsClient() {
 
       {/* CTA */}
       <CTA
-        title="Ready to transform your firm's efficiency?"
-        description="Schedule a consultation to discuss your assessment results and explore privacy-first AI solutions for your practice."
-        primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "View Legal Solutions", href: "/industries/legal" }}
+        title="Ready to see what this would cost for your firm?"
+        description="30 minutes. We'll look at your specific situation and show you what's possible at today's prices. No pitch deck, no pressure."
+        primaryCta={{ label: "Schedule a Conversation", href: "/contact" }}
+        secondaryCta={{ label: "Back to Legal Solutions", href: "/industries/legal" }}
         variant="gradient"
       />
     </div>

@@ -220,7 +220,7 @@ describe('Healthcare AI Readiness Assessment', () => {
 
       const result = calculateHealthcareScores(answers)
       expect(result.recommendations.some(r =>
-        r.includes('document management') || r.includes('search')
+        r.includes('documents') || r.includes('organized')
       )).toBe(true)
     })
 
@@ -236,7 +236,7 @@ describe('Healthcare AI Readiness Assessment', () => {
 
       const result = calculateHealthcareScores(answers)
       expect(result.recommendations.some(r =>
-        r.includes('knowledge') || r.includes('expertise')
+        r.includes('capturing') || r.includes('staff') || r.includes('retirement')
       )).toBe(true)
     })
 

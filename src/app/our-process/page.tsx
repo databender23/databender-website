@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Our Process | How We Solve Problems Your Competitors Can't",
     description:
       "Agentic AI changes what's economically feasible. 125x cost savings, 31% better predictions. See how our 4-phase approach delivers real outcomes in regulated industries.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
 };
 

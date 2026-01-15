@@ -62,11 +62,17 @@ export default function HealthcarePageClient() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
+              className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-4"
+            >
+              Your clinical staff spends hours every week hunting for information that should take seconds. Protocols buried in folders. Payer requirements in someone&apos;s head. The answer exists, but finding it takes longer than it should.
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
-              Twenty years of clinical knowledge scattered across thousands of documents.
-              Now your team can ask questions in plain English and get instant answers,
-              all without your data ever leaving the building.
+              We turn your documents into a searchable knowledge base. Ask in plain English, get answers instantly, nothing leaves your building.
             </motion.p>
 
             <motion.div
@@ -76,10 +82,10 @@ export default function HealthcarePageClient() {
               className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
             >
               <Button variant="primary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
-                Schedule Consultation
+                See What This Looks Like
               </Button>
               <Button variant="secondary" size="lg" href="/assessments/healthcare-ai-readiness" className="w-full sm:w-auto min-h-[48px]">
-                Take AI Readiness Assessment
+                5-Min Assessment → Get Your AI Roadmap
               </Button>
             </motion.div>
           </div>
@@ -135,6 +141,72 @@ export default function HealthcarePageClient() {
                 </motion.li>
               ))}
             </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Why This Matters Now Section */}
+      <section className="section">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+            >
+              Why This Matters Now
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-6 sm:mb-8"
+            >
+              The clock is ticking
+            </motion.h2>
+
+            <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="p-5 sm:p-6 rounded-xl bg-gradient-to-br from-teal-500/5 to-teal-500/10 border border-teal-500/20"
+              >
+                <h3 className="text-lg font-semibold text-text-primary mb-2">Knowledge walks out the door</h3>
+                <p className="text-text-secondary">
+                  Your most experienced nurse knows things that aren&apos;t written down anywhere. The veteran who retired last year took 15 years of institutional knowledge with them. Every departure is a quiet crisis.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="p-5 sm:p-6 rounded-xl bg-gradient-to-br from-teal-500/5 to-teal-500/10 border border-teal-500/20"
+              >
+                <h3 className="text-lg font-semibold text-text-primary mb-2">The hidden time tax</h3>
+                <p className="text-text-secondary">
+                  Your team loses hours every week to information hunting. That&apos;s time away from patients, and everyone feels it. Multiply it across shifts, and the math gets ugly fast.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="p-5 sm:p-6 rounded-xl bg-gradient-to-br from-teal-500/5 to-teal-500/10 border border-teal-500/20"
+              >
+                <h3 className="text-lg font-semibold text-text-primary mb-2">Others aren&apos;t waiting</h3>
+                <p className="text-text-secondary">
+                  Some organizations are already deploying AI that works with their existing systems. They&apos;re not waiting to see how it plays out.
+                </p>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -245,6 +317,60 @@ export default function HealthcarePageClient() {
                 </ul>
               </motion.div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What This Looks Like - Mini Case Study */}
+      <section className="section">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl mx-auto">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+            >
+              What This Looks Like
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-6"
+            >
+              From 15 minutes to 30 seconds
+            </motion.h2>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="bg-white p-6 sm:p-8 rounded-2xl border border-black/10"
+            >
+              <p className="text-text-secondary text-base sm:text-lg mb-4">
+                A 12-location specialty practice had 20 years of clinical knowledge scattered across shared drives, old emails, and a few key people&apos;s memories. Staff spent 15-20 minutes finding protocols that should take seconds.
+              </p>
+              <p className="text-text-secondary text-base sm:text-lg mb-6">
+                We turned 3,000+ documents into a searchable knowledge base. Now protocol lookups take under 30 seconds. New hires get answers from day one instead of waiting to ask the right person. The charge nurse who knows everything can finally take vacation without the phone blowing up.
+              </p>
+              <div className="flex flex-wrap gap-4 sm:gap-6 pt-4 border-t border-black/10">
+                <div>
+                  <p className="text-2xl sm:text-3xl font-bold text-teal-500">30 sec</p>
+                  <p className="text-text-muted text-sm">Protocol lookups (was 15 min)</p>
+                </div>
+                <div>
+                  <p className="text-2xl sm:text-3xl font-bold text-teal-500">3,000+</p>
+                  <p className="text-text-muted text-sm">Documents searchable</p>
+                </div>
+                <div>
+                  <p className="text-2xl sm:text-3xl font-bold text-teal-500">Day 1</p>
+                  <p className="text-text-muted text-sm">New hire productivity</p>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -731,10 +857,10 @@ export default function HealthcarePageClient() {
 
       {/* CTA */}
       <CTA
-        title="Ready to see what's possible?"
-        description="Schedule a consultation to discuss your specific challenges, or take our 5-minute AI readiness assessment to see where you stand."
-        primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "Take the Assessment", href: "/assessments/healthcare-ai-readiness" }}
+        title="Let's talk about your documents"
+        description="30 minutes. We'll look at what you're dealing with and show you what's possible. No pressure, no pitch deck."
+        primaryCta={{ label: "See What This Looks Like", href: "/contact" }}
+        secondaryCta={{ label: "5-Min Assessment → Get Your AI Roadmap", href: "/assessments/healthcare-ai-readiness" }}
         variant="gradient"
       />
     </>

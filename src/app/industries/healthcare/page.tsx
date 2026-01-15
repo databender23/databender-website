@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/databender-og.png",
+        url: "https://databender.co/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Databender Healthcare Data & AI Solutions",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Healthcare Data & AI Solutions | HIPAA-Compliant Analytics",
     description:
       "HIPAA-compliant AI solutions for healthcare organizations. On-premise document intelligence, clinical analytics, and EHR integration. Your data never leaves your building.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
   alternates: {
     canonical: "https://databender.co/industries/healthcare",

@@ -4,10 +4,28 @@ import path from "path";
 
 // Map of valid guide slugs to their PDF filenames
 const VALID_GUIDES: Record<string, string> = {
+  // Legal guides
   "associate-multiplier": "associate-multiplier.pdf",
   "last-vendor": "last-vendor.pdf",
   "partner-succession": "partner-succession.pdf",
   "win-more-pitches": "win-more-pitches.pdf",
+  // Healthcare guides
+  "hipaa-compliant-ai": "hipaa-compliant-ai.pdf",
+  "institutional-knowledge-healthcare": "institutional-knowledge-healthcare.pdf",
+  "document-intelligence-healthcare": "document-intelligence-healthcare.pdf",
+  // Manufacturing guides
+  "data-cleanup-manufacturing": "data-cleanup-manufacturing.pdf",
+  "lead-scoring-manufacturing": "lead-scoring-manufacturing.pdf",
+  "operational-visibility-playbook": "operational-visibility-playbook.pdf",
+  "manufacturing-ai-privacy": "manufacturing-ai-privacy.pdf",
+  // CRE Broker guides
+  "entity-resolution-cre": "entity-resolution-cre.pdf",
+  "data-room-review": "data-room-review.pdf",
+  "deal-prioritization": "deal-prioritization.pdf",
+  // CRE Property Manager guides
+  "portfolio-visibility-cre": "portfolio-visibility-cre.pdf",
+  "investor-reporting-cre": "investor-reporting-cre.pdf",
+  "lease-intelligence-cre": "lease-intelligence-cre.pdf",
 };
 
 export async function GET(

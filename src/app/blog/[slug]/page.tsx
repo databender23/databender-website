@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Post Not Found" };
   }
 
-  const ogImage = post.featuredImage || '/images/databender-og.png';
+  const ogImage = post.featuredImage || 'https://databender.co/opengraph-image';
 
   return {
     title: `${post.title} | Databender Blog`,

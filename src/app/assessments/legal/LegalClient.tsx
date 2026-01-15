@@ -134,8 +134,8 @@ export default function LegalClient() {
               Legal AI Readiness Assessment
             </h1>
             <p className="text-text-secondary">
-              Discover if your firm is ready to adopt AI while protecting
-              attorney-client privilege
+              See where your firm stands for custom AI that costs a fraction of
+              what it used to. Five minutes now, personalized roadmap after.
             </p>
           </motion.div>
 

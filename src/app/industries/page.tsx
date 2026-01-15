@@ -4,11 +4,40 @@ import IndustriesClient from "./IndustriesClient";
 export const metadata: Metadata = {
   title: "Industries We Serve | Healthcare, Legal, Manufacturing & More",
   description:
-    "DataBender brings proven data and AI solutions to healthcare, legal, real estate, and manufacturing. Cross-industry experience means tested approaches, not experiments.",
+    "Databender brings proven data and AI solutions to healthcare, legal, real estate, and manufacturing. Cross-industry experience means tested approaches, not experiments.",
+  keywords: [
+    "healthcare data consulting",
+    "legal AI solutions",
+    "manufacturing data analytics",
+    "commercial real estate AI",
+    "industry data solutions",
+    "HIPAA compliant analytics",
+    "regulated industry AI",
+  ],
   openGraph: {
     title: "Industries We Serve | Healthcare, Legal, Manufacturing & More",
     description:
-      "DataBender brings proven data and AI solutions to healthcare, legal, real estate, and manufacturing. Cross-industry experience means tested approaches, not experiments.",
+      "Databender brings proven data and AI solutions to healthcare, legal, real estate, and manufacturing. Cross-industry experience means tested approaches, not experiments.",
+    type: "website",
+    url: "https://databender.co/industries",
+    images: [
+      {
+        url: "https://databender.co/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Databender Industry Solutions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Industries We Serve | Healthcare, Legal, Manufacturing & More",
+    description:
+      "Databender brings proven data and AI solutions to healthcare, legal, real estate, and manufacturing.",
+    images: ["https://databender.co/opengraph-image"],
+  },
+  alternates: {
+    canonical: "https://databender.co/industries",
   },
 };
 

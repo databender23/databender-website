@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Case Study Not Found" };
   }
 
-  const ogImage = study.thumbnail || "/images/databender-og.png";
+  const ogImage = study.thumbnail || "https://databender.co/opengraph-image";
 
   return {
     title: `${study.title} | Databender Case Study`,

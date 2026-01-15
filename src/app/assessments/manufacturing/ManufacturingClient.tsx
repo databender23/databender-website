@@ -133,11 +133,10 @@ export default function ManufacturingClient() {
               ← Back to Manufacturing
             </Link>
             <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-              Scale-Up Data Readiness Assessment
+              Manufacturing Operations Assessment
             </h1>
             <p className="text-text-secondary">
-              Discover if your data infrastructure is ready to support your next
-              phase of growth
+              See where you're losing time to spreadsheets, phone calls, and firefighting
             </p>
           </motion.div>
 

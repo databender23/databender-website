@@ -140,9 +140,9 @@ The following sections of our website are available for AI crawling and indexing
 - `/resources/guides/document-intelligence-healthcare` - Document Intelligence for Healthcare: From Scattered PDFs to Instant Answers
 
 ### Manufacturing Industry Guides
-- `/resources/guides/data-cleanup-manufacturing` - The Data Cleanup Playbook: Fix Your Customer Data in Weeks, Not Months
+- `/resources/guides/operational-visibility-playbook` - The Operational Visibility Playbook: Stop Hunting for Answers Across Spreadsheets
 - `/resources/guides/lead-scoring-manufacturing` - Lead Scoring That Actually Works: What 3 Years of Sales Data Taught Us
-- `/resources/guides/operational-visibility` - Real-Time Operational Visibility: Know What's Happening Without Making Phone Calls
+- `/resources/guides/manufacturing-ai-privacy` - AI Without the Cloud Risk: Keep Your Competitive Data Where It Belongs
 
 ### Commercial Real Estate Guides
 - `/resources/guides/entity-resolution-cre` - Untangling Ownership: How to Find the Real Decision-Maker Behind LLCs

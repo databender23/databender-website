@@ -190,7 +190,7 @@ describe('Legal AI Readiness Assessment', () => {
       })
 
       const result = calculateLegalScores(answers)
-      expect(result.recommendations.some(r => r.includes('document management') || r.includes('knowledge systems'))).toBe(true)
+      expect(result.recommendations.some(r => r.includes('documents') || r.includes('organized'))).toBe(true)
     })
 
     it('should include privacy recommendation when that category is low', () => {

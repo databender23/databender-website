@@ -64,9 +64,9 @@ export default function ManufacturingPageClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
-              Your customer data is a mess. Duplicates, bad addresses, records that point nowhere.
-              We cleaned 1.69 million records at 125x less cost than doing it manually.
-              Same AI can work for you.
+              Growing manufacturers hit a wall. Orders slip. Production scrambles.
+              Everyone's hunting for answers across spreadsheets and phone calls.
+              We build the visibility that gets you out of firefighting mode.
             </motion.p>
 
             <motion.div
@@ -139,8 +139,8 @@ export default function ManufacturingPageClient() {
         </div>
       </section>
 
-      {/* Data Cleanup Section */}
-      <section id="data-cleanup" className="section scroll-mt-24">
+      {/* Operational Visibility Section */}
+      <section id="operational-visibility" className="section scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -151,7 +151,7 @@ export default function ManufacturingPageClient() {
                   viewport={{ once: true }}
                   className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
                 >
-                  Data Cleanup
+                  Operational Visibility
                 </motion.p>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
@@ -160,7 +160,7 @@ export default function ManufacturingPageClient() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  Fix Your Customer Data in Hours, Not Months
+                  See Everything in One Place
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -170,14 +170,12 @@ export default function ManufacturingPageClient() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Your customer database is a mess. The same person listed five different ways.
-                    Contacts at companies they left years ago. Duplicates everywhere.
-                    Your team wastes time chasing dead ends and missing the real opportunities.
+                    Right now, getting a straight answer means calling three people and checking four systems.
+                    Order status lives in one place. Shipping in another. Quality issues in someone's inbox.
                   </p>
                   <p>
-                    We cleaned <strong className="text-text-primary">1.69 million records</strong> for another client—same
-                    person under different names, same ID on different people.
-                    AI sorted it out in hours at <strong className="text-text-primary">125x less cost</strong> than doing it by hand.
+                    We connect your systems so you see the full picture: orders, production, shipments, quality.
+                    All in one place. No more hunting. No more phone tag.
                   </p>
                 </motion.div>
                 <motion.div
@@ -188,7 +186,7 @@ export default function ManufacturingPageClient() {
                   className="mt-6"
                 >
                   <Button variant="secondary" href="/case-studies/army-of-ai-agents" className="min-h-[48px]">
-                    See the Case Study
+                    See How We Did It
                   </Button>
                 </motion.div>
               </div>
@@ -201,25 +199,25 @@ export default function ManufacturingPageClient() {
                 className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-8 rounded-2xl border border-teal-500/20"
               >
                 <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  What we fix
+                  What you see
                 </h3>
                 <ul className="space-y-3 sm:space-y-4">
                   {[
                     {
-                      title: "Duplicate contacts merged",
-                      description: "Same person, five different records? We match and merge without losing history."
+                      title: "Order status in real time",
+                      description: "Not yesterday's export. What's actually happening right now."
                     },
                     {
-                      title: "Stale data cleaned",
-                      description: "Contacts at wrong companies, old phone numbers, bounced emails—all identified and flagged."
+                      title: "At-risk orders flagged early",
+                      description: "See which orders are slipping before they're late. Fix problems before they become fires."
                     },
                     {
-                      title: "Company hierarchies untangled",
-                      description: "Parent companies, subsidiaries, acquisitions—see who actually owns what."
+                      title: "Customer history without switching systems",
+                      description: "Orders, shipments, quality issues, payment history. One place."
                     },
                     {
-                      title: "Ongoing data hygiene",
-                      description: "Not just a one-time fix. We set up processes to keep your data clean going forward."
+                      title: "Quality tied to specific orders",
+                      description: "When something goes wrong, trace it back immediately. No digging through files."
                     },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-2 sm:gap-3">
@@ -269,19 +267,19 @@ export default function ManufacturingPageClient() {
                     {[
                       {
                         title: "Urgency beats everything",
-                        description: "Leads with near-term deadlines close at 3x the rate. Timing matters more than size."
+                        description: "Leads with near-term deadlines close at 3x the rate. Timing matters more than deal size."
                       },
                       {
                         title: "Ability to pay > desire to buy",
                         description: "Funded projects close. Wish lists don't. We score based on purchase readiness."
                       },
                       {
-                        title: "Property value was backwards",
-                        description: "High property value was actually a negative predictor—the opposite of what everyone assumed."
+                        title: "Some signals were backwards",
+                        description: "Property value was actually a negative predictor. The opposite of what everyone assumed."
                       },
                       {
                         title: "Sales trusts these scores",
-                        description: "Because they match what sales actually sees in the field. No more ignored CRM recommendations."
+                        description: "Because they match what reps see in the field. No more ignored CRM recommendations."
                       },
                     ].map((item, index) => (
                       <li key={index} className="flex items-start gap-3">
@@ -324,7 +322,7 @@ export default function ManufacturingPageClient() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  Lead Scores That Match Reality
+                  Scores Your Sales Team Will Actually Use
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -334,17 +332,14 @@ export default function ManufacturingPageClient() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Your sales team ignores the CRM lead scores because they don&apos;t match
-                    who actually buys. The scores are based on guesses from a decade ago,
-                    not what your data actually shows.
+                    Your sales team ignores the CRM lead scores. They don&apos;t match
+                    who actually buys. The scores are based on guesses from years ago,
+                    not what your data shows.
                   </p>
                   <p>
-                    We trained on 3 years of a client&apos;s actual sales data. Found that property
-                    value was a <em>negative</em> predictor—the opposite of what everyone assumed.
+                    We analyzed 3 years of a client&apos;s actual sales data. Property
+                    value was a <em>negative</em> predictor. Urgency and ability to pay mattered most.
                     Result: <strong className="text-text-primary">31% more wins</strong> when reps focused on the right leads.
-                  </p>
-                  <p className="font-medium text-text-primary">
-                    Real data, real results. Scores your team will actually use.
                   </p>
                 </motion.div>
                 <motion.div
@@ -364,8 +359,8 @@ export default function ManufacturingPageClient() {
         </div>
       </section>
 
-      {/* Document Intelligence Section */}
-      <section id="document-intelligence" className="section scroll-mt-24">
+      {/* Instant Answers Section */}
+      <section id="instant-answers" className="section scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -376,7 +371,7 @@ export default function ManufacturingPageClient() {
                   viewport={{ once: true }}
                   className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
                 >
-                  Document Intelligence
+                  Instant Answers
                 </motion.p>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
@@ -385,7 +380,7 @@ export default function ManufacturingPageClient() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  Find Any Product Spec in Seconds
+                  Find Any Spec, Procedure, or Record in Seconds
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -395,14 +390,14 @@ export default function ManufacturingPageClient() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Someone asks about a product spec and three people spend an hour hunting
-                    through old folders and emails. New hires take months to learn where
-                    everything is. Knowledge walks out the door when experienced people leave.
+                    Someone asks about a product spec. An hour later, three people have dug
+                    through folders, emails, and old SharePoint sites. Maybe they found it.
+                    Maybe they&apos;re still looking.
                   </p>
                   <p>
-                    We turned thousands of product specs from 70+ suppliers into a searchable
-                    system. Now anyone can ask &quot;What&apos;s the torque rating on the X200?&quot;
-                    and get an instant answer with the source document.
+                    We turned thousands of documents from 70+ suppliers into a system anyone can search.
+                    Ask &quot;What&apos;s the torque rating on the X200?&quot; and get the answer with the source.
+                    New hires stop asking around and start finding answers themselves.
                   </p>
                 </motion.div>
                 <motion.div
@@ -431,20 +426,20 @@ export default function ManufacturingPageClient() {
                 <ul className="space-y-3 sm:space-y-4">
                   {[
                     {
-                      title: "Product Specifications",
-                      description: "\"What's the weight capacity?\" Instant answers with links to the source document."
+                      title: "Product specs",
+                      description: "\"What's the weight capacity?\" Instant answer with the source document."
                     },
                     {
-                      title: "Supplier Documentation",
-                      description: "Specs from 70+ suppliers, all searchable in one place. No more hunting through folders."
+                      title: "Supplier documentation",
+                      description: "70+ suppliers, all searchable in one place. No more hunting through folders."
                     },
                     {
-                      title: "Procedures & Standards",
-                      description: "\"What's our process for X?\" New hires find answers themselves from day one."
+                      title: "Procedures and standards",
+                      description: "\"What's our process for X?\" New hires find answers from day one."
                     },
                     {
-                      title: "Quality Records",
-                      description: "Past issues, resolutions, corrective actions—all searchable when you need them."
+                      title: "Quality records",
+                      description: "Past issues, resolutions, corrective actions. All searchable when you need them."
                     },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -498,15 +493,15 @@ export default function ManufacturingPageClient() {
                       },
                       {
                         title: "No new vendor agreements",
-                        description: "No contracts with OpenAI or any AI company. Your data, your equipment, your control."
+                        description: "No contracts with OpenAI. Your data, your equipment, your control."
                       },
                       {
                         title: "Complete audit trails",
-                        description: "Every query is logged. You can see exactly who searched for what."
+                        description: "Every query logged. See exactly who searched for what."
                       },
                       {
                         title: "You control everything",
-                        description: "It's your system. Modify it, restrict it, or shut it down whenever you want."
+                        description: "Your system. Modify it, restrict it, shut it down whenever you want."
                       },
                     ].map((item, index) => (
                       <li key={index} className="flex items-start gap-2 sm:gap-3">
@@ -559,17 +554,12 @@ export default function ManufacturingPageClient() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Your pricing, your costs, your customer lists—that&apos;s competitive
-                    advantage. Most AI tools want to send it all to their cloud.
-                    That&apos;s a non-starter.
+                    Your costs, your margins, your customer relationships. That&apos;s competitive
+                    advantage. Most AI tools want to send it to their cloud. That&apos;s a non-starter.
                   </p>
                   <p>
-                    We do it differently. Everything runs on your own computers.
-                    Your sensitive data never goes anywhere. You get full AI capabilities
-                    without the risk of exposure.
-                  </p>
-                  <p className="font-medium text-text-primary">
-                    Built for manufacturers who take competitive advantage seriously.
+                    We do it differently. Everything runs on your equipment.
+                    Your data never leaves. Full AI capabilities without IT and legal losing sleep.
                   </p>
                 </motion.div>
               </div>
@@ -752,8 +742,8 @@ export default function ManufacturingPageClient() {
 
       {/* CTA */}
       <CTA
-        title="Ready to see what's possible?"
-        description="Schedule a consultation to discuss your specific challenges, or take our 5-minute readiness assessment to see where you stand."
+        title="Ready to stop firefighting?"
+        description="Schedule a call to talk through your specific situation, or take our 5-minute assessment to see where you stand."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "Take the Assessment", href: "/assessments/manufacturing" }}
         variant="gradient"

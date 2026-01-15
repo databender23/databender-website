@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/databender-og.png",
+        url: "https://databender.co/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Healthcare AI Readiness Assessment",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "Healthcare AI Readiness Assessment | Document & Knowledge Management",
     description:
       "Free 5-minute assessment for healthcare organizations. Evaluate your document management, knowledge retention, and AI readiness to build a strategic roadmap.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
   alternates: {
     canonical: "https://databender.co/assessments/healthcare-ai-readiness",

@@ -339,10 +339,10 @@ export default function HealthcareAIReadinessResultsClient() {
 
       {/* CTA */}
       <CTA
-        title="Ready to accelerate your AI journey?"
-        description="Schedule a consultation to discuss your assessment results and create a strategic roadmap for AI adoption."
-        primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "View Services", href: "/services" }}
+        title="Ready to talk specifics?"
+        description="30 minutes. We'll dig into your results and show you what's possible for your organization. No pitch deck."
+        primaryCta={{ label: "Discuss Your Results", href: "/contact" }}
+        secondaryCta={{ label: "See Healthcare Solutions", href: "/industries/healthcare" }}
         variant="gradient"
       />
     </div>

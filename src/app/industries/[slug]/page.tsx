@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "website",
       images: [
         {
-          url: "/images/databender-og.png",
+          url: "https://databender.co/opengraph-image",
           width: 1200,
           height: 630,
           alt: `${industry.title} Data & AI Solutions`,
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: `${industry.title} Data & AI Solutions`,
       description: industry.description,
-      images: ["/images/databender-og.png"],
+      images: ["https://databender.co/opengraph-image"],
     },
     alternates: {
       canonical: `https://databender.co/industries/${slug}`,

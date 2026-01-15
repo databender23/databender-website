@@ -134,8 +134,7 @@ export default function HealthcareAIReadinessClient() {
               Healthcare AI Readiness Assessment
             </h1>
             <p className="text-text-secondary">
-              Evaluate your document management, knowledge retention, and AI
-              readiness
+              5 minutes. Find out where you stand and what to fix first.
             </p>
           </motion.div>
 

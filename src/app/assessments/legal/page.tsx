@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/databender-og.png",
+        url: "https://databender.co/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Legal AI Readiness Assessment",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "Legal AI Readiness Assessment | Is Your Firm Ready for AI?",
     description:
       "Free 5-minute assessment for law firms. Discover if your data infrastructure and governance are ready to adopt AI while protecting attorney-client privilege.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
   alternates: {
     canonical: "https://databender.co/assessments/legal",

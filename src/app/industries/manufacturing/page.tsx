@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     title: "Manufacturing Data & AI Solutions | Private AI for Growth",
     description: "On-premise AI for manufacturers. Clean messy customer data, score leads based on what actually predicts sales, and find any product spec in seconds.",
     type: "website",
-    images: [{ url: "/images/databender-og.png", width: 1200, height: 630, alt: "Databender Manufacturing Data & AI Solutions" }],
+    images: [{ url: "https://databender.co/opengraph-image", width: 1200, height: 630, alt: "Databender Manufacturing Data & AI Solutions" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Manufacturing Data & AI Solutions | Private AI for Growth",
     description: "On-premise AI for manufacturers. Clean messy customer data, score leads based on what actually predicts sales, and find any product spec in seconds.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
   alternates: { canonical: "https://databender.co/industries/manufacturing" },
 };

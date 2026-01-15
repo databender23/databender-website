@@ -461,9 +461,9 @@ export default function HealthcareBenchmarkClient() {
       {/* CTA */}
       <CTA
         title="Need a full pricing analysis?"
-        description="Our Price Transparency solutions help healthcare organizations optimize pricing, ensure compliance, and improve competitive positioning."
-        primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "Learn More", href: "/industries/healthcare" }}
+        description="See exactly where you stand against competitors. We'll show you the gaps and what to do about them."
+        primaryCta={{ label: "Let's Talk Pricing", href: "/contact" }}
+        secondaryCta={{ label: "See Healthcare Solutions", href: "/industries/healthcare" }}
         variant="gradient"
       />
     </div>

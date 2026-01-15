@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Contact DataBender | Schedule a Free Consultation",
     description:
       "Schedule a free 30-minute consultation to discuss your data and AI challenges. Get expert guidance with no obligations.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
 };
 

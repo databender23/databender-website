@@ -33,35 +33,35 @@ export interface Assessment {
 // Legal - Audit-Based Outreach (Not Self-Service)
 export const legalAudits: Audit[] = [
   {
-    slug: "ai-agent-opportunity",
-    title: "AI Agent Opportunity Audit",
-    description: "Identify workflows where autonomous AI agents could handle work at a fraction of the cost—document review, due diligence, research, and more.",
-    deliverable: "Custom analysis of 3-5 high-impact workflows with cost comparison (manual vs. AI agents) and implementation roadmap.",
+    slug: "ai-cost-analysis",
+    title: "Custom AI Cost Analysis",
+    description: "See exactly what custom AI would cost for your firm. We analyze your workflows and show you the math: what you're spending now vs. what's possible at $30-50K instead of $150K+.",
+    deliverable: "Detailed cost comparison for 3-5 high-value workflows, with specific pricing for document review, research, and due diligence automation.",
     targetAudience: "Managing Partners, COOs at firms with 20-75 attorneys",
     icon: "clock",
   },
   {
-    slug: "data-driven-bd",
-    title: "Data-Driven BD Assessment",
-    description: "Discover what actually predicts your wins vs. what you assume does. We analyze your pitch and client data to find patterns you're missing.",
-    deliverable: "Win/loss analysis revealing true success predictors, with data-backed recommendations to improve conversion rates.",
-    targetAudience: "Business Development Directors, Practice Group Leaders",
+    slug: "knowledge-preservation",
+    title: "Knowledge Preservation Audit",
+    description: "Your senior partners carry decades of expertise. When they retire, it walks out the door. We map what knowledge exists, where it lives, and how to make it searchable before it's gone.",
+    deliverable: "Knowledge landscape assessment with a practical plan to capture institutional expertise and make it accessible to every associate.",
+    targetAudience: "Managing Partners, Executive Committees",
     icon: "trophy",
   },
   {
     slug: "document-intelligence-readiness",
     title: "Document Intelligence Readiness",
-    description: "Assess the knowledge locked in your contracts, precedents, and client files—and map the path to making it all AI-searchable and answerable.",
-    deliverable: "Document landscape assessment with a roadmap to AI-powered knowledge systems your team can query in plain English.",
+    description: "Every brief, memo, and contract your firm has produced is sitting in folders. We assess what it would take to make it all searchable in plain English, and what that would cost.",
+    deliverable: "Document inventory with implementation roadmap and pricing. Know exactly what's involved before you commit.",
     targetAudience: "Managing Partners, Knowledge Management leads",
     icon: "brain",
   },
   {
-    slug: "ai-infrastructure",
-    title: "AI-Ready Infrastructure Audit",
-    description: "Evaluate whether your data, systems, and security posture are ready for privacy-compliant AI deployment—local models that never touch external clouds.",
-    deliverable: "Infrastructure readiness report with specific gaps, compliance considerations, and a phased AI adoption plan.",
-    targetAudience: "CIOs, Directors of IT, Managing Partners concerned about AI privacy",
+    slug: "ownership-assessment",
+    title: "Build vs. Rent Assessment",
+    description: "You're paying per seat for software you don't own. We analyze your current tech spend and show you where custom AI you own outright would cost less over time.",
+    deliverable: "Total cost of ownership analysis comparing your current vendor fees to one-time custom builds. See where ownership makes sense.",
+    targetAudience: "CIOs, Directors of IT, COOs",
     icon: "layers",
   },
 ];
@@ -71,57 +71,85 @@ export const legalGuides: Guide[] = [
     slug: "associate-multiplier",
     title: "The Associate Multiplier",
     subtitle: "How Top Firms Get 3x Output Without Adding Headcount",
-    description: "Learn how leading firms are using AI to multiply associate productivity without sacrificing quality or client relationships.",
+    description: "Your associates spend hours researching things the firm already figured out. This guide shows how to give them instant access to decades of work product.",
     topics: [
-      "AI-assisted research and drafting workflows",
-      "Knowledge management that actually works",
-      "Measuring and improving associate productivity",
-      "Change management for traditional firms",
+      "Making every brief and memo searchable in seconds",
+      "Research that takes minutes instead of hours",
+      "What this costs now vs. two years ago",
+      "Getting your team to actually use it",
     ],
     targetAudience: "Managing Partners, Practice Group Leaders",
     icon: "trending-up",
   },
   {
-    slug: "win-more-pitches",
-    title: "Win More Pitches",
-    subtitle: "Data-Driven Strategies for Legal Business Development",
-    description: "Stop leaving money on the table. This guide reveals what data-savvy firms know about winning new business.",
-    topics: [
-      "Building competitive intelligence systems",
-      "Pitch personalization at scale",
-      "Measuring BD effectiveness",
-      "CRM strategies for relationship-driven sales",
-    ],
-    targetAudience: "Business Development Directors, Marketing Partners",
-    icon: "target",
-  },
-  {
     slug: "partner-succession",
     title: "The Partner Succession Problem",
     subtitle: "Preserving Institutional Knowledge Before It's Too Late",
-    description: "Every retiring partner takes decades of client relationships and expertise with them. Here's how to stop the bleeding.",
+    description: "Every retiring partner takes decades of expertise with them. This guide shows how to capture what they know and make it searchable for every associate.",
     topics: [
-      "Knowledge capture strategies that work",
-      "Client transition best practices",
-      "Building searchable precedent databases",
-      "Training the next generation",
+      "What knowledge capture actually looks like",
+      "Making expertise searchable in plain English",
+      "What this costs (less than you think)",
+      "Getting partners to participate",
     ],
     targetAudience: "Managing Partners, Executive Committees",
     icon: "users",
   },
   {
+    slug: "win-more-pitches",
+    title: "Win More Pitches",
+    subtitle: "A Law Firm's Guide to Experience Intelligence",
+    description: "You've done the work. Can you find it when it matters? This guide shows how AI transforms pitch preparation from hours of email archaeology to minutes of comprehensive retrieval.",
+    topics: [
+      "Why experience wins pitches",
+      "The retrieval problem (email blasts and memory)",
+      "How AI changes pitch preparation",
+      "From 6 hours to 15 minutes",
+    ],
+    targetAudience: "Managing Partners, Business Development Directors",
+    icon: "trophy",
+  },
+  {
     slug: "last-vendor",
     title: "The Last Vendor You Need",
-    subtitle: "How to Evaluate (and Escape) Legal Tech Fragmentation",
-    description: "Your firm probably has 15+ point solutions that don't talk to each other. Learn how to evaluate, consolidate, and integrate.",
+    subtitle: "Simplifying Law Firm Knowledge Technology",
+    description: "Stop managing five vendors who point fingers at each other. This guide shows how to consolidate your knowledge technology stack with a single accountable partner.",
     topics: [
-      "Auditing your current tech stack",
-      "Build vs. buy vs. integrate decisions",
-      "Vendor negotiation strategies",
-      "Integration architecture for law firms",
+      "The vendor fragmentation problem",
+      "What integration actually requires",
+      "The full-stack partner model",
+      "Build vs. buy vs. partner",
     ],
-    targetAudience: "CIOs, Directors of IT, COOs",
+    targetAudience: "Managing Partners, CIOs, COOs",
+    icon: "layers",
+  },
+  {
+    slug: "own-your-ai",
+    title: "Own Your AI",
+    subtitle: "Why Per-Seat Licensing Is Eating Your Margins",
+    description: "You're paying per seat for software you don't own. This guide shows where custom AI you own outright costs less over time, with no vendor lock-in.",
+    topics: [
+      "The real cost of per-seat licensing over 5 years",
+      "Where custom builds make financial sense",
+      "What ownership actually means (you keep the code)",
+      "Getting ethics committee approval",
+    ],
+    targetAudience: "Managing Partners, CIOs, COOs",
     icon: "puzzle",
+  },
+  {
+    slug: "economics-of-legal-ai",
+    title: "The Economics Changed",
+    subtitle: "What Used to Cost $200K Now Costs $30-50K",
+    description: "Custom legal technology was out of reach for mid-sized firms. Not anymore. This guide breaks down exactly what's possible and what it costs.",
+    topics: [
+      "Why prices dropped 80% in two years",
+      "Real project costs from real firms",
+      "Build timelines: weeks, not months",
+      "The firms moving now vs. waiting",
+    ],
+    targetAudience: "Managing Partners, COOs, Executive Committees",
+    icon: "target",
   },
 ];
 
@@ -131,12 +159,12 @@ export const healthcareGuides: Guide[] = [
     slug: "hipaa-compliant-ai",
     title: "HIPAA-Compliant AI",
     subtitle: "How to Deploy AI That Never Leaves Your Building",
-    description: "Learn how to evaluate and deploy AI tools that meet HIPAA requirements, run on your own infrastructure, and keep patient data where it belongs.",
+    description: "Most AI tools want your patient data in their cloud. That's not an option. This guide shows what on-premise AI actually looks like, what it costs, and how to get your compliance team to say yes.",
     topics: [
-      "On-premise AI deployment options and requirements",
-      "Evaluating vendors for true data privacy",
-      "Getting compliance and legal approval",
-      "Building the business case for private AI",
+      "What on-premise AI costs (spoiler: less than you think)",
+      "Questions to ask vendors about where your data actually goes",
+      "Getting compliance sign-off without a six-month review",
+      "The business case that got one health system approved in weeks",
     ],
     targetAudience: "CIOs, Compliance Officers, IT Directors",
     icon: "shield",
@@ -158,13 +186,13 @@ export const healthcareGuides: Guide[] = [
   {
     slug: "document-intelligence-healthcare",
     title: "Document Intelligence for Healthcare",
-    subtitle: "From Scattered PDFs to Instant Answers",
-    description: "Stop hunting through folders. Learn how AI-powered document search lets your team ask questions in plain English and get instant answers from your own files.",
+    subtitle: "From 15 Minutes to 30 Seconds",
+    description: "Your staff spends hours hunting for protocols that should take seconds to find. This guide shows how to turn scattered documents into a searchable knowledge base your team can actually use.",
     topics: [
-      "Building searchable document systems",
-      "Protocol and policy lookup in seconds",
-      "Connecting to your existing EHR systems",
-      "Training staff on AI-assisted search",
+      "Protocol lookups in 30 seconds instead of 15 minutes",
+      "Plain English questions, instant answers with sources",
+      "Works with Epic, Cerner, or whatever you have",
+      "Getting staff to actually use it (the adoption playbook)",
     ],
     targetAudience: "Operations Directors, Clinical Informatics",
     icon: "document-search",
@@ -174,18 +202,18 @@ export const healthcareGuides: Guide[] = [
 // Manufacturing Guides
 export const manufacturingGuides: Guide[] = [
   {
-    slug: "data-cleanup-manufacturing",
-    title: "The Data Cleanup Playbook",
-    subtitle: "Fix Your Customer Data in Weeks, Not Months",
-    description: "Your customer database is a mess. Same person listed five ways, contacts at the wrong companies, duplicates everywhere. Here's how to fix it fast.",
+    slug: "operational-visibility-playbook",
+    title: "The Operational Visibility Playbook",
+    subtitle: "Stop Hunting for Answers Across Spreadsheets",
+    description: "Sales doesn't know what shipped. Production doesn't know what's promised. Here's how to get everyone seeing the same picture without replacing your systems.",
     topics: [
-      "Identifying and merging duplicate records",
-      "AI-powered entity matching at scale",
-      "CRM cleanup without losing history",
-      "Preventing data decay going forward",
+      "Connecting systems without replacing them",
+      "Building dashboards people actually check",
+      "Catching at-risk orders before they're late",
+      "Breaking down departmental silos",
     ],
-    targetAudience: "COOs, IT Directors, Sales Operations",
-    icon: "database",
+    targetAudience: "COOs, Operations Directors, Plant Managers",
+    icon: "eye",
   },
   {
     slug: "lead-scoring-manufacturing",
@@ -202,23 +230,23 @@ export const manufacturingGuides: Guide[] = [
     icon: "chart-bar",
   },
   {
-    slug: "operational-visibility",
-    title: "Real-Time Operational Visibility",
-    subtitle: "Know What's Happening Without Making Phone Calls",
-    description: "Sales doesn't know what shipped. Production doesn't know what's promised. Stop playing telephone and start seeing everything in one place.",
+    slug: "manufacturing-ai-privacy",
+    title: "AI Without the Cloud Risk",
+    subtitle: "Keep Your Competitive Data Where It Belongs",
+    description: "Your pricing, costs, and customer lists are competitive advantage. Here's how to get AI capabilities without sending sensitive data to someone else's servers.",
     topics: [
-      "Connecting systems without replacing them",
-      "Dashboards that people actually check",
-      "Alerts that catch problems early",
-      "Breaking down departmental silos",
+      "On-premise AI deployment options",
+      "What stays private vs. what's safe to share",
+      "Getting IT and legal to say yes",
+      "The real cost of private AI (less than you think)",
     ],
-    targetAudience: "COOs, Operations Directors",
-    icon: "eye",
+    targetAudience: "COOs, IT Directors, Operations Leaders",
+    icon: "shield",
   },
 ];
 
-// Commercial Real Estate Guides
-export const creGuides: Guide[] = [
+// Commercial Real Estate Guides - Brokers & Investors
+export const creBrokerGuides: Guide[] = [
   {
     slug: "entity-resolution-cre",
     title: "Untangling Ownership",
@@ -263,12 +291,61 @@ export const creGuides: Guide[] = [
   },
 ];
 
+// Commercial Real Estate Guides - Property Managers
+export const crePropertyManagerGuides: Guide[] = [
+  {
+    slug: "portfolio-visibility-cre",
+    title: "One View, All Properties",
+    subtitle: "How to See Your Whole Portfolio Without the Spreadsheet Gymnastics",
+    description: "Yardi here, AppFolio there, MRI somewhere else. Getting a unified view takes days. This guide shows how to connect your systems without replacing them.",
+    topics: [
+      "Connecting PM systems without migration",
+      "Building dashboards that update themselves",
+      "Occupancy, NOI, and collections in one place",
+      "What this costs (less than you think)",
+    ],
+    targetAudience: "Property Managers, Directors of Operations",
+    icon: "eye",
+  },
+  {
+    slug: "investor-reporting-cre",
+    title: "Investor Reports in a Day",
+    subtitle: "Stop the Quarterly Scramble",
+    description: "Quarterly reporting eats two weeks. Pull data from each property. Consolidate in Excel. Format for presentation. Fix the errors. This guide shows how to cut that to a day.",
+    topics: [
+      "Automating the data pull",
+      "Report templates that populate themselves",
+      "Catching errors before investors do",
+      "What institutional-grade reporting looks like",
+    ],
+    targetAudience: "Asset Managers, Portfolio Managers, CFOs",
+    icon: "file-text",
+  },
+  {
+    slug: "lease-intelligence-cre",
+    title: "Catch Renewals Before They Slip",
+    subtitle: "6 Months of Visibility Instead of 30 Days",
+    description: "Most property managers find out about lease expirations too late to negotiate properly. This guide shows how to build a renewal pipeline that surfaces opportunities months ahead.",
+    topics: [
+      "Building a 6-9 month renewal pipeline",
+      "Identifying below-market leases",
+      "Prioritizing by revenue impact",
+      "Negotiation timing that actually works",
+    ],
+    targetAudience: "Property Managers, Leasing Directors",
+    icon: "calendar",
+  },
+];
+
+// Combined for backward compatibility
+export const creGuides: Guide[] = [...creBrokerGuides, ...crePropertyManagerGuides];
+
 // Manufacturing - Self-Service Assessment
 export const manufacturingAssessments: Assessment[] = [
   {
     slug: "scale-up-data-readiness",
-    title: "Scale-Up Data Readiness Assessment",
-    description: "Discover if your data infrastructure is ready to support your next phase of growth. Get a personalized roadmap in 5 minutes.",
+    title: "Manufacturing Operations Assessment",
+    description: "See where you're losing time to spreadsheets, phone calls, and firefighting. Get a personalized roadmap in 5 minutes.",
     questionCount: 12,
     timeEstimate: "5 minutes",
     targetAudience: "CEOs, COOs at $10M-$100M manufacturers",
@@ -289,6 +366,28 @@ export const healthcareAssessments: Assessment[] = [
   },
 ];
 
+// Commercial Real Estate Assessments
+export const creAssessments: Assessment[] = [
+  {
+    slug: "deal-intelligence",
+    title: "Deal Intelligence Assessment",
+    description: "How fast can you find owners, review data rooms, and prioritize your pipeline? See where you stand and what faster deal flow could look like.",
+    questionCount: 10,
+    timeEstimate: "4 minutes",
+    targetAudience: "Acquisition Directors, Deal Teams, Investment Sales Brokers",
+    icon: "target",
+  },
+  {
+    slug: "portfolio-analytics",
+    title: "Portfolio Analytics Assessment",
+    description: "See where your portfolio analytics stand. How long does reporting take? Can you see all properties in one place? Get a personalized roadmap.",
+    questionCount: 8,
+    timeEstimate: "4 minutes",
+    targetAudience: "Property Managers, Asset Managers, Portfolio Managers",
+    icon: "chart-bar",
+  },
+];
+
 // Industry-specific content for enhanced pages
 export const industryLeadMagnets = {
   legal: {
@@ -301,8 +400,8 @@ export const industryLeadMagnets = {
   manufacturing: {
     assessments: manufacturingAssessments,
     guides: manufacturingGuides,
-    headline: "Is Your Data Ready for Scale?",
-    subheadline: "Take our 5-minute assessment to find out where you stand and what to prioritize.",
+    headline: "How Much Time Are You Losing to Firefighting?",
+    subheadline: "5-minute assessment. Find out where you're bleeding time and what to fix first.",
     ctaText: "Start Assessment",
   },
   healthcare: {
@@ -313,10 +412,13 @@ export const industryLeadMagnets = {
     ctaText: "Download Free Guide",
   },
   "commercial-real-estate": {
+    assessments: creAssessments,
     guides: creGuides,
+    brokerGuides: creBrokerGuides,
+    propertyManagerGuides: crePropertyManagerGuides,
     headline: "Resources for CRE Professionals",
-    subheadline: "Guides to finding owners, speeding due diligence, and prioritizing deals.",
-    ctaText: "Download Free Guide",
+    subheadline: "Guides and assessments for brokers chasing deals and property managers running portfolios.",
+    ctaText: "Get Started",
   },
 };
 
@@ -345,5 +447,5 @@ export function getGuidesByIndustry(industry: string): Guide[] {
 }
 
 export function getAssessmentBySlug(slug: string): Assessment | undefined {
-  return [...manufacturingAssessments, ...healthcareAssessments].find((a) => a.slug === slug);
+  return [...manufacturingAssessments, ...healthcareAssessments, ...creAssessments].find((a) => a.slug === slug);
 }

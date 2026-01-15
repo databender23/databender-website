@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     url: "https://databender.co/industries/legal",
     images: [
       {
-        url: "/images/databender-og.png",
+        url: "https://databender.co/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Databender Legal Industry Solutions",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "Data & AI Solutions for Law Firms | Legal Industry",
     description:
       "Privacy-first AI solutions for law firms. Document intelligence, due diligence automation, and legal research tools that protect attorney-client privilege.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
   alternates: {
     canonical: "https://databender.co/industries/legal",

@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/databender-og.png",
+        url: "https://databender.co/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Databender Data & AI Services",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Data & AI Services | Strategy, Analytics & Automation | Databender",
     description:
       "Transform your data into business results with Databender's three core services: Data & AI Strategy, Analytics & BI, and AI Services for intelligent automation.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
   alternates: {
     canonical: "https://databender.co/services",

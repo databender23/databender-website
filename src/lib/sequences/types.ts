@@ -121,9 +121,10 @@ export const GUIDE_SEQUENCE_MAP: Record<string, SequenceType> = {
   "institutional-knowledge-healthcare": "guide-general",
   "document-intelligence-healthcare": "guide-general",
   // Manufacturing guides (use guide-general for now, can create guide-manufacturing later)
-  "data-cleanup-manufacturing": "guide-general",
+  "operational-visibility-playbook": "guide-general",
   "lead-scoring-manufacturing": "guide-general",
-  "operational-visibility": "guide-general",
+  "manufacturing-ai-privacy": "guide-general",
+  "data-cleanup-manufacturing": "guide-general", // Legacy, kept for backwards compatibility
   // CRE guides (use guide-general for now, can create guide-cre later)
   "entity-resolution-cre": "guide-general",
   "data-room-review": "guide-general",

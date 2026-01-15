@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Blog | Data, AI & Business Intelligence Insights",
     description:
       "Practical insights on data management, AI implementation, and business intelligence from the DataBender team. No hype, just actionable guidance.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
 };
 

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/databender-og.png",
+        url: "https://databender.co/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Databender CRE Data & AI Solutions",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "Commercial Real Estate Data & AI Solutions | Deal Intelligence",
     description:
       "AI solutions for CRE professionals. Untangle complex ownership structures, speed up due diligence, and identify off-market opportunities.",
-    images: ["/images/databender-og.png"],
+    images: ["https://databender.co/opengraph-image"],
   },
   alternates: {
     canonical: "https://databender.co/industries/commercial-real-estate",

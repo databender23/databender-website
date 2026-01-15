@@ -57,6 +57,12 @@ const nextConfig: NextConfig = {
         destination: "/services/ai-services",
         permanent: true,
       },
+      // Guide slug updates
+      {
+        source: "/resources/guides/operational-visibility",
+        destination: "/resources/guides/operational-visibility-playbook",
+        permanent: true,
+      },
     ];
   },
 };

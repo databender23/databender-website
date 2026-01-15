@@ -214,13 +214,13 @@ export function calculateHealthcareScores(
   sortedCategories.slice(0, 2).forEach(([category]) => {
     switch (category) {
       case "documentManagement":
-        recommendations.push("Implement a unified document management system with semantic search capabilities");
+        recommendations.push("Get your documents organized first. AI can't find what's scattered across 50 folders.");
         break;
       case "knowledgeRetention":
-        recommendations.push("Create structured knowledge capture processes to reduce dependency on individual expertise");
+        recommendations.push("Start capturing what your experienced staff know. Every retirement is a quiet crisis right now.");
         break;
       case "aiReadiness":
-        recommendations.push("Build AI governance framework and assess infrastructure requirements for compliant AI deployment");
+        recommendations.push("Talk to compliance about AI before you need to. Getting buy-in takes longer than the tech work.");
         break;
     }
   });
@@ -236,42 +236,42 @@ export function calculateHealthcareScores(
 export const healthcareTierDescriptions = {
   early: {
     title: "Early Stage",
-    description: "Your organization needs foundational improvements before AI adoption. Focus on document organization and knowledge capture first.",
+    description: "Your organization has work to do before AI makes sense. The good news: getting organized is straightforward, and AI costs have dropped enough that it's worth doing.",
     nextSteps: [
-      "Audit current document management processes and identify critical gaps",
-      "Begin capturing institutional knowledge from senior staff members",
-      "Assess compliance requirements for healthcare AI applications",
-      "Create a roadmap for infrastructure modernization",
+      "Get your documents into one place where people can actually find them",
+      "Start writing down what your experienced staff know before they leave",
+      "Talk to compliance early so you're not scrambling later",
+      "Pick one thing that wastes the most time. That's your starting point.",
     ],
   },
   emerging: {
     title: "Emerging",
-    description: "You have some building blocks in place. Now focus on standardization and creating a knowledge-first culture.",
+    description: "You have the basics. Now it's about making things searchable. Staff shouldn't have to hunt for protocols or ask around for answers.",
     nextSteps: [
-      "Implement standardized document templates and naming conventions",
-      "Create a searchable knowledge base for policies and procedures",
-      "Develop data governance policies with AI use cases in mind",
-      "Pilot AI tools in low-risk, high-value areas (scheduling, documentation)",
+      "Create consistent naming and folder structures (sounds boring, matters a lot)",
+      "Build a searchable place for policies and procedures",
+      "Figure out what data you need to clean up before AI can use it",
+      "Try AI on something low-risk first. Scheduling or documentation are easy wins.",
     ],
   },
   developing: {
     title: "Developing",
-    description: "Your foundation is solid. You're ready to explore AI applications while strengthening governance.",
+    description: "Your foundation is solid. You can actually deploy AI now. The question is which project delivers the most value fastest.",
     nextSteps: [
-      "Evaluate AI solutions for document intelligence and search",
-      "Implement formal knowledge transfer and expertise documentation processes",
-      "Build AI governance committee with clinical and technical stakeholders",
-      "Pilot AI assistants for clinical documentation or coding",
+      "Get pricing on document intelligence for your specific volumes",
+      "Set up a real process for capturing what senior staff know",
+      "Get your compliance and clinical people in the same room about AI",
+      "Pilot something visible. Coding or documentation are good candidates.",
     ],
   },
   ready: {
     title: "AI Ready",
-    description: "Your organization is well-positioned for AI adoption. Focus on strategic implementation and continuous improvement.",
+    description: "You're ahead of most healthcare organizations. The infrastructure is there, the governance is there. Time to move.",
     nextSteps: [
-      "Deploy AI-powered document search and knowledge retrieval",
-      "Implement intelligent document processing for administrative workflows",
-      "Explore clinical AI applications (diagnostic support, care recommendations)",
-      "Establish AI monitoring and continuous improvement processes",
+      "Deploy document search. Your staff will thank you.",
+      "Automate the administrative work that nobody wants to do",
+      "Look at clinical applications now that you've proven the basics work",
+      "The organizations moving now will have a year's head start. Time to decide.",
     ],
   },
 };

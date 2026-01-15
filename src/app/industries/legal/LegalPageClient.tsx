@@ -99,10 +99,10 @@ export default function LegalPageClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
-              Your associates spend 60% of their time on work that doesn&apos;t need
-              a law degree. We build AI tools that handle document review, due diligence,
-              and research&mdash;so your team can focus on the work that requires judgment.
-              Everything runs on your servers. Privilege stays intact.
+              What used to cost $200K and take six months now costs $30-50K and takes weeks.
+              Your associates get answers in minutes, not hours. Every brief, memo, and contract
+              your firm has ever produced becomes searchable. When partners retire, what they
+              knew stays. You own it all. No vendor lock-in, no per-seat licensing.
             </motion.p>
 
             <motion.div
@@ -112,10 +112,10 @@ export default function LegalPageClient() {
               className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
             >
               <Button variant="primary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
-                Schedule Consultation
+                See What This Looks Like
               </Button>
               <Button variant="secondary" size="lg" href="/assessments/legal" className="w-full sm:w-auto min-h-[48px]">
-                Take AI Readiness Assessment
+                5-Min Assessment → Get Your AI Roadmap
               </Button>
             </motion.div>
           </div>
@@ -187,7 +187,7 @@ export default function LegalPageClient() {
                   viewport={{ once: true }}
                   className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
                 >
-                  Privacy-First AI
+                  You Own Everything
                 </motion.p>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
@@ -196,7 +196,7 @@ export default function LegalPageClient() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  AI Without the Ethics Headache
+                  No Vendor Lock-In. No Recurring Fees.
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -206,14 +206,14 @@ export default function LegalPageClient() {
                   className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
                 >
                   <p>
-                    Client data in OpenAI&apos;s cloud? Good luck explaining that to the
-                    partnership. Privileged communications running through third-party
-                    servers? The ethics committee will have questions.
+                    Traditional legal tech means paying per seat, forever. Vendor raises
+                    prices? You&apos;re stuck. Vendor kills a feature? Too bad.
                   </p>
                   <p>
-                    We do it differently. Your client files stay on your servers. No data
-                    ever goes to OpenAI, Microsoft, or any third party. Your ethics committee
-                    will actually sign off on this.
+                    This is different. Custom AI that runs on your systems. You own
+                    everything. No recurring fees eating your margins. No dependency on
+                    a vendor who controls your data. And yes, your ethics committee will
+                    approve it. Client files never leave your building.
                   </p>
                 </motion.div>
               </div>
@@ -226,25 +226,25 @@ export default function LegalPageClient() {
                 className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-8 rounded-2xl border border-teal-500/20"
               >
                 <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  How it works
+                  What ownership means
                 </h3>
                 <ul className="space-y-3 sm:space-y-4">
                   {[
                     {
-                      title: "Your servers only",
-                      description: "Everything runs on your computers. Nothing goes outside your firm."
+                      title: "You own the code",
+                      description: "Not a license. Not a subscription. The actual software is yours."
                     },
                     {
-                      title: "No outside AI services",
-                      description: "No OpenAI, no Microsoft, no third parties ever touch your data."
+                      title: "Runs on your systems",
+                      description: "Your servers, your control. Nothing leaves your building."
                     },
                     {
-                      title: "Full audit trails",
-                      description: "Every search logged. See who asked what, when. Compliance and ethics covered."
+                      title: "No per-seat fees",
+                      description: "Add users without adding costs. Your whole firm can use it."
                     },
                     {
-                      title: "You own and control everything",
-                      description: "No vendor lock-in. No surprises. Your AI, your rules."
+                      title: "Ethics committee approved",
+                      description: "Client files never touch outside servers. No third-party AI services."
                     },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-2 sm:gap-3">
@@ -901,12 +901,60 @@ export default function LegalPageClient() {
         </div>
       </section>
 
+      {/* The Math Changed Section */}
+      <section className="section bg-[#F8F9FA]">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl mx-auto">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+            >
+              Why Now
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-6 sm:mb-8"
+            >
+              The Math Changed
+            </motion.h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="space-y-4 sm:space-y-6 text-text-secondary text-base sm:text-lg"
+            >
+              <p>
+                Custom legal technology used to be out of reach for mid-sized firms.
+                The projects cost too much. The timelines stretched too long. So you
+                settled for software that kind of worked.
+              </p>
+              <p>
+                AI changed that. Senior consultants with AI tools deliver what used to
+                require a team of five. Weeks instead of months. A fraction of the cost.
+                Built around how you already work, so adoption is smooth.
+              </p>
+              <p className="text-text-primary font-medium">
+                The firms moving now are building advantages that compound. Every document
+                makes the system smarter. Every matter makes the next one easier. Their
+                competitors are still evaluating vendors.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <CTA
-        title="Ready to see what's possible?"
-        description="Schedule a consultation to discuss your specific challenges, or take our 5-minute AI readiness assessment to see where you stand."
-        primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "Take the Assessment", href: "/assessments/legal" }}
+        title="Let's talk about your firm"
+        description="30 minutes. We'll look at your specific situation and show you what's possible. No pitch deck, no pressure."
+        primaryCta={{ label: "See What This Looks Like", href: "/contact" }}
+        secondaryCta={{ label: "5-Min Assessment → Get Your AI Roadmap", href: "/assessments/legal" }}
         variant="gradient"
       />
     </>
