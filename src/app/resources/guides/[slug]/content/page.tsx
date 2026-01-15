@@ -1,10 +1,25 @@
 import { notFound } from "next/navigation";
-import { legalGuides, getGuideBySlug } from "@/lib/lead-magnets-data";
+import type { Metadata } from "next";
+import { legalGuides, healthcareGuides, manufacturingGuides, creGuides, getGuideBySlug } from "@/lib/lead-magnets-data";
 import { getGuideContentBySlug } from "@/lib/guide-content-data";
 import GuideContentPageClient from "./GuideContentPageClient";
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const guideContent = getGuideContentBySlug(slug);
+
+  if (!guideContent) {
+    return { title: "Guide Not Found" };
+  }
+
+  return {
+    title: `${guideContent.title} | Databender`,
+    description: guideContent.subtitle,
+  };
 }
 
 export default async function GuideContentPage({ params }: Props) {
@@ -21,7 +36,8 @@ export default async function GuideContentPage({ params }: Props) {
 
 // Generate static paths for all guides
 export function generateStaticParams() {
-  return legalGuides.map((guide) => ({
+  const allGuides = [...legalGuides, ...healthcareGuides, ...manufacturingGuides, ...creGuides];
+  return allGuides.map((guide) => ({
     slug: guide.slug,
   }));
 }

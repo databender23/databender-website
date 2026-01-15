@@ -356,8 +356,17 @@ export const manufacturingAssessments: Assessment[] = [
   },
 ];
 
-// Healthcare - Custom Build
+// Healthcare Assessments
 export const healthcareAssessments: Assessment[] = [
+  {
+    slug: "healthcare-ai-readiness",
+    title: "Healthcare AI Readiness Assessment",
+    description: "See where your organization stands on document management, knowledge retention, and AI readiness. Get a personalized roadmap in 5 minutes.",
+    questionCount: 12,
+    timeEstimate: "5 minutes",
+    targetAudience: "CIOs, COOs, Clinical Informatics Directors",
+    icon: "chart-bar",
+  },
   {
     slug: "price-transparency-benchmark",
     title: "Healthcare Price Transparency Benchmark",

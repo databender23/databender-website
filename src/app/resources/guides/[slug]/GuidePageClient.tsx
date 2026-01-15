@@ -171,13 +171,13 @@ export default function GuidePageClient({ guide }: Props) {
               className="flex items-center justify-center gap-8 mb-8"
             >
               <div className="text-center">
-                <div className="text-3xl font-bold text-gradient">15+</div>
-                <div className="text-sm text-text-muted">Pages of insights</div>
+                <div className="text-3xl font-bold text-gradient">10-15</div>
+                <div className="text-sm text-text-muted">Min read time</div>
               </div>
               <div className="w-px h-12 bg-black/10" />
               <div className="text-center">
-                <div className="text-3xl font-bold text-gradient">5 min</div>
-                <div className="text-sm text-text-muted">Read time</div>
+                <div className="text-3xl font-bold text-gradient">Zero</div>
+                <div className="text-sm text-text-muted">Fluff</div>
               </div>
               <div className="w-px h-12 bg-black/10" />
               <div className="text-center">
@@ -193,8 +193,13 @@ export default function GuidePageClient({ guide }: Props) {
               transition={{ delay: 0.1 }}
               className="text-text-secondary"
             >
-              No fluff, no endless theory. Just practical strategies you can
-              implement this week. Based on real results from firms like yours.
+              {industry.name.includes("Healthcare")
+                ? "No vendor pitches, no vague promises. Just practical approaches based on real healthcare deployments."
+                : industry.name.includes("Legal")
+                ? "No fluff, no endless theory. Just practical strategies based on real results from firms like yours."
+                : industry.name.includes("Manufacturing")
+                ? "No generic advice. Just practical approaches we've seen work at growing manufacturers."
+                : "No fluff, no endless theory. Just practical strategies you can implement this week."}
             </motion.p>
           </div>
         </div>

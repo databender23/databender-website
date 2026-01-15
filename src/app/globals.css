@@ -408,6 +408,256 @@ body {
   width: 100%;
 }
 
+/* Guide Content Prose Styles - Minimalist & Elegant */
+.prose-content {
+  font-size: 1.125rem;
+  line-height: 1.9;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* First paragraph - slightly larger for emphasis */
+.prose-content > p:first-of-type {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: var(--color-text-primary);
+  font-weight: 400;
+}
+
+/* Section headings */
+.prose-content h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(26, 26, 26, 0.06);
+}
+
+.prose-content h3:first-of-type {
+  margin-top: 2rem;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* Paragraphs */
+.prose-content p {
+  margin-bottom: 1.75rem;
+}
+
+/* Strong text - subtle emphasis */
+.prose-content strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* Italic/emphasis - used for key insights */
+.prose-content em {
+  font-style: italic;
+  color: var(--color-text-primary);
+}
+
+/* Pull quote styling - paragraph containing only em */
+.prose-content p:has(> em:only-child) {
+  font-size: 1.1875rem;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  padding: 1.5rem 0 1.5rem 1.75rem;
+  margin: 2.5rem 0;
+  border-left: 2px solid var(--color-teal-500);
+  background: transparent;
+  font-style: normal;
+}
+
+.prose-content p:has(> em:only-child) em {
+  font-style: italic;
+}
+
+/* Key point boxes - paragraphs starting with strong */
+.prose-content p:has(strong:first-child) {
+  background: linear-gradient(135deg, rgba(26, 153, 136, 0.04) 0%, rgba(26, 153, 136, 0.02) 100%);
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  border: 1px solid rgba(26, 153, 136, 0.08);
+}
+
+/* Links */
+.prose-content a {
+  color: var(--color-teal-500);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(26, 153, 136, 0.3);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.prose-content a:hover {
+  border-bottom-color: var(--color-teal-500);
+  color: var(--color-teal-600);
+}
+
+/* Lists - clean and elegant */
+.prose-content ul,
+.prose-content ol {
+  margin: 2rem 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.prose-content li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+/* Unordered list bullets - small teal squares */
+.prose-content ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  background: var(--color-teal-500);
+  border-radius: 1px;
+}
+
+/* Ordered list numbers - teal with period */
+.prose-content ol {
+  counter-reset: list-counter;
+}
+
+.prose-content ol > li {
+  counter-increment: list-counter;
+}
+
+.prose-content ol > li::before {
+  content: counter(list-counter) ".";
+  position: absolute;
+  left: 0;
+  color: var(--color-teal-500);
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+/* Nested list items */
+.prose-content li > ul,
+.prose-content li > ol {
+  margin: 0.75rem 0 0.5rem 0;
+}
+
+/* Section divider */
+.prose-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(26, 26, 26, 0.08) 20%, rgba(26, 26, 26, 0.08) 80%, transparent 100%);
+  margin: 3.5rem 0;
+}
+
+/* Blockquotes */
+.prose-content blockquote {
+  margin: 2.5rem 0;
+  padding: 1.5rem 1.75rem;
+  border-left: 2px solid var(--color-teal-500);
+  background: rgba(26, 153, 136, 0.02);
+  border-radius: 0 8px 8px 0;
+}
+
+.prose-content blockquote p {
+  margin-bottom: 0;
+  font-style: italic;
+  color: var(--color-text-primary);
+}
+
+/* Code/technical terms */
+.prose-content code {
+  background: var(--color-bg-secondary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875em;
+  color: var(--color-text-primary);
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+}
+
+/* Figures and images */
+.prose-content figure {
+  margin: 2.5rem 0;
+}
+
+.prose-content img {
+  border-radius: 8px;
+  width: 100%;
+}
+
+.prose-content figcaption {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 0.75rem;
+  font-style: italic;
+}
+
+/* Tables - clean minimal style */
+.prose-content table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.prose-content th {
+  text-align: left;
+  padding: 0.875rem 1rem;
+  border-bottom: 2px solid rgba(26, 26, 26, 0.1);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.prose-content td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+  color: var(--color-text-secondary);
+}
+
+.prose-content tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .prose-content {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+
+  .prose-content > p:first-of-type {
+    font-size: 1.125rem;
+  }
+
+  .prose-content h3 {
+    font-size: 1.25rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .prose-content p:has(> em:only-child) {
+    font-size: 1.0625rem;
+    padding-left: 1.25rem;
+  }
+
+  .prose-content p:has(strong:first-child) {
+    padding: 1rem 1.25rem;
+  }
+
+  .prose-content li {
+    padding-left: 1.5rem;
+  }
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,
