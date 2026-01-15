@@ -682,7 +682,7 @@ export default function HomePage() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-text-primary mb-4"
             >
-              Custom Software. Finally Fast.
+              Precision Solutions. Shipped Yesterday.
             </motion.h1>
 
             <motion.p
@@ -700,9 +700,9 @@ export default function HomePage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto"
             >
-              Your specs. Weeks to delivery. Tailored to your needs.
+              Purpose-built software that automates the tedious, augments your team, and keeps working while you sleep.
               <br className="hidden sm:block" />
-              <span className="block mt-2 sm:mt-0">Software that automates the tedious, augments your team, and keeps working while you sleep.</span>
+              <em className="block mt-4 text-sm md:text-base">Your specs. Weeks to delivery. Tailored to your needs.</em>
             </motion.p>
 
             <motion.div
