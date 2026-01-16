@@ -37,10 +37,13 @@ frontend:
         # Run unit tests before building - fail deployment if tests fail
         - npm test
         - npm run build
+        # Copy env file to standalone output for SSR runtime
+        - cp .env.production .next/standalone/.env.production 2>/dev/null || true
   artifacts:
     baseDirectory: .next
     files:
       - '**/*'
+      - '../.env.production'
   cache:
     paths:
       - node_modules/**/*

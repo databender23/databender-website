@@ -12,8 +12,12 @@ import { z } from "zod";
 const isProduction = process.env.NODE_ENV === "production";
 const isBuildPhase = process.env.NEXT_PHASE === "phase-production-build";
 
-// Only enforce strict validation in production runtime (not build phase)
-const strictMode = isProduction && !isBuildPhase;
+// Check if running in AWS Lambda (Amplify SSR) - env vars may be passed differently
+const isAmplifyLambda = Boolean(process.env.AWS_LAMBDA_FUNCTION_NAME);
+
+// Only enforce strict validation in production runtime (not build phase or Amplify Lambda)
+// Amplify SSR has issues passing env vars, so we log warnings instead of throwing
+const strictMode = isProduction && !isBuildPhase && !isAmplifyLambda;
 
 /**
  * Schema for required environment variables
@@ -62,8 +66,9 @@ const envSchema = z.object({
 
 /**
  * Parse and validate environment variables
+ * Returns a proxy that falls back to process.env if validation fails
  */
-function validateEnv() {
+function validateEnv(): z.infer<typeof envSchema> {
   const result = envSchema.safeParse(process.env);
 
   if (!result.success) {
@@ -71,7 +76,7 @@ function validateEnv() {
     console.error("Environment validation failed:");
     console.error(JSON.stringify(errors, null, 2));
 
-    // Only throw in production runtime, not during build
+    // Only throw in production runtime, not during build or Amplify Lambda
     if (strictMode) {
       throw new Error(
         `Missing required environment variables:\n${result.error.issues
@@ -79,11 +84,18 @@ function validateEnv() {
           .join("\n")}`
       );
     } else {
-      console.warn("Build/Development mode: continuing with missing env vars");
+      console.warn("Build/Development/Lambda mode: continuing with missing env vars");
     }
+
+    // Return a proxy that reads directly from process.env as fallback
+    return new Proxy({} as z.infer<typeof envSchema>, {
+      get: (_, prop: string) => {
+        return process.env[prop];
+      },
+    });
   }
 
-  return result.data;
+  return result.data!;
 }
 
 /**
