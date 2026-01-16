@@ -343,7 +343,7 @@ export async function getLeads(
 
     return {
       leads: limitedLeads,
-      totalCount: limitedLeads.length,
+      totalCount: filteredLeads.length, // Return total matching leads, not just limited results
       lastKey: scanResult.lastKey,
     };
   }

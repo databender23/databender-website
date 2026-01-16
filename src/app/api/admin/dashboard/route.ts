@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAuthenticated } from "@/lib/admin/auth";
 import { scanLeads } from "@/lib/leads/dynamodb";
+import { getSessionsForDateRange } from "@/lib/analytics/dynamodb";
 import type { Lead } from "@/lib/leads/types";
 
 export async function GET(request: NextRequest) {
@@ -17,14 +18,28 @@ export async function GET(request: NextRequest) {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
 
-    // Fetch all leads for the period
-    const result = await scanLeads({
-      startDate: startDate.toISOString(),
-      endDate: endDate.toISOString(),
-      limit: 1000,
-    });
+    const startStr = startDate.toISOString().split("T")[0];
+    const endStr = endDate.toISOString().split("T")[0];
 
-    const leads = result.leads;
+    // Fetch leads and sessions in parallel
+    const [leadsResult, sessions] = await Promise.all([
+      scanLeads({
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        limit: 1000,
+      }),
+      getSessionsForDateRange(startStr, endStr),
+    ]);
+
+    const leads = leadsResult.leads;
+
+    // Calculate visitor and company metrics from sessions
+    const uniqueVisitors = new Set(sessions.map((s) => s.visitorId)).size;
+    const identifiedCompanies = new Set(
+      sessions
+        .filter((s) => s.companyDomain)
+        .map((s) => s.companyDomain!.toLowerCase())
+    ).size;
 
     // Calculate action items
     const hotLeadsToContact = leads.filter(
@@ -47,8 +62,19 @@ export async function GET(request: NextRequest) {
         l.contactHistory.length > 0
     ).length;
 
-    // TODO: Get from analytics when we have company identification linked
-    const companiesToResearch = 0;
+    // Companies identified from analytics that aren't leads yet
+    const leadDomains = new Set(
+      leads
+        .filter((l) => l.identifiedDomain)
+        .map((l) => l.identifiedDomain!.toLowerCase())
+    );
+    const companiesToResearch = Array.from(
+      new Set(
+        sessions
+          .filter((s) => s.companyDomain && !leadDomains.has(s.companyDomain.toLowerCase()))
+          .map((s) => s.companyDomain!.toLowerCase())
+      )
+    ).length;
 
     // Priority leads: high score, not contacted, sorted by score
     const priorityLeads = leads
@@ -70,11 +96,10 @@ export async function GET(request: NextRequest) {
         createdAt: l.createdAt,
       }));
 
-    // Funnel data
-    // TODO: Get visitor/company data from analytics
+    // Funnel data with real analytics
     const funnel = {
-      visitors: 0, // Would come from analytics
-      identifiedCompanies: 0, // Would come from analytics
+      visitors: uniqueVisitors,
+      identifiedCompanies,
       leads: leads.length,
       contacted: leads.filter((l) => l.status === "contacted" || l.status === "qualified" || l.status === "opportunity" || l.status === "customer").length,
       qualified: leads.filter((l) => l.status === "qualified" || l.status === "opportunity" || l.status === "customer").length,
@@ -148,8 +173,8 @@ export async function GET(request: NextRequest) {
       channels,
       period: {
         days,
-        start: startDate.toISOString().split("T")[0],
-        end: endDate.toISOString().split("T")[0],
+        start: startStr,
+        end: endStr,
       },
     });
   } catch (error) {
