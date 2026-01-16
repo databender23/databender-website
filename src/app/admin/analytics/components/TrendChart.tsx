@@ -17,7 +17,8 @@ interface Props {
 type MetricType = "sessions" | "visitors" | "leads";
 
 function formatDate(dateString: string, short = false): string {
-  const date = new Date(dateString);
+  // Parse as local date by appending T12:00:00 to avoid timezone shift
+  const date = new Date(dateString + "T12:00:00");
   if (short) {
     return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   }
@@ -29,7 +30,8 @@ function formatDate(dateString: string, short = false): string {
 }
 
 function formatDateFull(dateString: string): string {
-  const date = new Date(dateString);
+  // Parse as local date by appending T12:00:00 to avoid timezone shift
+  const date = new Date(dateString + "T12:00:00");
   return date.toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",

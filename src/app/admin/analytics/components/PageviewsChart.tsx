@@ -9,7 +9,8 @@ interface PageviewsChartProps {
 export default function PageviewsChart({ data }: PageviewsChartProps) {
   const formattedData = data.map((d) => ({
     ...d,
-    date: new Date(d.date).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+    // Append T12:00:00 to parse as local date and avoid timezone shift
+    date: new Date(d.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" }),
   }));
 
   return (
