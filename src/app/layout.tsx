@@ -20,14 +20,16 @@ export const metadata: Metadata = {
     template: "%s | Databender",
   },
   description:
-    "AI-powered data solutions that transform messy data into business intelligence. Data cleanup, integration, analytics, and AI insights for mid-market companies.",
+    "Custom data and AI solutions at a fraction of the old cost. Senior consultants with AI-powered delivery build what used to take months in weeks. Data strategy, analytics, and automation for growing companies.",
   keywords: [
     "data consulting",
     "AI data cleanup",
     "business intelligence",
     "data analytics",
     "data integration",
-    "AI insights",
+    "AI consulting",
+    "custom data solutions",
+    "mid-market data consulting",
   ],
   authors: [{ name: "Databender" }],
   manifest: "/manifest.json",
@@ -37,13 +39,13 @@ export const metadata: Metadata = {
     siteName: "Databender",
     title: "Databender | Senior Expertise. AI-Powered Speed.",
     description:
-      "AI-powered data solutions that transform messy data into business intelligence.",
+      "Custom data and AI solutions at a fraction of the old cost. What used to take months now takes weeks.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Databender | Senior Expertise. AI-Powered Speed.",
     description:
-      "AI-powered data solutions that transform messy data into business intelligence.",
+      "Custom data and AI solutions at a fraction of the old cost. What used to take months now takes weeks.",
   },
   robots: {
     index: true,

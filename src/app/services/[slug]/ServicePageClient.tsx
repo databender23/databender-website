@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { CTA } from "@/components/sections";
+import { CTA, WhoThisIsFor, ServiceTestimonials, FAQ, ProcessSteps, EngagementTypes, MeetYourExpert } from "@/components/sections";
+import { getTestimonialsByService } from "@/lib/case-studies-data";
 import { Button } from "@/components/ui";
 import { FloatingNodes } from "@/components/animations";
 import LottieWrapper from "@/components/animations/LottieWrapper";
@@ -268,6 +269,11 @@ export default function ServicePageClient({ service }: Props) {
         </div>
       </section>
 
+      {/* Who This Is For */}
+      {service.targetAudience && (
+        <WhoThisIsFor profiles={service.targetAudience.profiles} />
+      )}
+
       {/* What's Included - Sub-services */}
       <section className="section">
         <div className="container mx-auto px-6">
@@ -319,8 +325,13 @@ export default function ServicePageClient({ service }: Props) {
         </div>
       </section>
 
+      {/* Process Steps */}
+      {service.processSteps && service.processSteps.length > 0 && (
+        <ProcessSteps steps={service.processSteps} />
+      )}
+
       {/* Benefits */}
-      <section className="section bg-[#F8F9FA]">
+      <section className="section">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <motion.p
@@ -364,6 +375,21 @@ export default function ServicePageClient({ service }: Props) {
         </div>
       </section>
 
+      {/* Service Testimonials */}
+      <ServiceTestimonials testimonials={getTestimonialsByService(service.slug)} />
+
+      {/* FAQ Section */}
+      {service.faqs && service.faqs.length > 0 && (
+        <FAQ
+          title="Common Questions"
+          faqs={service.faqs}
+          variant="accordion"
+        />
+      )}
+
+      {/* Meet Your Expert */}
+      <MeetYourExpert />
+
       {/* Related Services */}
       <section className="section">
         <div className="container mx-auto px-6">
@@ -389,6 +415,9 @@ export default function ServicePageClient({ service }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Engagement Types */}
+      <EngagementTypes />
 
       {/* CTA */}
       <CTA

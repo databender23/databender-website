@@ -78,16 +78,17 @@ function normalizeRow(row: CSVRow): {
   notes?: string;
   message?: string;
 } {
+  // Extract and sanitize values to prevent CSV formula injection
   const email = (row.email || row.Email || row.EMAIL || "").trim().toLowerCase();
-  const firstName = (row.firstName || row.first_name || row.FirstName || row.FIRST_NAME || "").trim();
-  const lastName = (row.lastName || row.last_name || row.LastName || row.LAST_NAME || "").trim();
-  const company = (row.company || row.Company || row.COMPANY || "").trim() || undefined;
-  const phone = (row.phone || row.Phone || row.PHONE || "").trim() || undefined;
-  const industry = (row.industry || row.Industry || row.INDUSTRY || "").trim() || undefined;
+  const firstName = sanitizeCsvValue((row.firstName || row.first_name || row.FirstName || row.FIRST_NAME || "").trim()) || "";
+  const lastName = sanitizeCsvValue((row.lastName || row.last_name || row.LastName || row.LAST_NAME || "").trim()) || "";
+  const company = sanitizeCsvValue((row.company || row.Company || row.COMPANY || "").trim()) || undefined;
+  const phone = sanitizeCsvValue((row.phone || row.Phone || row.PHONE || "").trim()) || undefined;
+  const industry = sanitizeCsvValue((row.industry || row.Industry || row.INDUSTRY || "").trim()) || undefined;
   const tierRaw = (row.tier || row.Tier || row.TIER || "").trim().toUpperCase();
   const tagsRaw = (row.tags || row.Tags || row.TAGS || "").trim();
-  const notes = (row.notes || row.Notes || row.NOTES || "").trim() || undefined;
-  const message = (row.message || row.Message || row.MESSAGE || "").trim() || undefined;
+  const notes = sanitizeCsvValue((row.notes || row.Notes || row.NOTES || "").trim()) || undefined;
+  const message = sanitizeCsvValue((row.message || row.Message || row.MESSAGE || "").trim()) || undefined;
 
   // Validate tier
   let tier: LeadTier | undefined;
@@ -95,9 +96,9 @@ function normalizeRow(row: CSVRow): {
     tier = tierRaw;
   }
 
-  // Parse tags
+  // Parse and sanitize tags
   const tags = tagsRaw
-    ? tagsRaw.split(",").map((t) => t.trim()).filter(Boolean)
+    ? tagsRaw.split(",").map((t) => sanitizeCsvValue(t.trim()) || t.trim()).filter(Boolean)
     : undefined;
 
   return {
@@ -120,6 +121,24 @@ function normalizeRow(row: CSVRow): {
 function isValidEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
+}
+
+/**
+ * Sanitize a string to prevent CSV formula injection
+ * Prefixes dangerous characters with a single quote to neutralize them
+ */
+function sanitizeCsvValue(value: string | undefined): string | undefined {
+  if (!value) return value;
+
+  // Characters that can trigger formula execution in spreadsheets
+  const dangerousChars = ["=", "+", "-", "@", "\t", "\r", "\n"];
+
+  // If value starts with a dangerous character, prefix with single quote
+  if (dangerousChars.some((char) => value.startsWith(char))) {
+    return "'" + value;
+  }
+
+  return value;
 }
 
 /**

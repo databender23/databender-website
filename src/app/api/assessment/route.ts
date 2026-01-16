@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { createLead } from "@/lib/leads/lead-service";
 import { enrollAndSendDay0 } from "@/lib/sequences/processor";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { verifyTurnstile, getTurnstileToken } from "@/lib/turnstile";
 
 interface AssessmentScores {
   total: number;
@@ -28,11 +30,34 @@ interface AssessmentData {
   visitorId?: string;
   sessionId?: string;
   sourcePage?: string;
+  turnstileToken?: string;
 }
 
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request);
+
+    // Rate limit form submissions (3 per minute)
+    const rateLimitResult = await checkRateLimit("form", ip);
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: "Too many submissions. Please try again later." },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
+
+    // Verify Turnstile token (if configured)
+    const turnstileToken = getTurnstileToken(body);
+    const turnstileResult = await verifyTurnstile(turnstileToken, ip);
+    if (!turnstileResult.success) {
+      return NextResponse.json(
+        { error: turnstileResult.error || "Bot verification failed" },
+        { status: 403 }
+      );
+    }
+
     const { answers, scores, contact, assessmentType, visitorId, sessionId, sourcePage } =
       body as AssessmentData;
 

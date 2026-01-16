@@ -21,6 +21,7 @@ import {
   handleComplaint,
 } from "@/lib/sequences/sequence-service";
 import type { BounceType } from "@/lib/sequences/types";
+import { parseAndVerifySnsMessage } from "@/lib/sns-verify";
 
 // SNS message structure
 interface SNSMessage {
@@ -126,22 +127,18 @@ export async function POST(request: NextRequest) {
     // Get raw body for SNS message
     const body = await request.text();
 
-    // Try to parse as JSON
-    let snsMessage: SNSMessage;
-    try {
-      snsMessage = JSON.parse(body);
-    } catch {
-      console.error("[SES Webhook] Invalid JSON body");
-      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    // Parse and verify SNS signature
+    const { message: snsMessage, error: verifyError } = await parseAndVerifySnsMessage(body);
+
+    if (!snsMessage) {
+      console.error(`[SES Webhook] SNS verification failed: ${verifyError}`);
+      return NextResponse.json(
+        { error: verifyError || "Invalid SNS message" },
+        { status: 403 }
+      );
     }
 
-    // Validate this is from SNS (basic check)
-    if (!snsMessage.Type || !snsMessage.TopicArn) {
-      console.error("[SES Webhook] Missing SNS message fields");
-      return NextResponse.json({ error: "Invalid SNS message" }, { status: 400 });
-    }
-
-    console.log(`[SES Webhook] Received ${snsMessage.Type} from ${snsMessage.TopicArn}`);
+    console.log(`[SES Webhook] Verified ${snsMessage.Type} from ${snsMessage.TopicArn}`);
 
     // Handle subscription confirmation
     if (snsMessage.Type === "SubscriptionConfirmation") {

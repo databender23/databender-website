@@ -34,6 +34,16 @@ const IndustryIcon = ({ icon }: { icon: string }) => {
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
       </svg>
     ),
+    hardhat: (
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3c-4.97 0-9 2.686-9 6v1h2v-1c0-2.21 3.134-4 7-4s7 1.79 7 4v1h2V9c0-3.314-4.03-6-9-6zM5 12v2a2 2 0 002 2h10a2 2 0 002-2v-2H5zM4 18h16v2H4v-2z" />
+      </svg>
+    ),
+    truck: (
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 17a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4zM6 13V7a1 1 0 011-1h8a1 1 0 011 1v6M6 13h10m-10 0H4a1 1 0 01-1-1V8a1 1 0 011-1h1M16 13h4a1 1 0 001-1V9.5a1 1 0 00-.293-.707l-2.5-2.5A1 1 0 0017.5 6H16" />
+      </svg>
+    ),
   };
 
   return <>{icons[icon] || icons.briefcase}</>;

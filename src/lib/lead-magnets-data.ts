@@ -343,6 +343,98 @@ export const crePropertyManagerGuides: Guide[] = [
 // Combined for backward compatibility
 export const creGuides: Guide[] = [...creBrokerGuides, ...crePropertyManagerGuides];
 
+// Construction Guides
+export const constructionGuides: Guide[] = [
+  {
+    slug: "project-visibility-playbook",
+    title: "The Project Visibility Playbook",
+    subtitle: "Stop Hunting for Answers Across Five Different Systems",
+    description: "Your data is scattered across estimating, scheduling, field apps, and accounting. This guide shows how to connect them all without replacing anything.",
+    topics: [
+      "Connecting Procore, accounting, and field apps",
+      "Building dashboards that update themselves",
+      "Answering 'how's this project doing?' in 30 seconds",
+      "What this costs (less than you think)",
+    ],
+    targetAudience: "CEOs, CFOs, Operations Directors",
+    icon: "eye",
+  },
+  {
+    slug: "change-order-recovery",
+    title: "Stop Leaving Money on the Table",
+    subtitle: "How to Capture Every Change Order Before It Slips Through",
+    description: "Change orders get approved in the field but never billed. This guide shows how to track every one and recover the 2-5% of revenue most contractors give away.",
+    topics: [
+      "Automatic change order tracking from field to billing",
+      "Alerts before unbilled work ages out",
+      "Integrating with your existing billing workflow",
+      "The ROI math on change order recovery",
+    ],
+    targetAudience: "CFOs, Project Managers, Controllers",
+    icon: "dollar",
+  },
+  {
+    slug: "construction-post-acquisition",
+    title: "Post-Acquisition Visibility",
+    subtitle: "Unified Reporting in Weeks, Not the 18-Month Integration Timeline",
+    description: "You bought a company. Now you have two sets of books and no consolidated view. This guide shows how to get portfolio-wide visibility before full system migration.",
+    topics: [
+      "Unified dashboards across acquired entities",
+      "Standardizing job costing across companies",
+      "Board-ready reporting in weeks",
+      "What to tackle first (and what can wait)",
+    ],
+    targetAudience: "CEOs, CFOs, PE Operating Partners",
+    icon: "layers",
+  },
+];
+
+// Wholesale Distribution Guides
+export const distributionGuides: Guide[] = [
+  {
+    slug: "inventory-intelligence-guide",
+    title: "Free Up Cash Tied in Dead Stock",
+    subtitle: "Inventory Intelligence for Mid-Sized Distributors",
+    description: "20-40% of your revenue is tied up in inventory. Too much of the wrong stuff, not enough of the right. This guide shows how to optimize without guessing.",
+    topics: [
+      "Identifying dead stock before it becomes a write-off",
+      "Demand forecasting that actually predicts",
+      "Optimizing reorder points by SKU",
+      "From 4x to 6x inventory turns",
+    ],
+    targetAudience: "CEOs, COOs, Inventory Managers",
+    icon: "package",
+  },
+  {
+    slug: "customer-profitability-distribution",
+    title: "Know Who Actually Makes You Money",
+    subtitle: "Customer Profitability for Distributors",
+    description: "Your top 10 customers by revenue might not be your top 10 by profit. This guide shows how to see true margin after cost-to-serve.",
+    topics: [
+      "Calculating true customer profitability",
+      "Cost-to-serve analysis that makes sense",
+      "Aligning sales comp to margin, not volume",
+      "The conversations that change customer behavior",
+    ],
+    targetAudience: "CEOs, CFOs, Sales VPs",
+    icon: "users",
+  },
+  {
+    slug: "pricing-discipline-distribution",
+    title: "Stop Giving Away Margin",
+    subtitle: "Pricing Visibility and Guardrails for Distribution",
+    description: "Pricing lives in spreadsheets and sales rep heads. Deals go out the door below margin and nobody knows until year-end. This guide fixes that.",
+    topics: [
+      "Real-time margin visibility by deal",
+      "Pricing guardrails that don't slow down sales",
+      "Exception alerts before approval",
+      "1-3% margin improvement from discipline alone",
+    ],
+    targetAudience: "CEOs, CFOs, Sales VPs",
+    icon: "shield",
+  },
+];
+
 // Manufacturing - Self-Service Assessment
 export const manufacturingAssessments: Assessment[] = [
   {
@@ -432,6 +524,18 @@ export const industryLeadMagnets = {
     subheadline: "Guides and assessments for brokers chasing deals and property managers running portfolios.",
     ctaText: "Get Started",
   },
+  construction: {
+    guides: constructionGuides,
+    headline: "Resources for Growing Contractors",
+    subheadline: "Practical guides for project visibility, change order recovery, and post-acquisition integration.",
+    ctaText: "Download Free Guide",
+  },
+  "wholesale-distribution": {
+    guides: distributionGuides,
+    headline: "Resources for Mid-Sized Distributors",
+    subheadline: "Practical guides for inventory optimization, customer profitability, and pricing discipline.",
+    ctaText: "Download Free Guide",
+  },
 };
 
 export function getAuditBySlug(slug: string): Audit | undefined {
@@ -439,7 +543,7 @@ export function getAuditBySlug(slug: string): Audit | undefined {
 }
 
 export function getGuideBySlug(slug: string): Guide | undefined {
-  const allGuides = [...legalGuides, ...healthcareGuides, ...manufacturingGuides, ...creGuides];
+  const allGuides = [...legalGuides, ...healthcareGuides, ...manufacturingGuides, ...creGuides, ...constructionGuides, ...distributionGuides];
   return allGuides.find((g) => g.slug === slug);
 }
 
@@ -453,6 +557,10 @@ export function getGuidesByIndustry(industry: string): Guide[] {
       return manufacturingGuides;
     case "commercial-real-estate":
       return creGuides;
+    case "construction":
+      return constructionGuides;
+    case "wholesale-distribution":
+      return distributionGuides;
     default:
       return [];
   }

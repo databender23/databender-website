@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import ServicePageClient from "./ServicePageClient";
 import { services, getServiceBySlug } from "@/lib/services-data";
 import JsonLd from "@/components/seo/JsonLd";
-import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
+import { serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -69,6 +69,9 @@ export default async function ServicePage({ params }: Props) {
     <>
       <JsonLd data={serviceSchema(service)} />
       <JsonLd data={breadcrumbSchema(breadcrumbs)} />
+      {service.faqs && service.faqs.length > 0 && (
+        <JsonLd data={faqSchema(service.faqs)} />
+      )}
       <ServicePageClient service={service} />
     </>
   );

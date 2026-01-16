@@ -1,10 +1,23 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
+import { env } from "@/lib/env";
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "databender-admin-secret-change-in-production"
-);
+const isProduction = process.env.NODE_ENV === "production";
+
+// JWT_SECRET is required in production, falls back to dev secret only in development
+function getJwtSecret(): Uint8Array {
+  const secret = env?.JWT_SECRET;
+  if (!secret) {
+    if (isProduction) {
+      throw new Error("JWT_SECRET environment variable is required in production");
+    }
+    // Development-only fallback - never used in production
+    return new TextEncoder().encode("dev-only-jwt-secret-not-for-production");
+  }
+  return new TextEncoder().encode(secret);
+}
+
 const COOKIE_NAME = "admin_token";
 const TOKEN_EXPIRY = "8h";
 
@@ -21,12 +34,12 @@ export async function createToken(username: string): Promise<string> {
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(TOKEN_EXPIRY)
-    .sign(JWT_SECRET);
+    .sign(getJwtSecret());
 }
 
 export async function verifyToken(token: string): Promise<{ username: string } | null> {
   try {
-    const { payload } = await jwtVerify(token, JWT_SECRET);
+    const { payload } = await jwtVerify(token, getJwtSecret());
     return payload as { username: string };
   } catch {
     return null;
@@ -38,9 +51,9 @@ export async function setAuthCookie(token: string): Promise<void> {
   cookieStore.set(COOKIE_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: "strict", // Strict CSRF protection - cookie only sent for same-site requests
     maxAge: 8 * 60 * 60, // 8 hours
-    path: "/",
+    path: "/admin", // Scope to admin routes only
   });
 }
 
@@ -63,14 +76,20 @@ export async function isAuthenticated(): Promise<boolean> {
 }
 
 export async function validateCredentials(username: string, password: string): Promise<boolean> {
-  const adminUsername = process.env.ADMIN_USERNAME || "admin";
-  const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+  const adminUsername = env?.ADMIN_USERNAME || "admin";
+  const adminPasswordHash = env?.ADMIN_PASSWORD_HASH;
 
   if (username !== adminUsername) return false;
 
-  // If no hash is set, use a simple password
+  // Password hash is required in production - fail secure
   if (!adminPasswordHash) {
-    return password === "AlreadyDead26";
+    if (isProduction) {
+      console.error("ADMIN_PASSWORD_HASH not configured - login disabled in production");
+      return false;
+    }
+    // Development-only: allow a dev password (not the old production password)
+    console.warn("ADMIN_PASSWORD_HASH not set - using development password");
+    return password === "dev-password-only";
   }
 
   return verifyPassword(password, adminPasswordHash);

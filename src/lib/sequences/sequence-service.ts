@@ -4,6 +4,7 @@
  * Business logic for managing email nurture sequences
  */
 
+import { createHmac, timingSafeEqual } from "crypto";
 import { getLeadByEmail, updateLead, scanLeadsWithActiveSequences } from "../leads/dynamodb";
 import type { Lead } from "../leads/types";
 import type {
@@ -13,6 +14,7 @@ import type {
   BounceType,
   PauseReason,
 } from "./types";
+import { isConfigured } from "../env";
 
 /**
  * Enroll a lead in an email sequence
@@ -230,24 +232,90 @@ export function shouldSendEmail(lead: Lead): boolean {
 }
 
 /**
+ * Generate HMAC signature for a payload
+ */
+function signPayload(payload: string): string {
+  const secret = process.env.UNSUBSCRIBE_SECRET;
+  if (!secret) {
+    // Fallback to simple encoding in development
+    return "";
+  }
+  return createHmac("sha256", secret).update(payload).digest("base64url");
+}
+
+/**
+ * Verify HMAC signature
+ */
+function verifySignature(payload: string, signature: string): boolean {
+  const secret = process.env.UNSUBSCRIBE_SECRET;
+  if (!secret) {
+    // No signature verification if secret not configured
+    return true;
+  }
+
+  const expected = createHmac("sha256", secret).update(payload).digest("base64url");
+
+  try {
+    const sigBuffer = Buffer.from(signature, "base64url");
+    const expectedBuffer = Buffer.from(expected, "base64url");
+
+    if (sigBuffer.length !== expectedBuffer.length) {
+      return false;
+    }
+
+    return timingSafeEqual(sigBuffer, expectedBuffer);
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Generate an unsubscribe token for a lead
+ * Uses HMAC signature if UNSUBSCRIBE_SECRET is configured
  */
 export function generateUnsubscribeToken(email: string): string {
   const payload = {
     email: email.toLowerCase(),
     ts: Date.now(),
   };
-  return Buffer.from(JSON.stringify(payload)).toString("base64url");
+  const payloadStr = JSON.stringify(payload);
+  const encodedPayload = Buffer.from(payloadStr).toString("base64url");
+
+  // If HMAC is configured, append signature
+  if (isConfigured.unsubscribe()) {
+    const signature = signPayload(payloadStr);
+    return `${encodedPayload}.${signature}`;
+  }
+
+  return encodedPayload;
 }
 
 /**
  * Decode an unsubscribe token
+ * Verifies HMAC signature if UNSUBSCRIBE_SECRET is configured
  */
 export function decodeUnsubscribeToken(
   token: string
 ): { email: string; ts: number } | null {
   try {
-    const decoded = Buffer.from(token, "base64url").toString("utf-8");
+    let encodedPayload = token;
+    let signature = "";
+
+    // Check for signature format (payload.signature)
+    const parts = token.split(".");
+    if (parts.length === 2) {
+      encodedPayload = parts[0];
+      signature = parts[1];
+    }
+
+    const decoded = Buffer.from(encodedPayload, "base64url").toString("utf-8");
+
+    // Verify signature if configured
+    if (isConfigured.unsubscribe() && !verifySignature(decoded, signature)) {
+      console.warn("[Sequence] Invalid unsubscribe token signature");
+      return null;
+    }
+
     const payload = JSON.parse(decoded);
     if (payload.email && payload.ts) {
       return payload;

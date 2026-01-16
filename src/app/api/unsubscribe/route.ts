@@ -10,6 +10,7 @@ import {
   decodeUnsubscribeToken,
   unsubscribeFromSequence,
 } from "@/lib/sequences/sequence-service";
+import { escapeHtml, sanitizeUrl } from "@/lib/html-escape";
 
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get("token");
@@ -85,7 +86,11 @@ function createHtmlResponse(
   message: string,
   success: boolean
 ): NextResponse {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://databender.co";
+  const siteUrl = sanitizeUrl(process.env.NEXT_PUBLIC_SITE_URL || "https://databender.co");
+
+  // Escape user-controllable content to prevent XSS
+  const safeTitle = escapeHtml(title);
+  const safeMessage = escapeHtml(message);
 
   const html = `
 <!DOCTYPE html>
@@ -93,7 +98,7 @@ function createHtmlResponse(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} - Databender</title>
+  <title>${safeTitle} - Databender</title>
   <style>
     * {
       margin: 0;
@@ -177,8 +182,8 @@ function createHtmlResponse(
     <div class="icon ${success ? "success" : "error"}">
       ${success ? "✓" : "!"}
     </div>
-    <h1>${title}</h1>
-    <p>${message}</p>
+    <h1>${safeTitle}</h1>
+    <p>${safeMessage}</p>
     <a href="${siteUrl}" class="back-link">Return to Databender</a>
     <div class="footer">
       <p>Questions? Contact us at <a href="mailto:hello@databender.co" style="color: #1A9988;">hello@databender.co</a></p>

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
+import { timingSafeEqual } from "crypto";
 import { getLeadByEmail, updateLead, addLeadNote } from "@/lib/leads/dynamodb";
 import type { LeadStatus, LeadTier, LeadNote } from "@/lib/leads/types";
 
@@ -40,7 +41,8 @@ interface WebhookResponse {
 }
 
 /**
- * Validate the API key from request headers
+ * Validate the API key from request headers using timing-safe comparison
+ * Prevents timing attacks that could leak key information
  */
 function validateApiKey(request: Request): boolean {
   const apiKey = request.headers.get("x-api-key");
@@ -51,7 +53,24 @@ function validateApiKey(request: Request): boolean {
     return false;
   }
 
-  return apiKey === expectedKey;
+  if (!apiKey) {
+    return false;
+  }
+
+  // Use timing-safe comparison to prevent timing attacks
+  try {
+    const apiKeyBuffer = Buffer.from(apiKey, "utf-8");
+    const expectedKeyBuffer = Buffer.from(expectedKey, "utf-8");
+
+    // Buffers must be same length for timingSafeEqual
+    if (apiKeyBuffer.length !== expectedKeyBuffer.length) {
+      return false;
+    }
+
+    return timingSafeEqual(apiKeyBuffer, expectedKeyBuffer);
+  } catch {
+    return false;
+  }
 }
 
 /**

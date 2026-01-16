@@ -27,6 +27,16 @@ export const industries: IndustryWithCta[] = [
     ctaSubtext: "From 15 minutes to 30 seconds",
   },
   {
+    slug: "manufacturing",
+    title: "Manufacturing",
+    description: "Stop hunting for answers across spreadsheets and phone calls. See orders, production, and shipments in one place. AI that runs on your equipment, so your competitive data stays private.",
+    icon: "factory",
+    lottie: "/animations/manufacturing-industry.json",
+    ctaText: "Take the Readiness Assessment",
+    ctaHref: "/assessments/manufacturing",
+    ctaSubtext: "5-minute assessment for growing manufacturers",
+  },
+  {
     slug: "commercial-real-estate",
     title: "Commercial Real Estate",
     description: "Find the real owner behind the LLCs. Get portfolio-wide visibility even when every property uses different software. Due diligence in hours, not weeks.",
@@ -37,14 +47,24 @@ export const industries: IndustryWithCta[] = [
     ctaSubtext: "How we fixed 1.69M broken ownership records",
   },
   {
-    slug: "manufacturing",
-    title: "Manufacturing",
-    description: "Stop hunting for answers across spreadsheets and phone calls. See orders, production, and shipments in one place. AI that runs on your equipment, so your competitive data stays private.",
-    icon: "factory",
-    lottie: "/animations/manufacturing-industry.json",
+    slug: "construction",
+    title: "Construction",
+    description: "Your project data is scattered across estimating, scheduling, field apps, and accounting. We connect them all so you see real-time margins, catch cost overruns early, and stop leaving money on the table from unbilled change orders.",
+    icon: "hardhat",
+    lottie: "/animations/construction-industry.json",
     ctaText: "Take the Readiness Assessment",
-    ctaHref: "/assessments/manufacturing",
-    ctaSubtext: "5-minute assessment for growing manufacturers",
+    ctaHref: "/assessments/construction",
+    ctaSubtext: "10-minute assessment for growing contractors",
+  },
+  {
+    slug: "wholesale-distribution",
+    title: "Wholesale Distribution",
+    description: "Inventory ties up cash. Pricing lives in spreadsheets. Customer profitability is invisible until year-end. We connect your ERP, WMS, and sales data to show you what moves, who makes you money, and where margin leaks.",
+    icon: "truck",
+    lottie: "/animations/wholesale-distribution.json",
+    ctaText: "Take the Readiness Assessment",
+    ctaHref: "/assessments/distribution",
+    ctaSubtext: "10-minute assessment for mid-sized distributors",
   },
 ];
 
@@ -53,6 +73,7 @@ export const industryContent: Record<string, {
   solutions: { title: string; description: string }[];
   benefits: { title: string; description: string }[];
   useCases: { title: string; description: string }[];
+  caseStudySlugs?: string[];
 }> = {
   "healthcare": {
     challenges: [
@@ -86,6 +107,7 @@ export const industryContent: Record<string, {
       { title: "Prior Auth Support", description: "AI helps gather required documentation and checks payer requirements. Staff review and send." },
       { title: "Finding Information Fast", description: "\"What's our formulary policy?\" \"Who handles appeals at this payer?\" Instant answers from your own documents." },
     ],
+    caseStudySlugs: ["agentic-document-intelligence"],
   },
   "legal": {
     challenges: [
@@ -119,6 +141,7 @@ export const industryContent: Record<string, {
       { title: "Pitch Prep Made Easy", description: "AI pulls relationship history, past matters, industry context. Walk in prepared without the homework." },
       { title: "First Drafts Overnight", description: "AI generates briefs with case citations. Associates refine and finalize. Same quality, faster turnaround." },
     ],
+    caseStudySlugs: ["agentic-document-intelligence", "army-of-ai-agents"],
   },
   "commercial-real-estate": {
     challenges: [
@@ -152,6 +175,7 @@ export const industryContent: Record<string, {
       { title: "Faster Investor Reporting", description: "Data pulls automatically. Report generation in clicks. What took two weeks now takes a day." },
       { title: "Lease Renewal Pipeline", description: "Expirations 6-9 months out. Below-market rates flagged. Priority ranking by revenue impact. Nothing slips through." },
     ],
+    caseStudySlugs: ["army-of-ai-agents"],
   },
   "manufacturing": {
     challenges: [
@@ -184,6 +208,75 @@ export const industryContent: Record<string, {
       { title: "New Rep Finds Their Own Answers", description: "They search the system instead of interrupting the veteran. Specs, procedures, customer history, all searchable." },
       { title: "Customer History Without Switching Systems", description: "One screen. Orders, shipments, quality issues, payment history. Know the full story before you pick up the phone." },
     ],
+    caseStudySlugs: ["what-predicts-lead-conversion"],
+  },
+  "construction": {
+    challenges: [
+      "Project data scattered across estimating, scheduling, field apps, and accounting. No unified view.",
+      "Can't answer 'What's our actual margin on this project?' without days of manual work",
+      "Cost overruns discovered at project close-out, not when they happen",
+      "Change orders approved in the field but never billed. Revenue leakage you don't even know about.",
+      "Project coordinators spending days compiling reports that are outdated by the time they're done",
+    ],
+    solutions: [
+      { title: "Unified Project View", description: "We connect Procore, accounting, field apps, and even your spreadsheets into one dashboard. Answer 'How's this project doing?' in 30 seconds, not 2 days." },
+      { title: "Real-Time Margin Visibility", description: "Cost-to-complete dashboards updated daily. See margin problems at week 4, not month 8. Alerts when projects drop below threshold." },
+      { title: "Revenue Leakage Detection", description: "Automatic tracking of change orders and billings. Flag unbilled items before they slip through. Capture revenue you're already earning." },
+      { title: "Automated Reporting", description: "Stop the weekly report scramble. Data pulls automatically, reports generate in clicks. Your team focuses on decisions, not data assembly." },
+      { title: "Post-Acquisition Integration", description: "Unified visibility across acquired companies in weeks, even before full system migration. No waiting 18 months for 'integration.'" },
+      { title: "Field-Office Connection", description: "Field data syncs with accounting in real-time, not at month-end. Everyone sees the same numbers." },
+    ],
+    benefits: [
+      { title: "Catch Problems Early", description: "Cost overruns visible at week 4, not month 8. Fix problems before they become write-offs." },
+      { title: "Stop Revenue Leakage", description: "Every change order tracked. Nothing slips through unbilled. Recover 2-5% of revenue most contractors give away." },
+      { title: "Save Hours Weekly", description: "Report compilation reduced from 2 days to 30 minutes. Your coordinators do real work, not data entry." },
+      { title: "Decisions on Current Data", description: "Real-time project status, not last week's spreadsheet. Go into project reviews with confidence." },
+      { title: "First Dashboards in Weeks", description: "Live visibility in 4-6 weeks, not the 18-month enterprise timeline. Prove value fast." },
+      { title: "No Internal Team Required", description: "You don't need a CTO. We fill the gap. Your data team, without the department." },
+    ],
+    useCases: [
+      { title: "\"What's our margin on this project?\"", description: "Real-time cost-to-complete across all projects. No more month-end surprises or spreadsheet hunting." },
+      { title: "Unbilled Change Order Recovery", description: "Change order approved in the field? System flags for billing within 7 days. Nothing slips through the cracks." },
+      { title: "Weekly Project Status Meeting", description: "Everyone sees the same real-time data. No more arguing about whose spreadsheet is right." },
+      { title: "Post-Acquisition Visibility", description: "Bought a company? Unified reporting across both entities in weeks, before full system migration." },
+      { title: "Board and Investor Reporting", description: "Portfolio-wide dashboards that generate automatically. No fire drill before board meetings." },
+      { title: "PM Performance Comparison", description: "Compare margin, schedule adherence, and change order rates across project managers. Data-driven accountability." },
+    ],
+    caseStudySlugs: ["army-of-ai-agents"],
+  },
+  "wholesale-distribution": {
+    challenges: [
+      "20-40% of revenue tied up in inventory. Too much of the wrong stuff, not enough of the right.",
+      "Customer profitability invisible until year-end, if ever. Some 'best customers' are actually money-losers.",
+      "Pricing lives in spreadsheets and sales rep heads. Inconsistent, competitive intel missing.",
+      "Demand forecasting based on 'last year plus 10%'. Always surprised by seasonality.",
+      "Competing against Amazon and nationals who use data to win. You're using gut feel.",
+    ],
+    solutions: [
+      { title: "Inventory Intelligence", description: "Real-time visibility across all SKUs. Dead stock flagged automatically. Demand forecasting that actually predicts. Optimized reorder points. Free up cash tied in inventory that isn't moving." },
+      { title: "Customer Profitability Analytics", description: "True margin by customer after cost-to-serve. See who actually makes you money vs. who just generates revenue. Align sales comp to margin, not just volume." },
+      { title: "Pricing Visibility", description: "Real-time margin by product and customer. Pricing bands and guardrails. Exception alerts for below-margin deals. Stop giving away margin you don't have to." },
+      { title: "Demand Forecasting", description: "Models that incorporate seasonality, trends, and sales pipeline, not just last year's numbers. Better forecasts mean better inventory decisions." },
+      { title: "Post-Acquisition Unification", description: "Consolidated reporting across acquired entities in weeks. Customer deduplication. Unified analytics before full system migration." },
+      { title: "Connected Systems", description: "ERP, WMS, CRM, and e-commerce connected into one view. No more logging into four systems to answer one question." },
+    ],
+    benefits: [
+      { title: "Free Up Cash", description: "Identify dead stock, optimize inventory turns. Recover working capital tied up in products that don't move." },
+      { title: "Protect Margin", description: "Pricing visibility and guardrails. 1-3% margin improvement from better pricing discipline alone." },
+      { title: "Know Your Customers", description: "True profitability by customer, not just revenue. Focus on customers who actually make you money." },
+      { title: "Fewer Stockouts", description: "30-50% reduction in stockouts through better forecasting. Stop losing sales you'll never know about." },
+      { title: "Compete with Data", description: "Amazon uses data. Nationals use data. Now you can too, without building an IT department." },
+      { title: "Fast Time to Value", description: "First deliverable in 4-6 weeks. Foundation in 8-12 weeks. Not the 18-month enterprise timeline." },
+    ],
+    useCases: [
+      { title: "Dead Stock Identification", description: "Which SKUs haven't moved in 6 months? Flag them automatically. Liquidate before they become write-offs." },
+      { title: "Customer Profitability Dashboard", description: "Your 'top 10 customers' ranked by actual margin, not revenue. Some surprises guaranteed." },
+      { title: "Pricing Exception Alerts", description: "Deal below margin threshold? Alert fires before it's approved. Sales managers see the margin impact in real-time." },
+      { title: "Inventory Turn Optimization", description: "From 4x turns to 6x turns by optimizing reorder points and reducing dead stock. That's 30% less cash tied up." },
+      { title: "Post-Acquisition Consolidation", description: "Three ERPs from three acquisitions? One unified dashboard showing inventory, customers, and margin across all." },
+      { title: "Demand Planning", description: "Forecasts that incorporate seasonality, sales pipeline, and market trends. Give suppliers accurate demand signals." },
+    ],
+    caseStudySlugs: ["what-predicts-lead-conversion", "army-of-ai-agents"],
   },
 };
 

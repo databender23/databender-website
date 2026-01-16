@@ -45,6 +45,7 @@ export interface Testimonial {
   title: string;
   company?: string;
   industry: string;
+  services?: string[]; // Service slugs this testimonial relates to
 }
 
 // Filter categories
@@ -206,6 +207,7 @@ export const testimonials: Testimonial[] = [
     title: "Senior Lead Analytics Consultant",
     company: "Wells Fargo",
     industry: "Financial Services",
+    services: ["data-ai-strategy", "analytics-bi"],
   },
   {
     highlight: "Technically sound, scalable, well-documented, and aligned with best practices.",
@@ -214,6 +216,7 @@ export const testimonials: Testimonial[] = [
     title: "Founder",
     company: "Health Price Compare",
     industry: "Healthcare",
+    services: ["data-ai-strategy", "ai-services"],
   },
   {
     highlight: "It was like magic — they took an idea from my head and made it a reality.",
@@ -222,6 +225,7 @@ export const testimonials: Testimonial[] = [
     title: "Landman",
     company: "707 Advisors LLC",
     industry: "Energy",
+    services: ["data-ai-strategy", "analytics-bi", "ai-services"],
   },
   {
     highlight: "Outstanding data experts who surpassed all my expectations.",
@@ -230,6 +234,7 @@ export const testimonials: Testimonial[] = [
     title: "Principal",
     company: "Hoosier OsteoTronix",
     industry: "Healthcare",
+    services: ["analytics-bi", "ai-services"],
   },
 ];
 
@@ -252,4 +257,10 @@ export function filterCaseStudies(
     const matchesService = !service || service === "All Services" || cs.services.some((s) => s.includes(service.replace(" & ", " ")));
     return matchesIndustry && matchesChallenge && matchesService;
   });
+}
+
+export function getTestimonialsByService(serviceSlug: string): Testimonial[] {
+  return testimonials.filter(
+    (t) => t.services && t.services.includes(serviceSlug)
+  );
 }

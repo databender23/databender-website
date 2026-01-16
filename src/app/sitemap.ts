@@ -3,7 +3,7 @@ import { blogPosts } from "@/lib/blog-data";
 import { services } from "@/lib/services-data";
 import { caseStudies } from "@/lib/case-studies-data";
 import { industries } from "@/lib/industries-data";
-import { legalGuides, healthcareGuides, manufacturingGuides, creGuides } from "@/lib/lead-magnets-data";
+import { legalGuides, healthcareGuides, manufacturingGuides, creGuides, constructionGuides, distributionGuides } from "@/lib/lead-magnets-data";
 
 const BASE_URL = "https://databender.co";
 
@@ -114,6 +114,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${BASE_URL}/assessments/construction`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/assessments/distribution`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 
   // Dynamic blog posts
@@ -149,7 +161,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Dynamic guide pages (lead magnets) - all industries
-  const allGuides = [...legalGuides, ...healthcareGuides, ...manufacturingGuides, ...creGuides];
+  const allGuides = [...legalGuides, ...healthcareGuides, ...manufacturingGuides, ...creGuides, ...constructionGuides, ...distributionGuides];
   const guidePages: MetadataRoute.Sitemap = allGuides.map((guide) => ({
     url: `${BASE_URL}/resources/guides/${guide.slug}`,
     lastModified: currentDate,

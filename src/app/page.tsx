@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Features, CTA } from "@/components/sections";
+import { Features, CTA, ClientLogos, PainPoints } from "@/components/sections";
 import { Button } from "@/components/ui";
 import { FloatingNodes } from "@/components/animations";
 import Link from "next/link";
@@ -734,10 +734,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. What We Build Section */}
+      {/* 2. Pain Points Section */}
+      <PainPoints />
+
+      {/* 3. Client Logo Bar */}
+      <ClientLogos />
+
+      {/* 3. What We Build Section */}
       <Features
         subtitle="What We Build"
-        title="Purpose-built systems that actually fit"
+        title="Tailored systems that actually fit"
         features={capabilities}
         columns={3}
       />

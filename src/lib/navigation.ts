@@ -16,8 +16,10 @@ export const mainNavigation: NavItem[] = [
     children: [
       { label: "Legal", href: "/industries/legal" },
       { label: "Healthcare", href: "/industries/healthcare" },
-      { label: "Commercial Real Estate", href: "/industries/commercial-real-estate" },
       { label: "Manufacturing", href: "/industries/manufacturing" },
+      { label: "Commercial Real Estate", href: "/industries/commercial-real-estate" },
+      { label: "Construction", href: "/industries/construction" },
+      { label: "Wholesale Distribution", href: "/industries/wholesale-distribution" },
     ],
   },
   {
@@ -49,8 +51,10 @@ export const footerNavigation = {
   industries: [
     { label: "Legal", href: "/industries/legal" },
     { label: "Healthcare", href: "/industries/healthcare" },
-    { label: "Commercial Real Estate", href: "/industries/commercial-real-estate" },
     { label: "Manufacturing", href: "/industries/manufacturing" },
+    { label: "Commercial Real Estate", href: "/industries/commercial-real-estate" },
+    { label: "Construction", href: "/industries/construction" },
+    { label: "Wholesale Distribution", href: "/industries/wholesale-distribution" },
   ],
   resources: [
     { label: "Case Studies", href: "/case-studies" },

@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { CTA } from "@/components/sections";
+import { CTA, RelatedCaseStudies } from "@/components/sections";
 import { Button } from "@/components/ui";
 import { HeroLottie, FloatingNodes } from "@/components/animations";
 import { industryContent, type IndustryWithCta } from "@/lib/industries-data";
+import { getGuidesByIndustry, industryLeadMagnets } from "@/lib/lead-magnets-data";
 
 // Crop percentages per industry (crops from top)
 const INDUSTRY_CROPS: Record<string, number> = {
@@ -20,6 +21,8 @@ interface Props {
 export default function IndustryPageClient({ industry }: Props) {
   const slug = industry.slug;
   const content = industryContent[slug];
+  const guides = getGuidesByIndustry(slug);
+  const leadMagnetConfig = industryLeadMagnets[slug as keyof typeof industryLeadMagnets];
 
   const defaultContent = {
     challenges: [
@@ -336,6 +339,11 @@ export default function IndustryPageClient({ industry }: Props) {
         </div>
       </section>
 
+      {/* Related Case Studies */}
+      {pageContent.caseStudySlugs && pageContent.caseStudySlugs.length > 0 && (
+        <RelatedCaseStudies caseStudySlugs={pageContent.caseStudySlugs} />
+      )}
+
       {/* Sub-Industries */}
       {industry.subIndustries && industry.subIndustries.length > 0 && (
         <section className="section bg-[#F8F9FA]">
@@ -377,6 +385,73 @@ export default function IndustryPageClient({ industry }: Props) {
                   </motion.a>
                 );
               })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Free Guides Section */}
+      {guides.length > 0 && leadMagnetConfig && (
+        <section id="guides" className="section scroll-mt-24">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-12">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
+              >
+                Free Resources
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-3xl md:text-4xl font-bold text-text-primary mb-4"
+              >
+                {leadMagnetConfig.headline}
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="text-text-secondary text-lg max-w-2xl mx-auto"
+              >
+                {leadMagnetConfig.subheadline}
+              </motion.p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {guides.map((guide, index) => (
+                <motion.a
+                  key={guide.slug}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  href={`/resources/guides/${guide.slug}`}
+                  className="group p-6 rounded-xl bg-white border border-black/10 hover:border-teal-500/30 hover:shadow-lg transition-all"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xs font-medium text-teal-500 bg-teal-500/10 px-2 py-1 rounded">
+                      Free Guide
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-text-primary mb-2 group-hover:text-teal-500 transition-colors">
+                    {guide.title}
+                  </h3>
+                  <p className="text-text-muted text-sm mb-3">{guide.subtitle}</p>
+                  <p className="text-text-secondary text-sm mb-4">{guide.description}</p>
+                  <span className="inline-flex items-center gap-1 text-teal-500 font-medium text-sm group-hover:gap-2 transition-all">
+                    Get the Guide
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </motion.a>
+              ))}
             </div>
           </div>
         </section>

@@ -17,7 +17,7 @@ export function organizationSchema() {
     url: SITE_URL,
     logo: LOGO_URL,
     description:
-      "AI-powered data solutions that transform messy data into business intelligence. Data cleanup, integration, analytics, and AI insights for mid-market companies.",
+      "Custom data and AI solutions at a fraction of the old cost. Senior consultants with AI-powered delivery build what used to take months in weeks. Data strategy, analytics, and automation for growing companies.",
     sameAs: ["https://www.linkedin.com/company/databender/"],
     address: {
       "@type": "PostalAddress",
@@ -193,7 +193,7 @@ export function websiteSchema() {
     name: "Databender",
     url: SITE_URL,
     description:
-      "AI-powered data solutions that transform messy data into business intelligence.",
+      "Custom data and AI solutions at a fraction of the old cost. What used to take months now takes weeks.",
     publisher: {
       "@type": "Organization",
       name: "Databender",

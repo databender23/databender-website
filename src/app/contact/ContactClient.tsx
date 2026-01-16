@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Hero } from "@/components/sections";
 import { Button, Input, Textarea } from "@/components/ui";
 import { getVisitorId, getSessionId } from "@/lib/analytics/visitor-id";
 
+const TOTAL_STEPS = 3;
+
 export default function ContactClient() {
+  const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -18,6 +21,8 @@ export default function ContactClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
+
+  const progress = (currentStep / TOTAL_STEPS) * 100;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,6 +67,22 @@ export default function ContactClient() {
     }));
   };
 
+  const handleNext = () => {
+    if (currentStep < TOTAL_STEPS) {
+      setCurrentStep((prev) => prev + 1);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep((prev) => prev - 1);
+    }
+  };
+
+  const canProceedStep1 = formData.firstName.trim() !== "" && formData.email.trim() !== "";
+  const canProceedStep2 = true; // Company and phone are optional for step 2
+  const canSubmit = formData.message.trim() !== "";
+
   if (isSubmitted) {
     return (
       <>
@@ -94,65 +115,179 @@ export default function ContactClient() {
               <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4 sm:mb-6">
                 Send us a message
               </h2>
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input
-                    label="First Name"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    required
-                  />
-                  <Input
-                    label="Last Name"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    required
+
+              {/* Progress Bar */}
+              <div className="mb-6">
+                <div className="flex justify-between text-sm text-text-muted mb-2">
+                  <span>Step {currentStep} of {TOTAL_STEPS}</span>
+                  <span>{Math.round(progress)}% complete</span>
+                </div>
+                <div className="h-2 bg-[#F8F9FA] rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-teal-500 to-teal-300 rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}%` }}
+                    transition={{ duration: 0.3 }}
                   />
                 </div>
-                <Input
-                  label="Work Email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-                <Input
-                  label="Company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  required
-                />
-                <Input
-                  label="Phone (Optional)"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
-                <Textarea
-                  label="How can we help?"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  required
-                />
+              </div>
 
-                {error && (
-                  <p className="text-error text-sm">{error}</p>
-                )}
+              <form onSubmit={handleSubmit}>
+                <AnimatePresence mode="wait">
+                  {/* Step 1: Name & Email */}
+                  {currentStep === 1 && (
+                    <motion.div
+                      key="step1"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-4 sm:space-y-6"
+                    >
+                      <p className="text-text-secondary mb-4">
+                        Let&apos;s start with the basics
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Input
+                          label="First Name"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleChange}
+                          required
+                          autoFocus
+                        />
+                        <Input
+                          label="Last Name"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <Input
+                        label="Work Email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                      <div className="flex justify-end pt-4">
+                        <Button
+                          variant="primary"
+                          onClick={handleNext}
+                          disabled={!canProceedStep1}
+                          className="min-h-[48px]"
+                          icon={
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                          }
+                        >
+                          Continue
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
 
-                <Button
-                  variant="primary"
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto min-h-[48px] text-base"
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
+                  {/* Step 2: Company & Phone */}
+                  {currentStep === 2 && (
+                    <motion.div
+                      key="step2"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-4 sm:space-y-6"
+                    >
+                      <p className="text-text-secondary mb-4">
+                        Tell us about your company (optional)
+                      </p>
+                      <Input
+                        label="Company"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleChange}
+                        autoFocus
+                      />
+                      <Input
+                        label="Phone"
+                        name="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={handleChange}
+                      />
+                      <div className="flex justify-between pt-4">
+                        <Button
+                          variant="secondary"
+                          onClick={handleBack}
+                          className="min-h-[48px]"
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          variant="primary"
+                          onClick={handleNext}
+                          disabled={!canProceedStep2}
+                          className="min-h-[48px]"
+                          icon={
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                          }
+                        >
+                          Continue
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Step 3: Message */}
+                  {currentStep === 3 && (
+                    <motion.div
+                      key="step3"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-4 sm:space-y-6"
+                    >
+                      <p className="text-text-secondary mb-4">
+                        How can we help?
+                      </p>
+                      <Textarea
+                        label="Your Message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        rows={5}
+                        required
+                        autoFocus
+                        placeholder="Tell us about your project, challenges, or questions..."
+                      />
+
+                      {error && (
+                        <p className="text-error text-sm">{error}</p>
+                      )}
+
+                      <div className="flex justify-between pt-4">
+                        <Button
+                          variant="secondary"
+                          onClick={handleBack}
+                          className="min-h-[48px]"
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          variant="primary"
+                          disabled={isSubmitting || !canSubmit}
+                          className="min-h-[48px] text-base"
+                        >
+                          {isSubmitting ? "Sending..." : "Send Message"}
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </form>
             </motion.div>
 

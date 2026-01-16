@@ -10,6 +10,7 @@ import {
   formatContextForPrompt,
   type BrowsingContext,
 } from "@/lib/analytics/browsing-context";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "https://calendly.com";
 
@@ -160,47 +161,7 @@ function isBot(userAgent: string | null): boolean {
   return BOT_PATTERNS.some((pattern) => pattern.test(userAgent));
 }
 
-// ===========================================
-// RATE LIMITING (in-memory, resets on restart)
-// ===========================================
-const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
-const RATE_LIMIT_MAX_REQUESTS = 10; // Max 10 requests per minute per IP
-
-const rateLimitStore = new Map<string, number[]>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const windowStart = now - RATE_LIMIT_WINDOW_MS;
-
-  // Get existing timestamps for this IP
-  const timestamps = rateLimitStore.get(ip) || [];
-
-  // Filter to only recent timestamps
-  const recentTimestamps = timestamps.filter((t) => t > windowStart);
-
-  // Check if over limit
-  if (recentTimestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
-    return true;
-  }
-
-  // Add current timestamp and store
-  recentTimestamps.push(now);
-  rateLimitStore.set(ip, recentTimestamps);
-
-  // Cleanup old entries periodically (every 100th request)
-  if (Math.random() < 0.01) {
-    for (const [key, times] of rateLimitStore.entries()) {
-      const recent = times.filter((t) => t > windowStart);
-      if (recent.length === 0) {
-        rateLimitStore.delete(key);
-      } else {
-        rateLimitStore.set(key, recent);
-      }
-    }
-  }
-
-  return false;
-}
+// Rate limiting is now handled by @/lib/rate-limit (Upstash Redis with in-memory fallback)
 
 // ===========================================
 // ORIGIN VALIDATION
@@ -290,8 +251,7 @@ export async function POST(request: Request) {
     const userAgent = request.headers.get("user-agent");
     const origin = request.headers.get("origin");
     const referer = request.headers.get("referer");
-    const forwardedFor = request.headers.get("x-forwarded-for");
-    const ip = forwardedFor?.split(",")[0]?.trim() || "unknown";
+    const ip = getClientIp(request);
 
     // 1. Block bots
     if (isBot(userAgent)) {
@@ -309,11 +269,20 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Check rate limit
-    if (isRateLimited(ip)) {
+    // 3. Check rate limit (Upstash Redis with in-memory fallback)
+    const rateLimitResult = await checkRateLimit("chat", ip);
+    if (!rateLimitResult.success) {
       return NextResponse.json(
         { error: "Too many requests. Please wait a moment." },
-        { status: 429 }
+        {
+          status: 429,
+          headers: {
+            "X-RateLimit-Remaining": String(rateLimitResult.remaining),
+            ...(rateLimitResult.reset && {
+              "X-RateLimit-Reset": String(rateLimitResult.reset),
+            }),
+          },
+        }
       );
     }
 

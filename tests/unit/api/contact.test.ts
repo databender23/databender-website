@@ -17,6 +17,17 @@ jest.mock('@/lib/notifications/slack', () => ({
   sendSlackAlert: jest.fn().mockResolvedValue(true),
 }))
 
+// Mock rate limiting and turnstile to always allow in tests
+jest.mock('@/lib/rate-limit', () => ({
+  checkRateLimit: jest.fn().mockResolvedValue({ success: true, remaining: 10 }),
+  getClientIp: jest.fn().mockReturnValue('127.0.0.1'),
+}))
+
+jest.mock('@/lib/turnstile', () => ({
+  verifyTurnstile: jest.fn().mockResolvedValue({ success: true, skipped: true }),
+  getTurnstileToken: jest.fn().mockReturnValue(undefined),
+}))
+
 describe('POST /api/contact', () => {
   beforeEach(() => {
     jest.clearAllMocks()
