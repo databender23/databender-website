@@ -481,13 +481,209 @@ The site has a comprehensive notification system in `src/lib/notifications/`:
 
 ### Analytics System
 
-The site includes a custom analytics system (`src/lib/analytics/`) that tracks:
+The site includes a comprehensive custom analytics system (`src/lib/analytics/`) that tracks:
 - Page views and user journeys
-- Company identification via IP lookup
-- Lead scoring based on behavior
-- Marketing attribution (UTM parameters, referrers)
+- Company identification via IP lookup (enhanced with RB2B + Leadfeeder)
+- Behavioral lead scoring with time decay
+- W-shaped marketing attribution
+- Privacy-compliant consent management
 
 Data is stored in DynamoDB and viewable in the admin dashboard at `/admin/analytics`.
+
+#### Lead Scoring System (`lead-scoring.ts`, `lead-scoring-decay.ts`, `lead-scoring-signals.ts`)
+
+**Score Thresholds:**
+| Tier | Score Range | Recommended Action |
+|------|-------------|-------------------|
+| Cold | 0-25 | Automated nurture sequences |
+| Warm | 26-50 | Slack alert, review within 2 hours |
+| Hot | 51-75 | Immediate outreach within 5 minutes |
+| Very Hot | 76+ | Priority call, calendar booking |
+
+**Page-Based Scoring:**
+- Contact page: 30 pts | Case studies: 20 pts | Our Process: 20 pts
+- Services/Industries: 15 pts | Resources/Guides: 15 pts | Blog: 5 pts
+
+**Behavioral Scoring:**
+- Guide download: 75 pts | Newsletter signup: 60 pts | Form submit: 50 pts
+- Assessment complete: 40 pts | Returning visitor: 25 pts | Chat opened: 20 pts
+
+**Time Decay (50% per 30 days):**
+```typescript
+Decayed Score = Original Score × (1 - 0.5 × (Days Since Event / 30))
+```
+Scores zero out after 90 days of inactivity. Apply to returning visitor calculations.
+
+**Negative Scoring:**
+| Signal | Points | Rationale |
+|--------|--------|-----------|
+| Careers page visit | -15 | Job seeker, not buyer |
+| Personal email domain (Gmail, Yahoo, etc.) | -10 | B2B focus |
+| Competitor email domain | -100 (disqualify) | Competitive intel |
+| >60 days since last visit | -10 | Stale lead |
+
+**Sequential Pattern Bonuses:**
+- Case Study → Contact: +15 pts
+- Multiple service pages → Contact: +12 pts
+- 3+ visits within 7 days: +15 pts
+- Blog → Guide → Case Study: +10 pts
+
+**Session Velocity:**
+- 5+ actions per session: +8 pts
+- High engagement (>30s per page): +5 pts
+
+#### Event Tracking (`events.ts`, `AnalyticsProvider.tsx`)
+
+**Core Events:** `pageview`, `scroll_depth`, `click`, `form_submit`, `chat_open`, `chat_message`, `chat_lead_detected`, `cta_click`, `page_exit`
+
+**New Events (Jan 2026):**
+| Event | Description | Data |
+|-------|-------------|------|
+| `form_start` | User focuses first form field | formName, firstFieldFocused |
+| `form_abandon` | User leaves with partial form | formName, fieldsCompleted, lastFieldFocused, timeSpent |
+| `rage_click` | 3+ clicks in same area within 750ms | element, clickCount, coordinates |
+| `video_play` | Video started | videoId, videoTitle, duration |
+| `video_progress` | 25/50/75/90% milestones | videoId, milestone, currentTime |
+| `video_complete` | Video finished | videoId, duration, watchTime |
+| `copy_text` | User copies text (comparison shopping) | page, element type, textLength |
+
+**Form Tracking Hook:**
+```tsx
+import { useFormTracking } from "@/lib/analytics";
+const { formProps, fieldProps } = useFormTracking("contact-form");
+<form {...formProps}><input {...fieldProps("email")} /></form>
+```
+
+**Video Tracking Hook:**
+```tsx
+import { useVideoTracking } from "@/lib/analytics";
+const { videoRef, handlePlay, handleTimeUpdate } = useVideoTracking(videoId, title);
+<video ref={videoRef} onPlay={handlePlay} onTimeUpdate={handleTimeUpdate} />
+```
+
+#### Company Identification (`company-lookup.ts`, `rb2b-lookup.ts`, `leadfeeder-lookup.ts`)
+
+**Identification Strategy (cascading):**
+1. **US Visitors**: RB2B (person-level) → Leadfeeder (company) → Reverse DNS
+2. **Non-US Visitors**: Leadfeeder → Reverse DNS
+
+**Enriched Company Data:**
+```typescript
+interface EnrichedCompanyInfo {
+  name: string;
+  domain: string;
+  industry?: string;
+  // Person-level (RB2B)
+  personName?: string;
+  personEmail?: string;
+  linkedInUrl?: string;
+  jobTitle?: string;
+  // Company-level (Leadfeeder)
+  employeeCount?: string;
+  revenue?: string;
+  // Metadata
+  source: 'rb2b' | 'leadfeeder' | 'reverse_dns';
+  confidence: 'high' | 'medium' | 'low';
+}
+```
+
+**Free Tier Limits:**
+- RB2B: 150 credits/month (person-level US identification)
+- Leadfeeder: 100 companies/month
+
+**Environment Variables:**
+```
+RB2B_API_KEY=your_key
+LEADFEEDER_API_KEY=your_key
+```
+
+#### Cookie Consent System (`src/lib/consent/`, `src/components/consent/`)
+
+**Consent Categories:**
+- `necessary` - Always enabled (cannot opt out)
+- `analytics` - Behavioral tracking (scroll, clicks, etc.)
+- `marketing` - Not currently used
+
+**Components:**
+- `ConsentProvider` - App-wide consent state context
+- `CookieConsent` - Bottom banner with preferences modal
+- `ManageCookiesButton` - Footer link to reopen preferences
+
+**Consent-Aware Tracking:**
+```typescript
+// AnalyticsProvider checks consent before tracking
+if (!hasAnalyticsConsent()) return; // Skips behavioral events
+// Basic pageviews are "necessary" and always tracked
+```
+
+**Global Privacy Control (GPC):** Automatically respected. If `navigator.globalPrivacyControl === true`, non-essential tracking is disabled.
+
+**Consent Expiry:** Re-prompts after 12 months.
+
+#### HubSpot CRM Integration (`src/lib/integrations/hubspot.ts`)
+
+**Auto-sync on Lead Capture:**
+- Creates/updates HubSpot contact with lead score, pages visited, attribution data
+- Fire-and-forget (doesn't block API response)
+- Rate limiting: 100 requests/10 seconds
+
+**Functions:**
+```typescript
+// Sync lead (async, non-blocking)
+syncLeadToHubSpotAsync({ email, firstName, lead_score, pages_visited, ... })
+
+// Create deal for hot leads
+createDeal({ contactEmail, dealName, amount, stage, source })
+
+// Closed-loop attribution
+getDealAttribution(dealId) // Returns first touch source for won deals
+```
+
+**Required HubSpot Custom Properties:**
+`lead_score` (number), `lead_tier` (dropdown), `first_touch_source`, `first_touch_page`, `pages_visited`, `page_journey`, `identified_company`, `assessment_score`
+
+**Environment Variable:** `HUBSPOT_API_KEY`
+
+#### W-Shaped Attribution (`src/lib/analytics/attribution/`)
+
+**Credit Distribution:**
+- 30% First Touch (awareness)
+- 30% Lead Creation (form submit, chat lead, assessment, guide download)
+- 30% Opportunity Creation (marked in CRM)
+- 10% Middle Touchpoints (distributed)
+
+**Pre-opportunity (if no deal yet):** 40% first / 40% lead / 20% middle
+
+**Functions:**
+```typescript
+storeTouchpoint(touchpoint)              // Store on significant events
+calculateAttribution(visitorId, date)    // W-shaped calculation
+getChannelAttribution(startDate, endDate) // Channel summary
+markOpportunityCreated(visitorId, date)   // For full W-shape
+recordSelfReportedSource(visitorId, text) // "How did you hear about us?"
+```
+
+**API Endpoints:**
+- `GET /api/admin/analytics/attribution/channel-summary?days=30`
+- `POST /api/admin/analytics/attribution/opportunity`
+- `POST /api/analytics/self-reported`
+
+#### Dashboard Enhancements (`src/app/admin/analytics/`)
+
+**New Components (Jan 2026):**
+
+| Component | Purpose | Key Metrics |
+|-----------|---------|-------------|
+| `FunnelChart` | Visual funnel | Visitors→Companies→Leads→Contacted→Qualified→Opps→Customers |
+| `LeadVelocityRate` | LVR trend | Month-over-month qualified lead growth (target: 15%+) |
+| `ResponseTimeTracker` | Hot lead response | Time from alert to first contact (target: <5 min) |
+| `CohortAnalysis` | Lead quality by cohort | Weekly cohorts, conversion rates by source |
+
+**New API Endpoints:**
+- `GET /api/admin/analytics/funnel` - Funnel stage counts
+- `GET /api/admin/analytics/lead-velocity` - 6-month LVR data
+- `GET /api/admin/analytics/response-time` - Hot lead response metrics
+- `GET /api/admin/analytics/cohorts` - Weekly cohort analysis
 
 **Excluding Internal Team from Analytics:**
 
