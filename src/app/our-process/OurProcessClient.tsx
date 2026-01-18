@@ -27,12 +27,12 @@ const processPhases: ProcessPhase[] = [
     description:
       "We don't start with solutions. We start by understanding your data reality. What seems like a simple ID field might have 670 different people assigned to the same value. What your team assumes predicts success often doesn't. We dig into your systems to find the real problems, not the obvious ones.",
     proofPoint: {
-      text: "In one engagement, we discovered a trusted ID field had the same value assigned to 670 different people—a problem invisible to the client until we audited their data.",
+      text: "In one engagement, we discovered a trusted ID field had the same value assigned to 670 different people. A problem invisible to the client until we audited their data.",
       source: "Entity Resolution Case Study",
       link: "/case-studies/army-of-ai-agents",
     },
     deliverables: [
-      "Audit data quality across your systems—not just structure, but accuracy",
+      "Audit data quality across your systems (not just structure, but accuracy)",
       "Identify hidden problems your team doesn't know exist",
       "Document what insights you actually need vs. what reports you're getting",
       "Find quick wins that prove value before the big build",
@@ -45,7 +45,7 @@ const processPhases: ProcessPhase[] = [
     description:
       "Once we understand your reality, we design solutions that fit. Not every problem needs AI. Not every AI problem needs a data warehouse. We recommend approaches based on your constraints, team capabilities, and what will actually get adopted. No vendor loyalty, no one-size-fits-all templates.",
     proofPoint: {
-      text: "For a medical device distributor, we designed a document intelligence system that could read 70+ different file formats—because their knowledge was trapped in decades of PDFs, scans, and spreadsheets.",
+      text: "For a medical device distributor, we designed a document intelligence system that could read 70+ different file formats. Their knowledge was trapped in decades of PDFs, scans, and spreadsheets.",
       source: "Document Intelligence Case Study",
       link: "/case-studies/agentic-document-intelligence",
     },
@@ -61,9 +61,9 @@ const processPhases: ProcessPhase[] = [
     title: "Deploy",
     subtitle: "We deliver what actually works",
     description:
-      "The people who designed your solution build it. No handoffs to junior developers, no knowledge lost in translation. Our AI-augmented approach means 10 agents working in parallel, not 10 analysts working in sequence. You see working solutions in weeks—dashboards that answer real questions, pipelines that actually run, AI that works on your data.",
+      "The people who designed your solution build it. No handoffs to junior developers, no knowledge lost in translation. Our AI-augmented approach means 10 agents working in parallel, not 10 analysts working in sequence. You see working solutions in weeks: dashboards that answer real questions, pipelines that actually run, AI that works on your data.",
     proofPoint: {
-      text: "Our AI-augmented approach delivered 125x cost savings vs. traditional manual methods—$200 in AI costs vs. $25,000 for human review of the same records.",
+      text: "Our AI-augmented approach delivered 125x cost savings vs. traditional manual methods: $200 in AI costs vs. $25,000 for human review of the same records.",
       source: "Entity Resolution Case Study",
       link: "/case-studies/army-of-ai-agents",
     },
@@ -81,7 +81,7 @@ const processPhases: ProcessPhase[] = [
     description:
       "Go-live isn't goodbye. The best AI systems learn from outcomes. We monitor performance, catch data quality issues early, and continuously improve based on real results. When our lead scoring model showed 31% better results, it was because we built feedback loops that learned from every conversion.",
     proofPoint: {
-      text: "Our lead scoring model achieved 31% higher accuracy than standard CRM scoring—not from better algorithms, but from continuous learning based on actual conversion outcomes.",
+      text: "Our lead scoring model achieved 31% higher accuracy than standard CRM scoring. Not from better algorithms, but from continuous learning based on actual conversion outcomes.",
       source: "Lead Scoring Case Study",
       link: "/case-studies/what-predicts-lead-conversion",
     },
@@ -108,7 +108,7 @@ const differentiators = [
   {
     title: "10 agents, not 10 analysts",
     description:
-      "AI agents work in parallel on complex problems—entity resolution, document extraction, pattern recognition—while humans make the judgment calls that matter.",
+      "AI agents work in parallel on complex problems (entity resolution, document extraction, pattern recognition) while humans make the judgment calls that matter.",
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -118,7 +118,7 @@ const differentiators = [
   {
     title: "Working solutions in weeks",
     description:
-      "You see progress fast—dashboards, pipelines, AI that runs on your data. Not months of planning followed by months of building.",
+      "You see progress fast: dashboards, pipelines, AI that runs on your data. Not months of planning followed by months of building.",
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -150,7 +150,7 @@ const insights = [
   },
   {
     insight: "ChatGPT can't read your documents",
-    detail: "Standard AI tools can't access proprietary files. Vision AI can read documents like a human—70+ formats, no custom rules per format.",
+    detail: "Standard AI tools can't access proprietary files. Vision AI can read documents like a human: 70+ formats, no custom rules per format.",
     link: "/case-studies/agentic-document-intelligence",
   },
 ];
@@ -256,10 +256,10 @@ export default function OurProcessClient() {
               className="space-y-6 text-text-secondary text-lg leading-relaxed"
             >
               <p>
-                Most data projects fail because they start with technology instead of understanding. But even projects that start right often fail at scale—the manual effort required to clean messy data, resolve conflicting records, or extract insights from documents makes them economically unfeasible.
+                Most data projects fail because they start with technology instead of understanding. But even projects that start right often fail at scale. The manual effort required to clean messy data, resolve conflicting records, or extract insights from documents makes them economically unfeasible.
               </p>
               <p>
-                <span className="text-text-primary font-medium">Agentic AI changes that equation.</span> We deploy AI agents that reason through complexity—10 agents working in parallel on entity resolution, vision AI reading documents like a human, models that learn from every outcome. Problems that would cost $25,000 in manual review cost $200 with our approach.
+                <span className="text-text-primary font-medium">Agentic AI changes that equation.</span> We deploy AI agents that reason through complexity: 10 agents working in parallel on entity resolution, vision AI reading documents like a human, models that learn from every outcome. Problems that would cost $25,000 in manual review cost $200 with our approach.
               </p>
               <p>
                 This isn&apos;t about replacing humans with AI. It&apos;s about making previously impossible projects possible. The judgment calls stay human. The grunt work becomes automated. The result? Enterprise-quality delivery at a fraction of traditional costs.
@@ -278,7 +278,7 @@ export default function OurProcessClient() {
                 Proven in regulated industries
               </p>
               <p className="text-text-secondary">
-                Healthcare, legal, energy, financial services. We build with HIPAA, GDPR, and SOC 2 compliance from day one—not bolted on at the end. Every AI decision is documented with reasoning and confidence scores for audit trails.
+                Healthcare, legal, energy, financial services. We build with HIPAA, GDPR, and SOC 2 compliance from day one, not bolted on at the end. Every AI decision is documented with reasoning and confidence scores for audit trails.
               </p>
             </motion.div>
           </div>
@@ -313,7 +313,7 @@ export default function OurProcessClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-lg max-w-2xl mx-auto"
             >
-              Every engagement follows the same structure—but every solution is tailored to your specific situation and constraints.
+              Every engagement follows the same structure, but every solution is tailored to your specific situation and constraints.
             </motion.p>
           </div>
 
@@ -506,7 +506,7 @@ export default function OurProcessClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-lg max-w-2xl mx-auto"
             >
-              Every engagement reveals something surprising. Here are insights that challenged assumptions—and changed outcomes.
+              Every engagement reveals something surprising. Here are insights that challenged assumptions and changed outcomes.
             </motion.p>
           </div>
 
