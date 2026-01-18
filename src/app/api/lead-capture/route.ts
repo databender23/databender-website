@@ -11,6 +11,12 @@ import { getGuideSequenceType } from "@/lib/sequences/types";
 import { BEHAVIOR_SCORES, getLeadTier } from "@/lib/analytics/lead-scoring";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { verifyTurnstile, getTurnstileToken } from "@/lib/turnstile";
+import {
+  syncLeadToHubSpotAsync,
+  formatPagesVisited,
+  formatPageJourney,
+  type HubSpotContactData,
+} from "@/lib/integrations";
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
@@ -278,6 +284,33 @@ export async function POST(request: Request) {
           ...analyticsData,
         });
         console.log(`Lead created for ${email} (score: ${analyticsData.behaviorScore || 0})`);
+
+        // Sync to HubSpot CRM (fire and forget)
+        const hubspotData: HubSpotContactData = {
+          email,
+          firstName: firstName || undefined,
+          lastName: lastName || undefined,
+          company: company || undefined,
+          phone: phone || undefined,
+          lead_score: analyticsData.behaviorScore as number | undefined,
+          lead_tier: analyticsData.behaviorTier as string | undefined,
+          first_touch_source: (analyticsData.firstTouchSource as string) ||
+            (analyticsData.referrerSource as string) ||
+            "Direct",
+          first_touch_page: (analyticsData.firstTouchLandingPage as string) ||
+            sourcePage ||
+            "/",
+          pages_visited: formatPagesVisited(
+            analyticsData.pagesVisited as string[] | undefined
+          ),
+          page_journey: formatPageJourney(
+            analyticsData.pageJourney as
+              | Array<{ page: string; timestamp?: string; duration?: number }>
+              | undefined
+          ),
+          identified_company: analyticsData.identifiedCompany as string | undefined,
+        };
+        syncLeadToHubSpotAsync(hubspotData);
 
         // Enroll guide downloads in email sequence
         if (formType === "guide" && resourceSlug) {

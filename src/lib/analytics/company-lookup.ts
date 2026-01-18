@@ -1,33 +1,39 @@
 /**
  * Company Lookup Service
  *
- * Uses reverse DNS lookup to attempt company identification from IP addresses.
- * This is an MVP approach that works best with corporate networks.
+ * Orchestrates company identification from multiple sources:
+ * 1. RB2B (Primary for US) - Person-level identification, 150 free/month
+ * 2. Leadfeeder (Secondary) - Company-level identification, 100 free/month
+ * 3. Reverse DNS (Fallback) - Free, works best with corporate networks
  *
- * Future enhancements could integrate with paid services:
- * - Clearbit Reveal: https://clearbit.com/reveal
- * - Leadfeeder: https://www.leadfeeder.com/
- * - Demandbase: https://www.demandbase.com/
- * - ZoomInfo: https://www.zoominfo.com/
- * - 6sense: https://6sense.com/
+ * Environment Variables:
+ * - RB2B_API_KEY: RB2B API key for person-level identification
+ * - LEADFEEDER_API_KEY: Leadfeeder API key for company identification
+ *
+ * Lookup Strategy:
+ * - US IPs: RB2B -> Leadfeeder -> Reverse DNS
+ * - Non-US IPs: Leadfeeder -> Reverse DNS
+ *
+ * All results cached for 24 hours to maximize free tier usage.
  */
 
 import dns from "dns";
 import { promisify } from "util";
+import { lookupRB2B, isRB2BAvailable, isUSBasedIP } from "./rb2b-lookup";
+import { lookupLeadfeeder, isLeadfeederAvailable } from "./leadfeeder-lookup";
+import type {
+  CompanyInfo,
+  EnrichedCompanyInfo,
+  CompanyCacheEntry,
+} from "./types/company";
 
 const dnsReverse = promisify(dns.reverse);
 
-export interface CompanyInfo {
-  name: string;
-  domain: string;
-  industry?: string;
-  size?: string;
-  linkedin?: string;
-}
+// Re-export types for external consumers
+export type { CompanyInfo, EnrichedCompanyInfo } from "./types/company";
 
-// In-memory cache for company lookups to avoid repeated DNS calls
-// Key: IP address, Value: { data: CompanyInfo | null, timestamp: number }
-const companyCache = new Map<string, { data: CompanyInfo | null; timestamp: number }>();
+// Main cache for orchestrated lookups (separate from service-specific caches)
+const companyCache = new Map<string, CompanyCacheEntry>();
 const CACHE_TTL = 1000 * 60 * 60 * 24; // 24 hours cache
 
 // Known domain patterns that indicate companies vs ISPs/residential
@@ -119,16 +125,6 @@ const ISP_PATTERNS = [
   /\.internal$/i,
 ];
 
-// Patterns to extract company name from hostname
-const COMPANY_DOMAIN_PATTERNS = [
-  // company.com, company.co.uk, etc.
-  /^(?:mail|smtp|mx|www|vpn|remote|proxy|gw|gateway)?\d*\.?([a-z0-9-]+)\.(com|co|org|net|io|ai|tech|biz|info|us|uk|de|fr|ca|au|jp|cn|in|br)(?:\.[a-z]{2})?$/i,
-  // Specific corporate patterns
-  /^[a-z0-9-]+\.([a-z0-9-]+)\.corp$/i,
-  /^[a-z0-9-]+\.([a-z0-9-]+)\.internal$/i,
-  /^[a-z0-9-]+\.([a-z0-9-]+)\.local$/i,
-];
-
 /**
  * Check if an IP address is private/local
  */
@@ -136,7 +132,7 @@ function isPrivateIP(ip: string): boolean {
   // IPv4 private ranges
   if (ip.startsWith("10.") ||
       ip.startsWith("192.168.") ||
-      ip.startsWith("172.") && parseInt(ip.split(".")[1]) >= 16 && parseInt(ip.split(".")[1]) <= 31 ||
+      (ip.startsWith("172.") && parseInt(ip.split(".")[1]) >= 16 && parseInt(ip.split(".")[1]) <= 31) ||
       ip === "127.0.0.1" ||
       ip === "::1" ||
       ip.startsWith("fc") || // IPv6 private
@@ -157,7 +153,9 @@ function isISPHostname(hostname: string): boolean {
 /**
  * Extract company name from hostname
  */
-function extractCompanyFromHostname(hostname: string): { name: string; domain: string } | null {
+function extractCompanyFromHostname(
+  hostname: string
+): { name: string; domain: string } | null {
   // Skip if it looks like an ISP
   if (isISPHostname(hostname)) {
     return null;
@@ -195,7 +193,10 @@ function extractCompanyFromHostname(hostname: string): { name: string; domain: s
   }
 
   // Skip generic subdomains that got picked as company name
-  const genericSubdomains = ["www", "mail", "smtp", "ftp", "vpn", "remote", "proxy", "gw", "gateway", "ns", "dns"];
+  const genericSubdomains = [
+    "www", "mail", "smtp", "ftp", "vpn", "remote",
+    "proxy", "gw", "gateway", "ns", "dns"
+  ];
   if (genericSubdomains.includes(domainName)) {
     return null;
   }
@@ -213,35 +214,14 @@ function extractCompanyFromHostname(hostname: string): { name: string; domain: s
 }
 
 /**
- * Look up company information from an IP address using reverse DNS.
- *
- * This MVP approach has limitations:
- * - Only works for corporate networks with proper reverse DNS
- * - Residential/mobile IPs typically won't resolve to company names
- * - Results depend on how the company has configured their DNS
- *
- * For production use, consider integrating with paid services like
- * Clearbit Reveal which maintain IP-to-company databases.
+ * Perform reverse DNS lookup
  */
-export async function lookupCompany(ip: string): Promise<CompanyInfo | null> {
-  // Skip private IPs
-  if (isPrivateIP(ip)) {
-    return null;
-  }
-
-  // Check cache first
-  const cached = companyCache.get(ip);
-  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-    return cached.data;
-  }
-
+async function lookupReverseDNS(ip: string): Promise<EnrichedCompanyInfo | null> {
   try {
-    // Perform reverse DNS lookup
+    console.log("[ReverseDNS] Looking up IP:", ip.substring(0, 8) + "...");
     const hostnames = await dnsReverse(ip);
 
     if (!hostnames || hostnames.length === 0) {
-      // Cache the null result
-      companyCache.set(ip, { data: null, timestamp: Date.now() });
       return null;
     }
 
@@ -249,43 +229,145 @@ export async function lookupCompany(ip: string): Promise<CompanyInfo | null> {
     for (const hostname of hostnames) {
       const company = extractCompanyFromHostname(hostname);
       if (company) {
-        const result: CompanyInfo = {
+        console.log("[ReverseDNS] Successfully identified:", company.name);
+        return {
           name: company.name,
           domain: company.domain,
-          // Industry and size would come from enrichment services
-          // For MVP, we leave these undefined
+          source: "reverse_dns",
+          confidence: "low",
         };
-
-        // Cache the result
-        companyCache.set(ip, { data: result, timestamp: Date.now() });
-        return result;
       }
     }
 
-    // No company could be extracted from hostnames
-    companyCache.set(ip, { data: null, timestamp: Date.now() });
     return null;
   } catch {
     // DNS lookup failed - IP may not have reverse DNS configured
-    // This is common for residential/mobile IPs
-    companyCache.set(ip, { data: null, timestamp: Date.now() });
     return null;
   }
 }
 
 /**
- * Clear the company lookup cache
- * Useful for testing or when you want to force fresh lookups
+ * Look up company information from an IP address using multiple services.
+ *
+ * Strategy:
+ * 1. For US IPs: Try RB2B first (person-level, highest value)
+ * 2. Try Leadfeeder (company-level)
+ * 3. Fall back to reverse DNS (free, low confidence)
+ *
+ * @param ip - The IP address to look up
+ * @param countryCode - Optional country code from geolocation
+ * @returns EnrichedCompanyInfo if found, null otherwise
+ */
+export async function lookupCompanyEnriched(
+  ip: string,
+  countryCode?: string
+): Promise<EnrichedCompanyInfo | null> {
+  // Skip private IPs
+  if (isPrivateIP(ip)) {
+    return null;
+  }
+
+  // Check main cache first
+  const cached = companyCache.get(ip);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    console.log("[CompanyLookup] Cache hit for IP:", ip.substring(0, 8) + "...");
+    return cached.data;
+  }
+
+  let result: EnrichedCompanyInfo | null = null;
+
+  // Step 1: Try RB2B for US IPs (person-level identification)
+  if (isUSBasedIP(countryCode) && isRB2BAvailable()) {
+    result = await lookupRB2B(ip, countryCode);
+    if (result) {
+      companyCache.set(ip, { data: result, timestamp: Date.now() });
+      return result;
+    }
+  }
+
+  // Step 2: Try Leadfeeder (company-level identification)
+  if (isLeadfeederAvailable()) {
+    result = await lookupLeadfeeder(ip);
+    if (result) {
+      companyCache.set(ip, { data: result, timestamp: Date.now() });
+      return result;
+    }
+  }
+
+  // Step 3: Fall back to reverse DNS
+  result = await lookupReverseDNS(ip);
+
+  // Cache the result (even if null)
+  companyCache.set(ip, { data: result, timestamp: Date.now() });
+  return result;
+}
+
+/**
+ * Legacy function for backwards compatibility.
+ * Use lookupCompanyEnriched for new code.
+ */
+export async function lookupCompany(ip: string): Promise<CompanyInfo | null> {
+  const enriched = await lookupCompanyEnriched(ip);
+
+  if (!enriched) {
+    return null;
+  }
+
+  // Convert to legacy CompanyInfo format
+  return {
+    name: enriched.name,
+    domain: enriched.domain,
+    industry: enriched.industry,
+    size: enriched.size || enriched.employeeCount,
+    linkedin: enriched.linkedin || enriched.linkedInUrl,
+  };
+}
+
+/**
+ * Clear all company lookup caches
  */
 export function clearCompanyCache(): void {
   companyCache.clear();
+  // Note: Individual service caches are cleared via their own functions
+  // This only clears the orchestration cache
 }
 
 /**
  * Get cache statistics
  */
-export function getCompanyCacheStats(): { size: number; hitRate?: number } {
+export function getCompanyCacheStats(): {
+  size: number;
+  hitRate?: number;
+} {
   return {
     size: companyCache.size,
+  };
+}
+
+/**
+ * Get comprehensive service statistics
+ */
+export async function getCompanyLookupStats(): Promise<{
+  mainCacheSize: number;
+  rb2b: { available: boolean; remainingCredits: number };
+  leadfeeder: { available: boolean; remainingCredits: number };
+}> {
+  // Dynamic imports to avoid circular deps
+  const { getRB2BStats } = await import("./rb2b-lookup");
+  const { getLeadfeederStats } = await import("./leadfeeder-lookup");
+
+  const rb2bStats = getRB2BStats();
+  const leadfeederStats = getLeadfeederStats();
+
+  return {
+    mainCacheSize: companyCache.size,
+    rb2b: {
+      available: rb2bStats.isAvailable,
+      remainingCredits: rb2bStats.remainingCredits,
+    },
+    leadfeeder: {
+      available: leadfeederStats.isAvailable,
+      remainingCredits: leadfeederStats.remainingCredits,
+    },
   };
 }

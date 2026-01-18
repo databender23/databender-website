@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation'
 import { EasterEggsProvider, ScrollProgress } from '@/components/interactive'
 import { ChatWidget } from '@/components/chat'
 import { AnalyticsProvider } from '@/lib/analytics'
+import { ConsentProvider } from '@/lib/consent'
+import { CookieConsent } from '@/components/consent'
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -28,14 +30,17 @@ interface ClientProvidersProps {
 
 export function ClientProviders({ children }: ClientProvidersProps) {
   return (
-    <AnalyticsProvider>
-      <EasterEggsProvider>
-        <ScrollToTop />
-        <ScrollProgress />
-        {children}
-        <ChatWidget />
-      </EasterEggsProvider>
-    </AnalyticsProvider>
+    <ConsentProvider>
+      <AnalyticsProvider>
+        <EasterEggsProvider>
+          <ScrollToTop />
+          <ScrollProgress />
+          {children}
+          <ChatWidget />
+          <CookieConsent />
+        </EasterEggsProvider>
+      </AnalyticsProvider>
+    </ConsentProvider>
   )
 }
 

@@ -7,7 +7,18 @@ export type EventType =
   | "chat_message"
   | "chat_lead_detected"
   | "cta_click"
-  | "page_exit";
+  | "page_exit"
+  // Form interaction events
+  | "form_start"
+  | "form_abandon"
+  // Rage click detection
+  | "rage_click"
+  // Video engagement events
+  | "video_play"
+  | "video_progress"
+  | "video_complete"
+  // Copy event (comparison shopping indicator)
+  | "copy_text";
 
 export interface UTMParams {
   source?: string;
@@ -113,4 +124,75 @@ export interface ConversionPath {
   referrerSource?: string;
   referrerMedium?: string;
   utm?: UTMParams;
+}
+
+// ============================================
+// Form Interaction Event Data
+// ============================================
+
+export interface FormStartEventData {
+  formName: string;
+  firstFieldFocused: string;
+}
+
+export interface FormAbandonEventData {
+  formName: string;
+  fieldsCompleted: number;
+  totalFields: number;
+  lastFieldFocused: string;
+  timeSpent: number; // milliseconds
+  completionPercentage: number;
+}
+
+// ============================================
+// Rage Click Event Data
+// ============================================
+
+export interface RageClickEventData {
+  element: string;
+  elementText?: string;
+  clickCount: number;
+  coordinates: { x: number; y: number };
+  timeWindow: number; // milliseconds
+}
+
+// ============================================
+// Video Engagement Event Data
+// ============================================
+
+export type VideoMilestone = 25 | 50 | 75 | 90;
+
+export interface VideoPlayEventData {
+  videoId: string;
+  videoTitle: string;
+  duration: number; // seconds
+}
+
+export interface VideoProgressEventData {
+  videoId: string;
+  videoTitle: string;
+  milestone: VideoMilestone;
+  duration: number; // seconds
+  currentTime: number; // seconds
+}
+
+export interface VideoCompleteEventData {
+  videoId: string;
+  videoTitle: string;
+  duration: number; // seconds
+  watchTime: number; // seconds (actual time watched)
+}
+
+// ============================================
+// Copy Text Event Data
+// ============================================
+
+export type CopyElementType = "pricing" | "features" | "testimonial" | "contact" | "general";
+
+export interface CopyTextEventData {
+  textLength: number;
+  element: CopyElementType;
+  elementSelector?: string;
+  // First 100 chars of copied text for context (truncated for privacy)
+  textPreview?: string;
 }

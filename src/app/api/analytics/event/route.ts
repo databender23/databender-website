@@ -9,6 +9,7 @@ import {
   getLeadTier,
 } from "@/lib/analytics/lead-scoring";
 import { sendSlackAlert, shouldAlertForScore } from "@/lib/notifications/slack";
+import { storeTouchpoint, type TouchpointType } from "@/lib/analytics/attribution";
 
 // Track which sessions have already received alerts to avoid duplicates
 // Also cache geo data so it's available for non-pageview events
@@ -472,6 +473,62 @@ export async function POST(request: NextRequest) {
           // Log but don't fail the request if conversion path storage fails
           console.error("Failed to store conversion path:", conversionPathError);
         }
+      }
+
+      // Store touchpoint for W-shaped attribution
+      const touchpointType: TouchpointType = event.eventType === "chat_lead_detected"
+        ? "chat_lead"
+        : "form_submit";
+
+      // Extract GCLID from URL params if present
+      const gclid = event.data?.gclid as string | undefined;
+
+      storeTouchpoint({
+        visitorId,
+        sessionId,
+        type: touchpointType,
+        page: event.page,
+        source: referrerSource,
+        medium: referrerMedium,
+        campaign: event.utm?.campaign,
+        utmParams: event.utm,
+        gclid,
+      }).catch((err) => {
+        console.error("Failed to store touchpoint:", err);
+      });
+    }
+
+    // Store touchpoints for assessment completion and guide downloads
+    if (event.eventType === "form_submit") {
+      const formName = event.data?.formName as string;
+      if (formName === "assessment" || formName?.includes("assessment")) {
+        storeTouchpoint({
+          visitorId,
+          sessionId,
+          type: "assessment_complete",
+          page: event.page,
+          source: referrerSource,
+          medium: referrerMedium,
+          campaign: event.utm?.campaign,
+          utmParams: event.utm,
+          gclid: event.data?.gclid as string | undefined,
+        }).catch((err) => {
+          console.error("Failed to store assessment touchpoint:", err);
+        });
+      } else if (formName === "guide_download" || formName?.includes("guide")) {
+        storeTouchpoint({
+          visitorId,
+          sessionId,
+          type: "guide_download",
+          page: event.page,
+          source: referrerSource,
+          medium: referrerMedium,
+          campaign: event.utm?.campaign,
+          utmParams: event.utm,
+          gclid: event.data?.gclid as string | undefined,
+        }).catch((err) => {
+          console.error("Failed to store guide download touchpoint:", err);
+        });
       }
     }
 

@@ -3,7 +3,34 @@
  *
  * Calculates a lead score based on visitor behavior to identify purchase intent.
  * Higher scores indicate visitors more likely to convert.
+ *
+ * Features:
+ * - Page-based scoring
+ * - Behavior-based scoring
+ * - Time decay (50% every 30 days, expires at 90 days)
+ * - Negative signals (careers page, personal email, competitors)
+ * - Sequential pattern bonuses
+ * - Session velocity scoring
  */
+
+// Re-export decay and signal modules for convenience
+export * from "./lead-scoring-decay";
+export * from "./lead-scoring-signals";
+
+// Import for internal use
+import {
+  applyTimeDecay,
+  daysBetween,
+  TimestampedScore,
+} from "./lead-scoring-decay";
+import {
+  evaluateNegativeSignals,
+  detectSequencePatterns,
+  calculateSessionVelocity,
+  NegativeSignalResult,
+  SequencePatternResult,
+  SessionVelocityResult,
+} from "./lead-scoring-signals";
 
 // Score thresholds for lead classification
 export const LEAD_SCORE_THRESHOLDS = {
@@ -68,21 +95,35 @@ export const BEHAVIOR_SCORES = {
 export interface ScoreBreakdown {
   pageScore: number;
   behaviorScore: number;
+  negativeScore: number;
+  sequenceBonus: number;
+  velocityBonus: number;
   totalScore: number;
   tier: LeadTier;
   reasons: string[];
+  isDisqualified: boolean;
+  negativeSignals?: NegativeSignalResult;
+  sequencePatterns?: SequencePatternResult;
+  velocityMetrics?: SessionVelocityResult;
 }
 
 export interface VisitorScoreData {
   pagesVisited: string[];
+  pageSequence?: string[]; // Pages in order of visit for sequence detection
   maxScrollDepth: number;
   chatOpened: boolean;
   chatMessagesSent: number;
   formSubmitted: boolean;
   assessmentCompleted: boolean;
+  hasDownloadedGuide?: boolean;
   pageCount: number;
   sessionDurationSeconds: number;
+  actionCount?: number; // Total actions in session for velocity scoring
   isReturningVisitor: boolean;
+  email?: string; // For personal/competitor domain detection
+  lastVisitDate?: Date | string | number; // For inactivity penalty
+  visitDates?: (Date | string | number)[]; // For 3+ visits in 7 days pattern
+  eventTimestamps?: TimestampedScore[]; // For time decay calculation
 }
 
 /**
@@ -162,11 +203,16 @@ export function getTierBadgeClasses(tier: LeadTier): string {
 
 /**
  * Calculate complete lead score breakdown from visitor data
+ * Includes negative signals, sequence patterns, and velocity bonuses
  */
 export function calculateLeadScore(data: VisitorScoreData): ScoreBreakdown {
   const reasons: string[] = [];
   let pageScore = 0;
   let behaviorScore = 0;
+  let negativeScore = 0;
+  let sequenceBonus = 0;
+  let velocityBonus = 0;
+  let isDisqualified = false;
 
   // Calculate page-based score (sum of unique pages visited)
   const uniquePages = [...new Set(data.pagesVisited)];
@@ -223,15 +269,97 @@ export function calculateLeadScore(data: VisitorScoreData): ScoreBreakdown {
     reasons.push("Returning visitor");
   }
 
-  const totalScore = pageScore + behaviorScore;
-  const tier = getLeadTier(totalScore);
+  // Apply time decay to behavioral scores if timestamps provided
+  if (data.eventTimestamps && data.eventTimestamps.length > 0) {
+    const now = new Date();
+    let decayedBehaviorScore = 0;
+
+    for (const event of data.eventTimestamps) {
+      const days = daysBetween(event.timestamp, now);
+      const decayedScore = applyTimeDecay(event.score, days);
+      decayedBehaviorScore += decayedScore;
+    }
+
+    // Replace behavior score with decayed version
+    if (decayedBehaviorScore < behaviorScore) {
+      reasons.push(
+        `Time decay applied (${behaviorScore} → ${decayedBehaviorScore})`
+      );
+      behaviorScore = decayedBehaviorScore;
+    }
+  }
+
+  // Evaluate negative signals
+  const daysSinceLastVisit = data.lastVisitDate
+    ? daysBetween(data.lastVisitDate)
+    : undefined;
+
+  const negativeSignalResult = evaluateNegativeSignals({
+    pagesVisited: data.pagesVisited,
+    email: data.email,
+    daysSinceLastVisit,
+  });
+
+  negativeScore = negativeSignalResult.totalDeduction;
+  isDisqualified = negativeSignalResult.isDisqualified;
+
+  for (const signal of negativeSignalResult.signals) {
+    reasons.push(`${signal.reason} (${signal.points})`);
+  }
+
+  // Detect sequence patterns
+  const sequencePatternResult = detectSequencePatterns({
+    pageSequence: data.pageSequence || data.pagesVisited,
+    visitDates: data.visitDates,
+    hasDownloadedGuide: data.hasDownloadedGuide,
+  });
+
+  sequenceBonus = sequencePatternResult.totalBonus;
+
+  for (const pattern of sequencePatternResult.patterns) {
+    reasons.push(`${pattern.description} (+${pattern.bonus})`);
+  }
+
+  // Calculate session velocity
+  const velocityResult = calculateSessionVelocity({
+    actionCount: data.actionCount || data.pageCount,
+    sessionDurationSeconds: data.sessionDurationSeconds,
+    pageCount: data.pageCount,
+  });
+
+  velocityBonus = velocityResult.totalBonus;
+
+  if (velocityResult.metrics.hasHighActionCount) {
+    reasons.push(`High action count: ${velocityResult.metrics.actionsPerSession} actions (+8)`);
+  }
+  if (velocityResult.metrics.hasHighEngagement) {
+    reasons.push(
+      `High engagement: ${velocityResult.metrics.averageSecondsPerPage}s/page (+5)`
+    );
+  }
+
+  // Calculate total score (negative scores are already negative)
+  const totalScore = Math.max(
+    0,
+    pageScore + behaviorScore + negativeScore + sequenceBonus + velocityBonus
+  );
+
+  // Disqualified leads are forced to Cold tier
+  const tier = isDisqualified ? "Cold" : getLeadTier(totalScore);
 
   return {
     pageScore,
     behaviorScore,
+    negativeScore,
+    sequenceBonus,
+    velocityBonus,
     totalScore,
     tier,
     reasons,
+    isDisqualified,
+    negativeSignals: negativeSignalResult,
+    sequencePatterns: sequencePatternResult,
+    velocityMetrics: velocityResult,
   };
 }
 
@@ -286,72 +414,61 @@ export function calculateEventScore(
 }
 
 /**
- * Calculate aggregate lead score metrics for analytics
+ * Calculate lead score for a returning visitor with time decay applied
+ * Use this when a visitor returns to get their current effective score
  */
-export interface LeadScoreMetrics {
-  averageScore: number;
-  tierBreakdown: Record<LeadTier, number>;
-  topScoringPages: { page: string; contributedScore: number; visits: number }[];
-  totalScored: number;
-}
-
-export function aggregateLeadScoreMetrics(
-  visitorScores: { score: number; pagesVisited: string[] }[]
-): LeadScoreMetrics {
-  if (visitorScores.length === 0) {
-    return {
-      averageScore: 0,
-      tierBreakdown: { Cold: 0, Warm: 0, Hot: 0, "Very Hot": 0 },
-      topScoringPages: [],
-      totalScored: 0,
-    };
-  }
-
-  // Calculate average score
-  const totalScore = visitorScores.reduce((sum, v) => sum + v.score, 0);
-  const averageScore = Math.round(totalScore / visitorScores.length);
-
-  // Calculate tier breakdown
-  const tierBreakdown: Record<LeadTier, number> = {
-    Cold: 0,
-    Warm: 0,
-    Hot: 0,
-    "Very Hot": 0,
+export function calculateReturningVisitorScore(
+  historicalData: VisitorScoreData,
+  newSessionData?: Partial<VisitorScoreData>
+): ScoreBreakdown {
+  // Merge new session data with historical data
+  const mergedData: VisitorScoreData = {
+    ...historicalData,
+    ...newSessionData,
+    // Combine pages visited
+    pagesVisited: [
+      ...historicalData.pagesVisited,
+      ...(newSessionData?.pagesVisited || []),
+    ],
+    // Use new session metrics for current session
+    pageCount: newSessionData?.pageCount ?? historicalData.pageCount,
+    sessionDurationSeconds:
+      newSessionData?.sessionDurationSeconds ??
+      historicalData.sessionDurationSeconds,
+    // Mark as returning
+    isReturningVisitor: true,
   };
 
-  for (const visitor of visitorScores) {
-    const tier = getLeadTier(visitor.score);
-    tierBreakdown[tier]++;
-  }
+  return calculateLeadScore(mergedData);
+}
 
-  // Calculate top scoring pages
-  const pageContributions: Record<string, { score: number; visits: number }> = {};
+/**
+ * Quick score check for a single email address
+ * Returns negative points if personal or competitor domain
+ */
+export function scoreEmailDomain(email: string): {
+  points: number;
+  reason: string | null;
+  isDisqualified: boolean;
+} {
+  const result = evaluateNegativeSignals({
+    pagesVisited: [],
+    email,
+  });
 
-  for (const visitor of visitorScores) {
-    const uniquePages = [...new Set(visitor.pagesVisited)];
-    for (const page of uniquePages) {
-      const pageScore = calculatePageScore(page);
-      if (!pageContributions[page]) {
-        pageContributions[page] = { score: 0, visits: 0 };
-      }
-      pageContributions[page].score += pageScore;
-      pageContributions[page].visits++;
-    }
-  }
-
-  const topScoringPages = Object.entries(pageContributions)
-    .map(([page, data]) => ({
-      page,
-      contributedScore: data.score,
-      visits: data.visits,
-    }))
-    .sort((a, b) => b.contributedScore - a.contributedScore)
-    .slice(0, 10);
+  const emailSignal = result.signals.find(
+    (s) => s.signal === "personal_email" || s.signal === "competitor_email"
+  );
 
   return {
-    averageScore,
-    tierBreakdown,
-    topScoringPages,
-    totalScored: visitorScores.length,
+    points: emailSignal?.points || 0,
+    reason: emailSignal?.reason || null,
+    isDisqualified: result.isDisqualified,
   };
 }
+
+// Re-export metrics functions from dedicated module
+export {
+  aggregateLeadScoreMetrics,
+  type LeadScoreMetrics,
+} from "./lead-scoring-metrics";

@@ -351,21 +351,34 @@ All Lottie animations use the optimized `LottieWrapper` component (`src/componen
 ### Dynamic Routes
 
 - `/services/[slug]` - Service pages (data-ai-strategy, analytics-bi, ai-services)
-- `/industries/[slug]` - Industry pages (uses `industries-data.ts`)
-- `/industries/legal` - Custom Legal page (not dynamic, has special content)
-- `/industries/healthcare` - Custom Healthcare page (not dynamic, has special content)
-- `/blog/[slug]` - Blog posts
-- `/resources/guides/[slug]` - Lead magnet guides
+- `/industries/[slug]` - Industry pages (6 total, uses `industries-data.ts`)
+  - `/industries/legal` - Custom page with special content
+  - `/industries/healthcare` - Custom page with special content
+  - `/industries/manufacturing` - Dynamic from data
+  - `/industries/commercial-real-estate` - Dynamic from data
+  - `/industries/construction` - Dynamic from data
+  - `/industries/wholesale-distribution` - Dynamic from data
+- `/blog/[slug]` - Blog posts (6 posts in `blog-data.ts`)
+- `/resources/guides/[slug]` - Lead magnet guides (19 guides across 4 industries)
+- `/resources/guides/[slug]/content` - Full guide content for web reading
 - `/case-studies/[slug]` - Dynamic case study pages (uses `case-studies-data.ts`)
 
 ### Assessment Pages
 
 - `/assessments` - Assessment hub page listing all assessments
-- `/assessments/data-ai-readiness` - Data & AI readiness assessment
+- `/assessments/data-ai-readiness` - Data & AI readiness assessment (universal)
 - `/assessments/data-ai-readiness/results` - Data & AI readiness results
 - `/assessments/manufacturing` - Manufacturing AI assessment
 - `/assessments/manufacturing/results` - Manufacturing results
-- `/assessments/healthcare-benchmark` - Healthcare benchmark assessment
+- `/assessments/legal` - Legal AI readiness assessment
+- `/assessments/legal/results` - Legal results
+- `/assessments/healthcare-ai-readiness` - Healthcare AI readiness assessment
+- `/assessments/healthcare-ai-readiness/results` - Healthcare AI results
+- `/assessments/healthcare-benchmark` - Healthcare price transparency tool (no results page)
+- `/assessments/commercial-real-estate` - CRE data readiness assessment
+- `/assessments/commercial-real-estate/results` - CRE results
+- `/assessments/deal-intelligence` - CRE deal prioritization assessment
+- `/assessments/deal-intelligence/results` - Deal intelligence results
 
 ### Admin Pages
 
@@ -386,10 +399,34 @@ All Lottie animations use the optimized `LottieWrapper` component (`src/componen
 
 Case studies have custom interactive pages in `src/app/case-studies/`:
 - `agentic-document-intelligence/` - Document AI processing case study
-- `army-of-ai-agents/` - AI entity resolution case study
-- `what-predicts-lead-conversion/` - Lead scoring ML case study
+- `army-of-ai-agents/` - AI entity resolution case study (1.69M records)
+- `what-predicts-lead-conversion/` - Lead scoring ML case study (31% improvement)
 
 Each has its own `components/` folder for page-specific interactive elements.
+
+### Key Metrics & Messaging Guidelines
+
+When referencing case study results in content, use these approved formulations:
+
+| Metric | Approved Phrasing | Context |
+|--------|-------------------|---------|
+| Entity Resolution Cost | "80-90% less cost" or "$25K→$200" | Not "125x" - leads with concrete numbers |
+| AI Cleanup | "80-90% cost reduction" | Percentage is more credible than multiplier |
+| Project Economics | "$150-200K → $30-50K (comparable scope)" | Always add "comparable scope" context |
+| Lead Scoring | "31% higher success rate" | Specific, verifiable number |
+| Records Processed | "1.69 million records" | Concrete number, no rounding |
+
+**Avoid:**
+- Unqualified multiplier claims ("125x faster")
+- Cost comparisons without context ("$200K → $30K" needs scope qualifier)
+- Generic superlatives ("revolutionary", "game-changing")
+
+**Content Style Guide:** See `Sales & Marketing/_content-style-guide.md` for full content rules including:
+- AI slop word ban list (delve, leverage, robust, seamless, etc.)
+- Em dash prohibition (use periods, commas, parentheses instead)
+- Filler phrase elimination
+- Sentence length variation requirements
+- First-person restrictions (company voice uses "we", not "I")
 
 ### Blog Post Formatting
 

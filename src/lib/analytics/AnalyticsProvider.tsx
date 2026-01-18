@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useRef, useCallback, type ReactNode } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   getVisitorId,
   getSessionId,
@@ -17,13 +17,63 @@ import {
   isExcludedVisitor,
   type FirstTouchAttribution,
 } from "./visitor-id";
-import type { AnalyticsEvent, EventType, UTMParams, PageJourneyStep } from "./events";
+import type {
+  AnalyticsEvent,
+  EventType,
+  UTMParams,
+  PageJourneyStep,
+  FormStartEventData,
+  FormAbandonEventData,
+  RageClickEventData,
+  VideoPlayEventData,
+  VideoProgressEventData,
+  VideoCompleteEventData,
+  CopyTextEventData,
+  CopyElementType,
+  VideoMilestone,
+} from "./events";
 import {
   calculateEventScore,
-  getLeadTier,
   BEHAVIOR_SCORES,
-  type LeadTier,
 } from "./lead-scoring";
+
+// ============================================
+// Consent Check Helper
+// ============================================
+// Read consent directly from localStorage to avoid circular dependency with useConsent hook
+function hasAnalyticsConsent(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    // Check for Global Privacy Control first
+    // @ts-expect-error - GPC is not yet in TypeScript Navigator type
+    if (navigator.globalPrivacyControl === true) return false;
+
+    const stored = localStorage.getItem("databender_consent");
+    if (!stored) return false;
+    const parsed = JSON.parse(stored);
+    return parsed.analytics === true;
+  } catch {
+    return false;
+  }
+}
+
+// ============================================
+// Rage Click Detection Configuration
+// ============================================
+const RAGE_CLICK_THRESHOLD = 3; // Number of clicks to trigger rage click
+const RAGE_CLICK_TIME_WINDOW = 750; // Milliseconds
+const RAGE_CLICK_RADIUS = 50; // Pixels - clicks within this radius count
+
+// ============================================
+// Form Tracking State Interface
+// ============================================
+interface FormTrackingState {
+  formName: string;
+  startTime: number;
+  fieldsCompleted: Set<string>;
+  lastFieldFocused: string;
+  totalFields: number;
+}
 
 interface AnalyticsContextValue {
   trackEvent: (eventType: EventType, data?: Record<string, string | number | boolean>) => void;
@@ -32,6 +82,20 @@ interface AnalyticsContextValue {
   trackChatOpen: () => void;
   trackChatMessage: () => void;
   trackChatLead: () => void;
+  // New form interaction methods
+  trackFormStart: (formName: string, firstFieldFocused: string) => void;
+  trackFormAbandon: (formName: string, fieldsCompleted: number, totalFields: number, lastFieldFocused: string, timeSpent: number) => void;
+  // Video tracking hook
+  useVideoTracking: (videoId: string, videoTitle: string) => VideoTrackingHooks;
+}
+
+// ============================================
+// Video Tracking Hook Interface
+// ============================================
+interface VideoTrackingHooks {
+  onPlay: (duration: number) => void;
+  onProgress: (currentTime: number, duration: number) => void;
+  onComplete: (duration: number, watchTime: number) => void;
 }
 
 const AnalyticsContext = createContext<AnalyticsContextValue | null>(null);
@@ -128,6 +192,16 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
 
   // Exclusion tracking (for internal team members)
   const isExcludedRef = useRef<boolean>(false);
+
+  // Form tracking refs
+  const formStatesRef = useRef<Map<string, FormTrackingState>>(new Map());
+
+  // Rage click detection refs
+  const clickHistoryRef = useRef<Array<{ x: number; y: number; timestamp: number }>>([]);
+  const rageClickDebouncedRef = useRef<boolean>(false);
+
+  // Video milestone tracking refs (to avoid duplicate events)
+  const videoMilestonesRef = useRef<Map<string, Set<VideoMilestone>>>(new Map());
 
   // Initialize IDs on mount
   useEffect(() => {
@@ -304,10 +378,11 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     });
   }, [pathname]);
 
-  // Track scroll depth
+  // Track scroll depth (requires analytics consent)
   useEffect(() => {
     const handleScroll = () => {
       if (isExcludedRef.current) return; // Skip analytics for excluded visitors
+      if (!hasAnalyticsConsent()) return; // Skip if no analytics consent
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight <= 0) return;
@@ -352,8 +427,261 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
+  // ============================================
+  // Rage Click Detection (requires analytics consent)
+  // ============================================
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (isExcludedRef.current) return;
+      if (!hasAnalyticsConsent()) return; // Skip if no analytics consent
+
+      const now = Date.now();
+      const x = e.clientX;
+      const y = e.clientY;
+
+      // Add current click to history
+      clickHistoryRef.current.push({ x, y, timestamp: now });
+
+      // Remove old clicks outside the time window
+      clickHistoryRef.current = clickHistoryRef.current.filter(
+        (click) => now - click.timestamp <= RAGE_CLICK_TIME_WINDOW
+      );
+
+      // Check for rage click: 3+ clicks in same area within time window
+      if (clickHistoryRef.current.length >= RAGE_CLICK_THRESHOLD && !rageClickDebouncedRef.current) {
+        // Check if clicks are within the radius
+        const recentClicks = clickHistoryRef.current.slice(-RAGE_CLICK_THRESHOLD);
+        const firstClick = recentClicks[0];
+        const allWithinRadius = recentClicks.every((click) => {
+          const dx = click.x - firstClick.x;
+          const dy = click.y - firstClick.y;
+          return Math.sqrt(dx * dx + dy * dy) <= RAGE_CLICK_RADIUS;
+        });
+
+        if (allWithinRadius) {
+          // Debounce to avoid duplicate rage click events
+          rageClickDebouncedRef.current = true;
+          setTimeout(() => {
+            rageClickDebouncedRef.current = false;
+          }, 2000);
+
+          // Get element info
+          const target = e.target as HTMLElement;
+          const elementTag = target.tagName.toLowerCase();
+          const elementId = target.id ? `#${target.id}` : "";
+          const elementClass = target.className && typeof target.className === "string"
+            ? `.${target.className.split(" ").slice(0, 2).join(".")}`
+            : "";
+          const elementSelector = `${elementTag}${elementId}${elementClass}`;
+
+          const rageClickData: RageClickEventData = {
+            element: elementSelector,
+            elementText: target.textContent?.slice(0, 50) || undefined,
+            clickCount: clickHistoryRef.current.length,
+            coordinates: { x: firstClick.x, y: firstClick.y },
+            timeWindow: now - recentClicks[0].timestamp,
+          };
+
+          const event: AnalyticsEvent = {
+            eventType: "rage_click",
+            page: pathname,
+            data: {
+              element: rageClickData.element,
+              elementText: rageClickData.elementText || "",
+              clickCount: rageClickData.clickCount,
+              x: rageClickData.coordinates.x,
+              y: rageClickData.coordinates.y,
+              timeWindow: rageClickData.timeWindow,
+            },
+          };
+
+          sendEvent({
+            event,
+            visitorId: visitorIdRef.current,
+            sessionId: sessionIdRef.current,
+            device: deviceRef.current,
+            isReturning: isReturningRef.current,
+            leadScore: leadScoreRef.current,
+            pagesVisited: pagesVisitedRef.current,
+          });
+
+          // Clear click history after rage click detected
+          clickHistoryRef.current = [];
+        }
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, [pathname]);
+
+  // ============================================
+  // Copy Text Detection (requires analytics consent)
+  // ============================================
+  useEffect(() => {
+    const handleCopy = () => {
+      if (isExcludedRef.current) return;
+      if (!hasAnalyticsConsent()) return; // Skip if no analytics consent
+
+      const selection = window.getSelection();
+      if (!selection || selection.isCollapsed) return;
+
+      const selectedText = selection.toString();
+      if (selectedText.length === 0) return;
+
+      // Determine what type of content was copied based on ancestor elements
+      const range = selection.getRangeAt(0);
+      const container = range.commonAncestorContainer as HTMLElement;
+      const element = container.nodeType === Node.TEXT_NODE
+        ? container.parentElement
+        : container;
+
+      let elementType: CopyElementType = "general";
+      let elementSelector = "";
+
+      if (element) {
+        // Check for pricing content
+        const pricingSelectors = ["[data-pricing]", ".pricing", "#pricing", "[class*='price']"];
+        for (const selector of pricingSelectors) {
+          if (element.closest(selector)) {
+            elementType = "pricing";
+            break;
+          }
+        }
+
+        // Check for features content
+        if (elementType === "general") {
+          const featureSelectors = ["[data-features]", ".features", "#features", "[class*='feature']"];
+          for (const selector of featureSelectors) {
+            if (element.closest(selector)) {
+              elementType = "features";
+              break;
+            }
+          }
+        }
+
+        // Check for testimonial content
+        if (elementType === "general") {
+          const testimonialSelectors = ["[data-testimonial]", ".testimonial", "[class*='testimonial']", "blockquote"];
+          for (const selector of testimonialSelectors) {
+            if (element.closest(selector)) {
+              elementType = "testimonial";
+              break;
+            }
+          }
+        }
+
+        // Check for contact content
+        if (elementType === "general") {
+          const contactSelectors = ["[data-contact]", ".contact", "#contact", "[class*='contact']", "address"];
+          for (const selector of contactSelectors) {
+            if (element.closest(selector)) {
+              elementType = "contact";
+              break;
+            }
+          }
+        }
+
+        // Build element selector for debugging
+        const tag = element.tagName?.toLowerCase() || "";
+        const id = element.id ? `#${element.id}` : "";
+        const className = element.className && typeof element.className === "string"
+          ? `.${element.className.split(" ").slice(0, 2).join(".")}`
+          : "";
+        elementSelector = `${tag}${id}${className}`;
+      }
+
+      const copyData: CopyTextEventData = {
+        textLength: selectedText.length,
+        element: elementType,
+        elementSelector: elementSelector || undefined,
+        textPreview: selectedText.slice(0, 100),
+      };
+
+      const event: AnalyticsEvent = {
+        eventType: "copy_text",
+        page: pathname,
+        data: {
+          textLength: copyData.textLength,
+          element: copyData.element,
+          elementSelector: copyData.elementSelector || "",
+          textPreview: copyData.textPreview || "",
+        },
+      };
+
+      sendEvent({
+        event,
+        visitorId: visitorIdRef.current,
+        sessionId: sessionIdRef.current,
+        device: deviceRef.current,
+        isReturning: isReturningRef.current,
+        leadScore: leadScoreRef.current,
+        pagesVisited: pagesVisitedRef.current,
+      });
+    };
+
+    document.addEventListener("copy", handleCopy);
+    return () => document.removeEventListener("copy", handleCopy);
+  }, [pathname]);
+
+  // ============================================
+  // Form Tracking - Abandonment Detection (requires analytics consent)
+  // ============================================
+  useEffect(() => {
+    const handleFormAbandon = () => {
+      if (isExcludedRef.current) return;
+      if (!hasAnalyticsConsent()) return; // Skip if no analytics consent
+
+      // Check for partially completed forms on page exit
+      formStatesRef.current.forEach((formState, formName) => {
+        if (formState.fieldsCompleted.size > 0 && formState.fieldsCompleted.size < formState.totalFields) {
+          const timeSpent = Date.now() - formState.startTime;
+          const completionPercentage = Math.round((formState.fieldsCompleted.size / formState.totalFields) * 100);
+
+          const abandonData: FormAbandonEventData = {
+            formName,
+            fieldsCompleted: formState.fieldsCompleted.size,
+            totalFields: formState.totalFields,
+            lastFieldFocused: formState.lastFieldFocused,
+            timeSpent,
+            completionPercentage,
+          };
+
+          // Use sendBeacon for reliable exit tracking
+          const payload = JSON.stringify({
+            event: {
+              eventType: "form_abandon",
+              page: pathname,
+              data: {
+                formName: abandonData.formName,
+                fieldsCompleted: abandonData.fieldsCompleted,
+                totalFields: abandonData.totalFields,
+                lastFieldFocused: abandonData.lastFieldFocused,
+                timeSpent: abandonData.timeSpent,
+                completionPercentage: abandonData.completionPercentage,
+              },
+            },
+            visitorId: visitorIdRef.current,
+            sessionId: sessionIdRef.current,
+            device: deviceRef.current,
+            isReturning: isReturningRef.current,
+            leadScore: leadScoreRef.current,
+            pagesVisited: pagesVisitedRef.current,
+          });
+          navigator.sendBeacon("/api/analytics/event", payload);
+        }
+      });
+    };
+
+    window.addEventListener("beforeunload", handleFormAbandon);
+    return () => window.removeEventListener("beforeunload", handleFormAbandon);
+  }, [pathname]);
+
   const trackEvent = useCallback((eventType: EventType, data?: Record<string, string | number | boolean>) => {
     if (isExcludedRef.current) return; // Skip analytics for excluded visitors
+    // Skip behavioral tracking events without consent (allow form_submit as it's conversion-related)
+    const behavioralEvents: EventType[] = ["click", "scroll_depth", "rage_click", "copy_text", "form_start", "form_abandon", "video_play", "video_progress", "video_complete"];
+    if (behavioralEvents.includes(eventType) && !hasAnalyticsConsent()) return;
 
     // Update lead score for this event type
     const eventScore = calculateEventScore(eventType, lastPathRef.current || pathname, data);
@@ -459,6 +787,230 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     markConversion("chat_lead");
   }, [pathname]);
 
+  // ============================================
+  // Form Interaction Tracking (requires analytics consent)
+  // ============================================
+  const trackFormStart = useCallback((formName: string, firstFieldFocused: string) => {
+    if (isExcludedRef.current) return;
+    if (!hasAnalyticsConsent()) return; // Skip if no analytics consent
+
+    // Only track if form hasn't been started yet
+    if (formStatesRef.current.has(formName)) return;
+
+    // Get total fields in form
+    const form = document.querySelector(`form[name="${formName}"], form[data-form-name="${formName}"]`);
+    const totalFields = form
+      ? form.querySelectorAll("input:not([type='hidden']):not([type='submit']), textarea, select").length
+      : 0;
+
+    // Initialize form tracking state
+    formStatesRef.current.set(formName, {
+      formName,
+      startTime: Date.now(),
+      fieldsCompleted: new Set([firstFieldFocused]),
+      lastFieldFocused: firstFieldFocused,
+      totalFields,
+    });
+
+    const formStartData: FormStartEventData = {
+      formName,
+      firstFieldFocused,
+    };
+
+    const event: AnalyticsEvent = {
+      eventType: "form_start",
+      page: pathname,
+      data: {
+        formName: formStartData.formName,
+        firstFieldFocused: formStartData.firstFieldFocused,
+        totalFields,
+      },
+    };
+
+    sendEvent({
+      event,
+      visitorId: visitorIdRef.current,
+      sessionId: sessionIdRef.current,
+      device: deviceRef.current,
+      isReturning: isReturningRef.current,
+      leadScore: leadScoreRef.current,
+      pagesVisited: pagesVisitedRef.current,
+    });
+  }, [pathname]);
+
+  const trackFormAbandon = useCallback((
+    formName: string,
+    fieldsCompleted: number,
+    totalFields: number,
+    lastFieldFocused: string,
+    timeSpent: number
+  ) => {
+    if (isExcludedRef.current) return;
+    if (!hasAnalyticsConsent()) return; // Skip if no analytics consent
+
+    const completionPercentage = Math.round((fieldsCompleted / totalFields) * 100);
+
+    const abandonData: FormAbandonEventData = {
+      formName,
+      fieldsCompleted,
+      totalFields,
+      lastFieldFocused,
+      timeSpent,
+      completionPercentage,
+    };
+
+    const event: AnalyticsEvent = {
+      eventType: "form_abandon",
+      page: pathname,
+      data: {
+        formName: abandonData.formName,
+        fieldsCompleted: abandonData.fieldsCompleted,
+        totalFields: abandonData.totalFields,
+        lastFieldFocused: abandonData.lastFieldFocused,
+        timeSpent: abandonData.timeSpent,
+        completionPercentage: abandonData.completionPercentage,
+      },
+    };
+
+    sendEvent({
+      event,
+      visitorId: visitorIdRef.current,
+      sessionId: sessionIdRef.current,
+      device: deviceRef.current,
+      isReturning: isReturningRef.current,
+      leadScore: leadScoreRef.current,
+      pagesVisited: pagesVisitedRef.current,
+    });
+
+    // Clear form state after abandon is tracked
+    formStatesRef.current.delete(formName);
+  }, [pathname]);
+
+  // ============================================
+  // Video Tracking Hook (requires analytics consent)
+  // ============================================
+  const useVideoTracking = useCallback((videoId: string, videoTitle: string): VideoTrackingHooks => {
+    // Initialize milestone tracking for this video
+    if (!videoMilestonesRef.current.has(videoId)) {
+      videoMilestonesRef.current.set(videoId, new Set());
+    }
+
+    const onPlay = (duration: number) => {
+      if (isExcludedRef.current) return;
+      if (!hasAnalyticsConsent()) return; // Skip if no analytics consent
+
+      const playData: VideoPlayEventData = {
+        videoId,
+        videoTitle,
+        duration,
+      };
+
+      const event: AnalyticsEvent = {
+        eventType: "video_play",
+        page: pathname,
+        data: {
+          videoId: playData.videoId,
+          videoTitle: playData.videoTitle,
+          duration: playData.duration,
+        },
+      };
+
+      sendEvent({
+        event,
+        visitorId: visitorIdRef.current,
+        sessionId: sessionIdRef.current,
+        device: deviceRef.current,
+        isReturning: isReturningRef.current,
+        leadScore: leadScoreRef.current,
+        pagesVisited: pagesVisitedRef.current,
+      });
+    };
+
+    const onProgress = (currentTime: number, duration: number) => {
+      if (isExcludedRef.current) return;
+      if (!hasAnalyticsConsent()) return; // Skip if no analytics consent
+      if (duration === 0) return;
+
+      const progressPercent = (currentTime / duration) * 100;
+      const milestones: VideoMilestone[] = [25, 50, 75, 90];
+      const trackedMilestones = videoMilestonesRef.current.get(videoId);
+
+      for (const milestone of milestones) {
+        if (progressPercent >= milestone && trackedMilestones && !trackedMilestones.has(milestone)) {
+          trackedMilestones.add(milestone);
+
+          const progressData: VideoProgressEventData = {
+            videoId,
+            videoTitle,
+            milestone,
+            duration,
+            currentTime,
+          };
+
+          const event: AnalyticsEvent = {
+            eventType: "video_progress",
+            page: pathname,
+            data: {
+              videoId: progressData.videoId,
+              videoTitle: progressData.videoTitle,
+              milestone: progressData.milestone,
+              duration: progressData.duration,
+              currentTime: progressData.currentTime,
+            },
+          };
+
+          sendEvent({
+            event,
+            visitorId: visitorIdRef.current,
+            sessionId: sessionIdRef.current,
+            device: deviceRef.current,
+            isReturning: isReturningRef.current,
+            leadScore: leadScoreRef.current,
+            pagesVisited: pagesVisitedRef.current,
+          });
+        }
+      }
+    };
+
+    const onComplete = (duration: number, watchTime: number) => {
+      if (isExcludedRef.current) return;
+      if (!hasAnalyticsConsent()) return; // Skip if no analytics consent
+
+      const completeData: VideoCompleteEventData = {
+        videoId,
+        videoTitle,
+        duration,
+        watchTime,
+      };
+
+      const event: AnalyticsEvent = {
+        eventType: "video_complete",
+        page: pathname,
+        data: {
+          videoId: completeData.videoId,
+          videoTitle: completeData.videoTitle,
+          duration: completeData.duration,
+          watchTime: completeData.watchTime,
+        },
+      };
+
+      sendEvent({
+        event,
+        visitorId: visitorIdRef.current,
+        sessionId: sessionIdRef.current,
+        device: deviceRef.current,
+        isReturning: isReturningRef.current,
+        leadScore: leadScoreRef.current,
+        pagesVisited: pagesVisitedRef.current,
+      });
+
+      // Clear milestones for this video after completion
+      videoMilestonesRef.current.delete(videoId);
+    };
+
+    return { onPlay, onProgress, onComplete };
+  }, [pathname]);
+
   return (
     <AnalyticsContext.Provider
       value={{
@@ -468,6 +1020,9 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
         trackChatOpen,
         trackChatMessage,
         trackChatLead,
+        trackFormStart,
+        trackFormAbandon,
+        useVideoTracking,
       }}
     >
       {children}

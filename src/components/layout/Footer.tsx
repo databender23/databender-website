@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { footerNavigation } from "@/lib/navigation";
 import NewsletterForm from "@/components/forms/NewsletterForm";
+import { ManageCookiesButton } from "@/components/consent";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -144,6 +145,7 @@ export default function Footer() {
             >
               Terms of Service
             </Link>
+            <ManageCookiesButton />
           </div>
         </div>
       </div>

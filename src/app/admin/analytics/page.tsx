@@ -10,6 +10,10 @@ import CompanyIntelligence from "./components/CompanyIntelligence";
 import TrendChart from "./components/TrendChart";
 import CommonPaths from "./components/CommonPaths";
 import CrawlerStats from "./components/CrawlerStats";
+import FunnelChart from "./components/FunnelChart";
+import LeadVelocityRate from "./components/LeadVelocityRate";
+import ResponseTimeTracker from "./components/ResponseTimeTracker";
+import CohortAnalysis from "./components/CohortAnalysis";
 
 // Icons for KPI cards
 const SessionsIcon = () => (
@@ -527,6 +531,42 @@ export default function AnalyticsDashboard() {
               loading={geographicLoading}
             />
           </div>
+        </div>
+      </motion.div>
+
+      {/* Divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
+      {/* Lead Generation Funnel & Velocity Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35, duration: 0.4 }}
+      >
+        <div className="mb-4">
+          <span className="text-xs font-semibold text-teal-500 uppercase tracking-wider">Lead Pipeline Analytics</span>
+        </div>
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <FunnelChart days={days} />
+          <LeadVelocityRate />
+        </div>
+      </motion.div>
+
+      {/* Divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
+      {/* Response Time & Cohort Analysis Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.38, duration: 0.4 }}
+      >
+        <div className="mb-4">
+          <span className="text-xs font-semibold text-teal-500 uppercase tracking-wider">Lead Quality & Cohorts</span>
+        </div>
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <ResponseTimeTracker days={days} />
+          <CohortAnalysis />
         </div>
       </motion.div>
 
