@@ -12,7 +12,6 @@ interface ClientLogo {
 }
 
 const clientLogos: ClientLogo[] = [
-  { name: "Shiner", src: "/images/logos/shiner_logo.webp", width: 140, height: 50 },
   { name: "4CX", src: "/images/logos/4cx_logo.png", width: 100, height: 40 },
   { name: "Reformed", src: "/images/logos/reformed_logo.png", width: 120, height: 40 },
   { name: "Health Price Compare", src: "/images/logos/hpc_logo.svg", width: 100, height: 40 },
