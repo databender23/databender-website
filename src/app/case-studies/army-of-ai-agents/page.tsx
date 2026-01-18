@@ -130,7 +130,7 @@ export default function EntityResolutionCaseStudy() {
               A Capability Their Competitors Don&apos;t Have
             </h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
-              Better targeting, faster deals, and ownership tracking that competitors can&apos;t match—because they&apos;re still using the broken data.
+              Better targeting, faster deals, and ownership tracking that competitors can&apos;t match. Because they&apos;re still using the broken data.
             </p>
           </motion.div>
 
@@ -295,7 +295,7 @@ export default function EntityResolutionCaseStudy() {
               What an Army of AI Agents Accomplished
             </h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
-              We deployed 10 agents for this project. We could have deployed hundreds. The reasoning scales infinitely—that&apos;s what changed.
+              We deployed 10 agents for this project. We could have deployed hundreds. The reasoning scales infinitely. That&apos;s what changed.
             </p>
           </motion.div>
 

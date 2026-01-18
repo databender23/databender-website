@@ -113,7 +113,7 @@ export default function ServicesPageClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
-              From cleaning up scattered systems to AI that works—we build complete solutions, not pieces.
+              From cleaning up scattered systems to AI that works. We build complete solutions, not pieces.
             </motion.p>
 
             <motion.div

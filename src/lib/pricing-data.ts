@@ -22,7 +22,7 @@ export const engagementTypes: EngagementType[] = [
   {
     name: "Implementation",
     duration: "4-12 weeks",
-    description: "Build and deploy a specific solution—dashboard, AI tool, or data pipeline.",
+    description: "Build and deploy a specific solution: a dashboard, AI tool, or data pipeline.",
     deliverables: [
       "Custom-built solution",
       "Integration with your systems",

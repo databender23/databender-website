@@ -88,8 +88,8 @@ export const caseStudies: CaseStudy[] = [
     services: ["AI Data Cleanup", "Data Integration"],
     challengeType: "Data Quality",
     challengeBrief: "Offers going to wrong people. Competitors reaching real owners first. A data problem that would take 50 analysts months to fix.",
-    challenge: "A mineral rights company had 1.69 million ownership records with broken IDs—the same ID assigned to 670 different people, the same person scattered across multiple IDs. Manual review would take months. Accuracy was critical for legal and financial decisions.",
-    solution: "We deployed an army of AI agents that reason through data chaos like humans do—but at machine scale. 10 agents processing in parallel, understanding that 'Miller, John' and 'John Miller' are the same person without being told.",
+    challenge: "A mineral rights company had 1.69 million ownership records with broken IDs. The same ID was assigned to 670 different people, and the same person was scattered across multiple IDs. Manual review would take months. Accuracy was critical for legal and financial decisions.",
+    solution: "We deployed an army of AI agents that reason through data chaos like humans do, but at machine scale. 10 agents processing in parallel, understanding that 'Miller, John' and 'John Miller' are the same person without being told.",
     approach: [
       "Identified broken data patterns: collision IDs, unstable IDs, duplicates",
       "Deployed 10 AI agents reasoning through matches in parallel",
@@ -98,12 +98,12 @@ export const caseStudies: CaseStudy[] = [
       "Delivered in hours what would take 50 analysts months",
     ],
     results: [
-      { value: 125, suffix: "x", label: "Cost savings vs manual" },
+      { value: 99, suffix: "%", label: "Cost reduction vs manual" },
       { value: 1.25, suffix: "M", label: "Unique owners identified" },
       { value: 10, label: "AI agents deployed" },
       { value: 100, suffix: "%", label: "Decisions documented" },
     ],
-    resultHighlight: "125x cost savings",
+    resultHighlight: "From $25K to under $500",
     quote: "Before this, we were sending four mailers to the same person and missing actual property owners entirely. Now we know exactly who owns what before we reach out.",
     images: [
       "/images/case-studies/entity-resolution-1-1.png",
@@ -113,8 +113,8 @@ export const caseStudies: CaseStudy[] = [
     featured: true,
     diagramType: 'entity-resolution',
     heroMetric: {
-      value: '125x',
-      label: 'Cost Savings',
+      value: '$25K→$200',
+      label: 'Cost Reduction',
       comparison: {
         before: '$25,000',
         after: '$200',
@@ -130,7 +130,7 @@ export const caseStudies: CaseStudy[] = [
     services: ["AI Insights", "Predictive Analytics"],
     challengeType: "AI/Automation",
     challengeBrief: "3 years of sales data revealed surprising patterns about what makes leads convert.",
-    challenge: "Sales teams often assume that wealthier prospects make better leads. We analyzed 3 years of actual conversion data to test this assumption—and found the opposite.",
+    challenge: "Sales teams often assume that wealthier prospects make better leads. We analyzed 3 years of actual conversion data to test this assumption, and found the opposite.",
     solution: "By training models on real outcomes instead of assumptions, we discovered that intent signals (urgency, financial capacity) outperform engagement metrics. Property value was actually a negative predictor.",
     approach: [
       "Analyzed 3 years of historical conversion data",
@@ -168,14 +168,14 @@ export const caseStudies: CaseStudy[] = [
     services: ["AI & Automation", "Document Intelligence"],
     challengeType: "AI/Automation",
     challengeBrief: "Years of institutional knowledge locked in documents AI couldn't access.",
-    challenge: "A medical device distributor had decades of product knowledge scattered across thousands of documents from 70+ manufacturers. Every question meant digging through PDFs manually. AI tools like ChatGPT couldn't help—they couldn't access any of this institutional knowledge.",
-    solution: "We built Document Intelligence that transforms unstructured documents into an AI-ready knowledge base. Now AI can search, answer questions, power applications, and automate workflows—all using the organization's own data.",
+    challenge: "A medical device distributor had decades of product knowledge scattered across thousands of documents from 70+ manufacturers. Every question meant digging through PDFs manually. AI tools like ChatGPT couldn't help because they couldn't access any of this institutional knowledge.",
+    solution: "We built Document Intelligence that transforms unstructured documents into an AI-ready knowledge base. Now AI can search, answer questions, power applications, and automate workflows, all using the organization's own data.",
     approach: [
-      "AI reads and understands documents like humans do—no custom rules per format",
+      "AI reads and understands documents like humans do, with no custom rules per format",
       "Transforms scattered documents into a unified, searchable knowledge base",
       "Enables AI-powered search: ask questions in plain English, get instant answers",
       "Powers custom applications like mobile apps, dashboards, and chatbots",
-      "New documents automatically expand what AI knows—a living knowledge base",
+      "New documents automatically expand what AI knows, creating a living knowledge base",
     ],
     results: [
       { value: 1000, suffix: "s", label: "Documents captured" },

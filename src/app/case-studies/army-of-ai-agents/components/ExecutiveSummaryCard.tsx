@@ -70,7 +70,7 @@ export default function ExecutiveSummaryCard({ className = '' }: ExecutiveSummar
                   </div>
                   <p className="text-xs md:text-sm text-text-secondary leading-relaxed">
                     Offers going to wrong people. Real owners missed entirely. Competitors reaching them first.
-                    Everyone knew the data was broken—but <span className="font-semibold text-text-primary">fixing it would take 50 analysts months of work</span>. Not worth it.
+                    Everyone knew the data was broken, but <span className="font-semibold text-text-primary">fixing it would take 50 analysts months of work</span>. Not worth it.
                   </p>
                 </div>
 
@@ -85,7 +85,7 @@ export default function ExecutiveSummaryCard({ className = '' }: ExecutiveSummar
                     <span className="text-[10px] md:text-xs font-medium uppercase tracking-wider text-teal-500">The Solution</span>
                   </div>
                   <p className="text-xs md:text-sm text-text-secondary leading-relaxed">
-                    An <span className="font-semibold text-text-primary">army of AI agents</span> that reason through data chaos—understanding
+                    An <span className="font-semibold text-text-primary">army of AI agents</span> that reason through data chaos, understanding
                     that &ldquo;Miller, John&rdquo; and &ldquo;John Miller&rdquo; are the same person without being told.
                     10 agents doing in hours what 50 analysts couldn&apos;t do in months.
                   </p>
@@ -103,7 +103,7 @@ export default function ExecutiveSummaryCard({ className = '' }: ExecutiveSummar
                   </div>
                   <p className="text-xs md:text-sm text-text-secondary leading-relaxed">
                     Problems that were <span className="font-semibold text-text-primary">previously unsolvable are now solvable</span>.
-                    Better targeting. Faster deals. A capability their competitors don&apos;t have—and can&apos;t easily replicate.
+                    Better targeting. Faster deals. A capability their competitors don&apos;t have, and can&apos;t easily replicate.
                   </p>
                 </div>
               </div>

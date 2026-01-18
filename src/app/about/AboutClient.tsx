@@ -150,8 +150,8 @@ export default function AboutClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
             {[
               {
-                metric: "125x",
-                description: "Cost savings on AI entity resolution. 1.69 million broken records cleaned by an army of AI agents.",
+                metric: "80-90%",
+                description: "Cost reduction on AI entity resolution. 1.69 million broken records cleaned by an army of AI agents.",
               },
               {
                 metric: "31%",

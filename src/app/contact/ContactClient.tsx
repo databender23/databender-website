@@ -301,7 +301,7 @@ export default function ContactClient() {
                 Schedule a consultation
               </h2>
               <p className="text-text-secondary mb-6 sm:mb-8">
-                Prefer to talk? Schedule a 30-minute consultation. We&apos;ll discuss your current situation, challenges, and potential solutions—no obligations.
+                Prefer to talk? Schedule a 30-minute consultation. We&apos;ll discuss your current situation, challenges, and potential solutions. No obligations.
               </p>
 
               <div className="p-4 sm:p-6 rounded-xl bg-[#F8F9FA] border border-black/10 mb-6 sm:mb-8">

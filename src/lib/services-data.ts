@@ -53,7 +53,7 @@ export const services: ConsolidatedService[] = [
       },
       {
         title: "AI-Powered Data Cleanup",
-        description: "Fix duplicates, standardize formats, resolve conflicting records at 125x less cost than manual review. The cleanup learns from your corrections.",
+        description: "Fix duplicates, standardize formats, resolve conflicting records at 80-90% less cost than manual review. The cleanup learns from your corrections.",
         icon: "sparkles",
       },
       {
@@ -88,7 +88,7 @@ export const services: ConsolidatedService[] = [
     faqs: [
       {
         question: "How long does a data strategy engagement typically take?",
-        answer: "Most strategy engagements run 4-6 weeks, depending on complexity. We focus on delivering actionable roadmaps quickly so you can start seeing value fast, not comprehensive reports that sit on a shelf.",
+        answer: "Most strategy engagements run 4-6 weeks, depending on complexity. We focus on delivering roadmaps you can actually use, not thick reports that sit on a shelf.",
       },
       {
         question: "What if our data is scattered across many different systems?",
@@ -100,14 +100,14 @@ export const services: ConsolidatedService[] = [
       },
       {
         question: "How do you handle data quality issues?",
-        answer: "We use AI-powered cleanup that learns from your corrections. One client had 1.69 million messy records—we resolved them at 125x less cost than manual review. The system gets smarter over time.",
+        answer: "We use AI-powered cleanup that learns from your corrections. One client had 1.69 million messy records. We resolved them at 80-90% less cost than manual review. The system gets smarter over time.",
       },
     ],
     processSteps: [
       {
         number: 1,
         title: "Discovery",
-        description: "We audit your current data landscape—what systems you have, how they connect (or don't), and where the gaps are.",
+        description: "We audit your current data landscape: what systems you have, how they connect (or don't), and where the gaps are.",
         duration: "Week 1",
       },
       {
@@ -186,7 +186,7 @@ export const services: ConsolidatedService[] = [
     faqs: [
       {
         question: "Can anyone on our team ask questions in plain English?",
-        answer: "Yes. We build natural language interfaces so anyone can ask 'What were sales last quarter?' or 'Which customers are at risk?' and get instant, accurate answers—no SQL or technical skills required.",
+        answer: "Yes. We build natural language interfaces so anyone can ask 'What were sales last quarter?' or 'Which customers are at risk?' and get instant, accurate answers. No SQL or technical skills required.",
       },
       {
         question: "How quickly can we get a dashboard running?",
@@ -198,7 +198,7 @@ export const services: ConsolidatedService[] = [
       },
       {
         question: "Can this connect to our existing tools?",
-        answer: "We integrate with virtually any data source—CRMs, ERPs, spreadsheets, databases, APIs. If your data lives somewhere, we can connect it.",
+        answer: "We integrate with virtually any data source: CRMs, ERPs, spreadsheets, databases, and APIs. If your data lives somewhere, we can connect it.",
       },
     ],
     processSteps: [
@@ -299,7 +299,7 @@ export const services: ConsolidatedService[] = [
     faqs: [
       {
         question: "Is our data safe with AI solutions?",
-        answer: "We specialize in privacy-first AI. For sensitive industries, we deploy models that run entirely on your servers—no data ever leaves your building. Your compliance and legal teams can actually approve this.",
+        answer: "We specialize in privacy-first AI. For sensitive industries, we deploy models that run entirely on your servers. No data ever leaves your building. Your compliance and legal teams can actually approve this.",
       },
       {
         question: "What's the difference between off-the-shelf and custom AI?",
@@ -307,7 +307,7 @@ export const services: ConsolidatedService[] = [
       },
       {
         question: "How long before we see results?",
-        answer: "Most AI implementations show value in 4-8 weeks. We start with quick wins—like making your documents searchable—then expand to more complex automation as the system learns your business.",
+        answer: "Most AI implementations show value in 4-8 weeks. We start with quick wins (like making your documents searchable), then expand to more complex automation as the system learns your business.",
       },
       {
         question: "Do we need technical staff to use this?",
@@ -330,7 +330,7 @@ export const services: ConsolidatedService[] = [
       {
         number: 3,
         title: "Build & Test",
-        description: "Build the AI solution—whether it's document intelligence, agents, or knowledge systems—and test extensively with your team.",
+        description: "Build the AI solution (whether it's document intelligence, agents, or knowledge systems) and test extensively with your team.",
         duration: "Week 3-6",
       },
       {

@@ -168,7 +168,7 @@ export default function BusinessOutcome({ className = '' }: BusinessOutcomeProps
               The Competitive Advantage
             </h4>
             <p className="text-xs md:text-base text-text-secondary">
-              Everyone working with public tax data has these problems. Fixing them was never financially feasible—until AI agents made it possible.
+              Everyone working with public tax data has these problems. Fixing them was never financially feasible, until AI agents made it possible.
               <span className="font-semibold text-teal-600"> This client did. Their competitors haven&apos;t.</span>
             </p>
           </div>

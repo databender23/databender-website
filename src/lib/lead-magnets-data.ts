@@ -105,7 +105,7 @@ export const legalGuides: Guide[] = [
       "What Experience Intelligence actually means",
       "The retrieval problem (partner memory, broken DMS, hidden relationships)",
       "From 6 hours to 15 minutes: the transformation",
-      "The economics: $30-50K vs. $200K+",
+      "The economics: $30-50K vs. $150-200K (comparable scope)",
       "Privacy-first AI that stays on your servers",
       "The ownership model vs. per-seat licensing",
     ],
@@ -143,8 +143,8 @@ export const legalGuides: Guide[] = [
   {
     slug: "economics-of-legal-ai",
     title: "The Economics Changed",
-    subtitle: "What Used to Cost $200K Now Costs $30-50K",
-    description: "Custom legal technology was out of reach for mid-sized firms. Not anymore. This guide breaks down exactly what's possible and what it costs.",
+    subtitle: "Projects That Cost $150-200K Now Cost $30-50K",
+    description: "Custom legal technology was out of reach for mid-sized firms. Not anymore. This guide breaks down exactly what's possible and what it costs (comparable scope).",
     topics: [
       "Why prices dropped 80% in two years",
       "Real project costs from real firms",

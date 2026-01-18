@@ -617,22 +617,16 @@ export default function HomePage() {
       icon: <CogIcon />,
     },
     {
-      title: "Data Foundation First",
-      description:
-        "AI built on clean data. We fix the foundation first. No shortcuts. No 'garbage in, garbage out.'",
-      icon: <LightbulbIcon />,
-    },
-    {
-      title: "From Insight to Action",
-      description:
-        "We don't stop at dashboards. Insights wire into operations: automated alerts, triggered workflows, decisions that execute.",
-      icon: <BoltIcon />,
-    },
-    {
       title: "Regulated-Ready",
       description:
         "HIPAA, GDPR, SOC 2 from day one. Healthcare, legal, finance. We know what auditors look for.",
       icon: <ShieldIcon />,
+    },
+    {
+      title: "Founder-Led Attention",
+      description:
+        "You work directly with experienced practitioners, not junior consultants following scripts. Your project gets senior-level thinking from day one.",
+      icon: <LightbulbIcon />,
     },
   ];
 
@@ -777,7 +771,7 @@ export default function HomePage() {
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {differentiators.map((item, index) => (
               <motion.div
                 key={index}

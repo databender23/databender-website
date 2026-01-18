@@ -541,7 +541,7 @@ export default function HealthcarePageClient() {
                     },
                     {
                       title: "One place for everything",
-                      description: "Patient info, billing, scheduling—visible together without switching between screens."
+                      description: "Patient info, billing, scheduling: visible together without switching between screens."
                     },
                     {
                       title: "Nothing changes for your team",

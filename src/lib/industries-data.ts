@@ -186,7 +186,7 @@ export const industryContent: Record<string, {
       "You'd use AI, but your pricing, costs, and customer lists are competitive advantage. Cloud tools aren't an option.",
     ],
     solutions: [
-      { title: "Fix Your Customer Data", description: "We cleaned 1.69 million messy records for another client. Same person under different names, same ID on different people. AI sorted it out in hours instead of months, at 125x less cost than doing it by hand. Your team stops chasing dead ends." },
+      { title: "Fix Your Customer Data", description: "We cleaned 1.69 million messy records for another client. Same person under different names, same ID on different people. AI sorted it out in hours instead of months, at 80-90% less cost than doing it by hand. Your team stops chasing dead ends." },
       { title: "Lead Scores That Match Reality", description: "Most CRM scoring is based on guesses. We trained on a client's actual sales data and found property value was a <em>negative</em> predictor (the opposite of what everyone assumed). Real data, real results: 31% more wins." },
       { title: "Find Any Answer in Seconds", description: "We turned thousands of product specs from 70+ suppliers into a searchable system. Now anyone can ask 'What's the torque rating on the X200?' and get an instant answer with the source document. No hunting." },
       { title: "AI That Stays In Your Building", description: "Your pricing, costs, and customer data never leave your servers. Full AI capabilities without the cloud risk. Your IT and legal teams will actually say yes to this." },

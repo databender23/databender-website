@@ -211,7 +211,7 @@ export default function OldApproachFailure({ inView, className = '' }: OldApproa
                   <h5 className="text-xs md:text-sm font-semibold text-teal-600 mb-1">The Unlock</h5>
                   <p className="text-xs md:text-sm text-text-secondary">
                     The problem wasn&apos;t finding patterns—humans are good at that. The problem was doing it <span className="font-semibold">1.69 million times</span>.
-                    AI agents can reason like humans but work at machine scale. That&apos;s what changed.
+                    AI agents can reason like humans but work at machine scale, and that&apos;s what changed.
                   </p>
                 </div>
               </div>

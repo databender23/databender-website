@@ -17,7 +17,7 @@ export const teamMembers: TeamMember[] = [
       "10+ years in data strategy & AI",
       "Expert in AWS, Python, and modern data stack",
     ],
-    bio: "Grant founded Databender to help growing companies access the same data and AI capabilities that large enterprises take for granted—without the enterprise price tag or timeline.",
+    bio: "Grant founded Databender to help growing companies access the same data and AI capabilities that large enterprises take for granted, without the enterprise price tag or timeline.",
     photo: "/images/team/grant-bender.jpg",
     linkedIn: "https://linkedin.com/in/grantbender",
     serviceExpertise: ["data-ai-strategy", "analytics-bi", "ai-services"],
