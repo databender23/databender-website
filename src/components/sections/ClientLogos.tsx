@@ -9,10 +9,11 @@ interface ClientLogo {
   src: string;
   width?: number;
   height?: number;
+  invert?: boolean; // For white logos that need to be inverted on white background
 }
 
 const clientLogos: ClientLogo[] = [
-  { name: "4CX", src: "/images/logos/4cx_logo.png", width: 100, height: 40 },
+  { name: "4CX", src: "/images/logos/4cx_logo.png", width: 100, height: 40, invert: true },
   { name: "Reformed", src: "/images/logos/reformed_logo.png", width: 120, height: 40 },
   { name: "Health Price Compare", src: "/images/logos/hpc_logo.svg", width: 100, height: 40 },
   { name: "AAN", src: "/images/logos/aan_logo.png", width: 80, height: 40 },
@@ -69,7 +70,7 @@ export default function ClientLogos() {
                 alt={`${logo.name} logo`}
                 width={logo.width || 120}
                 height={logo.height || 40}
-                className="h-8 md:h-10 w-auto object-contain"
+                className={`h-8 md:h-10 w-auto object-contain ${logo.invert ? "invert" : ""}`}
               />
             </div>
           ))}
