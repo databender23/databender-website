@@ -13,6 +13,7 @@ interface ClientLogo {
 }
 
 const clientLogos: ClientLogo[] = [
+  { name: "Haystack", src: "/images/logos/haystack_logo.svg", width: 140, height: 40 },
   { name: "4CX", src: "/images/logos/4cx_logo.png", width: 100, height: 40, invert: true },
   { name: "Reformed", src: "/images/logos/reformed_logo.png", width: 120, height: 40 },
   { name: "Health Price Compare", src: "/images/logos/hpc_logo.svg", width: 100, height: 40 },
