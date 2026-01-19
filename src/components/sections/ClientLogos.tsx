@@ -23,6 +23,7 @@ const clientLogos: ClientLogo[] = [
   { name: "Haystack", src: "/images/logos/haystack_logo.svg", width: 140, height: 40 },
   { name: "SurgiScribe", src: "/images/logos/surgiscribe_logo.png", width: 120, height: 40 },
   { name: "Show Goat", src: "/images/logos/show_goat_logo.avif", width: 100, height: 40 },
+  { name: "Arctec", src: "/images/logos/arctec_logo.avif", width: 100, height: 40 },
 ];
 
 export default function ClientLogos() {
