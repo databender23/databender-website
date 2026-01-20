@@ -720,7 +720,7 @@ export const blogPosts: BlogPost[] = [
 
 <hr/>
 
-<p><em>Questions about data management or analytics? Head to <a href="/">databenderconsulting.com</a> for more, or follow us on <a href="https://www.linkedin.com/company/databender/" target="_blank" rel="noreferrer noopener">LinkedIn</a>.</em></p>`,
+<p><em>Questions about data management or analytics? Head to <a href="/">databender.co</a> for more, or follow us on <a href="https://www.linkedin.com/company/databender/" target="_blank" rel="noreferrer noopener">LinkedIn</a>.</em></p>`,
     author: "Databender Team",
     publishedAt: "2025-08-19",
     updatedAt: "2025-08-19",
