@@ -83,21 +83,25 @@ export default function ClientLogos() {
 
       <style jsx global>{`
         @keyframes marquee {
-          0% {
+          from {
             transform: translateX(0);
           }
-          100% {
+          to {
             transform: translateX(-50%);
           }
         }
 
         .animate-marquee {
           animation: marquee 30s linear infinite;
+          will-change: transform;
+          backface-visibility: hidden;
         }
 
         .animate-marquee-paused {
           animation: marquee 30s linear infinite;
           animation-play-state: paused;
+          will-change: transform;
+          backface-visibility: hidden;
         }
       `}</style>
     </section>
