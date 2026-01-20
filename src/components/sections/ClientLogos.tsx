@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -26,12 +26,23 @@ const clientLogos: ClientLogo[] = [
   { name: "Arctec", src: "/images/logos/arctec_logo.avif", width: 100, height: 40, invert: true },
 ];
 
+// Logo item component for reuse
+function LogoItem({ logo }: { logo: ClientLogo }) {
+  return (
+    <div className="flex-shrink-0 flex items-center justify-center px-4 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+      <Image
+        src={logo.src}
+        alt={`${logo.name} logo`}
+        width={logo.width || 120}
+        height={logo.height || 40}
+        className={`h-8 md:h-10 w-auto object-contain ${logo.invert ? "invert" : ""}`}
+      />
+    </div>
+  );
+}
+
 export default function ClientLogos() {
   const [isPaused, setIsPaused] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Duplicate logos for seamless loop
-  const duplicatedLogos = [...clientLogos, ...clientLogos];
 
   return (
     <section className="py-12 md:py-16 overflow-hidden border-b border-black/5">
@@ -46,9 +57,8 @@ export default function ClientLogos() {
         </motion.p>
       </div>
 
-      {/* Infinite Scroll Marquee */}
+      {/* Infinite Scroll Marquee - CSS only for true seamless loop */}
       <div
-        ref={containerRef}
         className="relative w-full"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
@@ -57,47 +67,45 @@ export default function ClientLogos() {
         <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-        {/* Scrolling container */}
+        {/* Two identical tracks side by side for seamless infinite scroll */}
         <div
-          className={`flex items-center gap-12 md:gap-16 ${isPaused ? "animate-marquee-paused" : "animate-marquee"}`}
-          style={{
-            width: "fit-content",
-          }}
+          className="flex"
+          style={{ animationPlayState: isPaused ? "paused" : "running" }}
         >
-          {duplicatedLogos.map((logo, index) => (
-            <div
-              key={`${logo.name}-${index}`}
-              className="flex-shrink-0 flex items-center justify-center px-4 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-            >
-              <Image
-                src={logo.src}
-                alt={`${logo.name} logo`}
-                width={logo.width || 120}
-                height={logo.height || 40}
-                className={`h-8 md:h-10 w-auto object-contain ${logo.invert ? "invert" : ""}`}
-              />
-            </div>
-          ))}
+          {/* First track */}
+          <div
+            className="flex items-center gap-12 md:gap-16 animate-scroll"
+            style={{ animationPlayState: isPaused ? "paused" : "running" }}
+          >
+            {clientLogos.map((logo, index) => (
+              <LogoItem key={`track1-${logo.name}-${index}`} logo={logo} />
+            ))}
+          </div>
+          {/* Second track (duplicate for seamless loop) */}
+          <div
+            className="flex items-center gap-12 md:gap-16 animate-scroll"
+            style={{ animationPlayState: isPaused ? "paused" : "running" }}
+          >
+            {clientLogos.map((logo, index) => (
+              <LogoItem key={`track2-${logo.name}-${index}`} logo={logo} />
+            ))}
+          </div>
         </div>
       </div>
 
       <style jsx global>{`
-        @keyframes marquee {
+        @keyframes scroll {
           0% {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-50%);
+            transform: translateX(-100%);
           }
         }
 
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-
-        .animate-marquee-paused {
-          animation: marquee 30s linear infinite;
-          animation-play-state: paused;
+        .animate-scroll {
+          animation: scroll 40s linear infinite;
+          will-change: transform;
         }
       `}</style>
     </section>
