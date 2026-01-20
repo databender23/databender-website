@@ -4,7 +4,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Data & Analytics for Wholesale Distributors | Databender",
+  title: "Data & Analytics for Wholesale Distributors",
   description:
     "Free up cash tied in inventory. See true customer profitability. Stop giving away margin. Data analytics for mid-sized distributors competing against Amazon and the nationals.",
   keywords: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "distributor reporting",
   ],
   openGraph: {
-    title: "Data & Analytics for Wholesale Distributors | Databender",
+    title: "Data & Analytics for Wholesale Distributors",
     description:
       "Free up cash tied in inventory. See true customer profitability. Stop giving away margin. Data analytics for mid-sized distributors competing against Amazon and the nationals.",
     type: "website",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Data & Analytics for Wholesale Distributors | Databender",
+    title: "Data & Analytics for Wholesale Distributors",
     description:
       "Free up cash tied in inventory. See true customer profitability. Stop giving away margin. Data analytics for mid-sized distributors competing against Amazon and the nationals.",
     images: ["https://databender.co/opengraph-image"],

@@ -4,7 +4,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Data & Analytics for Construction Companies | Databender",
+  title: "Data & Analytics for Construction Companies",
   description:
     "Connect your estimating, scheduling, field apps, and accounting into one dashboard. See real-time margins, catch cost overruns early, and stop losing money on unbilled change orders.",
   keywords: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "construction profit visibility",
   ],
   openGraph: {
-    title: "Data & Analytics for Construction Companies | Databender",
+    title: "Data & Analytics for Construction Companies",
     description:
       "Connect your estimating, scheduling, field apps, and accounting into one dashboard. See real-time margins, catch cost overruns early, and stop losing money on unbilled change orders.",
     type: "website",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Data & Analytics for Construction Companies | Databender",
+    title: "Data & Analytics for Construction Companies",
     description:
       "Connect your estimating, scheduling, field apps, and accounting into one dashboard. See real-time margins, catch cost overruns early, and stop losing money on unbilled change orders.",
     images: ["https://databender.co/opengraph-image"],

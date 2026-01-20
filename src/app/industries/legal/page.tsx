@@ -4,7 +4,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Data & AI Solutions for Law Firms | Legal Industry | Databender",
+  title: "Data & AI Solutions for Law Firms | Legal Industry",
   description:
     "Privacy-first AI solutions for law firms. Document intelligence, due diligence automation, and legal research tools that protect attorney-client privilege. All data stays on your servers.",
   keywords: [

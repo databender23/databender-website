@@ -4,7 +4,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Healthcare Data & AI Solutions | HIPAA-Compliant Analytics | Databender",
+  title: "Healthcare Data & AI Solutions | HIPAA-Compliant Analytics",
   description:
     "HIPAA-compliant AI solutions for healthcare organizations. On-premise document intelligence, clinical analytics, EHR integration, and patient data management. Your data never leaves your building.",
   keywords: [
