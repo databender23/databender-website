@@ -81,8 +81,30 @@ export const manufacturingQuestions: ManufacturingQuestion[] = [
       { value: 4, label: "Real-time", description: "Actual costs tracked as they happen" },
     ],
   },
+  {
+    id: "supply-chain-visibility",
+    category: "salesProduction",
+    question: "When a supplier is going to miss a delivery, when do you find out?",
+    options: [
+      { value: 1, label: "When it's already late", description: "They deliver late or we call to check" },
+      { value: 2, label: "Same week", description: "Usually some warning, not much lead time" },
+      { value: 3, label: "A week or more ahead", description: "Suppliers communicate reasonably well" },
+      { value: 4, label: "Before they know", description: "Our systems flag potential issues early" },
+    ],
+  },
 
   // Operational Visibility
+  {
+    id: "labor-productivity",
+    category: "visibility",
+    question: "How much time does your team spend hunting for information instead of acting on it?",
+    options: [
+      { value: 1, label: "Hours every day", description: "Constant hunting and reconciling" },
+      { value: 2, label: "An hour or two daily", description: "Regular interruptions to find answers" },
+      { value: 3, label: "Sometimes", description: "Usually know where to look" },
+      { value: 4, label: "Rarely", description: "Information is easy to find" },
+    ],
+  },
   {
     id: "production-visibility",
     category: "visibility",
@@ -248,37 +270,33 @@ export function calculateManufacturingScores(
 export const tierDescriptions = {
   early: {
     title: "Firefighting Mode",
-    description: "You're spending too much time hunting for answers and reacting to problems. The good news: small changes can free up real time.",
+    description: "You're spending too much time hunting for answers and reacting to problems. Your team is stretched thin doing work that should take half the time. The good news: small changes can free up real capacity.",
     nextSteps: [
       "Connect your core systems so 'Where's my order?' has one answer",
-      "Get sales and production looking at the same numbers",
-      "Build one dashboard for the metrics you check every day",
+      "Stop the time drain: automate information hunting so your team acts instead of searching",
     ],
   },
   emerging: {
     title: "Getting Organized",
-    description: "You have some visibility, but gaps remain. Focus on connecting the dots so problems surface earlier.",
+    description: "You have some visibility, but gaps remain. Your people are still spending too much time on manual work. Focus on connecting the dots so problems surface earlier.",
     nextSteps: [
       "Link your ERP to shipping and quality systems",
       "Build alerts that flag at-risk orders before they're late",
-      "Create self-service dashboards so managers stop asking for reports",
     ],
   },
   developing: {
     title: "Running Smooth",
-    description: "Your basics are solid. Now you can start catching problems before they happen and automating the repetitive work.",
+    description: "Your basics are solid. Now you can start catching problems before they happen and getting more done with your current team.",
     nextSteps: [
       "Add predictive alerts for demand and quality issues",
       "Automate the reports your team builds by hand every week",
-      "Look for AI opportunities in your biggest time sinks",
     ],
   },
   advanced: {
     title: "Ahead of the Pack",
-    description: "You're running tighter than most. Look for competitive advantages in AI and automation.",
+    description: "You're running tighter than most. Look for competitive advantages in AI and automation that let you scale without adding headcount.",
     nextSteps: [
       "Deploy AI for decisions you currently make manually",
-      "Automate end-to-end processes, not just reporting",
       "Explore predictive maintenance and quality optimization",
     ],
   },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
@@ -9,8 +9,25 @@ import { EmailCaptureForm } from "@/components/forms";
 import { HeroLottie } from "@/components/animations";
 import { legalAudits, legalGuides } from "@/lib/lead-magnets-data";
 import { industryContent } from "@/lib/industries-data";
+import {
+  calculateROI,
+  attorneyOptions,
+  billingRateOptions,
+  searchHoursOptions,
+  formatCurrency,
+} from "@/lib/legal-roi-calculator";
 
 const LEGAL_LOTTIE_URL = "/animations/legal.json";
+
+// Jump link navigation items
+const navItems = [
+  { id: "challenges", label: "Challenges" },
+  { id: "ownership", label: "Ownership" },
+  { id: "document-intelligence", label: "Document AI" },
+  { id: "roi-calculator", label: "ROI" },
+  { id: "audits", label: "Audits" },
+  { id: "guides", label: "Guides" },
+];
 
 // Icon components
 const IconClock = () => (
@@ -47,6 +64,44 @@ const iconMap: Record<string, React.FC> = {
 export default function LegalPageClient() {
   const [selectedAudit, setSelectedAudit] = useState<string | null>(null);
   const content = industryContent["legal"];
+  const [activeSection, setActiveSection] = useState("");
+
+  // ROI Calculator state
+  const [calcInputs, setCalcInputs] = useState({
+    attorneyCount: attorneyOptions[1].value, // Default: 25-50 attorneys
+    billingRate: billingRateOptions[1].value, // Default: $350-450/hour
+    searchHoursPerWeek: searchHoursOptions[1].value, // Default: 4-6 hours/week
+  });
+
+  const roiResults = calculateROI(calcInputs);
+
+  // Track active section on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -70% 0px" }
+    );
+
+    navItems.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -90,20 +145,45 @@ export default function LegalPageClient() {
               transition={{ delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
             >
-              Legal
+              Find Any Precedent in Seconds
             </motion.h1>
 
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
+              className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 max-w-2xl mx-auto"
             >
-              What used to cost $200K and take six months now costs $30-50K and takes weeks.
-              Your associates get answers in minutes, not hours. Every brief, memo, and contract
-              your firm has ever produced becomes searchable. When partners retire, what they
-              knew stays. You own it all. No vendor lock-in, no per-seat licensing.
-            </motion.p>
+              <p className="mb-4">
+                AI that searches decades of your firm&apos;s work product. Ask in plain English, get answers with citations.
+              </p>
+              <ul className="text-left space-y-2 text-base sm:text-lg">
+                <li className="flex items-start gap-2">
+                  <span className="text-teal-500 mt-1">✓</span>
+                  <span>$30-50K, not $150-200K. Live in weeks.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-teal-500 mt-1">✓</span>
+                  <span>Runs on your servers. Client data never leaves.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-teal-500 mt-1">✓</span>
+                  <span>You own the code. No per-seat fees, no vendor lock-in.</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="bg-teal-500/10 border border-teal-500/20 rounded-xl px-4 py-3 sm:px-6 sm:py-4 mb-6 sm:mb-8 max-w-xl mx-auto"
+            >
+              <p className="text-text-primary text-sm sm:text-base font-medium text-center">
+                Firms recover <span className="text-teal-600">4-6 hours per attorney per week</span> in search time.
+                At $400/hour, that&apos;s <span className="text-teal-600">$80-120K annually</span> for a 40-attorney firm.
+              </p>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -112,7 +192,7 @@ export default function LegalPageClient() {
               className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
             >
               <Button variant="primary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
-                See What This Looks Like
+                Schedule a 30-Minute Demo
               </Button>
               <Button variant="secondary" size="lg" href="/assessments/legal" className="w-full sm:w-auto min-h-[48px]">
                 5-Min Assessment → Get Your AI Roadmap
@@ -122,8 +202,29 @@ export default function LegalPageClient() {
         </div>
       </section>
 
+      {/* Sticky Jump Link Navigation */}
+      <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 hidden md:block">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-center gap-1 py-3">
+            {navItems.map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => scrollToSection(id)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeSection === id
+                    ? "bg-teal-500 text-white"
+                    : "text-text-secondary hover:text-teal-500 hover:bg-teal-500/5"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
       {/* Challenges Section */}
-      <section className="section bg-[#F8F9FA]">
+      <section id="challenges" className="section bg-[#F8F9FA] scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-3xl">
             <motion.p
@@ -171,12 +272,34 @@ export default function LegalPageClient() {
                 </motion.li>
               ))}
             </ul>
+
+            {/* Industry Stats Callout */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4"
+            >
+              <div className="bg-white p-4 rounded-xl border border-black/10 text-center">
+                <p className="text-2xl sm:text-3xl font-bold text-teal-600 mb-1">21%</p>
+                <p className="text-text-secondary text-sm">of attorney time spent searching for information</p>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-black/10 text-center">
+                <p className="text-2xl sm:text-3xl font-bold text-teal-600 mb-1">74%</p>
+                <p className="text-text-secondary text-sm">of billable tasks automatable with AI</p>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-black/10 text-center">
+                <p className="text-2xl sm:text-3xl font-bold text-teal-600 mb-1">300 hrs</p>
+                <p className="text-text-secondary text-sm">written off annually by the average partner</p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* AI Privacy Section */}
-      <section className="section">
+      <section id="ownership" className="section scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -212,8 +335,8 @@ export default function LegalPageClient() {
                   <p>
                     This is different. Custom AI that runs on your systems. You own
                     everything. No recurring fees eating your margins. No dependency on
-                    a vendor who controls your data. And yes, your ethics committee will
-                    approve it. Client files never leave your building.
+                    a vendor who controls your data. Designed for ABA 512 compliance from
+                    day one. Client files never leave your building.
                   </p>
                 </motion.div>
               </div>
@@ -236,15 +359,15 @@ export default function LegalPageClient() {
                     },
                     {
                       title: "Runs on your systems",
-                      description: "Your servers, your control. Nothing leaves your building."
+                      description: "Your servers, your control. Client data never leaves your building."
                     },
                     {
                       title: "No per-seat fees",
                       description: "Add users without adding costs. Your whole firm can use it."
                     },
                     {
-                      title: "Ethics committee approved",
-                      description: "Client files never touch outside servers. No third-party AI services."
+                      title: "Works with iManage, NetDocuments",
+                      description: "Connects to your existing DMS. No rip-and-replace. Live in 8-12 weeks."
                     },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-2 sm:gap-3">
@@ -295,7 +418,7 @@ export default function LegalPageClient() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  Find Any Precedent in Seconds
+                  Your Entire History, Searchable
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -381,6 +504,163 @@ export default function LegalPageClient() {
                 </ul>
               </motion.div>
             </div>
+
+            {/* Case Study Result Callout */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="mt-8 sm:mt-10 bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-6 rounded-2xl border border-teal-500/20"
+            >
+              <div className="flex flex-col sm:flex-row items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-teal-500/20 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-lg sm:text-xl font-semibold text-text-primary mb-2">
+                    Regional Firm Cuts Research Time 60%
+                  </p>
+                  <p className="text-text-secondary text-sm sm:text-base mb-3">
+                    A 35-attorney Midwest litigation firm indexed 15 years of work product. Associates who spent
+                    6+ hours weekly on precedent research now find what they need in minutes. New associates reached
+                    full productivity 3x faster. The firm was live in 10 weeks.
+                  </p>
+                  <p className="text-teal-600 text-sm font-medium">
+                    Based on typical client outcomes
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ROI Calculator Section */}
+      <section id="roi-calculator" className="section scroll-mt-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8 sm:mb-10">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+              >
+                ROI Calculator
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-3 sm:mb-4"
+              >
+                What&apos;s Search Time Costing You?
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto"
+              >
+                Plug in your numbers. See what document intelligence could save your firm.
+              </motion.p>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8"
+            >
+              {/* Calculator Inputs */}
+              <div className="bg-[#F8F9FA] p-5 sm:p-6 rounded-2xl border border-black/10">
+                <h3 className="text-lg font-bold text-text-primary mb-4">Your Firm</h3>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-2">
+                      Number of attorneys
+                    </label>
+                    <select
+                      value={calcInputs.attorneyCount}
+                      onChange={(e) => setCalcInputs({ ...calcInputs, attorneyCount: Number(e.target.value) })}
+                      className="w-full px-4 py-3 rounded-lg border border-black/10 bg-white text-text-primary focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    >
+                      {attorneyOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-2">
+                      Average billing rate
+                    </label>
+                    <select
+                      value={calcInputs.billingRate}
+                      onChange={(e) => setCalcInputs({ ...calcInputs, billingRate: Number(e.target.value) })}
+                      className="w-full px-4 py-3 rounded-lg border border-black/10 bg-white text-text-primary focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    >
+                      {billingRateOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-2">
+                      Hours per attorney per week searching for documents
+                    </label>
+                    <select
+                      value={calcInputs.searchHoursPerWeek}
+                      onChange={(e) => setCalcInputs({ ...calcInputs, searchHoursPerWeek: Number(e.target.value) })}
+                      className="w-full px-4 py-3 rounded-lg border border-black/10 bg-white text-text-primary focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    >
+                      {searchHoursOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Calculator Results */}
+              <div className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-6 rounded-2xl border border-teal-500/20">
+                <h3 className="text-lg font-bold text-text-primary mb-4">Your Numbers</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-2 border-b border-teal-500/20">
+                    <span className="text-text-secondary">Annual search time cost</span>
+                    <span className="text-xl font-bold text-text-primary">{formatCurrency(roiResults.annualSearchCost)}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-teal-500/20">
+                    <span className="text-text-secondary">Potential annual savings (60%)</span>
+                    <span className="text-xl font-bold text-teal-600">{formatCurrency(roiResults.potentialAnnualSavings)}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-teal-500/20">
+                    <span className="text-text-secondary">Typical implementation</span>
+                    <span className="text-lg font-semibold text-text-primary">
+                      {formatCurrency(roiResults.implementationCostLow)}-{formatCurrency(roiResults.implementationCostHigh)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-text-secondary">Estimated payback</span>
+                    <span className="text-lg font-semibold text-teal-600">
+                      {roiResults.paybackMonths} months
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <Button variant="primary" size="md" href="/contact" className="w-full">
+                    Get a Custom Analysis
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -475,10 +755,10 @@ export default function LegalPageClient() {
                     when you&apos;re tracing ownership by hand.
                   </p>
                   <p>
-                    We processed <strong className="text-text-primary">1.69 million records</strong> and
-                    resolved them to <strong className="text-text-primary">1.25 million actual owners</strong>.
-                    AI that untangles ownership structures at <strong className="text-text-primary">125x less cost</strong> than
-                    doing it manually.
+                    In one project, we processed <strong className="text-text-primary">1.69 million records</strong> and
+                    resolved them to <strong className="text-text-primary">1.25 million actual owners</strong> at
+                    a fraction of what manual review would have cost. AI that untangles ownership
+                    structures in hours, not weeks.
                   </p>
                 </motion.div>
                 <motion.div
@@ -858,49 +1138,6 @@ export default function LegalPageClient() {
         </div>
       </section>
 
-      {/* Use Cases Section */}
-      <section className="section">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10 sm:mb-16">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-            >
-              Use Cases
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary"
-            >
-              What this looks like in practice
-            </motion.h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {content.useCases.map((useCase, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-5 sm:p-6 rounded-xl bg-[#F8F9FA] border border-black/10"
-              >
-                <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2 sm:mb-3">
-                  {useCase.title}
-                </h3>
-                <p className="text-text-secondary text-sm sm:text-base">{useCase.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* The Math Changed Section */}
       <section className="section bg-[#F8F9FA]">
         <div className="container mx-auto px-4 sm:px-6">
@@ -953,7 +1190,7 @@ export default function LegalPageClient() {
       <CTA
         title="Let's talk about your firm"
         description="30 minutes. We'll look at your specific situation and show you what's possible. No pitch deck, no pressure."
-        primaryCta={{ label: "See What This Looks Like", href: "/contact" }}
+        primaryCta={{ label: "Schedule a 30-Minute Demo", href: "/contact" }}
         secondaryCta={{ label: "5-Min Assessment → Get Your AI Roadmap", href: "/assessments/legal" }}
         variant="gradient"
       />

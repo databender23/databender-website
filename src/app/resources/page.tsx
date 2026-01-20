@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import ResourcesClient from "./ResourcesClient";
+import { JsonLd } from "@/components/seo";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Resources | Case Studies, Assessments, Blog & Guides",
@@ -20,5 +22,14 @@ export const metadata: Metadata = {
 };
 
 export default function ResourcesPage() {
-  return <ResourcesClient />;
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Resources", url: "/resources" },
+  ];
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema(breadcrumbs)} />
+      <ResourcesClient />
+    </>
+  );
 }

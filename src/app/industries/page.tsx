@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import IndustriesClient from "./IndustriesClient";
+import { JsonLd } from "@/components/seo";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Industries We Serve | Healthcare, Legal, Manufacturing & More",
@@ -42,5 +44,14 @@ export const metadata: Metadata = {
 };
 
 export default function IndustriesPage() {
-  return <IndustriesClient />;
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Industries", url: "/industries" },
+  ];
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema(breadcrumbs)} />
+      <IndustriesClient />
+    </>
+  );
 }

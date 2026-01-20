@@ -113,10 +113,10 @@ export const legalGuides: Guide[] = [
     icon: "trophy",
   },
   {
-    slug: "last-vendor",
-    title: "The Last Vendor You Need",
-    subtitle: "Simplifying Law Firm Knowledge Technology",
-    description: "Stop managing five vendors who point fingers at each other. This guide shows how to consolidate your knowledge technology stack with a single accountable partner.",
+    slug: "simplify-tech-stack",
+    title: "Simplify Your Legal Tech Stack",
+    subtitle: "Stop Managing Five Vendors Who Point Fingers",
+    description: "Most firms run six or more tools that barely talk to each other. This guide shows how to consolidate your knowledge technology with a single accountable partner.",
     topics: [
       "The vendor fragmentation problem",
       "What integration actually requires",
@@ -200,10 +200,54 @@ export const healthcareGuides: Guide[] = [
     targetAudience: "Operations Directors, Clinical Informatics",
     icon: "document-search",
   },
+  {
+    slug: "prior-auth-burden",
+    title: "The Prior Authorization Problem",
+    subtitle: "13 Hours a Week Per Physician. Here's How to Fix It.",
+    description: "Prior authorization eats 13 hours per physician per week. 93% of physicians report care delays. 90% of imaging now requires PA. This guide shows how document intelligence cuts the paperwork burden and gets patients treated faster.",
+    topics: [
+      "The real cost of PA: time, delays, and denied care",
+      "How document intelligence automates PA workflows",
+      "Reducing physician time spent on paperwork by 60%+",
+      "Integration with your existing EHR and payer systems",
+      "ROI math that gets CFO approval",
+    ],
+    targetAudience: "COOs, Practice Administrators, Revenue Cycle Directors",
+    icon: "clock",
+  },
+  {
+    slug: "pe-healthcare-operations",
+    title: "PE Portfolio Operations",
+    subtitle: "Portfolio-Wide Visibility Without the 18-Month Integration",
+    description: "You bought five practices. Now you have five sets of books, five different PM systems, and no consolidated view. This guide shows how to get portfolio-wide visibility in weeks, not the 18 months your integration vendor quoted.",
+    topics: [
+      "Unified dashboards across acquired entities",
+      "Standardizing metrics without standardizing systems",
+      "EBITDA improvement opportunities hiding in your data",
+      "Exit-ready reporting that buyers actually want",
+      "What to prioritize first (and what can wait)",
+    ],
+    targetAudience: "PE Operating Partners, Portfolio Company COOs, CFOs",
+    icon: "layers",
+  },
 ];
 
 // Manufacturing Guides
 export const manufacturingGuides: Guide[] = [
+  {
+    slug: "do-more-with-fewer-people",
+    title: "Do More With Fewer People",
+    subtitle: "How Growing Manufacturers Get 20% More Output Without Adding Headcount",
+    description: "You can't find enough people, and the ones you have are stretched thin. Here's how to get more done without adding to payroll.",
+    topics: [
+      "Where time disappears in a typical manufacturer",
+      "The force multiplier effect of visibility",
+      "CSR productivity: before and after",
+      "What this costs and what it returns",
+    ],
+    targetAudience: "CEOs, COOs",
+    icon: "users",
+  },
   {
     slug: "operational-visibility-playbook",
     title: "The Operational Visibility Playbook",
@@ -215,36 +259,64 @@ export const manufacturingGuides: Guide[] = [
       "Catching at-risk orders before they're late",
       "Breaking down departmental silos",
     ],
-    targetAudience: "COOs, Operations Directors, Plant Managers",
+    targetAudience: "COOs, Operations Directors",
     icon: "eye",
   },
   {
-    slug: "lead-scoring-manufacturing",
-    title: "Lead Scoring That Actually Works",
-    subtitle: "What 3 Years of Sales Data Taught Us",
-    description: "Most lead scores are based on guesses. We analyzed three years of actual sales data to find what really predicts who buys. Some answers will surprise you.",
+    slug: "90-day-data-roadmap",
+    title: "The 90-Day Data Roadmap",
+    subtitle: "From Spreadsheets to Unified Visibility in One Quarter",
+    description: "Most manufacturers wait 12+ months for data infrastructure results. Here's how to see value in 90 days.",
     topics: [
-      "Building scores from actual win data",
-      "The features that matter (and don't)",
-      "Validating models before deployment",
-      "Getting sales to trust the scores",
+      "Days 1-30: First dashboard live",
+      "Days 31-60: Cross-system visibility",
+      "Days 61-90: Proactive alerts and automation",
+      "What to tackle first (and what can wait)",
     ],
-    targetAudience: "Sales VPs, Marketing Directors",
-    icon: "chart-bar",
+    targetAudience: "CEOs, COOs",
+    icon: "calendar",
   },
   {
     slug: "manufacturing-ai-privacy",
     title: "AI Without the Cloud Risk",
     subtitle: "Keep Your Competitive Data Where It Belongs",
-    description: "Your pricing, costs, and customer lists are competitive advantage. Here's how to get AI capabilities without sending sensitive data to someone else's servers.",
+    description: "Your pricing and customer data are competitive advantage. Here's how to get AI capabilities without sending sensitive data to someone else's servers.",
     topics: [
       "On-premise AI deployment options",
       "What stays private vs. what's safe to share",
       "Getting IT and legal to say yes",
       "The real cost of private AI (less than you think)",
     ],
-    targetAudience: "COOs, IT Directors, Operations Leaders",
+    targetAudience: "COOs, IT Directors",
     icon: "shield",
+  },
+  {
+    slug: "supply-chain-visibility-playbook",
+    title: "The Supply Chain Visibility Playbook",
+    subtitle: "Know What's Coming Before It's a Problem",
+    description: "Supplier delays shouldn't surprise you. Here's how to see what's at risk before it blows up your production schedule.",
+    topics: [
+      "Connecting supplier data without their cooperation",
+      "Early warning systems that actually work",
+      "Vendor scorecards that drive conversations",
+      "What to track (and what's noise)",
+    ],
+    targetAudience: "COOs, Supply Chain Managers",
+    icon: "truck",
+  },
+  {
+    slug: "erp-integration-guide",
+    title: "The ERP Integration Guide",
+    subtitle: "Connect Your Systems Without Replacing Anything",
+    description: "Your ERP holds the data. Getting it out is the hard part. Here's how to build visibility on top of NetSuite, Epicor, SAP, or whatever you're running.",
+    topics: [
+      "Read-only connections that don't disrupt operations",
+      "What your ERP can and can't tell you",
+      "Building dashboards your team will actually use",
+      "The 30-day path to your first live view",
+    ],
+    targetAudience: "IT Directors, COOs",
+    icon: "link",
   },
 ];
 
@@ -292,6 +364,20 @@ export const creBrokerGuides: Guide[] = [
     targetAudience: "Business Development, Investment Teams",
     icon: "trending-up",
   },
+  {
+    slug: "debt-maturity-wall",
+    title: "Navigating the $957B Maturity Wall",
+    subtitle: "How CRE Professionals Turn Debt Pressure Into Deal Flow",
+    description: "$957B in CRE loans mature in 2025, nearly triple the 20-year average. Borrowers face 200 basis point rate shocks, and only 21% can pay off in full. This guide shows how to identify motivated sellers before they list.",
+    topics: [
+      "Why 2025-2026 is unlike anything in 20 years",
+      "Identifying owners facing refinancing pressure",
+      "Building debt visibility into your deal pipeline",
+      "Reaching distressed sellers before competitors",
+    ],
+    targetAudience: "Acquisition Directors, Investment Sales Brokers",
+    icon: "trending-up",
+  },
 ];
 
 // Commercial Real Estate Guides - Property Managers
@@ -313,13 +399,13 @@ export const crePropertyManagerGuides: Guide[] = [
   {
     slug: "investor-reporting-cre",
     title: "Investor Reports in a Day",
-    subtitle: "Stop the Quarterly Scramble",
-    description: "Quarterly reporting eats two weeks. Pull data from each property. Consolidate in Excel. Format for presentation. Fix the errors. This guide shows how to cut that to a day.",
+    subtitle: "Stop the Quarterly Scramble (ILPA-Compliant)",
+    description: "Quarterly reporting eats two weeks. Pull data from each property. Consolidate in Excel. Format for presentation. Fix the errors. This guide shows how to cut that to a day with ILPA-compliant output.",
     topics: [
       "Automating the data pull",
       "Report templates that populate themselves",
+      "ILPA 2.0 compliance requirements",
       "Catching errors before investors do",
-      "What institutional-grade reporting looks like",
     ],
     targetAudience: "Asset Managers, Portfolio Managers, CFOs",
     icon: "file-text",
@@ -337,6 +423,21 @@ export const crePropertyManagerGuides: Guide[] = [
     ],
     targetAudience: "Property Managers, Leasing Directors",
     icon: "calendar",
+  },
+  {
+    slug: "cam-reconciliation-guide",
+    title: "CAM Reconciliation: Stop Losing 5-15%",
+    subtitle: "How Property Managers Recover Lost Expenses Without Adding Staff",
+    description: "Property managers lose 5-15% of recoverable expenses to CAM calculation errors. Nobody catches them until tenants dispute. This guide shows how to automate reconciliation and recover what's yours.",
+    topics: [
+      "The hidden cost of CAM errors (real numbers)",
+      "Where reconciliation breaks down",
+      "Automation that works across lease types",
+      "Catching errors before disputes",
+      "ROI math for your CFO",
+    ],
+    targetAudience: "Property Managers, COOs, CFOs",
+    icon: "dollar",
   },
 ];
 
@@ -395,7 +496,7 @@ export const distributionGuides: Guide[] = [
     slug: "inventory-intelligence-guide",
     title: "Free Up Cash Tied in Dead Stock",
     subtitle: "Inventory Intelligence for Mid-Sized Distributors",
-    description: "20-40% of your revenue is tied up in inventory. Too much of the wrong stuff, not enough of the right. This guide shows how to optimize without guessing.",
+    description: "15-25% of your revenue is tied up in inventory. Too much of the wrong stuff, not enough of the right. This guide shows how to optimize without guessing.",
     topics: [
       "Identifying dead stock before it becomes a write-off",
       "Demand forecasting that actually predicts",
@@ -428,10 +529,40 @@ export const distributionGuides: Guide[] = [
       "Real-time margin visibility by deal",
       "Pricing guardrails that don't slow down sales",
       "Exception alerts before approval",
-      "1-3% margin improvement from discipline alone",
+      "2-5% margin improvement from discipline alone",
     ],
     targetAudience: "CEOs, CFOs, Sales VPs",
     icon: "shield",
+  },
+  {
+    slug: "distribution-labor-shortage-playbook",
+    title: "Do More With Fewer People",
+    subtitle: "The Labor Shortage Playbook for Distributors",
+    description: "76% of distributors report labor shortages. Fulfillment times are up 60%. You can't hire your way out. This playbook shows how to get more done with your current team.",
+    topics: [
+      "Where time disappears in distribution operations",
+      "Customer service productivity: before and after",
+      "Warehouse efficiency without adding headcount",
+      "Forecasting that reduces peak season chaos",
+      "The ROI math on operational visibility",
+    ],
+    targetAudience: "CEOs, COOs, Operations Directors",
+    icon: "users",
+  },
+  {
+    slug: "distribution-tariff-response-guide",
+    title: "Respond to Tariffs Fast",
+    subtitle: "Pricing Agility for Uncertain Markets",
+    description: "When tariffs change or suppliers raise costs, you need to adjust pricing fast. By the time you update spreadsheets, margin is already gone. This guide shows how to build pricing infrastructure that responds in hours, not weeks.",
+    topics: [
+      "Scenario modeling before cost changes hit",
+      "Updating pricing at scale across SKUs and customers",
+      "Margin guardrails that adjust with costs",
+      "Tracking whether price increases stick",
+      "The supplier cost pass-through playbook",
+    ],
+    targetAudience: "CEOs, CFOs, Sales VPs",
+    icon: "trending-up",
   },
 ];
 
@@ -492,6 +623,34 @@ export const creAssessments: Assessment[] = [
   },
 ];
 
+// Construction Assessments
+export const constructionAssessments: Assessment[] = [
+  {
+    slug: "data-ai-readiness",
+    title: "Construction Operations Assessment",
+    description: "See where you're losing time to disconnected systems and scattered project data. Get a personalized roadmap in 5 minutes.",
+    questionCount: 12,
+    timeEstimate: "5 minutes",
+    targetAudience: "CEOs, CFOs, Operations Directors at growing contractors",
+    icon: "chart-bar",
+    externalUrl: "/assessments/data-ai-readiness",
+  },
+];
+
+// Wholesale Distribution Assessments
+export const distributionAssessments: Assessment[] = [
+  {
+    slug: "data-ai-readiness",
+    title: "Distribution Operations Assessment",
+    description: "See where you're losing margin to inventory guesswork, pricing chaos, and manual processes. Get a personalized roadmap in 5 minutes.",
+    questionCount: 12,
+    timeEstimate: "5 minutes",
+    targetAudience: "CEOs, COOs, CFOs at mid-sized distributors",
+    icon: "chart-bar",
+    externalUrl: "/assessments/data-ai-readiness",
+  },
+];
+
 // Industry-specific content for enhanced pages
 export const industryLeadMagnets = {
   legal: {
@@ -525,16 +684,18 @@ export const industryLeadMagnets = {
     ctaText: "Get Started",
   },
   construction: {
+    assessments: constructionAssessments,
     guides: constructionGuides,
     headline: "Resources for Growing Contractors",
-    subheadline: "Practical guides for project visibility, change order recovery, and post-acquisition integration.",
-    ctaText: "Download Free Guide",
+    subheadline: "See where your operations stand and get practical guides for project visibility and change order recovery.",
+    ctaText: "Start Assessment",
   },
   "wholesale-distribution": {
+    assessments: distributionAssessments,
     guides: distributionGuides,
     headline: "Resources for Mid-Sized Distributors",
-    subheadline: "Practical guides for inventory optimization, customer profitability, and pricing discipline.",
-    ctaText: "Download Free Guide",
+    subheadline: "See where your operations stand and get practical guides for inventory optimization and pricing discipline.",
+    ctaText: "Start Assessment",
   },
 };
 
@@ -567,5 +728,5 @@ export function getGuidesByIndustry(industry: string): Guide[] {
 }
 
 export function getAssessmentBySlug(slug: string): Assessment | undefined {
-  return [...manufacturingAssessments, ...healthcareAssessments, ...creAssessments].find((a) => a.slug === slug);
+  return [...manufacturingAssessments, ...healthcareAssessments, ...creAssessments, ...constructionAssessments, ...distributionAssessments].find((a) => a.slug === slug);
 }

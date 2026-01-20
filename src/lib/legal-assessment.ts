@@ -57,6 +57,17 @@ export const legalQuestions: LegalQuestion[] = [
       { value: 4, label: "200+", description: "Capacity constraint" },
     ],
   },
+  {
+    id: "billing-capture",
+    category: "aiOpportunity",
+    question: "Time capture: how much gets lost before billing?",
+    options: [
+      { value: 1, label: "Significant leakage", description: "Hours slip through, hard to quantify" },
+      { value: 2, label: "Some lost time", description: "Probably 10-15% doesn't make it to invoices" },
+      { value: 3, label: "Mostly captured", description: "Good discipline, occasional misses" },
+      { value: 4, label: "Tight process", description: "Real-time capture, minimal write-offs" },
+    ],
+  },
 
   // Data Readiness
   {
@@ -103,6 +114,17 @@ export const legalQuestions: LegalQuestion[] = [
       { value: 4, label: "Enterprise DMS", description: "Full version control, OCR, metadata" },
     ],
   },
+  {
+    id: "tech-stack-integration",
+    category: "dataReadiness",
+    question: "How many tools touch a typical matter?",
+    options: [
+      { value: 4, label: "2-3 tools", description: "Streamlined stack" },
+      { value: 3, label: "4-5 tools", description: "Moderate complexity" },
+      { value: 2, label: "6-8 tools", description: "Lots of switching" },
+      { value: 1, label: "9+ tools", description: "Tool sprawl" },
+    ],
+  },
 
   // Privacy Posture
   {
@@ -117,14 +139,14 @@ export const legalQuestions: LegalQuestion[] = [
     ],
   },
   {
-    id: "ethics-committee",
+    id: "ai-governance",
     category: "privacyPosture",
-    question: "Has your ethics committee weighed in on AI?",
+    question: "Has your firm developed AI governance guidance?",
     options: [
-      { value: 1, label: "Not yet", description: "AI hasn't come up" },
-      { value: 2, label: "Early talks", description: "Raised but no conclusions" },
-      { value: 3, label: "Initial guidance", description: "Committee has provided direction" },
-      { value: 4, label: "Complete", description: "Full ethical framework in place" },
+      { value: 1, label: "Not yet", description: "AI governance hasn't been formalized" },
+      { value: 2, label: "Informal discussions", description: "Partners have discussed, no formal policy" },
+      { value: 3, label: "Written guidelines", description: "Basic policy on approved AI tools" },
+      { value: 4, label: "Full framework", description: "Complete governance including vendor review" },
     ],
   },
   {
@@ -214,13 +236,13 @@ export function calculateLegalScores(
   sortedCategories.slice(0, 2).forEach(([category]) => {
     switch (category) {
       case "aiOpportunity":
-        recommendations.push("Start with one high-volume workflow (document review or research) to see concrete cost savings");
+        recommendations.push("Start with one high-volume workflow (document review or research) to see concrete cost savings.");
         break;
       case "dataReadiness":
         recommendations.push("Get your documents organized first. Custom AI is affordable now, but it needs something to search.");
         break;
       case "privacyPosture":
-        recommendations.push("Get ethics committee buy-in early. The good news: AI that runs on your servers is much easier to approve.");
+        recommendations.push("Develop AI governance guidance early. The good news: AI that runs on your servers and meets ABA 512 is easier to approve.");
         break;
     }
   });
@@ -238,8 +260,8 @@ export const tierDescriptions = {
     title: "Early Stage",
     description: "Your firm has work to do before custom AI makes sense. The good news: getting organized is straightforward, and prices have dropped enough that it's worth doing.",
     nextSteps: [
-      "Get documents into one searchable place (this is step one for any AI project)",
-      "Talk to your ethics committee early so you're not scrambling later",
+      "Get documents into one searchable place. This is step one for any AI project.",
+      "Develop basic AI governance guidance so you're not scrambling later.",
       "Pick one workflow where associates waste the most time. That's your pilot.",
     ],
   },
@@ -247,27 +269,27 @@ export const tierDescriptions = {
     title: "Emerging",
     description: "You have the foundations. Now it's about picking the right first project. Custom AI that used to cost $150K+ now runs $30-50K. The math works for firms your size.",
     nextSteps: [
-      "Identify your highest-volume workflow (document review, research, due diligence)",
-      "Get a cost estimate for making your existing documents searchable",
-      "Start capturing knowledge from senior partners before they retire",
+      "Identify your highest-volume workflow: document review, research, or due diligence.",
+      "Get a cost estimate for making your existing documents searchable.",
+      "Look at time capture. Firms recovering 4-6 hours per attorney weekly see fast ROI.",
     ],
   },
   developing: {
     title: "Developing",
     description: "Your firm is ready for custom AI. You have the data and the governance. The question now is which project delivers the most value fastest.",
     nextSteps: [
-      "Get pricing on document intelligence for your specific document volumes",
-      "Evaluate where per-seat licensing costs more than owning the solution outright",
-      "Consider a pilot project to prove value before a larger rollout",
+      "Get pricing on document intelligence for your specific document volumes.",
+      "Evaluate where per-seat licensing costs more than owning the solution outright.",
+      "Request a custom audit to identify your highest-ROI opportunities.",
     ],
   },
   ready: {
     title: "AI Ready",
-    description: "Your firm is ahead of most. You have the infrastructure and governance for custom AI. The firms at your stage are already seeing results.",
+    description: "Your firm is ahead of most. You have the infrastructure and governance for custom AI. Firms at your stage are already seeing results.",
     nextSteps: [
       "Move on document intelligence. Your data is ready and the economics work.",
-      "Look at where you're paying per-seat fees for software you could own",
-      "The firms moving now will have a year's head start. Time to decide.",
+      "Look at where you're paying per-seat fees for software you could own.",
+      "Consider ABA 512 compliance documentation for your implementation.",
     ],
   },
 };

@@ -57,6 +57,28 @@ export const healthcareQuestions: HealthcareQuestion[] = [
       { value: 4, label: "Instantly", description: "Easy portal with version control" },
     ],
   },
+  {
+    id: "prior-auth-burden",
+    category: "documentManagement",
+    question: "Prior authorizations: how much time per case?",
+    options: [
+      { value: 1, label: "Hours", description: "Manual hunting for clinical docs every time" },
+      { value: 2, label: "30-60 minutes", description: "Know what's needed, still takes digging" },
+      { value: 3, label: "15-30 minutes", description: "Organized docs, some manual steps" },
+      { value: 4, label: "Minutes", description: "Mostly automated, docs ready to go" },
+    ],
+  },
+  {
+    id: "revenue-cycle-docs",
+    category: "documentManagement",
+    question: "Payer rules and billing requirements: where do they live?",
+    options: [
+      { value: 1, label: "Everywhere and nowhere", description: "Scattered emails, outdated PDFs, tribal knowledge" },
+      { value: 2, label: "Partial system", description: "Some organized, key stuff still in people's heads" },
+      { value: 3, label: "Central but messy", description: "One place, but hard to search or outdated" },
+      { value: 4, label: "Single source of truth", description: "Searchable, current, everyone uses it" },
+    ],
+  },
 
   // Knowledge Retention
   {
@@ -76,7 +98,7 @@ export const healthcareQuestions: HealthcareQuestion[] = [
     question: "New hires: how long until they're actually productive?",
     options: [
       { value: 1, label: "6+ months", description: "Long learning curve, tribal knowledge" },
-      { value: 2, label: "3-6 months", description: "Significant ramp-up, ad-hoc training" },
+      { value: 2, label: "3-6 months", description: "Long ramp-up, ad-hoc training" },
       { value: 3, label: "1-3 months", description: "Structured onboarding" },
       { value: 4, label: "Under a month", description: "Great training materials" },
     ],
@@ -149,6 +171,28 @@ export const healthcareQuestions: HealthcareQuestion[] = [
       { value: 4, label: "Absolutely", description: "Enterprise-grade on-prem ready" },
     ],
   },
+  {
+    id: "denial-tracking",
+    category: "aiReadiness",
+    question: "Claim denials: do you know why they happen?",
+    options: [
+      { value: 1, label: "No visibility", description: "Find out when appeals fail" },
+      { value: 2, label: "After the fact", description: "Track denials, but reactive" },
+      { value: 3, label: "Patterns visible", description: "Know common causes, working on fixes" },
+      { value: 4, label: "Proactive prevention", description: "Catch issues before submission" },
+    ],
+  },
+  {
+    id: "multi-location-visibility",
+    category: "aiReadiness",
+    question: "Multiple locations: can you see across all of them?",
+    options: [
+      { value: 1, label: "Each site is an island", description: "Separate systems, no unified view" },
+      { value: 2, label: "Manual consolidation", description: "Spreadsheet gymnastics to compare" },
+      { value: 3, label: "Delayed rollup", description: "Central view exists, but lags" },
+      { value: 4, label: "Real-time unified view", description: "Single dashboard, all locations" },
+    ],
+  },
 ];
 
 export interface HealthcareScores {
@@ -215,12 +259,26 @@ export function calculateHealthcareScores(
     switch (category) {
       case "documentManagement":
         recommendations.push("Get your documents organized first. AI can't find what's scattered across 50 folders.");
+        // Check specific low scores in document management
+        if (answers["prior-auth-burden"] && answers["prior-auth-burden"] <= 2) {
+          recommendations.push("Prior auth is eating your staff alive. Start there. Get clinical docs organized so you're not hunting every time.");
+        }
+        if (answers["revenue-cycle-docs"] && answers["revenue-cycle-docs"] <= 2) {
+          recommendations.push("Payer rules living in people's heads is a ticking clock. One resignation and you're scrambling.");
+        }
         break;
       case "knowledgeRetention":
         recommendations.push("Start capturing what your experienced staff know. Every retirement is a quiet crisis right now.");
         break;
       case "aiReadiness":
         recommendations.push("Talk to compliance about AI before you need to. Getting buy-in takes longer than the tech work.");
+        // Check specific low scores in AI readiness
+        if (answers["denial-tracking"] && answers["denial-tracking"] <= 2) {
+          recommendations.push("You're losing money on denials you could prevent. Pattern analysis pays for itself fast.");
+        }
+        if (answers["multi-location-visibility"] && answers["multi-location-visibility"] <= 2) {
+          recommendations.push("Site-by-site data means site-by-site blind spots. Unified visibility is table stakes for AI.");
+        }
         break;
     }
   });

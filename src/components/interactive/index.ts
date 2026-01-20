@@ -1,4 +1,6 @@
 export { DataPlayground } from './DataPlayground'
 export { ROICalculator } from './ROICalculator'
+export { ManufacturingROICalculator } from './ManufacturingROICalculator'
+export { CREROICalculator } from './CREROICalculator'
 export { EasterEggsProvider, useLogoEasterEgg } from './EasterEggs'
 export { ScrollProgress } from './ScrollProgress'

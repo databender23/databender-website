@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import AssessmentsClient from "./AssessmentsClient";
+import { JsonLd } from "@/components/seo";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Free Assessments | Data Maturity & AI Readiness Diagnostics",
@@ -41,5 +43,14 @@ export const metadata: Metadata = {
 };
 
 export default function AssessmentsPage() {
-  return <AssessmentsClient />;
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Assessments", url: "/assessments" },
+  ];
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema(breadcrumbs)} />
+      <AssessmentsClient />
+    </>
+  );
 }

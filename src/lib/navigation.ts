@@ -14,12 +14,12 @@ export const mainNavigation: NavItem[] = [
     label: "Industries",
     href: "/industries",
     children: [
-      { label: "Legal", href: "/industries/legal" },
       { label: "Healthcare", href: "/industries/healthcare" },
-      { label: "Manufacturing", href: "/industries/manufacturing" },
-      { label: "Commercial Real Estate", href: "/industries/commercial-real-estate" },
       { label: "Construction", href: "/industries/construction" },
+      { label: "Manufacturing", href: "/industries/manufacturing" },
       { label: "Wholesale Distribution", href: "/industries/wholesale-distribution" },
+      { label: "Commercial Real Estate", href: "/industries/commercial-real-estate" },
+      { label: "Legal", href: "/industries/legal" },
     ],
   },
   {
@@ -49,12 +49,12 @@ export const footerNavigation = {
     { label: "All Services", href: "/services" },
   ],
   industries: [
-    { label: "Legal", href: "/industries/legal" },
     { label: "Healthcare", href: "/industries/healthcare" },
-    { label: "Manufacturing", href: "/industries/manufacturing" },
-    { label: "Commercial Real Estate", href: "/industries/commercial-real-estate" },
     { label: "Construction", href: "/industries/construction" },
+    { label: "Manufacturing", href: "/industries/manufacturing" },
     { label: "Wholesale Distribution", href: "/industries/wholesale-distribution" },
+    { label: "Commercial Real Estate", href: "/industries/commercial-real-estate" },
+    { label: "Legal", href: "/industries/legal" },
   ],
   resources: [
     { label: "Case Studies", href: "/case-studies" },

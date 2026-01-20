@@ -158,6 +158,29 @@ export const creQuestions: CREQuestion[] = [
       { value: 0, label: "No, each property is tracked separately", description: "No cross-property view" },
     ],
   },
+  // Operations questions
+  {
+    id: "cam-reconciliation",
+    category: "portfolioVisibility",
+    question: "How confident are you in your CAM reconciliation accuracy?",
+    options: [
+      { value: 7, label: "Very confident", description: "Systematic process with high accuracy" },
+      { value: 4, label: "Mostly confident", description: "Occasional issues but generally accurate" },
+      { value: 2, label: "Uncertain", description: "We do our best but errors slip through" },
+      { value: 0, label: "Often disputed", description: "Tenants challenge CAM regularly" },
+    ],
+  },
+  {
+    id: "debt-visibility",
+    category: "portfolioVisibility",
+    question: "How well do you track loan maturities across your portfolio?",
+    options: [
+      { value: 7, label: "Automated visibility", description: "Real-time tracking across portfolio" },
+      { value: 4, label: "Centralized but manual", description: "One view but updated manually" },
+      { value: 2, label: "Spreadsheet somewhere", description: "We have it but it's not centralized" },
+      { value: 0, label: "Property by property", description: "Each property manager tracks their own" },
+    ],
+  },
 ];
 
 export interface CREScores {
@@ -195,7 +218,7 @@ export function calculateCREScores(
   });
 
   const total = categoryScores.portfolioVisibility + categoryScores.investorReporting;
-  const maxTotal = 56;
+  const maxTotal = 70; // 10 questions * 7 max points
 
   // Determine tier
   let tier: CREScores["tier"];
@@ -249,6 +272,18 @@ export function calculateCREScores(
     );
   }
 
+  if (answers["cam-reconciliation"] <= 2) {
+    dynamicInsights.push(
+      "Property managers lose 5-15% of recoverable expenses to CAM reconciliation errors. Nobody catches them until tenants dispute. Automated CAM reconciliation pays for itself in recovered expenses."
+    );
+  }
+
+  if (answers["debt-visibility"] <= 2) {
+    dynamicInsights.push(
+      "$957B in CRE loans mature in 2025. That's nearly triple the 20-year average. If you're not tracking loan maturities across your portfolio, you could be caught off guard by refinancing pressure."
+    );
+  }
+
   // Generate recommendations based on lowest scores
   const recommendations: string[] = [];
 
@@ -256,6 +291,12 @@ export function calculateCREScores(
     recommendations.push("Prioritize building unified portfolio visibility before enhancing reporting");
     recommendations.push("Consider a data integration layer to connect disparate PM systems");
     recommendations.push("Implement automated dashboards for key operational metrics");
+    if (answers["cam-reconciliation"] <= 2) {
+      recommendations.push("Address CAM reconciliation accuracy (5-15% of recoverable expenses at stake)");
+    }
+    if (answers["debt-visibility"] <= 2) {
+      recommendations.push("Build centralized loan maturity tracking across all properties");
+    }
   } else {
     recommendations.push("Focus on streamlining investor reporting processes");
     recommendations.push("Explore investor portal solutions for self-service access");
@@ -306,11 +347,12 @@ export const tierDescriptions = {
     description:
       "Your systems are disconnected and visibility is limited. Before advanced analytics, you need foundation work: connecting systems, standardizing data, creating a single source of truth.",
     opportunity:
-      "This isn't a criticism. Most property managers in growth mode hit this wall. You've outgrown spreadsheets but haven't built what comes next.",
+      "This isn't a criticism. Most property managers in growth mode hit this wall. You've outgrown spreadsheets but haven't built what comes next. You're also probably losing 5-15% of CAM recoveries to errors you don't catch.",
     recommendedConversation: "Data Foundation engagement before analytics work.",
     nextSteps: [
       "Audit and document current data sources",
       "Prioritize system integration opportunities",
+      "Address CAM reconciliation accuracy",
       "Establish data governance standards",
     ],
   },
@@ -319,11 +361,11 @@ export const tierDescriptions = {
     description:
       "There's significant opportunity to improve, but foundational work comes first. Multiple PM systems with no integration, manual everything, and limited visibility are common at your stage.",
     opportunity:
-      "The good news: fixing this isn't as expensive as you might think. Modern tools and approaches make building a data foundation accessible.",
+      "The good news: fixing this isn't as expensive as you might think. Modern tools and approaches make building a data foundation accessible. And with $957B in CRE loans maturing in 2025, visibility into your debt situation isn't optional.",
     recommendedConversation: "Discovery call to understand your specific situation.",
     nextSteps: [
       "Start with a data audit to understand current state",
-      "Identify quick wins for immediate improvement",
+      "Identify quick wins for immediate improvement (CAM reconciliation often has fastest ROI)",
       "Build a phased roadmap for data modernization",
     ],
   },

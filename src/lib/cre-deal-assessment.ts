@@ -154,7 +154,7 @@ export const dealQuestions: DealQuestion[] = [
       { value: 0, label: "Ad hoc process", description: "Different approach each time" },
     ],
   },
-  // Pipeline Prioritization (3 questions)
+  // Pipeline Prioritization (4 questions)
   {
     id: "target-scoring",
     category: "pipelinePrioritization",
@@ -175,6 +175,17 @@ export const dealQuestions: DealQuestion[] = [
       { value: 4, label: "Monitor some signals manually", description: "Check a few indicators" },
       { value: 2, label: "Rely on market intel", description: "Broker network and word of mouth" },
       { value: 0, label: "Wait for listings", description: "Mostly reactive to market" },
+    ],
+  },
+  {
+    id: "debt-awareness",
+    category: "pipelinePrioritization",
+    question: "How do you identify properties with upcoming loan maturities?",
+    options: [
+      { value: 7, label: "Systematic tracking", description: "Loan maturities are core to our deal scoring" },
+      { value: 4, label: "Partial visibility", description: "Some debt data but not systematic" },
+      { value: 2, label: "Ad hoc research", description: "Sometimes check when relevant" },
+      { value: 0, label: "We don't track this", description: "Loan timing isn't part of our targeting" },
     ],
   },
   {
@@ -220,7 +231,7 @@ export function calculateDealScores(
   });
 
   const total = categoryScores.ownershipData + categoryScores.dueDiligence + categoryScores.pipelinePrioritization;
-  const maxTotal = 70; // 10 questions * 7 max points
+  const maxTotal = 77; // 11 questions * 7 max points
 
   // Determine tier
   let tier: DealScores["tier"];
@@ -270,6 +281,12 @@ export function calculateDealScores(
     );
   }
 
+  if (answers["debt-awareness"] <= 2) {
+    dynamicInsights.push(
+      "$957B in CRE loans mature in 2025. That's nearly triple the 20-year average. Properties facing refinancing pressure are more likely to trade. If you're not tracking loan maturities, you're missing motivated sellers."
+    );
+  }
+
   if (profile.dealVolume === "100+") {
     dynamicInsights.push(
       "At 100+ deals per year, every efficiency gain multiplies. The firms doing this volume well have systematized their deal flow. The ones struggling are doing everything manually."
@@ -291,9 +308,9 @@ export function calculateDealScores(
     recommendations.push("Define your must-have data points before opening any data room");
   } else {
     recommendations.push("Develop a scoring model based on your actual transaction data");
-    recommendations.push("Track motivated-seller signals systematically");
+    recommendations.push("Track motivated-seller signals systematically, including loan maturities");
+    recommendations.push("Build debt visibility into your deal pipeline (the $957B maturity wave is a targeting opportunity)");
     recommendations.push("Centralize pipeline visibility across the team");
-    recommendations.push("Set weekly pipeline review meetings with clear metrics");
   }
 
   return {
