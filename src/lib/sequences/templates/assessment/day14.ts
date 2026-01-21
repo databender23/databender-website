@@ -38,7 +38,7 @@ function getCaseStudyContent(industry?: string): CaseStudyContent {
           "was struggling with price transparency data. Multiple file formats, inconsistent naming conventions, and no way to compare rates across payers. Their finance team was spending 20+ hours a week just trying to make sense of it.",
         solution: [
           "Consolidated and normalized pricing files from 12 different payers into a unified data model",
-          "Built automated comparison dashboards that update as new files are published",
+          "Built automated comparison applications that update as new files are published",
           "Created payer negotiation tools showing exactly where rates were below market",
         ],
         result:
@@ -92,7 +92,7 @@ function getCaseStudyContent(industry?: string): CaseStudyContent {
           "was drowning in spreadsheets. Every department had their own version of the truth. Monthly reporting took a week. By the time leadership saw the numbers, they were already outdated. Decisions were made on intuition because the data couldn't be trusted.",
         solution: [
           "Built automated data pipelines replacing manual spreadsheet workflows",
-          "Created a single source of truth with real-time dashboards for each department",
+          "Created a single source of truth with real-time custom applications for each department",
           "Implemented data quality checks that caught issues before they became problems",
         ],
         result:

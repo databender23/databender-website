@@ -16,11 +16,11 @@ import {
 const servicesFAQs: FAQItem[] = [
   {
     question: "What services does Databender offer?",
-    answer: "Databender offers three core services that work together: Data & AI Strategy (building your data foundation), Analytics & BI (dashboards and reporting that reveal insights), and AI Services (intelligent automation and AI agents). You can engage us for one service or combine all three for a complete data transformation."
+    answer: "Databender offers three core services that work together: Data & AI Strategy (building your data foundation), Analytics & BI (applications and reporting that reveal insights), and AI Services (intelligent automation and AI agents). You can engage us for one service or combine all three for a complete data transformation."
   },
   {
     question: "How long do projects typically take?",
-    answer: "Project timelines vary based on scope and complexity. Quick wins like dashboard builds or data cleanup projects can be completed in 2-4 weeks. Larger initiatives such as data platform modernization or custom AI solutions typically run 2-4 months. We always start with a discovery phase to provide accurate timelines for your specific situation."
+    answer: "Project timelines vary based on scope and complexity. Quick wins like application builds or data cleanup projects can be completed in 2-4 weeks. Larger initiatives such as data platform modernization or custom AI solutions typically run 2-4 months. We always start with a discovery phase to provide accurate timelines for your specific situation."
   },
   {
     question: "What industries do you work with?",

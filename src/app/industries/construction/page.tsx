@@ -6,11 +6,11 @@ import { breadcrumbSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Data & Analytics for Construction Companies",
   description:
-    "Connect your estimating, scheduling, field apps, and accounting into one dashboard. See real-time margins, catch cost overruns early, and stop losing money on unbilled change orders.",
+    "Connect your estimating, scheduling, field apps, and accounting into one application. See real-time margins, catch cost overruns early, and stop losing money on unbilled change orders.",
   keywords: [
     "construction analytics",
     "construction data integration",
-    "project visibility dashboard",
+    "project visibility application",
     "job costing analytics",
     "change order tracking",
     "construction business intelligence",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Data & Analytics for Construction Companies",
     description:
-      "Connect your estimating, scheduling, field apps, and accounting into one dashboard. See real-time margins, catch cost overruns early, and stop losing money on unbilled change orders.",
+      "Connect your estimating, scheduling, field apps, and accounting into one application. See real-time margins, catch cost overruns early, and stop losing money on unbilled change orders.",
     type: "website",
     url: "https://databender.co/industries/construction",
     images: [
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Data & Analytics for Construction Companies",
     description:
-      "Connect your estimating, scheduling, field apps, and accounting into one dashboard. See real-time margins, catch cost overruns early, and stop losing money on unbilled change orders.",
+      "Connect your estimating, scheduling, field apps, and accounting into one application. See real-time margins, catch cost overruns early, and stop losing money on unbilled change orders.",
     images: ["https://databender.co/opengraph-image"],
   },
   alternates: {

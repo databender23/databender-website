@@ -64,7 +64,7 @@ const capabilities = [
   {
     id: 'build',
     title: 'Build Applications',
-    description: 'Mobile apps, dashboards, integrations - all powered by your structured knowledge base.',
+    description: 'Mobile apps, analytics tools, integrations - all powered by your structured knowledge base.',
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
@@ -73,7 +73,7 @@ const capabilities = [
     color: 'amber',
     demo: {
       type: 'apps',
-      examples: ['Mobile App', 'Dashboard', 'API'],
+      examples: ['Mobile App', 'Analytics', 'API'],
     },
   },
   {
@@ -185,7 +185,7 @@ function InlineDemo({ capability }: { capability: typeof capabilities[0] }) {
               transition={{ delay: i * 0.1 }}
               className={`px-2.5 sm:px-4 py-2 sm:py-3 rounded-lg ${colors.light} border ${colors.border} flex items-center gap-1.5 sm:gap-2`}
             >
-              <span className="text-base sm:text-lg">{app === 'Mobile App' ? '📱' : app === 'Dashboard' ? '📊' : '🔗'}</span>
+              <span className="text-base sm:text-lg">{app === 'Mobile App' ? '📱' : app === 'Analytics' ? '📊' : '🔗'}</span>
               <p className="text-xs sm:text-sm font-medium text-text-primary">{app}</p>
             </motion.div>
           ))}

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "pricing analytics",
     "distribution business intelligence",
     "ERP integration",
-    "distributor dashboards",
+    "distributor applications",
     "inventory management",
     "demand forecasting",
     "dead stock reduction",

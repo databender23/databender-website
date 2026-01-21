@@ -518,7 +518,7 @@ export default function CREPageClient() {
                 },
                 {
                   question: "How long until we see value?",
-                  answer: "First dashboards in 4-6 weeks, reporting automation in 8-12 weeks. We prove value before the big commitment."
+                  answer: "First applications in 4-6 weeks, reporting automation in 8-12 weeks. We prove value before the big commitment."
                 },
               ].map((faq, index) => (
                 <motion.div
@@ -596,7 +596,7 @@ export default function CREPageClient() {
               <div className="space-y-3">
                 {[
                   { week: "Week 1-2", task: "System connections (Yardi, AppFolio, etc.)" },
-                  { week: "Week 3-4", task: "First unified dashboard live" },
+                  { week: "Week 3-4", task: "First unified application live" },
                   { week: "Week 5-8", task: "Investor reporting automation" },
                 ].map((item, index) => (
                   <div key={index} className="flex items-start gap-3">

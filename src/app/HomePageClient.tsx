@@ -584,7 +584,7 @@ export default function HomePageClient() {
     {
       title: "Intelligence Built on Your Data",
       description:
-        "Not generic dashboards from a BI vendor. Analytics and ML trained on your business, your patterns, your competitive advantage.",
+        "Not generic applications from a BI vendor. Analytics and ML trained on your business, your patterns, your competitive advantage.",
       icon: <ChartIcon />,
       href: "/services/analytics-bi",
     },

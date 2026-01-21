@@ -370,7 +370,7 @@ export default function ManufacturingPageClient() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {[
                 { week: "Week 1-2", title: "Connect", description: "Read-only connection to your systems" },
-                { week: "Week 3-4", title: "First Dashboard", description: "Your first live view. Start using it." },
+                { week: "Week 3-4", title: "First Application", description: "Your first live view. Start using it." },
                 { week: "Week 5-8", title: "Build Out", description: "Additional visibility and alerts" },
                 { week: "Week 8-12", title: "Complete", description: "Full operational visibility in place" },
               ].map((phase, index) => (
@@ -429,11 +429,11 @@ export default function ManufacturingPageClient() {
                 },
                 {
                   question: "We don't have IT staff to manage this.",
-                  answer: "Most manufacturers your size don't. That's exactly who we built this for. We handle the technical work. Your plant managers use the dashboards."
+                  answer: "Most manufacturers your size don't. That's exactly who we built this for. We handle the technical work. Your plant managers use the applications."
                 },
                 {
                   question: "Implementation will disrupt production.",
-                  answer: "We read data. We don't write to your systems. Zero production impact. Dashboards appear when they're ready."
+                  answer: "We read data. We don't write to your systems. Zero production impact. Applications appear when they're ready."
                 },
                 {
                   question: "We tried analytics before and it failed.",

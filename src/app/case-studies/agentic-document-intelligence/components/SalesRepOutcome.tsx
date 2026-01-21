@@ -419,7 +419,7 @@ export default function SalesRepOutcome({ className = '' }: SalesRepOutcomeProps
       >
         <p className="text-text-muted text-sm mb-4">This same knowledge base could also power:</p>
         <div className="flex flex-wrap justify-center gap-3">
-          {['AI Chatbot', 'Inventory Dashboard', 'Training Tool', 'API for Partners', 'Automated Ordering'].map((item) => (
+          {['AI Chatbot', 'Inventory App', 'Training Tool', 'API for Partners', 'Automated Ordering'].map((item) => (
             <span
               key={item}
               className="px-4 py-2 bg-bg-primary rounded-lg border border-border text-sm text-text-secondary"

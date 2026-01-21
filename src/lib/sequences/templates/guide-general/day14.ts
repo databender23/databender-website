@@ -2,7 +2,7 @@
  * Day 14 Guide Email Template
  *
  * Case study of a fast-growing company drowning in spreadsheets
- * that automated pipelines and built real-time dashboards
+ * that automated pipelines and built real-time custom applications
  */
 
 import type { SequenceTemplate } from "../../types";
@@ -96,7 +96,7 @@ export function getDay14GuideGeneralTemplate(params: Day14GuideGeneralParams): S
                           <span style="color: #1A9988; font-size: 16px;">&#8226;</span>
                         </td>
                         <td style="padding: 0 0 10px 8px; color: #4a4a4a; font-size: 15px; line-height: 1.5;">
-                          Created a single source of truth with real-time dashboards for each department
+                          Created a single source of truth with real-time custom applications for each department
                         </td>
                       </tr>
                       <tr>
@@ -197,7 +197,7 @@ Monthly reporting took a full week. By the time leadership saw the numbers, they
 WHAT CHANGED
 
 - Built automated data pipelines that replaced manual spreadsheet workflows
-- Created a single source of truth with real-time dashboards for each department
+- Created a single source of truth with real-time custom applications for each department
 - Implemented data quality checks that caught issues before they became problems
 - Standardized definitions so everyone was speaking the same language
 

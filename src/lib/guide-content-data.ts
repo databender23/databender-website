@@ -1418,7 +1418,7 @@ export const guideContents: GuideContent[] = [
 
 <p><strong>Weeks 7-8: Merge and load.</strong> Execute the merges in production systems. Map cleaned data back to source systems. Establish the master record relationships.</p>
 
-<p><strong>Ongoing: Maintenance.</strong> New data arrives daily. The same problems that created your mess will create it again without prevention. Add validation rules on data entry, scheduled cleanup runs, and monitoring dashboards.</p>
+<p><strong>Ongoing: Maintenance.</strong> New data arrives daily. The same problems that created your mess will create it again without prevention. Add validation rules on data entry, scheduled cleanup runs, and monitoring applications.</p>
 
 <p>Eight weeks to fix a problem that's been building for years. Not months. Not quarters. Weeks.</p>
 
@@ -1592,7 +1592,7 @@ export const guideContents: GuideContent[] = [
 
 <h3>What Visibility Actually Means</h3>
 
-<p>Real operational visibility isn't a dashboard. Dashboards are outputs. Visibility is a capability.</p>
+<p>Real operational visibility isn't an application. Applications are outputs. Visibility is a capability.</p>
 
 <p>It means sales can see order status without calling anyone. It means production can see incoming orders without waiting for a handoff. It means finance can see shipments and payments without reconciling spreadsheets. It means leadership can see the whole picture without scheduling meetings.</p>
 
@@ -1632,7 +1632,7 @@ export const guideContents: GuideContent[] = [
 
 <p>For manufacturers concerned about competitive data leaving their building, these integrations can run entirely on-premise. Your pricing, customer lists, and margin data never touch outside servers. The visibility improves without the security tradeoffs.</p>
 
-<h3>Building the Dashboard Layer</h3>
+<h3>Building the Application Layer</h3>
 
 <p>Once data flows between systems, you can surface it anywhere.</p>
 
@@ -1640,13 +1640,13 @@ export const guideContents: GuideContent[] = [
 
 <p>Each view draws from the same integrated data. The numbers match because they come from the same source. When something changes, all views update.</p>
 
-<p>The key is building views that people will actually use. Dashboard graveyards are full of pretty visualizations that nobody opens. Effective dashboards answer specific questions that specific people ask regularly. They're not decoration. They're tools.</p>
+<p>The key is building views that people will actually use. Application graveyards are full of pretty visualizations that nobody opens. Effective applications answer specific questions that specific people ask regularly. They're not decoration. They're tools.</p>
 
 <p>Start by identifying the questions each role asks repeatedly. What does the sales manager check every morning? What does the operations director need before the daily standup? What does the CFO want to know before the weekly leadership meeting? Build answers to those questions first.</p>
 
 <h3>Alerts That Matter</h3>
 
-<p>Dashboards require someone to look at them. Alerts push information proactively.</p>
+<p>Applications require someone to look at them. Alerts push information proactively.</p>
 
 <p>When an order has been in production longer than expected, alert the operations manager. When a high-value customer's shipment is delayed, alert their account manager. When payment is 45 days overdue from a normally prompt payer, alert collections. When inventory for a key component drops below threshold, alert purchasing.</p>
 
@@ -1687,9 +1687,9 @@ export const guideContents: GuideContent[] = [
 
 <p><strong>Phase 3: Build critical integrations first.</strong> Start with the connections that eliminate the most pain. Usually this means order-to-shipment visibility for sales and customer service. Quick wins build momentum and prove the concept.</p>
 
-<p><strong>Phase 4: Add the dashboard layer.</strong> Once data flows, surface it. Build the views that answer the questions people ask most often. Keep them simple. Add complexity only when simple isn't enough.</p>
+<p><strong>Phase 4: Add the application layer.</strong> Once data flows, surface it. Build the views that answer the questions people ask most often. Keep them simple. Add complexity only when simple isn't enough.</p>
 
-<p><strong>Phase 5: Add alerts.</strong> After dashboards are working, add proactive notifications. Start conservatively. It's easier to add alerts than to convince people to trust them again after alert fatigue sets in.</p>
+<p><strong>Phase 5: Add alerts.</strong> After applications are working, add proactive notifications. Start conservatively. It's easier to add alerts than to convince people to trust them again after alert fatigue sets in.</p>
 
 <p><strong>Phase 6: Extend and refine.</strong> More integrations. More views. More roles served. This isn't a project that ends. It's infrastructure that grows.</p>
 
@@ -2349,7 +2349,7 @@ export const guideContents: GuideContent[] = [
 
 <p>The solution isn't forcing everything onto one system. It's connecting the systems you have.</p>
 
-<p>Modern integration approaches pull data from multiple sources into a unified layer. Your team continues using Yardi, AppFolio, MRI, and whatever else makes sense for each property. But when you need a portfolio view, you look at a dashboard that shows everything together.</p>
+<p>Modern integration approaches pull data from multiple sources into a unified layer. Your team continues using Yardi, AppFolio, MRI, and whatever else makes sense for each property. But when you need a portfolio view, you look at an application that shows everything together.</p>
 
 <p>This isn't science fiction. Property management systems have APIs. They expose data through standard interfaces. A properly built integration reads from those interfaces on a schedule, transforms the data into a common format, and presents unified views.</p>
 
@@ -2357,7 +2357,7 @@ export const guideContents: GuideContent[] = [
 
 <h3>What Unified Visibility Looks Like</h3>
 
-<p>Imagine opening a single dashboard and seeing:</p>
+<p>Imagine opening a single application and seeing:</p>
 
 <ul>
 <li>Portfolio-wide occupancy, updated as of this morning</li>
@@ -2379,13 +2379,13 @@ export const guideContents: GuideContent[] = [
 
 <p>Yardi, AppFolio, MRI, and most modern property management systems have built-in ways to share data with other systems. Some charge extra for it. Some include it in higher-tier plans. But the capability exists.</p>
 
-<p>The connection pulls information from each of your systems on a schedule, makes all the data look the same regardless of where it came from, and feeds it into dashboards you can actually use.</p>
+<p>The connection pulls information from each of your systems on a schedule, makes all the data look the same regardless of where it came from, and feeds it into applications you can actually use.</p>
 
 <p>For a 20-property portfolio across two or three systems, a competent implementation takes weeks, not months. The complexity scales with the number of systems and the depth of data you need, but this is well-established work.</p>
 
 <h3>What You Actually Need to Track</h3>
 
-<p>Before building anything, define what matters. Not every data point deserves dashboard space.</p>
+<p>Before building anything, define what matters. Not every data point deserves application space.</p>
 
 <p>For most property managers, the critical metrics fall into four categories:</p>
 
@@ -2414,7 +2414,7 @@ export const guideContents: GuideContent[] = [
 <li>Define priority metrics and reporting requirements</li>
 <li>Build connections to each source system</li>
 <li>Create the transformation layer that unifies data formats</li>
-<li>Deploy dashboards and validate accuracy against source systems</li>
+<li>Deploy applications and validate accuracy against source systems</li>
 <li>Train users and establish update schedules</li>
 </ol>
 
@@ -2422,7 +2422,7 @@ export const guideContents: GuideContent[] = [
 
 <h3>The Cost Question</h3>
 
-<p>Integration projects range widely based on scope. A basic dashboard connecting two systems to show occupancy and collections might cost $15,000-25,000. A full platform with deep financial integration, automated reporting, and advanced analytics might run $50,000-100,000.</p>
+<p>Integration projects range widely based on scope. A basic application connecting two systems to show occupancy and collections might cost $15,000-25,000. A full platform with deep financial integration, automated reporting, and advanced analytics might run $50,000-100,000.</p>
 
 <p>Compare that to the alternative: continuing to spend 15 hours per week on manual consolidation ($40,000+ per year), making decisions on stale data, and scrambling every quarter to produce investor reports.</p>
 
@@ -2452,7 +2452,7 @@ export const guideContents: GuideContent[] = [
 
 <p>You don't need to solve everything at once. Start with the pain point that costs you the most time.</p>
 
-<p>If quarterly reporting is the bottleneck, build a financial consolidation dashboard first. Pull revenue and expense data from each system into a unified view. Get that working before adding complexity.</p>
+<p>If quarterly reporting is the bottleneck, build a financial consolidation application first. Pull revenue and expense data from each system into a unified view. Get that working before adding complexity.</p>
 
 <p>If occupancy tracking is the issue, start there. Connect lease data across systems. Build a single view of vacancies and upcoming expirations.</p>
 

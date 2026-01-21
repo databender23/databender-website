@@ -251,7 +251,7 @@ export default function ConstructionPageClient() {
                   transition={{ delay: 0.1 }}
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
                 >
-                  One Dashboard for Every Job
+                  One Application for Every Job
                 </motion.h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -644,7 +644,7 @@ export default function ConstructionPageClient() {
                     },
                     {
                       title: "Cross-system analytics",
-                      description: "Procore + Sage + field apps + spreadsheets in one dashboard. No switching between systems."
+                      description: "Procore + Sage + field apps + spreadsheets in one application. No switching between systems."
                     },
                     {
                       title: "Custom KPIs",
@@ -785,7 +785,7 @@ export default function ConstructionPageClient() {
                 },
                 {
                   question: "Our data is a mess.",
-                  answer: "We hear that from almost every contractor. Here's what we find: your data is better than you think. It's just scattered across eleven systems. We've turned 'messy' job cost exports into margin dashboards. Part of onboarding is a data audit where we tell you exactly what's possible with what you have."
+                  answer: "We hear that from almost every contractor. Here's what we find: your data is better than you think. It's just scattered across eleven systems. We've turned 'messy' job cost exports into margin applications. Part of onboarding is a data audit where we tell you exactly what's possible with what you have."
                 },
                 {
                   question: "We've been burned by technology before.",

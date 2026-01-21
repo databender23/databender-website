@@ -61,7 +61,7 @@ const processPhases: ProcessPhase[] = [
     title: "Deploy",
     subtitle: "We deliver what actually works",
     description:
-      "The people who designed your solution build it. No handoffs to junior developers, no knowledge lost in translation. Our AI-augmented approach means 10 agents working in parallel, not 10 analysts working in sequence. You see working solutions in weeks: dashboards that answer real questions, pipelines that actually run, AI that works on your data.",
+      "The people who designed your solution build it. No handoffs to junior developers, no knowledge lost in translation. Our AI-augmented approach means 10 agents working in parallel, not 10 analysts working in sequence. You see working solutions in weeks: applications that answer real questions, pipelines that actually run, AI that works on your data.",
     proofPoint: {
       text: "Our AI-augmented approach delivered 125x cost savings vs. traditional manual methods: $200 in AI costs vs. $25,000 for human review of the same records.",
       source: "Entity Resolution Case Study",
@@ -69,7 +69,7 @@ const processPhases: ProcessPhase[] = [
     },
     deliverables: [
       "Deploy production-ready infrastructure (not prototypes that need rebuilding)",
-      "Build dashboards that answer questions leadership actually asks",
+      "Build applications that answer questions leadership actually asks",
       "Train AI models on your data with documented confidence scores",
       "Enable your team so they're not dependent on us to operate",
     ],
@@ -118,7 +118,7 @@ const differentiators = [
   {
     title: "Working solutions in weeks",
     description:
-      "You see progress fast: dashboards, pipelines, AI that runs on your data. Not months of planning followed by months of building.",
+      "You see progress fast: applications, pipelines, AI that runs on your data. Not months of planning followed by months of building.",
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />

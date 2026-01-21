@@ -134,14 +134,14 @@ export const services: ConsolidatedService[] = [
     slug: "analytics-bi",
     title: "Analytics & BI",
     shortTitle: "Analytics & BI",
-    description: "Real-time dashboards, natural language insights, and visibility into sales, marketing, and operations.",
+    description: "Real-time applications, natural language insights, and visibility into sales, marketing, and operations.",
     longDescription: "Stop waiting for reports. We build tools for real-time visibility into your sales, marketing, and operations. Anyone on your team can ask questions in plain English and get answers instantly.",
     icon: "chart-bar",
     category: "analytics-bi",
     subServices: [
       {
-        title: "Dashboards",
-        description: "Visual dashboards that answer your questions. See what's happening across your business at a glance: KPIs, trends, and drill-downs.",
+        title: "Applications",
+        description: "Visual applications that answer your questions. See what's happening across your business at a glance: KPIs, trends, and drill-downs.",
         icon: "chart-bar",
       },
       {
@@ -189,12 +189,12 @@ export const services: ConsolidatedService[] = [
         answer: "Yes. We build natural language interfaces so anyone can ask 'What were sales last quarter?' or 'Which customers are at risk?' and get instant, accurate answers. No SQL or technical skills required.",
       },
       {
-        question: "How quickly can we get a dashboard running?",
-        answer: "First dashboards typically go live in 2-4 weeks. We prioritize getting something useful in your hands quickly, then iterate based on what questions you actually ask.",
+        question: "How quickly can we get an application running?",
+        answer: "First applications typically go live in 2-4 weeks. We prioritize getting something useful in your hands quickly, then iterate based on what questions you actually ask.",
       },
       {
         question: "What happens when our business needs change?",
-        answer: "The dashboards and analytics we build are designed to evolve. Adding new data sources, metrics, or views is straightforward because we build flexible foundations from the start.",
+        answer: "The applications and analytics we build are designed to evolve. Adding new data sources, metrics, or views is straightforward because we build flexible foundations from the start.",
       },
       {
         question: "Can this connect to our existing tools?",
@@ -216,8 +216,8 @@ export const services: ConsolidatedService[] = [
       },
       {
         number: 3,
-        title: "Dashboard Development",
-        description: "Build the dashboards and analytics tools your team will actually use. We iterate based on real feedback.",
+        title: "Application Development",
+        description: "Build the applications and analytics tools your team will actually use. We iterate based on real feedback.",
         duration: "Week 2-4",
       },
       {

@@ -216,9 +216,14 @@ export default function LinkedInCoverPage() {
           </div>
 
           {/* Bottom - Subtle tagline */}
-          <p className="absolute bottom-44 right-48 text-sm italic text-[#6B7280] z-10">
-            Senior Expertise. <span className="text-teal-500">AI-Powered Speed.</span>
-          </p>
+          <div className="absolute bottom-36 right-48 text-center z-10">
+            <p className="text-xs text-[#6B7280] mb-1">
+              The economics have changed.
+            </p>
+            <p className="text-sm italic text-[#6B7280]">
+              Senior Expertise. <span className="text-teal-500">AI-Powered Speed.</span>
+            </p>
+          </div>
         </div>
       </div>
 

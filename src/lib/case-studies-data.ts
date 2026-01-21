@@ -72,7 +72,7 @@ export const serviceFilters = [
   "All Services",
   "Data Integration",
   "Data Cleanup",
-  "Dashboards & Analytics",
+  "Custom Applications & Analytics",
   "AI & Automation",
   "Predictive Analytics",
   "Document Intelligence",
@@ -174,7 +174,7 @@ export const caseStudies: CaseStudy[] = [
       "AI reads and understands documents like humans do, with no custom rules per format",
       "Transforms scattered documents into a unified, searchable knowledge base",
       "Enables AI-powered search: ask questions in plain English, get instant answers",
-      "Powers custom applications like mobile apps, dashboards, and chatbots",
+      "Powers custom applications like mobile apps, analytics tools, and chatbots",
       "New documents automatically expand what AI knows, creating a living knowledge base",
     ],
     results: [

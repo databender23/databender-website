@@ -221,7 +221,7 @@ export const healthcareGuides: Guide[] = [
     subtitle: "Portfolio-Wide Visibility Without the 18-Month Integration",
     description: "You bought five practices. Now you have five sets of books, five different PM systems, and no consolidated view. This guide shows how to get portfolio-wide visibility in weeks, not the 18 months your integration vendor quoted.",
     topics: [
-      "Unified dashboards across acquired entities",
+      "Unified applications across acquired entities",
       "Standardizing metrics without standardizing systems",
       "EBITDA improvement opportunities hiding in your data",
       "Exit-ready reporting that buyers actually want",
@@ -255,7 +255,7 @@ export const manufacturingGuides: Guide[] = [
     description: "Sales doesn't know what shipped. Production doesn't know what's promised. Here's how to get everyone seeing the same picture without replacing your systems.",
     topics: [
       "Connecting systems without replacing them",
-      "Building dashboards people actually check",
+      "Building applications people actually check",
       "Catching at-risk orders before they're late",
       "Breaking down departmental silos",
     ],
@@ -268,7 +268,7 @@ export const manufacturingGuides: Guide[] = [
     subtitle: "From Spreadsheets to Unified Visibility in One Quarter",
     description: "Most manufacturers wait 12+ months for data infrastructure results. Here's how to see value in 90 days.",
     topics: [
-      "Days 1-30: First dashboard live",
+      "Days 1-30: First application live",
       "Days 31-60: Cross-system visibility",
       "Days 61-90: Proactive alerts and automation",
       "What to tackle first (and what can wait)",
@@ -312,7 +312,7 @@ export const manufacturingGuides: Guide[] = [
     topics: [
       "Read-only connections that don't disrupt operations",
       "What your ERP can and can't tell you",
-      "Building dashboards your team will actually use",
+      "Building applications your team will actually use",
       "The 30-day path to your first live view",
     ],
     targetAudience: "IT Directors, COOs",
@@ -389,7 +389,7 @@ export const crePropertyManagerGuides: Guide[] = [
     description: "Yardi here, AppFolio there, MRI somewhere else. Getting a unified view takes days. This guide shows how to connect your systems without replacing them.",
     topics: [
       "Connecting PM systems without migration",
-      "Building dashboards that update themselves",
+      "Building applications that update themselves",
       "Occupancy, NOI, and collections in one place",
       "What this costs (less than you think)",
     ],
@@ -453,7 +453,7 @@ export const constructionGuides: Guide[] = [
     description: "Your data is scattered across estimating, scheduling, field apps, and accounting. This guide shows how to connect them all without replacing anything.",
     topics: [
       "Connecting Procore, accounting, and field apps",
-      "Building dashboards that update themselves",
+      "Building applications that update themselves",
       "Answering 'how's this project doing?' in 30 seconds",
       "What this costs (less than you think)",
     ],
@@ -480,7 +480,7 @@ export const constructionGuides: Guide[] = [
     subtitle: "Unified Reporting in Weeks, Not the 18-Month Integration Timeline",
     description: "You bought a company. Now you have two sets of books and no consolidated view. This guide shows how to get portfolio-wide visibility before full system migration.",
     topics: [
-      "Unified dashboards across acquired entities",
+      "Unified applications across acquired entities",
       "Standardizing job costing across companies",
       "Board-ready reporting in weeks",
       "What to tackle first (and what can wait)",

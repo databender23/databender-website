@@ -65,17 +65,17 @@ function getGuideInsight(guideTitle: string, guideSlug: string): GuideInsight {
 
   if (slugLower.includes("analytics") || slugLower.includes("bi")) {
     return {
-      subject: "Why most dashboards go unused",
+      subject: "Why off-the-shelf analytics tools go unused",
       headline: "The analytics trap most organizations fall into",
       challenge:
-        "We've seen this pattern countless times: an organization invests in a beautiful analytics platform, builds dozens of dashboards, and then... nobody uses them. The data is there, but decisions are still made on gut instinct.",
+        "We've seen this pattern countless times: an organization invests in a beautiful analytics platform, builds dozens of reports, and then... nobody uses them. The data is there, but decisions are still made on gut instinct.",
       insights: [
-        "The problem isn't usually the tool. It's that the dashboards answer questions nobody is asking",
+        "The problem isn't the tool. It's that off-the-shelf solutions answer questions nobody is asking",
         "Successful analytics programs start with decisions, not data: 'What will you do differently if you had this number?'",
-        "A single metric that drives action is worth more than a hundred reports that get ignored",
+        "A custom application built around your specific workflows beats a hundred generic reports",
       ],
       recommendation:
-        "Try this: for each report or dashboard, ask 'Who will look at this, and what decision will they make based on it?' If you can't answer that clearly, the report probably won't get used.",
+        "Try this: for each report, ask 'Who will look at this, and what decision will they make based on it?' If you can't answer that clearly, it probably won't get used. Custom-built applications that fit your workflow get used. Generic tools don't.",
     };
   }
 

@@ -120,7 +120,7 @@ export const blogPosts: BlogPost[] = [
 
 <p>Getting data out of your ERP, CRM, marketing tools, and spreadsheets and making it all speak the same language? That's real work. It means talking to people across your organization who rarely interact. It means making clear decisions about what matters.</p>
 
-<p><em>Most companies skip this step, jump to dashboards and AI, and then wonder why nothing works.</em></p>
+<p><em>Most companies skip this step, jump to applications and AI, and then wonder why nothing works.</em></p>
 
 <p>The foundation matters. If your data is a mess, everything you build on top of it will be a mess too. We've seen the opposite work too: <a href="/case-studies/army-of-ai-agents">AI agents that fixed 1.69 million broken records at 125x less cost than manual cleanup</a>. But that only worked because we fixed the foundation first.</p>
 

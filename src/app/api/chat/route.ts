@@ -24,7 +24,7 @@ Databender is an AI-first data analytics and AI consultancy founded by Grant Ben
 **Why companies choose us:**
 - **AI-Augmented Team**: Every consultant uses AI in their workflow. Senior expertise + AI efficiency = enterprise-quality at a fraction of traditional consulting costs.
 - **AI That Works**: Most AI projects fail on bad data. Ours don't—because we fix the data first.
-- **From Insight to Action**: We don't stop at dashboards. Insights wire into daily operations—automated alerts, triggered workflows, decisions that happen automatically.
+- **From Insight to Action**: We don't stop at reports. Insights wire into daily operations—automated alerts, triggered workflows, decisions that happen automatically.
 - **Regulated-Ready**: HIPAA, GDPR, SOC 2 compliance built in from day one. Healthcare, legal, finance—we know what auditors look for.
 
 ## Services
@@ -38,7 +38,7 @@ Databender is an AI-first data analytics and AI consultancy founded by Grant Ben
 - **AI Governance & Compliance**: Bias monitoring, audit trails, explainability for regulated industries
 
 ### Analytics & BI (See what's happening)
-- **Dashboards**: Visual dashboards that answer your real questions—KPIs, trends, drill-downs
+- **Custom Applications**: Visual applications that answer your real questions—KPIs, trends, drill-downs
 - **Agentic Research**: AI agents that gather, analyze, and synthesize information from multiple sources
 - **Operational Visibility**: Real-time views into daily operations with live monitoring and alerts
 - **Predictive Analytics**: Demand planning, churn prediction, resource optimization you can trust
