@@ -49,11 +49,15 @@ next-env.d.ts
 /lead_scoring
 /docs
 
-# PDF generation templates (dev tools)
+# PDF generation templates (dev tools - ignore HTML intermediates)
 scripts/generate-*-pdf.html
 
 # chat logs (contains user data)
 /logs
 to_delete/
-scripts/
 test-*.ts
+
+# scripts folder - track PDF generation files only
+scripts/*
+!scripts/generate-guide-pdfs.mjs
+!scripts/pdf-templates/
