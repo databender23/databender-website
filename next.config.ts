@@ -28,6 +28,23 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Embed server-side env vars at build time for Amplify SSR Lambda runtime
+  env: {
+    JWT_SECRET: process.env.JWT_SECRET,
+    ADMIN_PASSWORD_HASH: process.env.ADMIN_PASSWORD_HASH,
+    ADMIN_USERNAME: process.env.ADMIN_USERNAME,
+    ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
+    SES_FROM_EMAIL: process.env.SES_FROM_EMAIL,
+    SES_REGION: process.env.SES_REGION,
+    CHAT_NOTIFY_EMAIL: process.env.CHAT_NOTIFY_EMAIL,
+    SLACK_WEBHOOK_URL: process.env.SLACK_WEBHOOK_URL,
+    DYNAMODB_REGION: process.env.DYNAMODB_REGION,
+    WEBHOOK_API_KEY: process.env.WEBHOOK_API_KEY,
+    CRON_SECRET: process.env.CRON_SECRET,
+    UNSUBSCRIBE_SECRET: process.env.UNSUBSCRIBE_SECRET,
+    UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
+    UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
+  },
   async headers() {
     return [
       {
