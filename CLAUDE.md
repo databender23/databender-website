@@ -915,3 +915,93 @@ AWS_PROFILE=databender npx tsx scripts/clear-tables.ts
 # Tests: SES webhook, sequence management, lead import
 # All tests should pass before deployment
 ```
+
+### Deployment SOP
+
+Standard operating procedure for deploying changes:
+
+**Pre-Deployment Checklist:**
+1. `npm run lint` - Fix any errors (warnings OK for pre-existing issues)
+2. `npm run build` - Verify successful compilation
+3. `npm test` - All tests must pass (required by Amplify)
+4. Check git status for unintended changes
+
+**Commit & Deploy:**
+1. Stage specific files (avoid `git add -A` for sensitive content)
+2. Write descriptive commit message with Co-Authored-By trailer
+3. `git push origin main` - Triggers Amplify auto-deploy
+4. Monitor deployment: `aws amplify list-jobs --app-id dmjrh5y3hpi2d --branch-name main --profile databender --region us-east-2`
+
+**Post-Deployment Testing:**
+1. Wait for Amplify status: `SUCCEED`
+2. Test critical paths (PDF downloads, forms, assessments)
+3. Verify new pages return 200 status
+4. Check browser console for errors on key pages
+
+**SEO & Metadata Checklist (for new pages):**
+
+When adding new guide, blog, or dynamic content pages:
+
+1. **Metadata Export** - Ensure page.tsx has `generateMetadata`:
+   ```tsx
+   export async function generateMetadata({ params }): Promise<Metadata> {
+     return {
+       title: `${content.title} | Databender`,
+       description: content.description,
+       openGraph: {
+         title: content.title,
+         description: content.description,
+         type: "article",
+         images: [{ url: "https://databender.co/opengraph-image", width: 1200, height: 630 }],
+       },
+       twitter: {
+         card: "summary_large_image",
+         title: content.title,
+         description: content.description,
+       },
+       alternates: {
+         canonical: `https://databender.co/path/${slug}`,
+       },
+     };
+   }
+   ```
+
+2. **Static Params** - Include all data sources in `generateStaticParams`:
+   ```tsx
+   export function generateStaticParams() {
+     const allItems = [...source1, ...source2, ...sourceN];
+     return allItems.map((item) => ({ slug: item.slug }));
+   }
+   ```
+
+3. **Structured Data** - Add JsonLd with appropriate schema:
+   ```tsx
+   import JsonLd from "@/components/seo/JsonLd";
+   import { breadcrumbSchema } from "@/lib/schema";
+   // Include <JsonLd data={breadcrumbSchema(breadcrumbs)} /> in return
+   ```
+
+4. **Sitemap** - Verify sitemap.ts includes new route patterns
+
+5. **Data Alignment** - Ensure content data files are consistent:
+   - lead-magnets-data.ts (landing pages)
+   - guide-content-data.ts (full content)
+   - downloads route.ts (PDF mappings)
+
+**Bulk Testing Commands:**
+```bash
+# Test all PDF downloads (36 guides)
+for g in associate-multiplier hipaa-compliant-ai ...; do
+  curl -s -o /dev/null -w "%{http_code} $g\n" "https://databender.co/api/downloads/$g"
+done
+
+# Test all guide landing pages
+for g in ...; do
+  curl -s -o /dev/null -w "%{http_code} $g\n" "https://databender.co/resources/guides/$g"
+done
+
+# Test all guide content pages
+for g in ...; do
+  curl -s -o /dev/null -w "%{http_code} $g\n" "https://databender.co/resources/guides/$g/content"
+done
+```
