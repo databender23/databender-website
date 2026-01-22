@@ -11,15 +11,22 @@ const VALID_GUIDES: Record<string, string> = {
   "win-more-pitches": "win-more-pitches.pdf",
   "own-your-ai": "own-your-ai.pdf",
   "economics-of-legal-ai": "economics-of-legal-ai.pdf",
+  "simplify-tech-stack": "simplify-tech-stack.pdf",
   // Healthcare guides
   "hipaa-compliant-ai": "hipaa-compliant-ai.pdf",
   "institutional-knowledge-healthcare": "institutional-knowledge-healthcare.pdf",
   "document-intelligence-healthcare": "document-intelligence-healthcare.pdf",
+  "prior-auth-burden": "prior-auth-burden.pdf",
+  "pe-healthcare-operations": "pe-healthcare-operations.pdf",
   // Manufacturing guides
   "data-cleanup-manufacturing": "data-cleanup-manufacturing.pdf",
   "lead-scoring-manufacturing": "lead-scoring-manufacturing.pdf",
   "operational-visibility-playbook": "operational-visibility-playbook.pdf",
   "manufacturing-ai-privacy": "manufacturing-ai-privacy.pdf",
+  "do-more-with-fewer-people": "do-more-with-fewer-people.pdf",
+  "90-day-data-roadmap": "90-day-data-roadmap.pdf",
+  "supply-chain-visibility-playbook": "supply-chain-visibility-playbook.pdf",
+  "erp-integration-guide": "erp-integration-guide.pdf",
   // CRE Broker guides
   "entity-resolution-cre": "entity-resolution-cre.pdf",
   "data-room-review": "data-room-review.pdf",
@@ -28,6 +35,18 @@ const VALID_GUIDES: Record<string, string> = {
   "portfolio-visibility-cre": "portfolio-visibility-cre.pdf",
   "investor-reporting-cre": "investor-reporting-cre.pdf",
   "lease-intelligence-cre": "lease-intelligence-cre.pdf",
+  "debt-maturity-wall": "debt-maturity-wall.pdf",
+  "cam-reconciliation-guide": "cam-reconciliation-guide.pdf",
+  // Construction guides
+  "project-visibility-playbook": "project-visibility-playbook.pdf",
+  "change-order-recovery": "change-order-recovery.pdf",
+  "construction-post-acquisition": "construction-post-acquisition.pdf",
+  // Distribution guides
+  "inventory-intelligence-guide": "inventory-intelligence-guide.pdf",
+  "customer-profitability-distribution": "customer-profitability-distribution.pdf",
+  "pricing-discipline-distribution": "pricing-discipline-distribution.pdf",
+  "distribution-labor-shortage-playbook": "distribution-labor-shortage-playbook.pdf",
+  "distribution-tariff-response-guide": "distribution-tariff-response-guide.pdf",
 };
 
 export async function GET(
