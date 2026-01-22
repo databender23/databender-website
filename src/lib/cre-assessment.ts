@@ -85,7 +85,7 @@ export const creQuestions: CREQuestion[] = [
     category: "portfolioVisibility",
     question: "How long does it take to get a unified view of occupancy across all properties?",
     options: [
-      { value: 7, label: "Minutes (automated dashboard)", description: "Real-time visibility across portfolio" },
+      { value: 7, label: "Minutes (automated application)", description: "Real-time visibility across portfolio" },
       { value: 4, label: "Hours (some manual work)", description: "Quick consolidation with minor effort" },
       { value: 2, label: "Days (significant manual consolidation)", description: "Requires pulling from multiple sources" },
       { value: 0, label: "We can't get a unified view easily", description: "No consolidated view available" },
@@ -96,7 +96,7 @@ export const creQuestions: CREQuestion[] = [
     category: "portfolioVisibility",
     question: "How do you currently track portfolio-wide NOI?",
     options: [
-      { value: 7, label: "Real-time dashboard updated automatically", description: "Automated NOI tracking" },
+      { value: 7, label: "Real-time application updated automatically", description: "Automated NOI tracking" },
       { value: 4, label: "Monthly spreadsheet consolidation", description: "Regular manual process" },
       { value: 2, label: "Quarterly manual process", description: "Periodic consolidation" },
       { value: 0, label: "We don't track portfolio-wide NOI", description: "Property-by-property only" },
@@ -290,7 +290,7 @@ export function calculateCREScores(
   if (categoryScores.portfolioVisibility < categoryScores.investorReporting) {
     recommendations.push("Prioritize building unified portfolio visibility before enhancing reporting");
     recommendations.push("Consider a data integration layer to connect disparate PM systems");
-    recommendations.push("Implement automated dashboards for key operational metrics");
+    recommendations.push("Implement automated applications for key operational metrics");
     if (answers["cam-reconciliation"] <= 2) {
       recommendations.push("Address CAM reconciliation accuracy (5-15% of recoverable expenses at stake)");
     }
@@ -321,11 +321,11 @@ export const tierDescriptions = {
     description:
       "Your portfolio analytics are in solid shape. You have visibility across properties, reporting is manageable, and data is reasonably connected.",
     opportunity:
-      "At this stage, the opportunity is optimization: automating what's still manual, adding predictive capabilities, or building investor-facing dashboards that update themselves.",
+      "At this stage, the opportunity is optimization: automating what's still manual, adding predictive capabilities, or building investor-facing applications that update themselves.",
     recommendedConversation: "Advanced analytics, automation, or retainer relationship.",
     nextSteps: [
       "Explore predictive analytics for portfolio performance",
-      "Consider automated investor dashboards",
+      "Consider automated investor applications",
       "Evaluate opportunities for process automation",
     ],
   },

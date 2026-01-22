@@ -30,7 +30,11 @@ export function CREROICalculator({ className = '' }: CREROICalculatorProps) {
     const camRecoveryMid = Math.round(totalAnnualCAM * 0.10)
 
     // Reporting time savings (80% reduction)
-    const quarterlyHoursSaved = Math.round(reportingHoursQuarterly * 0.8)
+    // More properties = more reporting overhead
+    const baseHours = reportingHoursQuarterly
+    const propertyOverheadFactor = 1 + (propertyCount - 15) * 0.02 // 2% more time per property above baseline of 15
+    const adjustedHours = Math.round(baseHours * Math.max(0.5, propertyOverheadFactor))
+    const quarterlyHoursSaved = Math.round(adjustedHours * 0.8)
     const annualHoursSaved = quarterlyHoursSaved * 4
 
     // Assume $75/hr for finance/reporting staff
@@ -49,7 +53,7 @@ export function CREROICalculator({ className = '' }: CREROICalculatorProps) {
       reportingCostSavings,
       totalAnnualValue
     }
-  }, [leaseCount, avgCAMPerLease, reportingHoursQuarterly])
+  }, [leaseCount, avgCAMPerLease, reportingHoursQuarterly, propertyCount])
 
   // Animate numbers when results change
   useEffect(() => {
@@ -126,7 +130,7 @@ export function CREROICalculator({ className = '' }: CREROICalculatorProps) {
             onChange={(v) => { setLeaseCount(v); setShowResults(true) }}
             min={10}
             max={500}
-            step={10}
+            step={5}
             formatValue={(v) => `${v} leases`}
             icon={
               <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

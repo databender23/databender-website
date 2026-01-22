@@ -32,6 +32,7 @@ export default function DealIntelligenceClient() {
     biggestChallenge: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Profile questions (4) + Assessment questions (10) + Contact form (1)
   const profileSteps = profileQuestions.length;
@@ -60,9 +61,14 @@ export default function DealIntelligenceClient() {
   };
 
   const handleProfileSelect = (questionId: string, value: string) => {
+    // Prevent rapid clicking from causing race conditions
+    if (isTransitioning) return;
+
     setProfile((prev) => ({ ...prev, [questionId]: value }));
+    setIsTransitioning(true);
     setTimeout(() => {
       setCurrentStep((prev) => prev + 1);
+      setIsTransitioning(false);
     }, 300);
   };
 
@@ -81,11 +87,15 @@ export default function DealIntelligenceClient() {
   };
 
   const handleAnswer = (value: number) => {
-    if (!currentAssessmentQuestion) return;
+    // Prevent rapid clicking from causing race conditions
+    if (isTransitioning || !currentAssessmentQuestion) return;
+
     setAnswers((prev) => ({ ...prev, [currentAssessmentQuestion.id]: value }));
+    setIsTransitioning(true);
 
     setTimeout(() => {
       setCurrentStep((prev) => prev + 1);
+      setIsTransitioning(false);
     }, 300);
   };
 

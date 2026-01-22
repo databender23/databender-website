@@ -3,7 +3,6 @@
 import { useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui";
-import { CTA } from "@/components/sections";
 import {
   ConstructionScores,
   tierDescriptions,
@@ -273,15 +272,6 @@ export default function ConstructionResultsClient() {
           </motion.div>
         </div>
       </div>
-
-      {/* CTA */}
-      <CTA
-        title="Ready to see your jobs clearly?"
-        description="Schedule a call to discuss your results and figure out what to tackle first."
-        primaryCta={{ label: "Schedule a Conversation", href: "/contact" }}
-        secondaryCta={{ label: "Download Free Guides", href: "/industries/construction#guides" }}
-        variant="gradient"
-      />
     </div>
   );
 }

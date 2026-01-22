@@ -193,7 +193,7 @@ export const dealQuestions: DealQuestion[] = [
     category: "pipelinePrioritization",
     question: "Can you see your entire pipeline status at a glance?",
     options: [
-      { value: 7, label: "Yes, real-time dashboard", description: "Full visibility across all deals" },
+      { value: 7, label: "Yes, real-time application", description: "Full visibility across all deals" },
       { value: 4, label: "Mostly, with some manual updates", description: "CRM that needs maintenance" },
       { value: 2, label: "Partially, in spreadsheets", description: "Manual tracking across files" },
       { value: 0, label: "No unified view", description: "Information scattered across team" },

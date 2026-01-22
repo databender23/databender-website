@@ -3,7 +3,6 @@
 import { useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui";
-import { CTA } from "@/components/sections";
 import {
   HealthcareScores,
   healthcareTierDescriptions,
@@ -349,15 +348,6 @@ export default function HealthcareAIReadinessResultsClient() {
           </motion.div>
         </div>
       </div>
-
-      {/* CTA */}
-      <CTA
-        title="Ready to talk specifics?"
-        description="30 minutes. We'll dig into your results and show you what's possible for your organization. No pitch deck."
-        primaryCta={{ label: "Discuss Your Results", href: "/contact" }}
-        secondaryCta={{ label: "See Healthcare Solutions", href: "/industries/healthcare" }}
-        variant="gradient"
-      />
     </div>
   );
 }

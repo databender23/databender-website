@@ -23,6 +23,8 @@ export function EasterEggsProvider({ children }: EasterEggsProviderProps) {
   const [logoClickCount, setLogoClickCount] = useState(0)
   const [showFunFacts, setShowFunFacts] = useState(false)
   const [showScrollMessage, setShowScrollMessage] = useState(false)
+  // Track if scroll message has been shown this session (per page)
+  const [hasShownScrollMessage, setHasShownScrollMessage] = useState(false)
 
   // Define triggerKonamiReward before it's used in useEffect
   const triggerKonamiReward = useCallback(() => {
@@ -83,14 +85,16 @@ export function EasterEggsProvider({ children }: EasterEggsProviderProps) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [konamiIndex, triggerKonamiReward])
 
-  // Scroll to bottom detection
+  // Scroll to bottom detection - only show once per page session
   useEffect(() => {
     const handleScroll = () => {
       const scrolledToBottom =
         window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50
 
-      if (scrolledToBottom && !showScrollMessage) {
+      // Only show if we haven't already shown it this session
+      if (scrolledToBottom && !showScrollMessage && !hasShownScrollMessage) {
         setShowScrollMessage(true)
+        setHasShownScrollMessage(true) // Mark as shown for this session
         // Hide after 5 seconds
         setTimeout(() => setShowScrollMessage(false), 5000)
       }
@@ -98,7 +102,7 @@ export function EasterEggsProvider({ children }: EasterEggsProviderProps) {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [showScrollMessage])
+  }, [showScrollMessage, hasShownScrollMessage])
 
   // Logo click handler - expose to children via context or direct prop
   const handleLogoClick = useCallback(() => {

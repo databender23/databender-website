@@ -23,6 +23,7 @@ export default function DistributionClient() {
     revenue: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const totalSteps = distributionQuestions.length + 1; // +1 for contact form
   const progress = ((currentStep + 1) / totalSteps) * 100;
@@ -32,7 +33,11 @@ export default function DistributionClient() {
   const isContactStep = currentStep === distributionQuestions.length;
 
   const handleAnswer = (value: number) => {
+    // Prevent rapid clicking from causing race conditions
+    if (isTransitioning || !currentQuestion) return;
+
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }));
+    setIsTransitioning(true);
 
     // Auto-advance after short delay
     setTimeout(() => {
@@ -41,6 +46,7 @@ export default function DistributionClient() {
       } else {
         setCurrentStep((prev) => prev + 1);
       }
+      setIsTransitioning(false);
     }, 300);
   };
 

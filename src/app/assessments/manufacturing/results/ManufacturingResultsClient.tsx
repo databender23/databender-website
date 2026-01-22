@@ -3,7 +3,6 @@
 import { useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui";
-import { CTA } from "@/components/sections";
 import {
   ManufacturingScores,
   tierDescriptions,
@@ -272,15 +271,6 @@ export default function ManufacturingResultsClient() {
           </motion.div>
         </div>
       </div>
-
-      {/* CTA */}
-      <CTA
-        title="Ready to stop firefighting?"
-        description="Schedule a call to discuss your results and figure out what to tackle first."
-        primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
-        secondaryCta={{ label: "View Services", href: "/services" }}
-        variant="gradient"
-      />
     </div>
   );
 }

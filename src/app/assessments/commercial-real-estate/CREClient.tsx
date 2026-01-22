@@ -32,6 +32,7 @@ export default function CREClient() {
     biggestChallenge: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Profile questions (4) + Assessment questions (8) + Contact form (1)
   const profileSteps = profileQuestions.length;
@@ -60,10 +61,15 @@ export default function CREClient() {
   };
 
   const handleProfileSelect = (questionId: string, value: string) => {
+    // Prevent rapid clicking from causing race conditions
+    if (isTransitioning) return;
+
     setProfile((prev) => ({ ...prev, [questionId]: value }));
+    setIsTransitioning(true);
     // Auto-advance after short delay for select questions
     setTimeout(() => {
       setCurrentStep((prev) => prev + 1);
+      setIsTransitioning(false);
     }, 300);
   };
 
@@ -82,12 +88,16 @@ export default function CREClient() {
   };
 
   const handleAnswer = (value: number) => {
-    if (!currentAssessmentQuestion) return;
+    // Prevent rapid clicking from causing race conditions
+    if (isTransitioning || !currentAssessmentQuestion) return;
+
     setAnswers((prev) => ({ ...prev, [currentAssessmentQuestion.id]: value }));
+    setIsTransitioning(true);
 
     // Auto-advance after short delay
     setTimeout(() => {
       setCurrentStep((prev) => prev + 1);
+      setIsTransitioning(false);
     }, 300);
   };
 
@@ -421,13 +431,12 @@ export default function CREClient() {
                   />
                   <div>
                     <label className="block text-sm font-medium text-text-primary mb-2">
-                      Your Role
+                      Your Role (optional)
                     </label>
                     <select
                       name="role"
                       value={contactInfo.role}
                       onChange={handleContactChange}
-                      required
                       className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white text-text-primary focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-colors"
                     >
                       {roleOptions.map((option) => (

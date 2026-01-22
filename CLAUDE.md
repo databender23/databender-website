@@ -890,9 +890,11 @@ AWS_PROFILE=databender npx tsx scripts/clear-tables.ts
 ### Pending Infrastructure Tasks
 
 - **Domain Transfer**: Transfer `databender.co` from SiteGround to AWS Route 53
-  - Status: DNS managed at SiteGround (pointing to Amplify)
-  - Remaining: Transfer domain registration from SiteGround (Tucows) to AWS
-  - Steps: Unlock domain → Get auth code → Transfer via Route 53 console
+  - Status: **Transfer in progress** (initiated 2026-01-21)
+  - DNS: Already managed in Route 53 (Hosted Zone: `Z077800635RFZRCPNNKNO`)
+  - Operation ID: `86972d28-df79-4c58-8b3a-114dff344b69`
+  - Next: Confirm transfer via email, wait 5-7 days for completion
+  - Monitor: `aws route53domains get-operation-detail --operation-id 86972d28-df79-4c58-8b3a-114dff344b69 --profile databender --region us-east-1`
 
 - **Daily Cron**: Set up scheduled trigger for `/api/cron/sequences/process`
   - Requires: AWS EventBridge or external cron service

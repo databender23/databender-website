@@ -134,7 +134,7 @@ export const manufacturingQuestions: ManufacturingQuestion[] = [
     options: [
       { value: 1, label: "Ask someone", description: "Call or walk over to find out" },
       { value: 2, label: "Wait for reports", description: "Check email for scheduled updates" },
-      { value: 3, label: "Check a dashboard", description: "Self-service, mostly current" },
+      { value: 3, label: "Check an application", description: "Self-service, mostly current" },
       { value: 4, label: "Glance at a screen", description: "Real-time visibility always available" },
     ],
   },

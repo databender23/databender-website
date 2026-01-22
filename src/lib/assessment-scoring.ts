@@ -32,8 +32,8 @@ export const assessmentQuestions = [
     options: [
       { value: 0, label: "Someone builds a spreadsheet when we need it", description: "One-off analysis" },
       { value: 3, label: "We run standard reports from our systems", description: "Basic reports" },
-      { value: 5, label: "We have dashboards, but they're not always up to date", description: "Some dashboards" },
-      { value: 8, label: "We have dashboards that update automatically", description: "Live dashboards" },
+      { value: 5, label: "We have custom applications, but they're not always up to date", description: "Some custom applications" },
+      { value: 8, label: "We have custom applications that update automatically", description: "Live custom applications" },
     ],
   },
   {
@@ -139,17 +139,17 @@ export const tierDescriptions = {
     recommendations: [
       "Connect your key systems so data flows between them",
       "Clean up your data before adding more tools",
-      "Build simple dashboards for the numbers that matter most",
+      "Build simple custom applications for the numbers that matter most",
       "Use AI to speed up data cleanup (it's faster than doing it by hand)",
     ],
-    suggestedServices: ["data-ai-strategy", "analytics-bi"],
+    suggestedServices: ["data-ai-strategy", "analytics-bi", "ai-services"],
   },
   emerging: {
     title: "Emerging",
     description: "You have some pieces in place, but your team still spends too much time on manual work. You're ready to automate the repetitive stuff.",
     recommendations: [
       "Automate the tasks that eat up the most time",
-      "Build dashboards so you can see what's happening without asking",
+      "Build custom applications so you can see what's happening without asking",
       "Start thinking about what you'd want to predict",
       "Get real-time visibility into your operations",
     ],
@@ -175,6 +175,6 @@ export const tierDescriptions = {
       "Build AI that's unique to your business",
       "Make sure everything scales as you grow",
     ],
-    suggestedServices: ["ai-services", "analytics-bi"],
+    suggestedServices: ["ai-services", "analytics-bi", "data-ai-strategy"],
   },
 };

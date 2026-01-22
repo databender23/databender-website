@@ -552,9 +552,10 @@ export async function POST(request: NextRequest) {
       const hasChatInteraction = event.eventType === "chat_open" || event.eventType === "chat_message";
       const hasMultiPageEngagement = pageCount >= 2;
 
-      // Only send lead alerts for engaged visitors (2+ pages or chatbot interaction)
+      // Send lead alerts for engaged visitors (2+ pages, chatbot interaction, or high score)
       const { shouldAlert, tier } = shouldAlertForScore(currentLeadScore);
-      if (shouldAlert && tier && sessionAlerts.leadTier !== tier && (hasMultiPageEngagement || hasChatInteraction)) {
+      const isHighScore = currentLeadScore >= 50; // Hot or better - alert even on single page
+      if (shouldAlert && tier && sessionAlerts.leadTier !== tier && (hasMultiPageEngagement || hasChatInteraction || isHighScore)) {
         // Only alert if tier upgraded (not on every event at same tier)
         const tierOrder = { "Warm": 1, "Hot": 2, "Very Hot": 3 };
         const currentTierOrder = tierOrder[tier] || 0;
@@ -597,8 +598,8 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Send company identification alert only for engaged visitors (2+ pages)
-      if (companyData && !sessionAlerts.companyAlerted && hasMultiPageEngagement) {
+      // Send company identification alert for engaged visitors (2+ pages or high score)
+      if (companyData && !sessionAlerts.companyAlerted && (hasMultiPageEngagement || isHighScore)) {
         sendSlackAlert({
           type: "company",
           companyName: companyData.name,

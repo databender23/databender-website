@@ -190,7 +190,7 @@ export const healthcareQuestions: HealthcareQuestion[] = [
       { value: 1, label: "Each site is an island", description: "Separate systems, no unified view" },
       { value: 2, label: "Manual consolidation", description: "Spreadsheet gymnastics to compare" },
       { value: 3, label: "Delayed rollup", description: "Central view exists, but lags" },
-      { value: 4, label: "Real-time unified view", description: "Single dashboard, all locations" },
+      { value: 4, label: "Real-time unified view", description: "Single application, all locations" },
     ],
   },
 ];

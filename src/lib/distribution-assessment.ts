@@ -21,7 +21,7 @@ export const distributionQuestions: DistributionQuestion[] = [
       { value: 1, label: "We can't answer that", description: "No cost-to-serve visibility" },
       { value: 2, label: "Days", description: "Requires spreadsheet analysis and digging" },
       { value: 3, label: "Hours", description: "Reports exist but need manual work" },
-      { value: 4, label: "Minutes", description: "Dashboard shows it in real-time" },
+      { value: 4, label: "Minutes", description: "Application shows it in real-time" },
     ],
   },
   {

@@ -46,6 +46,39 @@ Understanding detection helps you avoid triggers. AI detectors measure two thing
 
 ## Hard Rules
 
+### Brand Name Styling
+
+| Rule | Correct | Incorrect |
+|------|---------|-----------|
+| Always use proper case for "Databender" | Databender | databender, DATABENDER |
+| Never use all caps | Databender, Data Strategy | DATABENDER, DATA STRATEGY |
+| Proper case for headings and titles | "Data & AI Strategy" | "DATA & AI STRATEGY" |
+
+**Databender** is always written with a capital D. Never lowercase, never all caps. This applies to:
+- Website content
+- PDF documents
+- Email signatures
+- Social media
+- Proposals and presentations
+
+**All caps is never acceptable.** Use proper case (capitalize first letter of each major word) for emphasis instead. If you need to draw attention to something, use bold or a different heading level.
+
+### Document Formatting
+
+| Rule | Description |
+|------|-------------|
+| Consistent font sizes | Body text should be the same size throughout. Don't vary font sizes arbitrarily within sections. |
+| Heading hierarchy | Use heading levels (H1, H2, H3) for structure, not random font size changes. |
+| No decorative sizing | Don't make text larger or smaller for visual effect. Use bold, headings, or whitespace instead. |
+
+**Font size consistency applies to:**
+- PDFs and downloadable guides
+- Proposals and presentations
+- Email templates
+- Website content (handled by CSS, but content creators shouldn't override)
+
+If a section looks visually "off," fix the structure (headings, spacing, paragraphs) rather than adjusting font sizes.
+
 ### Never Use
 | Pattern | Why |
 |---------|-----|
@@ -53,6 +86,7 @@ Understanding detection helps you avoid triggers. AI detectors measure two thing
 | Em dashes (—) | AI tell (GPT-4 overuses these). Use periods, commas, or parentheses. |
 | Double hyphens (--) | Same rule. |
 | Dashes as sentence interrupters | Don't use hyphens or dashes to insert asides mid-sentence. Use commas, parentheses, or split into two sentences. |
+| ALL CAPS text | Looks unprofessional and aggressive. Use proper case with bold for emphasis. |
 
 **Hyphen clarification:** Single hyphens for compound words are fine (e.g., "AI-powered", "real-time", "privacy-first"). The ban is on using dashes to interrupt or connect sentence fragments.
 

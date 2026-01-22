@@ -163,7 +163,7 @@ export default function DataAIReadinessResultsClient() {
             >
               <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-teal-500/10 border-4 border-teal-500 mb-4">
                 <span className="text-5xl font-bold text-gradient">
-                  {scores.total}
+                  {Math.round((scores.total / 66) * 100)}
                 </span>
               </div>
               <p className="text-text-muted">out of 100</p>

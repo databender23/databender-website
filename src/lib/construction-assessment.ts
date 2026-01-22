@@ -80,7 +80,7 @@ export const constructionQuestions: ConstructionQuestion[] = [
       { value: 1, label: "We don't", description: "Find out when someone remembers or we're closing the job" },
       { value: 2, label: "Periodic review", description: "Monthly dig through to find missing items" },
       { value: 3, label: "Reports exist", description: "Can run a report, takes some digging" },
-      { value: 4, label: "Dashboard", description: "Aging report shows unbilled items automatically" },
+      { value: 4, label: "Application", description: "Aging report shows unbilled items automatically" },
     ],
   },
 
@@ -104,7 +104,7 @@ export const constructionQuestions: ConstructionQuestion[] = [
       { value: 1, label: "Half a day", description: "Someone pulls data from everywhere" },
       { value: 2, label: "A few hours", description: "Standard process but still manual" },
       { value: 3, label: "An hour", description: "Most data ready, some assembly needed" },
-      { value: 4, label: "None", description: "Dashboard is always current" },
+      { value: 4, label: "None", description: "Application is always current" },
     ],
   },
 
@@ -117,7 +117,7 @@ export const constructionQuestions: ConstructionQuestion[] = [
       { value: 1, label: "Not well", description: "Receivables scattered, retainage a mystery" },
       { value: 2, label: "Monthly snapshot", description: "Know where we stand after close" },
       { value: 3, label: "Weekly view", description: "Regular updates, pretty current" },
-      { value: 4, label: "Real-time", description: "Dashboard shows receivables, retainage, projections" },
+      { value: 4, label: "Real-time", description: "Application shows receivables, retainage, projections" },
     ],
   },
   {
