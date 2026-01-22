@@ -18,7 +18,7 @@ frontend:
           # Security - Authentication
           echo "JWT_SECRET=$JWT_SECRET" >> .env.production
           echo "ADMIN_USERNAME=$ADMIN_USERNAME" >> .env.production
-          echo "ADMIN_PASSWORD_HASH=$ADMIN_PASSWORD_HASH" >> .env.production
+          printf 'ADMIN_PASSWORD_HASH=%s\n' "$ADMIN_PASSWORD_HASH" >> .env.production
 
           # Security - API keys
           echo "WEBHOOK_API_KEY=$WEBHOOK_API_KEY" >> .env.production
