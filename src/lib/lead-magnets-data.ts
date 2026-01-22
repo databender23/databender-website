@@ -154,6 +154,20 @@ export const legalGuides: Guide[] = [
     targetAudience: "Managing Partners, COOs, Executive Committees",
     icon: "target",
   },
+  {
+    slug: "last-vendor",
+    title: "The Last Vendor",
+    subtitle: "Stop Managing Five Legal Tech Vendors Who Point Fingers",
+    description: "Your firm runs six different software tools that barely talk to each other. When something breaks, nobody takes responsibility. Here's how to fix that.",
+    topics: [
+      "The hidden costs of vendor fragmentation",
+      "Why integrations keep breaking",
+      "Consolidation strategies that work",
+      "Building vs. buying unified solutions",
+    ],
+    targetAudience: "Managing Partners, CIOs, COOs",
+    icon: "puzzle",
+  },
 ];
 
 // Healthcare Guides
@@ -317,6 +331,34 @@ export const manufacturingGuides: Guide[] = [
     ],
     targetAudience: "IT Directors, COOs",
     icon: "link",
+  },
+  {
+    slug: "lead-scoring-manufacturing",
+    title: "Lead Scoring for Manufacturers",
+    subtitle: "Know Which Prospects Are Ready to Buy Before Your Competition",
+    description: "Your sales team treats every lead the same. Some will close in weeks. Others will waste months. Here's how to tell the difference using data you already have.",
+    topics: [
+      "Signals that predict manufacturing buying intent",
+      "Building scoring models from your CRM data",
+      "Prioritizing leads without replacing your systems",
+      "The math behind lead quality",
+    ],
+    targetAudience: "Sales Directors, CEOs",
+    icon: "target",
+  },
+  {
+    slug: "data-cleanup-manufacturing",
+    title: "Data Cleanup for Manufacturers",
+    subtitle: "Fix Your Customer and Product Data Without a 12-Month Project",
+    description: "Your customer records are a mess. Duplicate accounts, missing contacts, outdated info. Here's how to clean it up in weeks, not years.",
+    topics: [
+      "Identifying duplicate and conflicting records",
+      "Automated cleanup vs. manual review",
+      "Maintaining quality after cleanup",
+      "The business case for clean data",
+    ],
+    targetAudience: "COOs, IT Directors",
+    icon: "database",
   },
 ];
 
