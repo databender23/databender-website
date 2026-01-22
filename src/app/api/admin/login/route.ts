@@ -5,6 +5,15 @@ import { isLockedOut, recordFailedAttempt, clearLockout } from "@/lib/admin/lock
 
 export async function POST(request: NextRequest) {
   try {
+    // Debug: log env var presence (not values for security)
+    console.log("ENV DEBUG:", {
+      hasPasswordHash: Boolean(process.env.ADMIN_PASSWORD_HASH),
+      hashLength: process.env.ADMIN_PASSWORD_HASH?.length,
+      hashStart: process.env.ADMIN_PASSWORD_HASH?.substring(0, 7),
+      hasJwtSecret: Boolean(process.env.JWT_SECRET),
+      adminUsername: process.env.ADMIN_USERNAME,
+    });
+
     const ip = getClientIp(request);
 
     // Check if IP is locked out
