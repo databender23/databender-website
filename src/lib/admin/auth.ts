@@ -1,13 +1,12 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
-import { env } from "@/lib/env";
 
 const isProduction = process.env.NODE_ENV === "production";
 
 // JWT_SECRET is required in production, falls back to dev secret only in development
 function getJwtSecret(): Uint8Array {
-  const secret = env?.JWT_SECRET;
+  const secret = process.env.JWT_SECRET;
   if (!secret) {
     if (isProduction) {
       throw new Error("JWT_SECRET environment variable is required in production");
@@ -76,8 +75,8 @@ export async function isAuthenticated(): Promise<boolean> {
 }
 
 export async function validateCredentials(username: string, password: string): Promise<boolean> {
-  const adminUsername = env?.ADMIN_USERNAME || "admin";
-  const adminPasswordHash = env?.ADMIN_PASSWORD_HASH;
+  const adminUsername = process.env.ADMIN_USERNAME || "admin";
+  const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
 
   if (username !== adminUsername) return false;
 
