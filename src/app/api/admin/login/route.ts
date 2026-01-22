@@ -6,10 +6,12 @@ import { isLockedOut, recordFailedAttempt, clearLockout } from "@/lib/admin/lock
 export async function POST(request: NextRequest) {
   try {
     // Debug: log env var presence (not values for security)
+    const hash = process.env.ADMIN_PASSWORD_HASH;
     console.log("ENV DEBUG:", {
-      hasPasswordHash: Boolean(process.env.ADMIN_PASSWORD_HASH),
-      hashLength: process.env.ADMIN_PASSWORD_HASH?.length,
-      hashStart: process.env.ADMIN_PASSWORD_HASH?.substring(0, 7),
+      hasPasswordHash: Boolean(hash),
+      hashLength: hash?.length,
+      hashStart: hash?.substring(0, 10),
+      hashEnd: hash?.substring(hash.length - 10),
       hasJwtSecret: Boolean(process.env.JWT_SECRET),
       adminUsername: process.env.ADMIN_USERNAME,
     });
