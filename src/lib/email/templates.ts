@@ -261,48 +261,54 @@ export function getDefaultTemplates(): CreateTemplateInput[] {
       subject: "Congratulations on the new partner",
       body: `Hi {{firstName}},
 
-I noticed {{company}} recently brought on a new lateral partner. That's exciting news.
+Noticed {{company}} brought on a new lateral partner. That's a big move.
 
-In my experience working with mid-sized firms, lateral hires often surface a familiar challenge: the new partner brings institutional knowledge and client relationships that need to be captured and made accessible across the firm.
+Quick question: how are you planning to capture what they know? The partner relationships, the deal patterns, the institutional knowledge they're bringing over.
 
-If that resonates, I'd be happy to share how we've helped firms like yours turn tribal knowledge into searchable intelligence. No pressure, just a quick call to see if it's worth exploring.
+Most firms I talk to lose 60-70% of that knowledge within the first year. It just never makes it into a system anyone else can access.
 
-Best,
+We've built knowledge capture systems for firms like yours. What used to be a $200K+ initiative can now be done for $30K-$75K in weeks. You own the result.
+
+Worth a quick conversation?
+
+--
 Grant`,
     },
     {
       name: "Audit Delivery",
       category: "audit",
-      subject: "Your complimentary data audit",
+      subject: "Your data audit for {{company}}",
       body: `Hi {{firstName}},
 
-As promised, I've completed a preliminary review of {{company}}'s data landscape. I've identified a few quick wins and some larger opportunities.
+Finished reviewing {{company}}'s data landscape. Found a few things worth discussing.
 
-Quick wins (can implement this quarter):
+Quick wins (this quarter):
 - [Specific finding 1]
 - [Specific finding 2]
 
-Larger opportunity:
+Bigger opportunity:
 - [Strategic insight]
 
-Would it be helpful to walk through these findings in a 20-minute call? I can share my screen and dive into the specifics.
+The economics on this stuff have shifted dramatically. What would have been a $200K+ project two years ago can now be done for $30K-$75K. You own everything we build.
 
-Best,
+Got 20 minutes to walk through the specifics?
+
+--
 Grant`,
     },
     {
       name: "General Introduction",
       category: "intro",
-      subject: "Quick question about {{company}}'s data strategy",
+      subject: "Quick question about {{company}}",
       body: `Hi {{firstName}},
 
-I'm reaching out because I've been following {{company}}'s growth and I'm curious about how you're approaching data and analytics.
+Quick question: is {{company}} running on systems built for how work was done 5 years ago?
 
-We work with mid-sized firms that want enterprise-grade data capabilities without the enterprise price tag or timeline. Our specialty is helping businesses like yours turn scattered data into actionable intelligence.
+The economics of custom data and analytics solutions have completely changed. What used to cost $200K+ and take a year can now be built in weeks for $30K-$75K. You own the result. No per-seat licensing eating into margins.
 
-Would it make sense to have a quick conversation about what you're working on?
+Is this something {{company}} has already figured out, or still piecing together?
 
-Best,
+--
 Grant`,
     },
   ];
