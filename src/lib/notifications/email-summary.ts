@@ -14,7 +14,7 @@ import { getEventsForDateRange, getSessionsForDateRange, getConversionPathsForDa
 import type { TrackedEvent, Session, ConversionPath } from "@/lib/analytics/events";
 
 const SES_REGION = process.env.SES_REGION || "us-east-1";
-const FROM_EMAIL = process.env.SES_FROM_EMAIL || "analytics@databender.co";
+const FROM_EMAIL = process.env.SES_FROM_EMAIL || "info@databender.co";
 const SUMMARY_EMAIL = process.env.ANALYTICS_SUMMARY_EMAIL || process.env.CHAT_NOTIFY_EMAIL;
 
 interface DailySummary {

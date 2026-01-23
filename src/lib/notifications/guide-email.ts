@@ -22,7 +22,7 @@ interface GuideEmailParams {
  */
 export async function sendGuideEmail(params: GuideEmailParams): Promise<boolean> {
   const awsRegion = process.env.SES_REGION || process.env.AWS_REGION || "us-east-1";
-  const fromEmail = process.env.SES_FROM_EMAIL || "notifications@mail.databender.co";
+  const fromEmail = process.env.SES_FROM_EMAIL || "info@databender.co";
 
   try {
     const clientConfig: { region: string; credentials?: { accessKeyId: string; secretAccessKey: string } } = {

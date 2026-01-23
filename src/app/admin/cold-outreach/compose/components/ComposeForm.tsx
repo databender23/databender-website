@@ -203,6 +203,12 @@ export default function ComposeForm() {
           </div>
         )}
 
+        {/* From address indicator */}
+        <div className="flex items-center gap-2 text-sm">
+          <span className="text-text-muted">From:</span>
+          <span className="text-text-primary font-medium">Grant Bender &lt;grant@databender.co&gt;</span>
+        </div>
+
         {/* Recipient fields */}
         <RecipientFields
           email={form.email}

@@ -265,6 +265,14 @@ Defined in `src/app/globals.css` using Tailwind CSS 4's `@theme` directive:
 - `/api/admin/sequences` - Sequence management (list, pause, resume, check)
 - `/api/admin/leads/import` - Bulk CSV lead import with sequence enrollment
 - `/api/webhooks/ses-events` - AWS SES bounce/complaint/delivery webhook
+- `/api/admin/cold-outreach/overview` - Cold outreach dashboard metrics
+- `/api/admin/cold-outreach/daily` - Daily send/open/click chart data
+- `/api/admin/cold-outreach/leads` - Filtered cold outreach lead lists
+- `/api/admin/cold-outreach/activity` - Cold outreach activity feed
+- `/api/admin/email/compose` - Send tracked high-touch email
+- `/api/admin/email/templates` - Email template CRUD
+- `/api/track/open/[trackingId]` - Email open tracking (returns 1x1 GIF)
+- `/api/track/click/[trackingId]` - Email click tracking (redirects to URL)
 
 ### Environment Variables
 
@@ -275,9 +283,16 @@ NEXT_PUBLIC_BOOKING_URL=   # Calendar booking link for chatbot
 DISABLE_CHAT_EMAILS=       # Optional: set to "true" to disable chat email notifications
 
 # AWS Services
-SES_FROM_EMAIL=            # SES sender (notifications@mail.databender.co)
+SES_FROM_EMAIL=            # Website notifications sender (info@databender.co)
 SES_REGION=                # SES region (us-east-1)
 DYNAMODB_REGION=           # DynamoDB region (us-east-1)
+
+# Cold Outreach (uses COLD_ prefix to avoid Amplify AWS_* restriction)
+COLD_SES_ACCESS_KEY_ID=    # IAM user for cold outreach SES
+COLD_SES_SECRET_ACCESS_KEY=# IAM secret for cold outreach SES
+COLD_SES_FROM_EMAIL=       # Cold sequences sender (grant@mail.databender.co)
+COLD_SES_FROM_NAME=        # Cold sequences sender name (Grant Bender)
+COLD_SES_REGION=           # SES region (us-east-1)
 
 # Notifications
 CHAT_NOTIFY_EMAIL=         # Email for chat digests
@@ -410,6 +425,19 @@ All Lottie animations use the optimized `LottieWrapper` component (`src/componen
   - Enable/disable MFA with QR code setup
   - View remaining backup codes
   - Regenerate backup codes
+- `/admin/cold-outreach` - Cold outreach dashboard
+  - Overview metrics (sent, opens, clicks, replies)
+  - Sequence performance by industry
+  - Daily send/open/click chart
+  - Deliverability health indicators
+  - Activity feed (recent events)
+  - Leads requiring attention
+- `/admin/cold-outreach/compose` - High-touch email composer
+  - Sends from `grant@databender.co`
+  - Template selection
+  - Variable substitution ({{firstName}}, {{company}}, etc.)
+  - Open/click tracking
+  - Email preview
 
 ### Case Study Pages
 
@@ -490,10 +518,20 @@ The site has a comprehensive notification system in `src/lib/notifications/`:
 
 ### AWS SES Configuration
 
-- **Sending Domain**: `mail.databender.co` (subdomain to avoid DMARC conflicts with main domain)
-- **From Address**: `notifications@mail.databender.co`
-- **Region**: us-east-1
-- **DNS Records**: DKIM CNAMEs configured at SiteGround
+**Sending Domains:**
+- `databender.co` - Main domain for personal/transactional emails
+- `mail.databender.co` - Subdomain for cold outreach (isolates deliverability, used for warmup)
+
+**Email Sender Separation:**
+| Use Case | From Address | Code File |
+|----------|--------------|-----------|
+| High-touch emails (compose UI) | `grant@databender.co` | `src/lib/email/send-email.ts` |
+| Cold sequences (automated) | `grant@mail.databender.co` | `src/lib/sequences/sequence-emails.ts` |
+| Guide downloads | `info@databender.co` | `src/lib/notifications/guide-email.ts` |
+| Analytics summary | `info@databender.co` | `src/lib/notifications/email-summary.ts` |
+
+**Region:** us-east-1
+**DNS Records:** DKIM CNAMEs, SPF, MX configured in Route 53
 
 ### Analytics System
 
@@ -797,20 +835,28 @@ return (
 
 Automated nurture email sequences in `src/lib/sequences/`:
 
-**Sequences Available:**
-- `assessment` - For assessment completers (5 emails over 21 days)
-- `guide-legal` - For legal guide downloaders
-- `guide-general` - For general guide downloaders
+**Inbound Sequences (website conversions):**
+- `assessment` - For assessment completers (5 emails over 21 days: Day 0, 2, 7, 14, 21)
+- `guide-legal` - For legal guide downloaders (5 emails over 21 days)
+- `guide-general` - For general guide downloaders (5 emails over 21 days)
+
+**Cold Outreach Sequences (imported leads):**
+- `cold-legal` - Legal industry cold outreach (4 emails: Day 0, 3, 7, 14)
+- `cold-manufacturing` - Manufacturing cold outreach (4 emails: Day 0, 3, 7, 14)
+- `cold-healthcare` - Healthcare cold outreach (4 emails: Day 0, 3, 7, 14)
+- `cold-cre` - Commercial real estate cold outreach (4 emails: Day 0, 3, 7, 14)
+
+Cold sequences send from `grant@mail.databender.co` (subdomain for deliverability isolation).
 
 **Sequence Statuses:** `active`, `completed`, `paused`, `unsubscribed`, `bounced`
 
 **How It Works:**
-1. Lead completes assessment or downloads guide → Auto-enrolled in appropriate sequence
+1. Lead completes assessment/downloads guide OR imported via CSV → Auto-enrolled in appropriate sequence
 2. Day 0 email sent immediately
-3. Daily cron (`/api/cron/sequences/process`) sends Day 2/7/14/21 emails based on enrollment date
+3. Daily cron (`/api/cron/sequences/process`) sends scheduled emails based on enrollment date
 4. Unsubscribe link in each email → Updates lead status, shows confirmation page
 
-**Email Templates:** `src/lib/sequences/templates/` with 15 templates (5 per sequence)
+**Email Templates:** `src/lib/sequences/templates/` with templates organized by sequence type
 
 **Cron Setup:** Call `/api/cron/sequences/process` daily with `Authorization: Bearer {CRON_SECRET}`
 

@@ -273,7 +273,7 @@ export async function sendHighTouchEmail(
 
 /**
  * Send an email via AWS SES
- * Uses COLD_SES_* credentials for cold outreach emails (separate from website notifications)
+ * Uses COLD_SES_* credentials for high-touch emails from Grant's main address
  */
 async function sendViaSES(
   toEmail: string,
@@ -282,8 +282,8 @@ async function sendViaSES(
   textBody: string
 ): Promise<string | undefined> {
   const awsRegion = process.env.COLD_SES_REGION || process.env.SES_REGION || "us-east-1";
-  const fromEmail = process.env.COLD_SES_FROM_EMAIL || "grant@mail.databender.co";
-  const fromName = process.env.COLD_SES_FROM_NAME || "Grant Bender";
+  const fromEmail = process.env.HIGH_TOUCH_FROM_EMAIL || "grant@databender.co";
+  const fromName = process.env.HIGH_TOUCH_FROM_NAME || "Grant Bender";
 
   const clientConfig: {
     region: string;
