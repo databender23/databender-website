@@ -1,7 +1,7 @@
 /**
  * Day 0 Cold Healthcare Email Template
  *
- * Initial outreach about operational analytics and margin visibility
+ * Hook with pain point + economics shift
  * Plain-text style for better deliverability
  */
 
@@ -35,11 +35,13 @@ export function getDay0ColdHealthcareTemplate(params: ColdHealthcareParams): Ema
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Most healthcare groups I talk to struggle with the same challenge: they can't see per-location profitability without weeks of manual spreadsheet work. The data exists, but it's scattered across billing, scheduling, and practice management systems.</p>
+  <p>Quick question: do you have visibility into profitability by location and provider, or just revenue?</p>
 
-  <p>By the time leadership gets margin visibility, the problems are already months old.</p>
+  <p>The economics of custom healthcare analytics have completely changed. What used to cost $200K+ and take a year can now be built in weeks for $30K-$75K. You own the result. No per-seat fees eating into your margins.</p>
 
-  <p>Is this something ${company} has solved, or is it still a challenge?</p>
+  <p>Most groups I talk to are still paying Dental Intel or Jarvis pricing for 70% of the functionality they actually need. Purpose-built solutions are now cheaper and faster than configuring off-the-shelf.</p>
+
+  <p>Is this something ${company} has already figured out?</p>
 
   <p>--<br>
   Grant Bender<br>
@@ -55,11 +57,13 @@ export function getDay0ColdHealthcareTemplate(params: ColdHealthcareParams): Ema
 
   const textBody = `Hi ${firstName},
 
-Most healthcare groups I talk to struggle with the same challenge: they can't see per-location profitability without weeks of manual spreadsheet work. The data exists, but it's scattered across billing, scheduling, and practice management systems.
+Quick question: do you have visibility into profitability by location and provider, or just revenue?
 
-By the time leadership gets margin visibility, the problems are already months old.
+The economics of custom healthcare analytics have completely changed. What used to cost $200K+ and take a year can now be built in weeks for $30K-$75K. You own the result. No per-seat fees eating into your margins.
 
-Is this something ${company} has solved, or is it still a challenge?
+Most groups I talk to are still paying Dental Intel or Jarvis pricing for 70% of the functionality they actually need. Purpose-built solutions are now cheaper and faster than configuring off-the-shelf.
+
+Is this something ${company} has already figured out?
 
 --
 Grant Bender

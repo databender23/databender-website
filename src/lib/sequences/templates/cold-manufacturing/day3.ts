@@ -1,7 +1,7 @@
 /**
  * Day 3 Cold Manufacturing Email Template
  *
- * Follow-up on first email - hidden costs of manual reporting
+ * Follow-up with specific stat about manual reporting time
  * Plain-text style for better deliverability
  */
 
@@ -37,9 +37,9 @@ export function getDay3ColdManufacturingTemplate(params: ColdManufacturingParams
 
   <p>Following up on my note about operational visibility.</p>
 
-  <p>One thing I've noticed: manufacturers often don't realize how much time their best people spend pulling data instead of analyzing it. I've seen plant managers spending 10+ hours a week just assembling reports.</p>
+  <p>Here's what we've found: manufacturers typically don't realize how much time their best people spend on manual reporting. Plant managers spending 10+ hours a week just assembling data. That's time that could go toward actually improving operations.</p>
 
-  <p>The fix isn't usually a big ERP overhaul. It's connecting what you already have so the data flows automatically.</p>
+  <p>The fix isn't a massive ERP overhaul. It's connecting what you already have so the data flows automatically. One senior consultant with AI delivers what used to require a team of 5. And you own the result. No ongoing licensing fees.</p>
 
   <p>Would a 15-minute call be useful to explore whether this applies to ${company}?</p>
 
@@ -57,9 +57,9 @@ export function getDay3ColdManufacturingTemplate(params: ColdManufacturingParams
 
 Following up on my note about operational visibility.
 
-One thing I've noticed: manufacturers often don't realize how much time their best people spend pulling data instead of analyzing it. I've seen plant managers spending 10+ hours a week just assembling reports.
+Here's what we've found: manufacturers typically don't realize how much time their best people spend on manual reporting. Plant managers spending 10+ hours a week just assembling data. That's time that could go toward actually improving operations.
 
-The fix isn't usually a big ERP overhaul. It's connecting what you already have so the data flows automatically.
+The fix isn't a massive ERP overhaul. It's connecting what you already have so the data flows automatically. One senior consultant with AI delivers what used to require a team of 5. And you own the result. No ongoing licensing fees.
 
 Would a 15-minute call be useful to explore whether this applies to ${company}?
 

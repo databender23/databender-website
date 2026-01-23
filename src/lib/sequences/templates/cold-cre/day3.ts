@@ -35,13 +35,13 @@ export function getDay3ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Following up on my note about portfolio intelligence.</p>
+  <p>Following up on portfolio visibility.</p>
 
-  <p>One pattern I see with growing portfolios: lease expirations sneak up on teams because the data is buried in PDFs. By the time someone notices, the negotiation window has shrunk and leverage is lost.</p>
+  <p>How long does it take to pull together investor reporting? One portfolio manager we work with spent 3 days per quarter on that before we built them a system that does it in 15 minutes. One-time cost, they own it, and it pulls from all their data sources automatically.</p>
 
-  <p>The firms staying ahead are using automated systems that extract key lease terms and surface renewal timelines automatically.</p>
+  <p>The shift here: AI has made senior talent 3-5x more productive. So custom solutions that fit your exact workflow are now cheaper and faster than wrestling with expensive off-the-shelf software that only gets you 70% of the way there.</p>
 
-  <p>Would a 15-minute call be useful to explore whether this applies to ${company}?</p>
+  <p>Would 15 minutes be useful to see if this applies to ${company}?</p>
 
   <p>--<br>
   Grant</p>
@@ -55,13 +55,13 @@ export function getDay3ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 
   const textBody = `Hi ${firstName},
 
-Following up on my note about portfolio intelligence.
+Following up on portfolio visibility.
 
-One pattern I see with growing portfolios: lease expirations sneak up on teams because the data is buried in PDFs. By the time someone notices, the negotiation window has shrunk and leverage is lost.
+How long does it take to pull together investor reporting? One portfolio manager we work with spent 3 days per quarter on that before we built them a system that does it in 15 minutes. One-time cost, they own it, and it pulls from all their data sources automatically.
 
-The firms staying ahead are using automated systems that extract key lease terms and surface renewal timelines automatically.
+The shift here: AI has made senior talent 3-5x more productive. So custom solutions that fit your exact workflow are now cheaper and faster than wrestling with expensive off-the-shelf software that only gets you 70% of the way there.
 
-Would a 15-minute call be useful to explore whether this applies to ${company}?
+Would 15 minutes be useful to see if this applies to ${company}?
 
 --
 Grant

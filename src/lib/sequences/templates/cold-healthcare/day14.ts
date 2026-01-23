@@ -1,7 +1,7 @@
 /**
  * Day 14 Cold Healthcare Email Template
  *
- * Closing the loop - graceful close, door open
+ * Graceful close, door open
  * Plain-text style for better deliverability
  */
 
@@ -35,11 +35,11 @@ export function getDay14ColdHealthcareTemplate(params: ColdHealthcareParams): Em
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>I've sent a few notes about margin visibility and haven't heard back, so I'll assume the timing isn't right.</p>
+  <p>Haven't heard back, so I'll assume the timing isn't right. No worries.</p>
 
-  <p>I'll keep you on my radar for relevant insights about how other healthcare groups are using their data more effectively.</p>
+  <p>The short version of what we do: custom healthcare analytics at a fraction of what it used to cost. Weeks instead of months. You own it, no per-seat fees.</p>
 
-  <p>If anything changes or you'd like to explore this later, my inbox is always open.</p>
+  <p>If that ever becomes relevant, just reply to this thread. Happy to pick it up whenever.</p>
 
   <p>--<br>
   Grant</p>
@@ -53,11 +53,11 @@ export function getDay14ColdHealthcareTemplate(params: ColdHealthcareParams): Em
 
   const textBody = `Hi ${firstName},
 
-I've sent a few notes about margin visibility and haven't heard back, so I'll assume the timing isn't right.
+Haven't heard back, so I'll assume the timing isn't right. No worries.
 
-I'll keep you on my radar for relevant insights about how other healthcare groups are using their data more effectively.
+The short version of what we do: custom healthcare analytics at a fraction of what it used to cost. Weeks instead of months. You own it, no per-seat fees.
 
-If anything changes or you'd like to explore this later, my inbox is always open.
+If that ever becomes relevant, just reply to this thread. Happy to pick it up whenever.
 
 --
 Grant

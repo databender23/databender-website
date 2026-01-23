@@ -37,6 +37,13 @@ frontend:
           # Optional - Bot protection (Cloudflare Turnstile)
           echo "TURNSTILE_SECRET_KEY=$TURNSTILE_SECRET_KEY" >> .env.production
           echo "NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY" >> .env.production
+
+          # Cold outreach email (separate SES credentials)
+          echo "COLD_SES_ACCESS_KEY_ID=$COLD_SES_ACCESS_KEY_ID" >> .env.production
+          echo "COLD_SES_SECRET_ACCESS_KEY=$COLD_SES_SECRET_ACCESS_KEY" >> .env.production
+          echo "COLD_SES_FROM_EMAIL=$COLD_SES_FROM_EMAIL" >> .env.production
+          echo "COLD_SES_FROM_NAME=$COLD_SES_FROM_NAME" >> .env.production
+          echo "COLD_SES_REGION=$COLD_SES_REGION" >> .env.production
     build:
       commands:
         # Run unit tests before building - fail deployment if tests fail

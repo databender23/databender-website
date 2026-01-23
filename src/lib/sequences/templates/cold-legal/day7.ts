@@ -1,7 +1,7 @@
 /**
  * Day 7 Cold Legal Email Template
  *
- * Case study proof - Firm Intelligence Platform
+ * Case study/social proof with ownership differentiator
  * Plain-text style for better deliverability
  */
 
@@ -35,13 +35,15 @@ export function getDay7ColdLegalTemplate(params: ColdLegalParams): EmailTemplate
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Last follow-up on the knowledge retention topic.</p>
+  <p>One more note on this.</p>
 
-  <p>We recently helped a 40-attorney firm build what they call their "Firm Intelligence Platform." It connects their DMS, billing, and matter management to surface relevant past work automatically.</p>
+  <p>We recently helped a 40-attorney firm build what they call their "Firm Intelligence Platform." Connects their DMS, billing, and matter management. When a new matter comes in, relevant past work surfaces automatically. Associates find precedent 70% faster.</p>
 
-  <p>The result: associates find relevant precedent 70% faster, and partners no longer worry about losing client history when people leave.</p>
+  <p>The project took 8 weeks. They own the code. No subscription. When a partner retires next year, that institutional knowledge stays in the system.</p>
 
-  <p>If you're curious what that could look like for ${company}, happy to share specifics.</p>
+  <p>This kind of work used to cost $200K and take 6+ months. We delivered it for a fraction of that because one senior consultant with AI can now do what used to require a team.</p>
+
+  <p>Curious what this could look like for ${company}? You'd work directly with me, not junior consultants.</p>
 
   <p>--<br>
   Grant</p>
@@ -55,13 +57,15 @@ export function getDay7ColdLegalTemplate(params: ColdLegalParams): EmailTemplate
 
   const textBody = `Hi ${firstName},
 
-Last follow-up on the knowledge retention topic.
+One more note on this.
 
-We recently helped a 40-attorney firm build what they call their "Firm Intelligence Platform." It connects their DMS, billing, and matter management to surface relevant past work automatically.
+We recently helped a 40-attorney firm build what they call their "Firm Intelligence Platform." Connects their DMS, billing, and matter management. When a new matter comes in, relevant past work surfaces automatically. Associates find precedent 70% faster.
 
-The result: associates find relevant precedent 70% faster, and partners no longer worry about losing client history when people leave.
+The project took 8 weeks. They own the code. No subscription. When a partner retires next year, that institutional knowledge stays in the system.
 
-If you're curious what that could look like for ${company}, happy to share specifics.
+This kind of work used to cost $200K and take 6+ months. We delivered it for a fraction of that because one senior consultant with AI can now do what used to require a team.
+
+Curious what this could look like for ${company}? You'd work directly with me, not junior consultants.
 
 --
 Grant

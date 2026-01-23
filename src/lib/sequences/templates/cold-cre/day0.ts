@@ -35,11 +35,13 @@ export function getDay0ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Most property managers I talk to with 10+ properties hit the same wall: portfolio data lives in accounting, lease terms in PDFs, and tenant info in a different system. Getting a real-time picture of portfolio health means someone manually assembling spreadsheets.</p>
+  <p>Can you see performance across your entire portfolio in one view? Or does pulling that together mean manual work across accounting, lease files, and property systems?</p>
 
-  <p>By the time investor reports are ready, the data is already stale.</p>
+  <p>The economics of custom portfolio analytics have shifted. What used to cost $200K+ can now be done for $30K-$75K in weeks. You own the result. No per-seat fees.</p>
 
-  <p>Is this something ${company} has solved, or is it still a challenge?</p>
+  <p>Property managers with growing portfolios don't need more spreadsheets. They need unified visibility that doesn't require enterprise budgets to build.</p>
+
+  <p>Worth a quick call to see if this is relevant for ${company}?</p>
 
   <p>--<br>
   Grant Bender<br>
@@ -55,11 +57,13 @@ export function getDay0ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 
   const textBody = `Hi ${firstName},
 
-Most property managers I talk to with 10+ properties hit the same wall: portfolio data lives in accounting, lease terms in PDFs, and tenant info in a different system. Getting a real-time picture of portfolio health means someone manually assembling spreadsheets.
+Can you see performance across your entire portfolio in one view? Or does pulling that together mean manual work across accounting, lease files, and property systems?
 
-By the time investor reports are ready, the data is already stale.
+The economics of custom portfolio analytics have shifted. What used to cost $200K+ can now be done for $30K-$75K in weeks. You own the result. No per-seat fees.
 
-Is this something ${company} has solved, or is it still a challenge?
+Property managers with growing portfolios don't need more spreadsheets. They need unified visibility that doesn't require enterprise budgets to build.
+
+Worth a quick call to see if this is relevant for ${company}?
 
 --
 Grant Bender

@@ -35,11 +35,11 @@ export function getDay14ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>I've sent a few notes about portfolio intelligence and haven't heard back, so I'll assume the timing isn't right.</p>
+  <p>Sent a few notes about portfolio analytics. Haven't heard back, so timing probably isn't right.</p>
 
-  <p>I'll keep you on my radar for relevant insights about how other property managers are using their data more effectively.</p>
+  <p>The short version if it's ever useful: custom portfolio visibility that used to cost $200K+ now runs $30K-$75K. Weeks, not months. You own the result.</p>
 
-  <p>If anything changes or you'd like to explore this later, my inbox is always open.</p>
+  <p>If priorities shift or this becomes relevant, the door's open.</p>
 
   <p>--<br>
   Grant</p>
@@ -53,11 +53,11 @@ export function getDay14ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 
   const textBody = `Hi ${firstName},
 
-I've sent a few notes about portfolio intelligence and haven't heard back, so I'll assume the timing isn't right.
+Sent a few notes about portfolio analytics. Haven't heard back, so timing probably isn't right.
 
-I'll keep you on my radar for relevant insights about how other property managers are using their data more effectively.
+The short version if it's ever useful: custom portfolio visibility that used to cost $200K+ now runs $30K-$75K. Weeks, not months. You own the result.
 
-If anything changes or you'd like to explore this later, my inbox is always open.
+If priorities shift or this becomes relevant, the door's open.
 
 --
 Grant

@@ -1,7 +1,7 @@
 /**
  * Day 3 Cold Healthcare Email Template
  *
- * Follow-up on first email - payer mix and reimbursement optimization
+ * Follow up with specific stat/proof - data integration challenge
  * Plain-text style for better deliverability
  */
 
@@ -35,13 +35,13 @@ export function getDay3ColdHealthcareTemplate(params: ColdHealthcareParams): Ema
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Following up on my note about margin visibility.</p>
+  <p>Following up on my note about analytics economics.</p>
 
-  <p>One pattern I see with growing healthcare groups: payer mix issues silently erode margins. A location might look busy, but if the reimbursement rates are underwater, you're losing money on every visit.</p>
+  <p>Here's what I see with growing healthcare groups: every acquisition brings a different PM system. Eaglesoft here, Dentrix there, maybe Open Dental at the newest location. The data exists, but pulling it together for a board deck takes weeks of manual work.</p>
 
-  <p>The groups catching this early are using automated dashboards that flag payer mix drift before it compounds.</p>
+  <p>One senior consultant with the right AI tools can now build unified analytics across all those systems in 4-6 weeks. HIPAA-compliant from day one. Real-time visibility by location, provider, and payer. And you own the whole thing.</p>
 
-  <p>Would a 15-minute call be useful to explore whether this applies to ${company}?</p>
+  <p>Worth a 15-minute call to see if this applies to ${company}?</p>
 
   <p>--<br>
   Grant</p>
@@ -55,13 +55,13 @@ export function getDay3ColdHealthcareTemplate(params: ColdHealthcareParams): Ema
 
   const textBody = `Hi ${firstName},
 
-Following up on my note about margin visibility.
+Following up on my note about analytics economics.
 
-One pattern I see with growing healthcare groups: payer mix issues silently erode margins. A location might look busy, but if the reimbursement rates are underwater, you're losing money on every visit.
+Here's what I see with growing healthcare groups: every acquisition brings a different PM system. Eaglesoft here, Dentrix there, maybe Open Dental at the newest location. The data exists, but pulling it together for a board deck takes weeks of manual work.
 
-The groups catching this early are using automated dashboards that flag payer mix drift before it compounds.
+One senior consultant with the right AI tools can now build unified analytics across all those systems in 4-6 weeks. HIPAA-compliant from day one. Real-time visibility by location, provider, and payer. And you own the whole thing.
 
-Would a 15-minute call be useful to explore whether this applies to ${company}?
+Worth a 15-minute call to see if this applies to ${company}?
 
 --
 Grant

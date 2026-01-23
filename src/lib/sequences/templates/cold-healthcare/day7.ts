@@ -1,7 +1,7 @@
 /**
  * Day 7 Cold Healthcare Email Template
  *
- * Case study proof - PE-backed group operational analytics
+ * Case study/social proof - PE-backed group operational analytics
  * Plain-text style for better deliverability
  */
 
@@ -35,13 +35,15 @@ export function getDay7ColdHealthcareTemplate(params: ColdHealthcareParams): Ema
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Last follow-up on the margin visibility topic.</p>
+  <p>One more note on the analytics economics, then I'll leave you alone.</p>
 
-  <p>We recently helped a 15-location healthcare group build a unified analytics platform that connects their PM, billing, and scheduling systems. They went from quarterly manual reporting to real-time per-location P&L visibility.</p>
+  <p>We recently built a unified platform for a 15-location healthcare group. Connected their three different PM systems, billing, and scheduling into one view. Six weeks from start to real-time P&L by location and provider. Total cost was under $50K. They own everything.</p>
 
-  <p>The result: they identified two underperforming locations in the first month and turned them around before the next board meeting.</p>
+  <p>The old way? They'd priced it out at $180K with an 8-month timeline from a traditional vendor. Plus ongoing licensing.</p>
 
-  <p>If you're curious what that could look like for ${company}, happy to share specifics.</p>
+  <p>They caught two underwater locations in the first month. Turned them around before the next board meeting.</p>
+
+  <p>If you're curious what this could look like for ${company}, happy to share specifics.</p>
 
   <p>--<br>
   Grant</p>
@@ -55,13 +57,15 @@ export function getDay7ColdHealthcareTemplate(params: ColdHealthcareParams): Ema
 
   const textBody = `Hi ${firstName},
 
-Last follow-up on the margin visibility topic.
+One more note on the analytics economics, then I'll leave you alone.
 
-We recently helped a 15-location healthcare group build a unified analytics platform that connects their PM, billing, and scheduling systems. They went from quarterly manual reporting to real-time per-location P&L visibility.
+We recently built a unified platform for a 15-location healthcare group. Connected their three different PM systems, billing, and scheduling into one view. Six weeks from start to real-time P&L by location and provider. Total cost was under $50K. They own everything.
 
-The result: they identified two underperforming locations in the first month and turned them around before the next board meeting.
+The old way? They'd priced it out at $180K with an 8-month timeline from a traditional vendor. Plus ongoing licensing.
 
-If you're curious what that could look like for ${company}, happy to share specifics.
+They caught two underwater locations in the first month. Turned them around before the next board meeting.
+
+If you're curious what this could look like for ${company}, happy to share specifics.
 
 --
 Grant

@@ -1,7 +1,7 @@
 /**
  * Day 14 Cold Legal Email Template
  *
- * Closing the loop - graceful close, door open
+ * Graceful close, door open
  * Plain-text style for better deliverability
  */
 
@@ -35,11 +35,11 @@ export function getDay14ColdLegalTemplate(params: ColdLegalParams): EmailTemplat
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>I've sent a few notes about knowledge retention and haven't heard back, so I'll assume the timing isn't right.</p>
+  <p>Haven't heard back, so the timing probably isn't right. No worries.</p>
 
-  <p>I'll keep you on my radar for relevant insights about how other firms are using their data more effectively.</p>
+  <p>The economics of custom legal tech are shifting fast. When you're ready to stop fighting with off-the-shelf tools, we can talk.</p>
 
-  <p>If anything changes or you'd like to explore this later, my inbox is always open.</p>
+  <p>Door's open.</p>
 
   <p>--<br>
   Grant</p>
@@ -53,11 +53,11 @@ export function getDay14ColdLegalTemplate(params: ColdLegalParams): EmailTemplat
 
   const textBody = `Hi ${firstName},
 
-I've sent a few notes about knowledge retention and haven't heard back, so I'll assume the timing isn't right.
+Haven't heard back, so the timing probably isn't right. No worries.
 
-I'll keep you on my radar for relevant insights about how other firms are using their data more effectively.
+The economics of custom legal tech are shifting fast. When you're ready to stop fighting with off-the-shelf tools, we can talk.
 
-If anything changes or you'd like to explore this later, my inbox is always open.
+Door's open.
 
 --
 Grant

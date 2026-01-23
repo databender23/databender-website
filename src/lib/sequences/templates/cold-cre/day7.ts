@@ -35,13 +35,15 @@ export function getDay7ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Last follow-up on the portfolio intelligence topic.</p>
+  <p>One more note on portfolio analytics.</p>
 
-  <p>We recently helped a 25-property portfolio manager build a unified analytics platform that connects their accounting system, extracts lease terms automatically, and generates investor-ready reports on demand.</p>
+  <p>A 25-property manager we worked with had data scattered across Yardi, lease PDFs, and Excel trackers. They couldn't see portfolio-wide performance without someone spending days pulling it together. Sound familiar?</p>
 
-  <p>The result: what used to take their team 3 days per quarter now takes 15 minutes. And they caught a $40K/year rent escalation that had been missed.</p>
+  <p>We built them a purpose-built system in 6 weeks. Connects to their accounting, extracts lease terms automatically, generates investor reports on demand. Total cost was under $50K. They own it outright.</p>
 
-  <p>If you're curious what that could look like for ${company}, happy to share specifics.</p>
+  <p>The kicker: they caught a $40K/year rent escalation that had been missed. ROI in the first quarter.</p>
+
+  <p>If you're curious what something like this could look like for ${company}, happy to share specifics.</p>
 
   <p>--<br>
   Grant</p>
@@ -55,13 +57,15 @@ export function getDay7ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 
   const textBody = `Hi ${firstName},
 
-Last follow-up on the portfolio intelligence topic.
+One more note on portfolio analytics.
 
-We recently helped a 25-property portfolio manager build a unified analytics platform that connects their accounting system, extracts lease terms automatically, and generates investor-ready reports on demand.
+A 25-property manager we worked with had data scattered across Yardi, lease PDFs, and Excel trackers. They couldn't see portfolio-wide performance without someone spending days pulling it together. Sound familiar?
 
-The result: what used to take their team 3 days per quarter now takes 15 minutes. And they caught a $40K/year rent escalation that had been missed.
+We built them a purpose-built system in 6 weeks. Connects to their accounting, extracts lease terms automatically, generates investor reports on demand. Total cost was under $50K. They own it outright.
 
-If you're curious what that could look like for ${company}, happy to share specifics.
+The kicker: they caught a $40K/year rent escalation that had been missed. ROI in the first quarter.
+
+If you're curious what something like this could look like for ${company}, happy to share specifics.
 
 --
 Grant

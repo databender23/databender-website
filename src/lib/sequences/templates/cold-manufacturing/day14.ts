@@ -35,11 +35,11 @@ export function getDay14ColdManufacturingTemplate(params: ColdManufacturingParam
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>I've sent a few notes about operational visibility and haven't heard back, so I'll assume the timing isn't right.</p>
+  <p>I've sent a few notes about operational visibility and custom solutions. Haven't heard back, so the timing probably isn't right.</p>
 
-  <p>I'll keep you on my radar for relevant insights about how other manufacturers are getting more from their data.</p>
+  <p>No worries. I'll keep you on my radar for relevant insights about how manufacturers are connecting their systems without the enterprise price tag.</p>
 
-  <p>If anything changes or you'd like to explore this later, my inbox is always open.</p>
+  <p>If anything changes, my inbox is open.</p>
 
   <p>--<br>
   Grant</p>
@@ -53,11 +53,11 @@ export function getDay14ColdManufacturingTemplate(params: ColdManufacturingParam
 
   const textBody = `Hi ${firstName},
 
-I've sent a few notes about operational visibility and haven't heard back, so I'll assume the timing isn't right.
+I've sent a few notes about operational visibility and custom solutions. Haven't heard back, so the timing probably isn't right.
 
-I'll keep you on my radar for relevant insights about how other manufacturers are getting more from their data.
+No worries. I'll keep you on my radar for relevant insights about how manufacturers are connecting their systems without the enterprise price tag.
 
-If anything changes or you'd like to explore this later, my inbox is always open.
+If anything changes, my inbox is open.
 
 --
 Grant

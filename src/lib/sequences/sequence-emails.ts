@@ -318,13 +318,15 @@ function getEmailTemplate(
 
 /**
  * Send an email via AWS SES
+ * Uses COLD_SES_* credentials for cold outreach sequences (separate from website notifications)
  */
 async function sendEmail(
   toEmail: string,
   template: SequenceTemplate
 ): Promise<string | undefined> {
-  const awsRegion = process.env.SES_REGION || process.env.AWS_REGION || "us-east-1";
-  const fromEmail = process.env.SES_FROM_EMAIL || "notifications@mail.databender.co";
+  const awsRegion = process.env.COLD_SES_REGION || process.env.SES_REGION || "us-east-1";
+  const fromEmail = process.env.COLD_SES_FROM_EMAIL || "grant@mail.databender.co";
+  const fromName = process.env.COLD_SES_FROM_NAME || "Grant Bender";
 
   const clientConfig: {
     region: string;
@@ -333,18 +335,18 @@ async function sendEmail(
     region: awsRegion,
   };
 
-  // Use explicit credentials if provided (local dev)
-  if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
+  // Use COLD_SES credentials for cold outreach (required for Amplify - no AWS_ prefix)
+  if (process.env.COLD_SES_ACCESS_KEY_ID && process.env.COLD_SES_SECRET_ACCESS_KEY) {
     clientConfig.credentials = {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: process.env.COLD_SES_ACCESS_KEY_ID,
+      secretAccessKey: process.env.COLD_SES_SECRET_ACCESS_KEY,
     };
   }
 
   const sesClient = new SESClient(clientConfig);
 
   const command = new SendEmailCommand({
-    Source: `Databender <${fromEmail}>`,
+    Source: `${fromName} <${fromEmail}>`,
     Destination: {
       ToAddresses: [toEmail],
     },
