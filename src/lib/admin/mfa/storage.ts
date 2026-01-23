@@ -50,6 +50,7 @@ export function isMFAGloballyEnabled(): boolean {
 export async function getMFAConfig(username: string): Promise<MFAConfig | null> {
   // Check global MFA disable
   if (!isMFAGloballyEnabled()) {
+    console.log("[MFA Storage] MFA globally disabled");
     return null;
   }
 
@@ -66,15 +67,30 @@ export async function getMFAConfig(username: string): Promise<MFAConfig | null> 
     );
 
     if (result.Item) {
+      console.log("[MFA Storage] Found MFA config in DynamoDB for", username);
       return result.Item as MFAConfig;
     }
+    console.log("[MFA Storage] No MFA config in DynamoDB for", username);
   } catch (error) {
-    console.warn("[MFA Storage] DynamoDB error, using in-memory fallback:", error);
-    // Fall through to in-memory
+    console.error("[MFA Storage] DynamoDB read error:", error);
+    // In production, don't silently fall back
+    if (process.env.NODE_ENV === "production") {
+      // Still check in-memory as last resort, but log warning
+      const inMemory = inMemoryStore.get(pk);
+      if (inMemory) {
+        console.warn("[MFA Storage] CRITICAL: Using in-memory data in production - data not persisted!");
+        return inMemory;
+      }
+      return null;
+    }
   }
 
-  // Check in-memory fallback
-  return inMemoryStore.get(pk) || null;
+  // Check in-memory fallback (development only)
+  const inMemory = inMemoryStore.get(pk);
+  if (inMemory) {
+    console.log("[MFA Storage] Found MFA config in memory for", username);
+  }
+  return inMemory || null;
 }
 
 /**
@@ -98,12 +114,19 @@ export async function saveMFAConfig(username: string, config: Omit<MFAConfig, "p
         Item: item,
       })
     );
+    console.log("[MFA Storage] Saved MFA config to DynamoDB for", username);
     return;
   } catch (error) {
-    console.warn("[MFA Storage] DynamoDB error, using in-memory fallback:", error);
+    console.error("[MFA Storage] DynamoDB write failed:", error);
+
+    // In production, don't silently fall back - MFA data must be persisted
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("Failed to save MFA configuration to database");
+    }
   }
 
-  // Fall back to in-memory
+  // Fall back to in-memory only in development
+  console.warn("[MFA Storage] Using in-memory fallback (development only)");
   inMemoryStore.set(pk, item);
 }
 
