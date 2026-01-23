@@ -2,6 +2,10 @@ import { redirect } from "next/navigation";
 import { isAuthenticated } from "@/lib/admin/auth";
 import AdminNav from "./components/AdminNav";
 
+export const metadata = {
+  title: "Analytics",
+};
+
 export default async function AnalyticsLayout({
   children,
 }: {

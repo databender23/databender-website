@@ -2,6 +2,10 @@ import { redirect } from "next/navigation";
 import { isAuthenticated } from "@/lib/admin/auth";
 import AdminNav from "../analytics/components/AdminNav";
 
+export const metadata = {
+  title: "Dashboard",
+};
+
 export default async function DashboardLayout({
   children,
 }: {

@@ -6,67 +6,107 @@ This folder contains development planning, strategy content, and reference mater
 
 ```
 docs/
-├── README.md                           # This file
+├── README.md                    # This file
 │
-├── CONSOLIDATED STRATEGY (Active)
-│   ├── BRAND-GUIDE.md                  # Brand voice, positioning, value props, pitches
-│   ├── ASSESSMENTS-SPECS.md            # All assessment specifications & scoring
-│   ├── CASE-STUDIES-PLANNING.md        # Case study structure, graphics, UX plans
-│   │
-│   ├── GTM-GENERAL-CRE.md              # General SMB + Commercial Real Estate GTM
-│   ├── GTM-PROFESSIONAL-SERVICES.md    # Legal + Accounting/CPA GTM
-│   ├── GTM-HEALTHCARE.md               # Medical + Dental DSO GTM
-│   └── GTM-MANUFACTURING.md            # Manufacturing GTM
+├── infrastructure/              # AWS, deployment, security
+│   ├── AWS-DEPLOYMENT-PLAN.md   # AWS Amplify deployment guide
+│   ├── DEPLOYMENT-SOP.md        # Deployment standard operating procedures
+│   ├── SECURITY.md              # Security credentials & secrets
+│   ├── mfa-setup.md             # MFA implementation & setup guide
+│   ├── ses-events-setup.md      # AWS SES webhook configuration
+│   └── aws-cleanup-*.md         # AWS resource cleanup logs
 │
-├── TECHNICAL DOCUMENTATION
-│   ├── WEBSITE-BUILD-PLAN.md           # Original build plan & architecture
-│   ├── WEBSITE-DOCUMENTATION.md        # Site docs, email sequences, lead management
-│   ├── AWS-DEPLOYMENT-PLAN.md          # AWS Amplify deployment guide
-│   ├── INTERACTIVE-DESIGN-SPEC.md      # Interactive component specs
-│   ├── WEBSITE-IMPROVEMENTS.md         # Planned improvements
-│   └── WEBSITE-VALIDATION-REPORT.md    # Site validation status
+├── planning/                    # Website planning & design specs
+│   ├── WEBSITE-BUILD-PLAN.md    # Original build plan & architecture
+│   ├── WEBSITE-IMPROVEMENTS.md  # Planned improvements
+│   ├── INTERACTIVE-DESIGN-SPEC.md # Interactive component specs
+│   ├── CASE-STUDIES-PLANNING.md # Case study structure & graphics
+│   ├── analytics-dashboard-redesign.md
+│   └── seo-implementation-plan.md
 │
-├── style-guides/
-│   └── content-style-guide.md          # Content writing guidelines
+├── testing/                     # Testing plans & validation
+│   ├── testing-setup-plan.md    # Jest & Playwright setup
+│   ├── TESTING-PLAN-LEADS.md    # Lead management testing
+│   ├── EMAIL-SEQUENCES-TESTING-PLAN.md
+│   ├── WEBSITE-VALIDATION-REPORT.md
+│   ├── issue-tracker.md
+│   └── Website Testing.md
 │
-├── drafts/                             # Work in progress
+├── gtm/                         # Go-to-market strategies by industry
+│   ├── GTM-GENERAL-CRE.md       # General SMB + Commercial Real Estate
+│   ├── GTM-PROFESSIONAL-SERVICES.md # Legal + Accounting/CPA
+│   ├── GTM-HEALTHCARE.md        # Medical + Dental DSO
+│   └── GTM-MANUFACTURING.md     # Manufacturing
 │
-└── archive/                            # Historical/source files
-    ├── strategy/                       # Original 80+ source files (now consolidated)
-    └── *.md                            # Older case study planning docs
+├── brand/                       # Brand & content guidelines
+│   ├── BRAND-GUIDE.md           # Brand voice, positioning, value props
+│   ├── content-style-guide.md   # Content writing guidelines
+│   └── GUIDE-REVIEW-PROCESS.md  # Lead magnet review process
+│
+├── reference/                   # Technical documentation & specs
+│   ├── WEBSITE-DOCUMENTATION.md # Site docs, email sequences, lead management
+│   ├── DOCUMENTATION-SUMMARY.md # Overview of all documentation
+│   ├── ASSESSMENTS-SPECS.md     # Assessment specifications & scoring
+│   └── linkedin-about.txt       # LinkedIn profile content
+│
+├── drafts/                      # Work in progress
+│
+├── content/                     # Content assets
+│
+└── archive/                     # Historical/source files
+    ├── strategy/                # Original 80+ source files (consolidated)
+    └── *.md                     # Older planning docs
 ```
 
 ## Quick Reference
 
 | Need | File |
 |------|------|
-| Brand voice & positioning | `BRAND-GUIDE.md` |
-| Assessment specifications | `ASSESSMENTS-SPECS.md` |
-| Case study planning | `CASE-STUDIES-PLANNING.md` |
-| Legal/Accounting GTM | `GTM-PROFESSIONAL-SERVICES.md` |
-| Healthcare/Dental GTM | `GTM-HEALTHCARE.md` |
-| Manufacturing GTM | `GTM-MANUFACTURING.md` |
-| General/CRE GTM | `GTM-GENERAL-CRE.md` |
-| AWS deployment | `AWS-DEPLOYMENT-PLAN.md` |
-| Interactive components | `INTERACTIVE-DESIGN-SPEC.md` |
-| Content writing style | `style-guides/content-style-guide.md` |
-| Email sequences & lead management | `WEBSITE-DOCUMENTATION.md` (sections 13-15) |
+| **Infrastructure** |
+| AWS deployment | `infrastructure/AWS-DEPLOYMENT-PLAN.md` |
+| Deployment steps | `infrastructure/DEPLOYMENT-SOP.md` |
+| MFA setup | `infrastructure/mfa-setup.md` |
+| Security & secrets | `infrastructure/SECURITY.md` |
+| SES webhooks | `infrastructure/ses-events-setup.md` |
+| **Planning** |
+| Site architecture | `planning/WEBSITE-BUILD-PLAN.md` |
+| Case study planning | `planning/CASE-STUDIES-PLANNING.md` |
+| Interactive components | `planning/INTERACTIVE-DESIGN-SPEC.md` |
+| **Go-to-Market** |
+| Legal/Accounting | `gtm/GTM-PROFESSIONAL-SERVICES.md` |
+| Healthcare/Dental | `gtm/GTM-HEALTHCARE.md` |
+| Manufacturing | `gtm/GTM-MANUFACTURING.md` |
+| General/CRE | `gtm/GTM-GENERAL-CRE.md` |
+| **Brand & Content** |
+| Brand voice | `brand/BRAND-GUIDE.md` |
+| Writing style | `brand/content-style-guide.md` |
+| **Reference** |
+| Assessment specs | `reference/ASSESSMENTS-SPECS.md` |
+| Email sequences | `reference/WEBSITE-DOCUMENTATION.md` |
+| **Testing** |
+| Test setup | `testing/testing-setup-plan.md` |
+| Lead testing | `testing/TESTING-PLAN-LEADS.md` |
 
-## Consolidated Documents
+## Key Documents
 
-The documentation has been consolidated from 95+ files into 7 active strategy documents:
+### Infrastructure
+- **mfa-setup.md** - Complete MFA implementation guide including TOTP, email OTP, and backup codes
+- **DEPLOYMENT-SOP.md** - Step-by-step deployment checklist for production releases
+- **SECURITY.md** - Environment variables, API keys, and secrets reference
 
-1. **BRAND-GUIDE.md** - Core positioning, voice & tone, value propositions, elevator pitches, channel strategy
-2. **ASSESSMENTS-SPECS.md** - All assessment flows, scoring logic, email sequences
-3. **CASE-STUDIES-PLANNING.md** - Data structure, graphics system, UX improvements
-4. **GTM-GENERAL-CRE.md** - Cross-industry strategy + Commercial Real Estate
-5. **GTM-PROFESSIONAL-SERVICES.md** - Legal + Accounting/CPA firms
-6. **GTM-HEALTHCARE.md** - Medical (imaging, ASCs) + Dental DSOs
-7. **GTM-MANUFACTURING.md** - Manufacturing outreach, offerings, lead magnets, staffing
+### Strategy (GTM)
+- **GTM-PROFESSIONAL-SERVICES.md** - Legal + Accounting/CPA firms
+- **GTM-HEALTHCARE.md** - Medical (imaging, ASCs) + Dental DSOs
+- **GTM-MANUFACTURING.md** - Manufacturing outreach, offerings, lead magnets
+- **GTM-GENERAL-CRE.md** - Cross-industry strategy + Commercial Real Estate
+
+### Brand
+- **BRAND-GUIDE.md** - Core positioning, voice & tone, value propositions, elevator pitches
+- **content-style-guide.md** - Writing guidelines, banned words, formatting rules
 
 ## Archive
 
-The `archive/` folder contains the original source files that were consolidated. These are preserved for reference but the consolidated files above are the authoritative versions.
+The `archive/` folder contains the original source files that were consolidated. These are preserved for reference but the files in the main folders are the authoritative versions.
 
 ## Production Code
 

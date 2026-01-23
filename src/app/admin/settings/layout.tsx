@@ -3,10 +3,10 @@ import { isAuthenticated } from "@/lib/admin/auth";
 import AdminNav from "../analytics/components/AdminNav";
 
 export const metadata = {
-  title: "Cold Outreach",
+  title: "Settings",
 };
 
-export default async function ColdOutreachLayout({
+export default async function SettingsLayout({
   children,
 }: {
   children: React.ReactNode;
