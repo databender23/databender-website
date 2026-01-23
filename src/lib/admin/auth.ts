@@ -52,7 +52,7 @@ export async function setAuthCookie(token: string): Promise<void> {
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict", // Strict CSRF protection - cookie only sent for same-site requests
     maxAge: 8 * 60 * 60, // 8 hours
-    path: "/admin", // Scope to admin routes only
+    path: "/", // Root path to cover both /admin/* pages and /api/admin/* routes
   });
 }
 
