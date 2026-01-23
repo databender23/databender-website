@@ -440,3 +440,125 @@ export async function scanLeadsWithActiveSequences(): Promise<Lead[]> {
 
   return allLeads;
 }
+
+/**
+ * Email open event data
+ */
+export interface OpenEvent {
+  timestamp: string;
+  emailDay: number;
+  sequenceType?: string;
+  emailId?: string;
+  userAgent?: string;
+  ip?: string;
+}
+
+/**
+ * Email click event data
+ */
+export interface ClickEvent {
+  timestamp: string;
+  emailDay: number;
+  url: string;
+  sequenceType?: string;
+  emailId?: string;
+  userAgent?: string;
+  ip?: string;
+}
+
+/**
+ * Record an email open event for a lead
+ *
+ * Uses leadId to find the lead, then appends to opens array
+ * and updates totalOpens, firstOpenAt, lastOpenAt
+ */
+export async function recordOpenEvent(
+  leadId: string,
+  event: OpenEvent
+): Promise<void> {
+  const client = getClient();
+
+  // First find the lead by leadId to get pk/sk
+  const lead = await getLead(leadId);
+  if (!lead) {
+    console.warn(`[Track] Lead not found for open event: ${leadId}`);
+    return;
+  }
+
+  const pk = `LEAD#${lead.email.toLowerCase()}`;
+  const sk = `#CREATED#${lead.createdAt}`;
+  const now = new Date().toISOString();
+
+  // Use a single UpdateCommand to atomically update all fields
+  await client.send(
+    new UpdateCommand({
+      TableName: LEADS_TABLE,
+      Key: { pk, sk },
+      UpdateExpression: `
+        SET opens = list_append(if_not_exists(opens, :emptyList), :event),
+            totalOpens = if_not_exists(totalOpens, :zero) + :one,
+            firstOpenAt = if_not_exists(firstOpenAt, :timestamp),
+            lastOpenAt = :timestamp,
+            lastActivityAt = :now,
+            updatedAt = :now
+      `,
+      ExpressionAttributeValues: {
+        ":event": [event],
+        ":emptyList": [],
+        ":zero": 0,
+        ":one": 1,
+        ":timestamp": event.timestamp,
+        ":now": now,
+      },
+    })
+  );
+
+  console.log(`[Track] Recorded open event for lead ${leadId}, day ${event.emailDay}`);
+}
+
+/**
+ * Record an email click event for a lead
+ *
+ * Uses leadId to find the lead, then appends to clicks array
+ * and updates totalClicks
+ */
+export async function recordClickEvent(
+  leadId: string,
+  event: ClickEvent
+): Promise<void> {
+  const client = getClient();
+
+  // First find the lead by leadId to get pk/sk
+  const lead = await getLead(leadId);
+  if (!lead) {
+    console.warn(`[Track] Lead not found for click event: ${leadId}`);
+    return;
+  }
+
+  const pk = `LEAD#${lead.email.toLowerCase()}`;
+  const sk = `#CREATED#${lead.createdAt}`;
+  const now = new Date().toISOString();
+
+  // Use a single UpdateCommand to atomically update all fields
+  await client.send(
+    new UpdateCommand({
+      TableName: LEADS_TABLE,
+      Key: { pk, sk },
+      UpdateExpression: `
+        SET clicks = list_append(if_not_exists(clicks, :emptyList), :event),
+            totalClicks = if_not_exists(totalClicks, :zero) + :one,
+            lastActivityAt = :now,
+            updatedAt = :now
+      `,
+      ExpressionAttributeValues: {
+        ":event": [event],
+        ":emptyList": [],
+        ":zero": 0,
+        ":one": 1,
+        ":now": now,
+      },
+    })
+  );
+
+  console.log(`[Track] Recorded click event for lead ${leadId}, day ${event.emailDay}, url: ${event.url}`);
+}

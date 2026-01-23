@@ -112,6 +112,40 @@ export interface Lead {
   // Email sequence tracking
   emailSequence?: EmailSequence;
 
+  // Email engagement tracking
+  opens?: Array<{
+    timestamp: string;
+    emailDay: number;
+    sequenceType?: string;
+    emailId?: string;
+    userAgent?: string;
+    ip?: string;
+  }>;
+  clicks?: Array<{
+    timestamp: string;
+    emailDay: number;
+    url: string;
+    sequenceType?: string;
+    emailId?: string;
+    userAgent?: string;
+    ip?: string;
+  }>;
+  totalOpens?: number;
+  totalClicks?: number;
+  firstOpenAt?: string;
+  lastOpenAt?: string;
+  hasReplied?: boolean;
+
+  // High-touch manual emails (cold outreach)
+  highTouchEmails?: Array<{
+    emailId: string;
+    subject: string;
+    sentAt: string;
+    templateId?: string;
+    trackOpens?: boolean;
+    trackClicks?: boolean;
+  }>;
+
   // Timestamps
   createdAt: string;
   updatedAt: string;

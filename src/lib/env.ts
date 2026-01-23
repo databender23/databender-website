@@ -62,6 +62,11 @@ const envSchema = z.object({
 
   // Slack notifications
   SLACK_WEBHOOK_URL: z.string().url().optional(),
+
+  // MFA (Multi-Factor Authentication)
+  MFA_ENABLED: z.string().optional(), // "true" to enable, defaults based on NODE_ENV
+  MFA_ENCRYPTION_KEY: z.string().min(32).optional(), // 32-byte base64 key for TOTP encryption
+  ADMIN_EMAIL: z.string().email().optional(), // Admin email for OTP delivery
 });
 
 /**
@@ -120,4 +125,5 @@ export const isConfigured = {
   ses: () => Boolean(env?.SES_FROM_EMAIL),
   slack: () => Boolean(env?.SLACK_WEBHOOK_URL),
   unsubscribe: () => Boolean(env?.UNSUBSCRIBE_SECRET),
+  mfa: () => Boolean(env?.MFA_ENCRYPTION_KEY && env?.ADMIN_EMAIL),
 };

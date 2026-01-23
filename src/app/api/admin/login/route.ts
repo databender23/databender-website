@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { validateCredentials, createToken, setAuthCookie } from "@/lib/admin/auth";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { isLockedOut, recordFailedAttempt, clearLockout } from "@/lib/admin/lockout";
+import { isMFAEnabled, createMFASession } from "@/lib/admin/mfa";
 
 export async function POST(request: NextRequest) {
   try {
@@ -60,9 +61,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Clear lockout on successful login
+    // Clear lockout on successful password
     await clearLockout(ip);
 
+    // Check if MFA is enabled for this user
+    const mfaEnabled = await isMFAEnabled(username);
+
+    if (mfaEnabled) {
+      // Create MFA session token (10 min expiry)
+      const mfaToken = await createMFASession(username);
+
+      return NextResponse.json({
+        success: false,
+        mfaRequired: true,
+        mfaToken,
+      });
+    }
+
+    // No MFA - complete login
     const token = await createToken(username);
     await setAuthCookie(token);
 

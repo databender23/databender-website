@@ -38,6 +38,12 @@ export default function AdminNav() {
               Leads
             </Link>
             <Link
+              href="/admin/cold-outreach"
+              className="text-text-secondary hover:text-teal-500 transition-colors text-sm font-medium"
+            >
+              Cold Outreach
+            </Link>
+            <Link
               href="/admin/analytics"
               className="text-text-secondary hover:text-teal-500 transition-colors text-sm font-medium"
             >

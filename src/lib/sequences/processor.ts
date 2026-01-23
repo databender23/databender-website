@@ -5,7 +5,8 @@
  */
 
 import type { Lead } from "../leads/types";
-import type { ProcessingResult, SequenceDay } from "./types";
+import type { ProcessingResult, SequenceDay, ColdSequenceDay, SequenceType } from "./types";
+import { SEQUENCE_SCHEDULE, COLD_SEQUENCE_SCHEDULE } from "./types";
 import {
   getLeadsForSequenceProcessing,
   getNextEmailDay,
@@ -62,12 +63,35 @@ export async function processSequenceEmails(): Promise<ProcessingResult> {
 }
 
 /**
+ * Check if a sequence type is a cold outreach sequence
+ */
+function isColdSequence(sequenceType: SequenceType): boolean {
+  return sequenceType.startsWith("cold-");
+}
+
+/**
+ * Get the final day for a sequence type
+ */
+function getFinalDay(sequenceType: SequenceType): number {
+  if (isColdSequence(sequenceType)) {
+    return COLD_SEQUENCE_SCHEDULE[COLD_SEQUENCE_SCHEDULE.length - 1];
+  }
+  return SEQUENCE_SCHEDULE[SEQUENCE_SCHEDULE.length - 1];
+}
+
+/**
  * Process a single lead's email sequence
  */
 async function processLeadSequence(
   lead: Lead,
   result: ProcessingResult
 ): Promise<void> {
+  // Skip leads who have replied (especially important for cold sequences)
+  if (lead.hasReplied) {
+    console.log(`[Sequence Processor] Skipping ${lead.email}: already replied`);
+    return;
+  }
+
   // Determine which email to send (if any)
   const nextDay = getNextEmailDay(lead);
 
@@ -82,7 +106,7 @@ async function processLeadSequence(
   console.log(`[Sequence Processor] Processing ${lead.email}, next email: day ${nextDay}`);
 
   // Send the email
-  const sendResult = await sendSequenceEmail(lead, nextDay as SequenceDay);
+  const sendResult = await sendSequenceEmail(lead, nextDay as SequenceDay | ColdSequenceDay);
 
   if (sendResult.success) {
     // Record that the email was sent
@@ -91,7 +115,8 @@ async function processLeadSequence(
     console.log(`[Sequence Processor] Sent day ${nextDay} email to ${lead.email}`);
 
     // Check if this was the final email
-    if (nextDay === 21) {
+    const sequenceType = lead.emailSequence?.sequenceType;
+    if (sequenceType && nextDay === getFinalDay(sequenceType)) {
       result.completedSequences++;
     }
   } else {
@@ -138,7 +163,7 @@ export async function sendDay0Email(lead: Lead): Promise<boolean> {
  */
 export async function enrollAndSendDay0(
   lead: Lead,
-  sequenceType: "assessment" | "guide-legal" | "guide-general"
+  sequenceType: SequenceType
 ): Promise<boolean> {
   // Import here to avoid circular dependency
   const { enrollInSequence } = await import("./sequence-service");

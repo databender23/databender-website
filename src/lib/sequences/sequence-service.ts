@@ -10,10 +10,12 @@ import type { Lead } from "../leads/types";
 import type {
   SequenceType,
   SequenceDay,
+  ColdSequenceDay,
   EmailSequence,
   BounceType,
   PauseReason,
 } from "./types";
+import { SEQUENCE_SCHEDULE, COLD_SEQUENCE_SCHEDULE } from "./types";
 import { isConfigured } from "../env";
 
 /**
@@ -153,7 +155,7 @@ export async function completeSequence(email: string): Promise<boolean> {
  */
 export async function recordEmailSent(
   email: string,
-  day: SequenceDay,
+  day: SequenceDay | ColdSequenceDay,
   messageId?: string
 ): Promise<boolean> {
   const lead = await getLeadByEmail(email.toLowerCase());
@@ -162,6 +164,7 @@ export async function recordEmailSent(
     return false;
   }
 
+  const sequenceType = lead.emailSequence.sequenceType;
   const dayKey = `day${day}` as keyof EmailSequence["emailsSent"];
   const updatedSequence: EmailSequence = {
     ...lead.emailSequence,
@@ -175,8 +178,13 @@ export async function recordEmailSent(
     },
   };
 
-  // Mark as completed if this was the final email (day 21)
-  if (day === 21) {
+  // Determine the final day based on sequence type
+  const finalDay = isColdSequence(sequenceType)
+    ? COLD_SEQUENCE_SCHEDULE[COLD_SEQUENCE_SCHEDULE.length - 1]
+    : SEQUENCE_SCHEDULE[SEQUENCE_SCHEDULE.length - 1];
+
+  // Mark as completed if this was the final email
+  if (day === finalDay) {
     updatedSequence.status = "completed";
     updatedSequence.completedAt = new Date().toISOString();
   }
@@ -198,9 +206,16 @@ export async function getLeadsForSequenceProcessing(): Promise<Lead[]> {
 }
 
 /**
+ * Check if a sequence type is a cold outreach sequence
+ */
+function isColdSequence(sequenceType: SequenceType): boolean {
+  return sequenceType.startsWith("cold-");
+}
+
+/**
  * Calculate the next email day for a lead
  */
-export function getNextEmailDay(lead: Lead): SequenceDay | null {
+export function getNextEmailDay(lead: Lead): SequenceDay | ColdSequenceDay | null {
   if (!lead.emailSequence || lead.emailSequence.status !== "active") {
     return null;
   }
@@ -211,7 +226,11 @@ export function getNextEmailDay(lead: Lead): SequenceDay | null {
     (now.getTime() - enrolledAt.getTime()) / (1000 * 60 * 60 * 24)
   );
 
-  const schedule: SequenceDay[] = [0, 2, 7, 14, 21];
+  // Use appropriate schedule based on sequence type
+  const sequenceType = lead.emailSequence.sequenceType;
+  const schedule = isColdSequence(sequenceType)
+    ? COLD_SEQUENCE_SCHEDULE
+    : SEQUENCE_SCHEDULE;
   const sent = lead.emailSequence.emailsSent;
 
   for (const day of schedule) {

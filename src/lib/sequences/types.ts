@@ -4,7 +4,14 @@
  * Type definitions for the email nurture sequence system
  */
 
-export type SequenceType = "assessment" | "guide-legal" | "guide-general";
+export type SequenceType =
+  | "assessment"
+  | "guide-legal"
+  | "guide-general"
+  | "cold-legal"
+  | "cold-manufacturing"
+  | "cold-healthcare"
+  | "cold-cre";
 
 export type SequenceStatus = "active" | "completed" | "paused" | "unsubscribed" | "bounced";
 
@@ -19,8 +26,10 @@ export type PauseReason =
   | "out_of_office";
 
 export type SequenceDay = 0 | 2 | 7 | 14 | 21;
+export type ColdSequenceDay = 0 | 3 | 7 | 14;
 
 export const SEQUENCE_SCHEDULE: SequenceDay[] = [0, 2, 7, 14, 21];
+export const COLD_SEQUENCE_SCHEDULE: ColdSequenceDay[] = [0, 3, 7, 14];
 
 export interface EmailSentRecord {
   sentAt: string;
@@ -36,6 +45,7 @@ export interface EmailSequence {
   emailsSent: {
     day0?: EmailSentRecord;
     day2?: EmailSentRecord;
+    day3?: EmailSentRecord; // For cold sequences
     day7?: EmailSentRecord;
     day14?: EmailSentRecord;
     day21?: EmailSentRecord;

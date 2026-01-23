@@ -241,8 +241,14 @@ Defined in `src/app/globals.css` using Tailwind CSS 4's `@theme` directive:
 - `/api/assessment` - Assessment result submissions (auto-enrolls in email sequences)
 - `/api/analytics` - Analytics event tracking
 - `/api/unsubscribe` - Token-based email unsubscribe with confirmation page
-- `/api/admin/login` - Admin authentication
+- `/api/admin/login` - Admin authentication (returns MFA token if MFA enabled)
 - `/api/admin/logout` - Admin logout
+- `/api/admin/mfa/verify` - Verify MFA code (TOTP, email, or backup)
+- `/api/admin/mfa/email-otp` - Request email OTP code
+- `/api/admin/mfa/setup` - Generate TOTP QR code for setup
+- `/api/admin/mfa/enable` - Enable MFA after verification (GET for status, POST to enable)
+- `/api/admin/mfa/disable` - Disable MFA (requires password)
+- `/api/admin/mfa/backup-codes` - Regenerate backup codes (requires password)
 - `/api/admin/analytics/overview` - Analytics dashboard data
 - `/api/admin/analytics/companies` - Company identification data
 - `/api/admin/analytics/attribution` - Marketing attribution data
@@ -282,6 +288,11 @@ SLACK_WEBHOOK_URL=         # Slack incoming webhook for notifications
 JWT_SECRET=                # Secret for admin JWT tokens (required in production)
 ADMIN_USERNAME=            # Admin login username (default: "admin")
 ADMIN_PASSWORD_HASH=       # Bcrypt hash of admin password
+
+# MFA (Multi-Factor Authentication)
+MFA_ENABLED=               # "true" to enable, defaults to NODE_ENV === "production"
+MFA_ENCRYPTION_KEY=        # 32-byte base64 key for TOTP encryption (openssl rand -base64 32)
+ADMIN_EMAIL=               # Admin email for OTP delivery
 
 # Cron Jobs
 CRON_SECRET=               # Secret for authenticating cron endpoints
@@ -394,6 +405,11 @@ All Lottie animations use the optimized `LottieWrapper` component (`src/componen
 - `/admin/leads/[leadId]` - Individual lead detail with notes, contact history, status updates
 - `/admin/analytics` - Full analytics dashboard (pageviews, sessions, engagement)
 - `/admin/analytics/attribution` - Marketing attribution dashboard
+- `/admin/mfa-verify` - MFA verification step during login (TOTP, Email OTP, or backup code)
+- `/admin/settings` - Admin settings with MFA setup/management
+  - Enable/disable MFA with QR code setup
+  - View remaining backup codes
+  - Regenerate backup codes
 
 ### Case Study Pages
 

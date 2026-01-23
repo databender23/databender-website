@@ -20,6 +20,11 @@ frontend:
           echo "ADMIN_USERNAME=$ADMIN_USERNAME" >> .env.production
           printf 'ADMIN_PASSWORD_HASH=%s\n' "$ADMIN_PASSWORD_HASH" >> .env.production
 
+          # Security - MFA (Multi-Factor Authentication)
+          echo "MFA_ENABLED=$MFA_ENABLED" >> .env.production
+          echo "MFA_ENCRYPTION_KEY=$MFA_ENCRYPTION_KEY" >> .env.production
+          echo "ADMIN_EMAIL=$ADMIN_EMAIL" >> .env.production
+
           # Security - API keys
           echo "WEBHOOK_API_KEY=$WEBHOOK_API_KEY" >> .env.production
           echo "CRON_SECRET=$CRON_SECRET" >> .env.production

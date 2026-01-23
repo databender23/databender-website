@@ -22,12 +22,19 @@ export default function AdminLogin() {
         body: JSON.stringify({ username, password }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const data = await response.json();
         throw new Error(data.error || "Login failed");
       }
 
-      router.push("/admin/analytics");
+      // Check if MFA is required
+      if (data.mfaRequired && data.mfaToken) {
+        router.push(`/admin/mfa-verify?token=${encodeURIComponent(data.mfaToken)}`);
+        return;
+      }
+
+      router.push("/admin/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
     } finally {
