@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import type { ProspectPage } from "@/lib/prospect-pages-data";
 import { caseStudies, testimonials } from "@/lib/case-studies-data";
+import { CaseStudyDiagram } from "@/components/case-studies/CaseStudyDiagrams";
 import { isProspectPageExpired } from "@/lib/prospect-pages-data";
 import { SearchJourneyAnimation, KnowledgeHubAnimation } from "@/components/prospect";
 import Link from "next/link";
@@ -326,6 +327,111 @@ function ExpirationBanner({ page }: { page: ProspectPage }) {
         for an updated analysis.
       </p>
     </div>
+  );
+}
+
+// ============================================
+// TESTIMONIALS CAROUSEL
+// ============================================
+function TestimonialsCarousel({ onSectionView }: { onSectionView: () => void }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    if (!isInView || isPaused) return;
+
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+
+    return () => clearInterval(timer);
+  }, [isInView, isPaused]);
+
+  const currentTestimonial = testimonials[currentSlide];
+
+  return (
+    <motion.section
+      className="py-20 bg-white"
+      onViewportEnter={() => {
+        setIsInView(true);
+        onSectionView();
+      }}
+      onViewportLeave={() => setIsInView(false)}
+      viewport={{ amount: 0.3 }}
+    >
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-10">
+          <p className="text-teal-500 font-medium mb-4 tracking-wide text-sm">
+            Client Success
+          </p>
+          <h2 className="text-2xl md:text-3xl font-bold text-text-primary">
+            What Our Clients Say
+          </h2>
+        </div>
+
+        <div
+          className="max-w-4xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="bg-bg-secondary rounded-2xl p-8 md:p-12 text-center"
+            >
+              {/* Quote icon */}
+              <div className="w-12 h-12 rounded-full bg-teal-500/10 flex items-center justify-center mx-auto mb-6">
+                <svg className="w-6 h-6 text-teal-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+              </div>
+
+              {/* Highlight quote */}
+              <p className="text-xl md:text-2xl font-semibold text-text-primary mb-6 leading-relaxed">
+                &quot;{currentTestimonial.highlight}&quot;
+              </p>
+
+              {/* Full quote */}
+              <p className="text-text-secondary mb-6 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                {currentTestimonial.quote.length > 250
+                  ? currentTestimonial.quote.substring(0, 250) + "..."
+                  : currentTestimonial.quote}
+              </p>
+
+              {/* Author */}
+              <div className="pt-4">
+                <p className="font-semibold text-text-primary">{currentTestimonial.name}</p>
+                <p className="text-sm text-text-muted">
+                  {currentTestimonial.title}
+                  {currentTestimonial.company && `, ${currentTestimonial.company}`}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation dots */}
+          <div className="flex justify-center gap-2 mt-6">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                aria-label={`Go to testimonial ${index + 1}`}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  currentSlide === index
+                    ? "bg-teal-500 w-8"
+                    : "bg-black/20 hover:bg-black/40 w-2.5"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.section>
   );
 }
 
@@ -936,112 +1042,6 @@ function ProspectContent({ page }: { page: ProspectPage }) {
         </div>
       </motion.section>
 
-      {/* ===== SOCIAL PROOF ===== */}
-      <motion.section
-        className="py-20 bg-bg-secondary"
-        onViewportEnter={() => trackSectionView("social-proof")}
-        viewport={{ once: true }}
-      >
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <SectionBadge icon={Icons.check} label="Proven Results" color="green" />
-            <h2 className="text-2xl md:text-3xl font-bold text-text-primary mt-4 mb-3">
-              What Others Are Saying
-            </h2>
-          </div>
-
-          {/* Featured Case Study */}
-          <div className="max-w-4xl mx-auto mb-12">
-            {(() => {
-              // Pick most relevant case study based on industry
-              const relevantCase = page.industry === "legal" || page.industry === "healthcare"
-                ? caseStudies.find(cs => cs.slug === "agentic-document-intelligence")
-                : caseStudies.find(cs => cs.slug === "army-of-ai-agents");
-
-              if (!relevantCase) return null;
-
-              return (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-2xl p-8 border border-black/5 shadow-lg"
-                >
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-teal-500 mb-1">Case Study</p>
-                      <h3 className="text-xl font-bold text-text-primary">{relevantCase.title}</h3>
-                      <p className="text-sm text-text-muted">{relevantCase.client} • {relevantCase.industry}</p>
-                    </div>
-                  </div>
-
-                  <p className="text-text-secondary mb-6">{relevantCase.challengeBrief}</p>
-
-                  {/* Results grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    {relevantCase.results.slice(0, 4).map((result, i) => (
-                      <div key={i} className="text-center p-3 bg-bg-secondary rounded-lg">
-                        <p className="text-2xl font-bold text-teal-500">
-                          {result.prefix}{result.value}{result.suffix}
-                        </p>
-                        <p className="text-xs text-text-muted">{result.label}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <Link
-                    href={`/case-studies/${relevantCase.slug}`}
-                    className="text-sm text-teal-500 hover:text-teal-600 font-medium inline-flex items-center gap-1"
-                  >
-                    Read full case study
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                </motion.div>
-              );
-            })()}
-          </div>
-
-          {/* Testimonials */}
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {testimonials.slice(0, 2).map((testimonial, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white rounded-2xl p-6 border border-black/5 shadow-sm"
-              >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, j) => (
-                    <svg key={j} className="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-text-primary font-medium mb-4">"{testimonial.highlight}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold text-sm">
-                    {testimonial.name.split(' ').map(n => n[0]).join('')}
-                  </div>
-                  <div>
-                    <p className="font-medium text-text-primary text-sm">{testimonial.name}</p>
-                    <p className="text-xs text-text-muted">{testimonial.title}{testimonial.company ? `, ${testimonial.company}` : ''}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
       {/* ===== CTA ===== */}
       <motion.section
         className="py-24 bg-gradient-to-r from-teal-500/5 via-bg-secondary to-teal-500/5"
@@ -1103,6 +1103,114 @@ function ProspectContent({ page }: { page: ProspectPage }) {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* ===== CASE STUDIES ===== */}
+      <motion.section
+        className="py-20 bg-bg-secondary"
+        onViewportEnter={() => trackSectionView("case-studies")}
+        viewport={{ once: true }}
+      >
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <SectionBadge icon={Icons.chart} label="Real Results" color="teal" />
+            <h2 className="text-2xl md:text-3xl font-bold text-text-primary mt-4 mb-3">
+              See the Difference
+            </h2>
+            <p className="text-text-secondary max-w-2xl mx-auto">
+              Real outcomes from purpose-built solutions
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {caseStudies.filter(cs => cs.diagramType).map((study, i) => (
+              <motion.div
+                key={study.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Link
+                  href={`/case-studies/${study.slug}`}
+                  className="group block h-full rounded-2xl overflow-hidden bg-white border border-black/5 hover:border-teal-500/50 hover:shadow-lg transition-all duration-300"
+                >
+                  {/* Animated Diagram */}
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    {study.diagramType && (
+                      <CaseStudyDiagram
+                        type={study.diagramType}
+                        compact={true}
+                        interactive={false}
+                        className="w-full h-full"
+                      />
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-5">
+                    {/* Hero Metric */}
+                    {study.heroMetric && (
+                      <div className="flex items-baseline gap-2 mb-3">
+                        <span className="text-2xl font-bold text-teal-500">
+                          {study.heroMetric.value}
+                        </span>
+                        <span className="text-sm font-medium text-text-secondary">
+                          {study.heroMetric.label}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Industry Badge */}
+                    <div className="mb-3">
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-teal-500/10 text-teal-600">
+                        {study.industry}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-teal-600 transition-colors">
+                      {study.title}
+                    </h3>
+
+                    {/* Brief */}
+                    <p className="text-text-secondary text-sm leading-relaxed mb-4 line-clamp-2">
+                      {study.challengeBrief}
+                    </p>
+
+                    {/* CTA */}
+                    <div className="flex items-center text-teal-500 font-medium text-sm">
+                      Read the story
+                      <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-8"
+          >
+            <Link
+              href="/case-studies"
+              className="inline-flex items-center gap-2 text-text-muted hover:text-teal-500 transition-colors font-medium"
+            >
+              View all case studies
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* ===== TESTIMONIALS CAROUSEL ===== */}
+      <TestimonialsCarousel onSectionView={() => trackSectionView("testimonials")} />
 
       {/* ===== ABOUT DATABENDER ===== */}
       <section className="py-12 bg-white border-t border-border">
