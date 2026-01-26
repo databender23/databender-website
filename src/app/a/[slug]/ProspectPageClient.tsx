@@ -1106,7 +1106,7 @@ function ProspectContent({ page }: { page: ProspectPage }) {
 
       {/* ===== CASE STUDIES ===== */}
       <motion.section
-        className="py-20 bg-bg-secondary"
+        className="py-20 bg-white"
         onViewportEnter={() => trackSectionView("case-studies")}
         viewport={{ once: true }}
       >
