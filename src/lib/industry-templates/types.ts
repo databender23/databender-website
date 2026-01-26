@@ -8,7 +8,7 @@
 
 export interface IndustryTemplate {
   // Industry metadata
-  industry: "legal" | "healthcare" | "manufacturing" | "cre" | "general";
+  industry: "legal" | "healthcare" | "dental" | "manufacturing" | "cre" | "accounting" | "general";
   industryDescriptor: string; // "mid-sized law firms", "healthcare organizations"
 
   // Current state section
@@ -77,7 +77,7 @@ export interface ProspectInput {
   slug: string;
   password: string;
   companyName: string;
-  industry: "legal" | "healthcare" | "manufacturing" | "cre" | "general";
+  industry: "legal" | "healthcare" | "dental" | "manufacturing" | "cre" | "accounting" | "general";
   companySize: string;
   companyLocation: string;
   contactName: string;

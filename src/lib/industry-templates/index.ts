@@ -8,18 +8,22 @@
 import type { IndustryTemplate, ProspectInput, ProspectPage } from "./types";
 import { legalTemplate } from "./legal";
 import { healthcareTemplate } from "./healthcare";
+import { dentalTemplate } from "./dental";
 import { manufacturingTemplate } from "./manufacturing";
 import { creTemplate } from "./cre";
+import { accountingTemplate } from "./accounting";
+import { generalTemplate } from "./general";
 
 export * from "./types";
 
 export const industryTemplates: Record<string, IndustryTemplate> = {
   legal: legalTemplate,
   healthcare: healthcareTemplate,
+  dental: dentalTemplate,
   manufacturing: manufacturingTemplate,
   cre: creTemplate,
-  // general uses legal as fallback for now
-  general: legalTemplate,
+  accounting: accountingTemplate,
+  general: generalTemplate,
 };
 
 /**
