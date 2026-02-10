@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
@@ -12,9 +12,46 @@ import { manufacturingGuides } from "@/lib/lead-magnets-data";
 
 const MANUFACTURING_LOTTIE_URL = "/animations/manufacturing-industry.json";
 
+// Jump link navigation items
+const navItems = [
+  { id: "challenges", label: "Challenges" },
+  { id: "solutions", label: "Solutions" },
+  { id: "roi-calculator", label: "ROI" },
+  { id: "guides", label: "Guides" },
+];
+
 export default function ManufacturingPageClient() {
   const content = industryContent["manufacturing"];
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [activeSection, setActiveSection] = useState("");
+
+  // Track active section on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -70% 0px" }
+    );
+
+    navItems.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -70,6 +107,25 @@ export default function ManufacturingPageClient() {
               We build the visibility that gets you out of firefighting mode.
             </motion.p>
 
+            {/* Stat Bar */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="flex flex-wrap justify-center gap-6 sm:gap-10 mb-6 sm:mb-8"
+            >
+              {[
+                { stat: "80%", label: "Time recoverable" },
+                { stat: "20%+", label: "More capacity without hiring" },
+                { stat: "30 min", label: "Per 'Where's my order?' query" },
+              ].map((item, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-2xl sm:text-3xl font-bold text-teal-500">{item.stat}</div>
+                  <div className="text-xs sm:text-sm text-text-muted">{item.label}</div>
+                </div>
+              ))}
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -87,8 +143,29 @@ export default function ManufacturingPageClient() {
         </div>
       </section>
 
+      {/* Sticky Jump Link Navigation */}
+      <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 hidden md:block">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-center gap-1 py-3">
+            {navItems.map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => scrollToSection(id)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeSection === id
+                    ? "bg-teal-500 text-white"
+                    : "text-text-secondary hover:text-teal-500 hover:bg-teal-500/5"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
       {/* Challenges - Compact Grid */}
-      <section className="section bg-[#F8F9FA]">
+      <section id="challenges" className="section scroll-mt-32 bg-[#F8F9FA]">
         <div className="container mx-auto px-4 sm:px-6">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -108,8 +185,8 @@ export default function ManufacturingPageClient() {
             Where Time Disappears
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {content.challenges.slice(0, 6).map((challenge, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {content.challenges.slice(0, 4).map((challenge, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -125,52 +202,8 @@ export default function ManufacturingPageClient() {
         </div>
       </section>
 
-      {/* Full-Width Feature: The Cost */}
-      <section className="section">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 sm:p-12 text-center">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-400 font-medium mb-4 tracking-wide uppercase text-sm"
-            >
-              The Hidden Cost
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6"
-            >
-              Your team spends 2+ hours per day hunting for answers
-            </motion.h2>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8"
-            >
-              {[
-                { stat: "30 min", label: "To answer 'Where's my order?'" },
-                { stat: "3x", label: "Daily per CSR" },
-                { stat: "80%", label: "Time recoverable" },
-                { stat: "20%+", label: "More capacity without hiring" },
-              ].map((item, index) => (
-                <div key={index} className="text-center">
-                  <p className="text-3xl sm:text-4xl font-bold text-teal-400 mb-1">{item.stat}</p>
-                  <p className="text-slate-400 text-sm">{item.label}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Solutions - Tabbed/Stacked Cards */}
-      <section className="section bg-[#F8F9FA]">
+      {/* Solutions - Stacked Cards */}
+      <section id="solutions" className="section scroll-mt-32 bg-[#F8F9FA]">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <motion.p
@@ -324,85 +357,11 @@ export default function ManufacturingPageClient() {
       </section>
 
       {/* ROI Calculator - Full Width */}
-      <section className="section">
+      <section id="roi-calculator" className="section scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <ManufacturingROICalculator />
           </div>
-        </div>
-      </section>
-
-      {/* Implementation + ERP - Horizontal Timeline */}
-      <section className="section bg-[#F8F9FA]">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-3 tracking-wide uppercase text-sm"
-            >
-              What to Expect
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-3"
-            >
-              ROI in 30 Days, Not 12 Months
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-text-secondary max-w-2xl mx-auto"
-            >
-              We read data, we don&apos;t write to your systems. No production impact.
-            </motion.p>
-          </div>
-
-          {/* Timeline */}
-          <div className="relative max-w-4xl mx-auto">
-            <div className="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-teal-500/20" />
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {[
-                { week: "Week 1-2", title: "Connect", description: "Read-only connection to your systems" },
-                { week: "Week 3-4", title: "First Application", description: "Your first live view. Start using it." },
-                { week: "Week 5-8", title: "Build Out", description: "Additional visibility and alerts" },
-                { week: "Week 8-12", title: "Complete", description: "Full operational visibility in place" },
-              ].map((phase, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative text-center"
-                >
-                  <div className="w-4 h-4 rounded-full bg-teal-500 mx-auto mb-4 relative z-10" />
-                  <p className="text-teal-500 font-medium text-sm mb-1">{phase.week}</p>
-                  <h3 className="font-bold text-text-primary mb-1">{phase.title}</h3>
-                  <p className="text-text-secondary text-sm">{phase.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* ERP Compatibility */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-12 text-center"
-          >
-            <p className="text-text-muted text-sm mb-2">Works with your ERP</p>
-            <p className="text-text-secondary font-medium">
-              NetSuite • Epicor • SAP Business One • Infor • JobBOSS • Global Shop Solutions
-            </p>
-          </motion.div>
         </div>
       </section>
 
@@ -436,12 +395,8 @@ export default function ManufacturingPageClient() {
                   answer: "We read data. We don't write to your systems. Zero production impact. Applications appear when they're ready."
                 },
                 {
-                  question: "We tried analytics before and it failed.",
-                  answer: "Usually fails because trying to solve everything at once. We start with ONE business question: 'Where's my order?' Prove value fast, then expand."
-                },
-                {
-                  question: "Our data isn't good enough.",
-                  answer: "Everyone's data has issues. 80% of insights come from 20% of data. We start with what works and clean as we go."
+                  question: "How long does implementation take?",
+                  answer: "Read-only connections in weeks 1-2. First live application by week 3-4. Full operational visibility by week 8-12. We read data, we don't write to your systems. Zero production impact. Works with NetSuite, Epicor, SAP Business One, Infor, JobBOSS, and Global Shop Solutions."
                 },
               ].map((faq, index) => (
                 <motion.div
@@ -479,7 +434,7 @@ export default function ManufacturingPageClient() {
       </section>
 
       {/* Guides - Compact 3-up */}
-      <section className="section bg-[#F8F9FA]">
+      <section id="guides" className="section scroll-mt-32 bg-[#F8F9FA]">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <motion.p

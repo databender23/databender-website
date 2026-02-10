@@ -13,9 +13,7 @@ const DISTRIBUTION_LOTTIE_URL = "/animations/wholesale-distribution.json";
 
 const NAV_ITEMS = [
   { id: "challenges", label: "Challenges" },
-  { id: "inventory", label: "Inventory" },
-  { id: "profitability", label: "Profitability" },
-  { id: "pricing", label: "Pricing" },
+  { id: "solutions", label: "Solutions" },
   { id: "faq", label: "FAQ" },
   { id: "guides", label: "Guides" },
 ];
@@ -23,64 +21,38 @@ const NAV_ITEMS = [
 export default function WholesaleDistributionPageClient() {
   const content = industryContent["wholesale-distribution"];
   const [activeSection, setActiveSection] = useState("");
-  const [showNav, setShowNav] = useState(false);
-  const [activeSegment, setActiveSegment] = useState<"industrial" | "electrical">("industrial");
-  const [activePersona, setActivePersona] = useState<"sales" | "operations">("sales");
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Show nav after scrolling past hero
-      setShowNav(window.scrollY > 400);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -70% 0px" }
+    );
 
-      // Update active section
-      const sections = NAV_ITEMS.map(item => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 150;
+    NAV_ITEMS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(NAV_ITEMS[i].id);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => observer.disconnect();
   }, []);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const trimmedGuides = distributionGuides.slice(0, 3);
 
   return (
     <>
-      {/* Sticky Jump Nav */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: showNav ? 0 : -100 }}
-        className="fixed top-16 left-0 right-0 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 shadow-sm"
-      >
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-12">
-            <span className="text-sm font-medium text-text-primary hidden sm:block">
-              Wholesale Distribution
-            </span>
-            <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  className={`px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-medium rounded-full transition-colors whitespace-nowrap ${
-                    activeSection === item.id
-                      ? "bg-teal-500 text-white"
-                      : "text-text-secondary hover:text-teal-500 hover:bg-teal-500/10"
-                  }`}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </motion.nav>
-
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden pt-20 md:pt-24">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
@@ -133,6 +105,24 @@ export default function WholesaleDistributionPageClient() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="flex flex-wrap justify-center gap-6 sm:gap-10 mb-6 sm:mb-8"
+            >
+              {[
+                { stat: "2-5%", label: "Margin lift from pricing discipline" },
+                { stat: "15-30%", label: "Inventory reduction potential" },
+                { stat: "4-6 mo", label: "Typical payback period" },
+              ].map((item, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-2xl sm:text-3xl font-bold text-teal-500">{item.stat}</div>
+                  <div className="text-xs sm:text-sm text-text-muted">{item.label}</div>
+                </div>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
               className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
             >
@@ -147,8 +137,29 @@ export default function WholesaleDistributionPageClient() {
         </div>
       </section>
 
-      {/* Challenges Section - Compact Grid */}
-      <section id="challenges" className="section bg-[#F8F9FA] scroll-mt-28">
+      {/* Sticky Jump Link Navigation */}
+      <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 hidden md:block">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-center gap-1 py-3">
+            {NAV_ITEMS.map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => scrollToSection(id)}
+                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-colors whitespace-nowrap ${
+                  activeSection === id
+                    ? "bg-teal-500 text-white"
+                    : "text-text-secondary hover:text-teal-500 hover:bg-teal-500/10"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* Challenges Section */}
+      <section id="challenges" className="section bg-[#F8F9FA] scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10">
             <motion.h2
@@ -161,8 +172,8 @@ export default function WholesaleDistributionPageClient() {
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {content.challenges.map((challenge, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {content.challenges.slice(0, 4).map((challenge, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -191,8 +202,8 @@ export default function WholesaleDistributionPageClient() {
         </div>
       </section>
 
-      {/* Three Solutions in Cards - New Layout */}
-      <section className="section scroll-mt-28">
+      {/* Three Solutions Cards */}
+      <section id="solutions" className="section scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-10 sm:mb-12">
             <motion.p
@@ -217,11 +228,10 @@ export default function WholesaleDistributionPageClient() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Inventory Card */}
             <motion.div
-              id="inventory"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-teal-500/5 to-teal-500/10 p-6 sm:p-8 rounded-2xl border border-teal-500/20 scroll-mt-28"
+              className="bg-gradient-to-br from-teal-500/5 to-teal-500/10 p-6 sm:p-8 rounded-2xl border border-teal-500/20"
             >
               <div className="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -254,12 +264,11 @@ export default function WholesaleDistributionPageClient() {
 
             {/* Profitability Card */}
             <motion.div
-              id="profitability"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="bg-white p-6 sm:p-8 rounded-2xl border border-black/10 scroll-mt-28"
+              className="bg-white p-6 sm:p-8 rounded-2xl border border-black/10"
             >
               <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -292,12 +301,11 @@ export default function WholesaleDistributionPageClient() {
 
             {/* Pricing Card */}
             <motion.div
-              id="pricing"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-gradient-to-br from-teal-500/5 to-teal-500/10 p-6 sm:p-8 rounded-2xl border border-teal-500/20 scroll-mt-28"
+              className="bg-gradient-to-br from-teal-500/5 to-teal-500/10 p-6 sm:p-8 rounded-2xl border border-teal-500/20"
             >
               <div className="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -331,35 +339,8 @@ export default function WholesaleDistributionPageClient() {
         </div>
       </section>
 
-      {/* Financial Impact - Stats Bar */}
-      <section className="py-8 sm:py-12 bg-[#F8F9FA]">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
-            {[
-              { stat: "1.8%", label: "Average distributor margin" },
-              { stat: "2-5%", label: "Margin lift from pricing discipline" },
-              { stat: "15-30%", label: "Inventory reduction potential" },
-              { stat: "4-6 mo", label: "Typical payback period" },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-500 mb-1">
-                  {item.stat}
-                </div>
-                <p className="text-text-secondary text-xs sm:text-sm">{item.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section - Moved Up */}
-      <section id="faq" className="section scroll-mt-28">
+      {/* FAQ Section */}
+      <section id="faq" className="section bg-[#F8F9FA] scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-10">
@@ -398,7 +379,7 @@ export default function WholesaleDistributionPageClient() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-[#F8F9FA] p-5 rounded-xl"
+                  className="bg-white p-5 rounded-xl"
                 >
                   <h3 className="text-base font-semibold text-text-primary mb-2">
                     {item.question}
@@ -413,201 +394,8 @@ export default function WholesaleDistributionPageClient() {
         </div>
       </section>
 
-      {/* Segments & Personas - Tabbed Interface */}
-      <section className="section bg-[#F8F9FA] scroll-mt-28">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            {/* Segments */}
-            <div className="mb-12 sm:mb-16">
-              <div className="text-center mb-6">
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-2xl sm:text-3xl font-bold text-text-primary"
-                >
-                  Your Segment, Your Challenges
-                </motion.h2>
-              </div>
-
-              {/* Segment Tabs */}
-              <div className="flex justify-center gap-2 mb-6">
-                <button
-                  onClick={() => setActiveSegment("industrial")}
-                  className={`px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-colors ${
-                    activeSegment === "industrial"
-                      ? "bg-teal-500 text-white"
-                      : "bg-white text-text-secondary hover:text-teal-500 border border-black/10"
-                  }`}
-                >
-                  Industrial
-                </button>
-                <button
-                  onClick={() => setActiveSegment("electrical")}
-                  className={`px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-colors ${
-                    activeSegment === "electrical"
-                      ? "bg-teal-500 text-white"
-                      : "bg-white text-text-secondary hover:text-teal-500 border border-black/10"
-                  }`}
-                >
-                  Electrical / HVAC
-                </button>
-              </div>
-
-              {/* Segment Content */}
-              <motion.div
-                key={activeSegment}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-white p-6 sm:p-8 rounded-2xl border border-black/10"
-              >
-                {activeSegment === "industrial" ? (
-                  <>
-                    <p className="text-text-secondary mb-4">
-                      Amazon Business has 31M+ MRO products. They compete on price, convenience, and data.
-                      You compete on service, expertise, and relationships. The challenge: match their operational efficiency while maintaining the service that makes you irreplaceable.
-                    </p>
-                    <ul className="space-y-2">
-                      {[
-                        "Inventory optimization across thousands of SKUs",
-                        "Customer profitability by account and product line",
-                        "Pricing that protects margin without losing deals",
-                      ].map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-                          <svg className="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-text-secondary mb-4">
-                      Technical product complexity and contractor relationships are your moat. But without profitability visibility, you can&apos;t tell which contractors are worth the service investment.
-                      Counter sales, job quotes, delivery logistics: each touchpoint costs money.
-                    </p>
-                    <ul className="space-y-2">
-                      {[
-                        "Contractor profitability after service and delivery costs",
-                        "Counter vs. delivery cost analysis",
-                        "Project-based pricing and margin tracking",
-                      ].map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-                          <svg className="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-              </motion.div>
-            </div>
-
-            {/* Personas */}
-            <div>
-              <div className="text-center mb-6">
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-2xl sm:text-3xl font-bold text-text-primary"
-                >
-                  What Changes For Your Team
-                </motion.h2>
-              </div>
-
-              {/* Persona Tabs */}
-              <div className="flex justify-center gap-2 mb-6">
-                <button
-                  onClick={() => setActivePersona("sales")}
-                  className={`px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-colors ${
-                    activePersona === "sales"
-                      ? "bg-teal-500 text-white"
-                      : "bg-white text-text-secondary hover:text-teal-500 border border-black/10"
-                  }`}
-                >
-                  Sales Leadership
-                </button>
-                <button
-                  onClick={() => setActivePersona("operations")}
-                  className={`px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-colors ${
-                    activePersona === "operations"
-                      ? "bg-teal-500 text-white"
-                      : "bg-white text-text-secondary hover:text-teal-500 border border-black/10"
-                  }`}
-                >
-                  Operations Leadership
-                </button>
-              </div>
-
-              {/* Persona Content */}
-              <motion.div
-                key={activePersona}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-white p-6 sm:p-8 rounded-2xl border border-black/10"
-              >
-                {activePersona === "sales" ? (
-                  <>
-                    <p className="text-text-secondary mb-4">
-                      Your reps don&apos;t know the margin on deals until after they close. Customer wallet share is invisible. You&apos;re paying commission on revenue that might be losing money.
-                    </p>
-                    <ul className="space-y-2 mb-4">
-                      {[
-                        "Real-time margin by quote. Sales sees impact before they send it.",
-                        "Customer wallet share visibility. Who should be buying more?",
-                        "At-risk account identification. Declining customers flagged automatically.",
-                        "Quote history and win/loss tracking.",
-                      ].map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-                          <svg className="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="text-text-muted text-sm">
-                      <strong>Adoption solved:</strong> Tools that save time, not add data entry.
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-text-secondary mb-4">
-                      With 76% of distributors facing labor shortages, &quot;do more with less&quot; isn&apos;t optional. Your team spends hours on work that should take minutes.
-                    </p>
-                    <ul className="space-y-2 mb-4">
-                      {[
-                        "Warehouse productivity visibility. See where time goes, shorten pick paths.",
-                        "Peak season scalability. Better forecasting reduces firefighting.",
-                        "Supplier performance tracking. Know which vendors cause problems.",
-                        "Inventory positioning. Right product, right location.",
-                      ].map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-                          <svg className="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="text-text-muted text-sm">
-                      <strong>Implementation timing:</strong> We work around your busy season.
-                    </p>
-                  </>
-                )}
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Free Guides Section */}
-      <section id="guides" className="section scroll-mt-28">
+      <section id="guides" className="section scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10">
             <motion.h2
@@ -630,7 +418,7 @@ export default function WholesaleDistributionPageClient() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {distributionGuides.map((guide, index) => (
+            {trimmedGuides.map((guide, index) => (
               <motion.div
                 key={guide.slug}
                 initial={{ opacity: 0, y: 20 }}
@@ -662,6 +450,21 @@ export default function WholesaleDistributionPageClient() {
               </motion.div>
             ))}
           </div>
+
+          {/* Assessment CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-10 text-center"
+          >
+            <p className="text-text-secondary mb-4">
+              Not sure where to start? Take a 5-minute assessment and get a custom action plan.
+            </p>
+            <Button variant="secondary" size="lg" href="/assessments/data-ai-readiness">
+              Take the Data &amp; AI Readiness Assessment
+            </Button>
+          </motion.div>
         </div>
       </section>
 

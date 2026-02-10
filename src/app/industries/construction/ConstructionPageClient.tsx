@@ -22,10 +22,8 @@ const CONSTRUCTION_LOTTIE_URL = "/animations/construction-industry.json";
 // Jump link navigation items
 const navItems = [
   { id: "challenges", label: "Challenges" },
-  { id: "project-visibility", label: "Visibility" },
-  { id: "change-orders", label: "Change Orders" },
+  { id: "solutions", label: "Solutions" },
   { id: "roi-calculator", label: "ROI" },
-  { id: "guides", label: "Guides" },
   { id: "faq", label: "FAQ" },
 ];
 
@@ -200,7 +198,7 @@ export default function ConstructionPageClient() {
             </motion.h2>
 
             <ul className="space-y-3 sm:space-y-4">
-              {content.challenges.map((challenge, index) => (
+              {content.challenges.slice(0, 4).map((challenge, index) => (
                 <motion.li
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
@@ -230,222 +228,158 @@ export default function ConstructionPageClient() {
         </div>
       </section>
 
-      {/* Project Visibility Section */}
-      <section id="project-visibility" className="section scroll-mt-24">
+      {/* How We Help - Solution Cards */}
+      <section id="solutions" className="section scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-                >
-                  Job Visibility
-                </motion.p>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
-                >
-                  One Application for Every Job
-                </motion.h2>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
-                >
-                  <p>
-                    Right now, answering &quot;what&apos;s our margin on this job?&quot; takes days. Estimating in one system. Job costing in another. Field data somewhere else. Accounting closed the books last week.
-                  </p>
-                  <p>
-                    We connect Procore, Sage (or Vista, or QuickBooks), field apps, and your spreadsheets into one view. Real-time cost-to-complete. No more closeout surprises.
-                  </p>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                  className="mt-6"
-                >
-                  <Button variant="secondary" href="/resources/guides/project-visibility-playbook" className="min-h-[48px]">
-                    Get the Playbook
-                  </Button>
-                </motion.div>
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-8 rounded-2xl border border-teal-500/20"
-              >
-                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  What you see
-                </h3>
-                <ul className="space-y-3 sm:space-y-4">
-                  {[
-                    {
-                      title: "Real-time margin by job",
-                      description: "Cost-to-complete updated daily. Know where you stand, not where you stood last month."
-                    },
-                    {
-                      title: "At-risk jobs flagged early",
-                      description: "See margin erosion at week 4, not closeout. Fix issues before they eat your contingency."
-                    },
-                    {
-                      title: "One source of truth",
-                      description: "No more arguing about whose spreadsheet is right. PMs, controllers, and owners see the same numbers."
-                    },
-                    {
-                      title: "WIP reports in minutes",
-                      description: "Monthly close goes from a week to a day. Data pulls automatically."
-                    },
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start gap-2 sm:gap-3">
-                      <svg
-                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <div>
-                        <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
-                        <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
+          <div className="text-center mb-10">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-teal-500 font-medium mb-3 tracking-wide uppercase text-sm"
+            >
+              How We Help
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary"
+            >
+              Visibility That Runs Your Business
+            </motion.h2>
           </div>
-        </div>
-      </section>
 
-      {/* Change Order Recovery Section */}
-      <section id="change-orders" className="section bg-[#F8F9FA] scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="order-2 lg:order-1"
-              >
-                <div className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10">
-                  <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                    Revenue you&apos;re leaving behind
-                  </h3>
-                  <ul className="space-y-3 sm:space-y-4">
-                    {[
-                      {
-                        title: "2-5% of revenue",
-                        description: "That's what contractors typically give away in unbilled change orders and T&M work. Every year."
-                      },
-                      {
-                        title: "Field approvals that never make it",
-                        description: "PM approves extra work on site. Paperwork sits in a truck. Six months later, it's too late to bill."
-                      },
-                      {
-                        title: "No system of record",
-                        description: "Change orders live in emails, texts, and the superintendent's memory. Nothing ties back to billing."
-                      },
-                      {
-                        title: "The billing cycle scramble",
-                        description: "Someone remembers unbilled work right before the AIA deadline. Maybe. If you're lucky."
-                      },
-                    ].map((item, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <svg
-                          className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                        <div>
-                          <span className="font-medium text-text-primary">{item.title}</span>
-                          <p className="text-text-secondary text-sm">{item.description}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Card 1: Job Visibility */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-white p-6 sm:p-8 rounded-2xl border border-black/10"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-teal-500/10 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
                 </div>
-              </motion.div>
-
-              <div className="order-1 lg:order-2">
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-                >
-                  Change Order Recovery
-                </motion.p>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
-                >
-                  Stop Leaving Money on the Table
-                </motion.h2>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
-                >
-                  <p>
-                    Change orders and T&M work approved in the field should flow to billing automatically. They don&apos;t. So you lose money you already earned.
-                  </p>
-                  <p>
-                    We build the connection. Field approval triggers a billing alert within 7 days. Every item tracked from approval to payment. Nothing ages out unbilled.
-                  </p>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                  className="mt-6"
-                >
-                  <Button variant="secondary" href="/resources/guides/change-order-recovery" className="min-h-[48px]">
-                    Get the Guide
-                  </Button>
-                </motion.div>
+                <h3 className="text-xl font-bold text-text-primary">Job Visibility</h3>
               </div>
-            </div>
+              <p className="text-text-secondary mb-4">
+                Real-time margin by job. Cost-to-complete updated daily. At-risk jobs flagged at week 4, not closeout. One source of truth for PMs, controllers, and owners.
+              </p>
+              <ul className="space-y-2">
+                {["Real-time cost-to-complete", "At-risk jobs flagged early", "WIP reports in minutes", "One source of truth"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-text-secondary">
+                    <svg className="w-4 h-4 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Card 2: Change Order Recovery */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="bg-white p-6 sm:p-8 rounded-2xl border border-black/10"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-teal-500/10 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-text-primary">Change Order Recovery</h3>
+              </div>
+              <p className="text-text-secondary mb-4">
+                2-5% of revenue lost to unbilled change orders every year. Field approvals that never make it to billing. We connect the field to accounting so nothing ages out unbilled.
+              </p>
+              <ul className="space-y-2">
+                {["Field approval triggers billing alert", "Every item tracked to payment", "7-day billing cycle", "No more closeout surprises"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-text-secondary">
+                    <svg className="w-4 h-4 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Card 3: Cash Flow Visibility */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="bg-white p-6 sm:p-8 rounded-2xl border border-black/10"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-teal-500/10 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-text-primary">Cash Flow Visibility</h3>
+              </div>
+              <p className="text-text-secondary mb-4">
+                Monthly close goes from a week to a day. Data pulls automatically from Procore, Sage, field apps, and your spreadsheets.
+              </p>
+              <ul className="space-y-2">
+                {["Automated data consolidation", "Cross-system analytics", "Predictive cash flow", "Board-ready reporting"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-text-secondary">
+                    <svg className="w-4 h-4 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Card 4: Works With Your Stack (dark card) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 sm:p-8 rounded-2xl text-white"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-teal-500/20 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold">Works With Your Stack</h3>
+              </div>
+              <p className="text-slate-300 mb-4">
+                We don&apos;t replace Procore. We make it smarter. Your financial data lives in Sage. Your field notes are in Raken. We&apos;re the analytics layer that connects everything.
+              </p>
+              <ul className="space-y-2">
+                {["Procore + Sage + field apps unified", "Real-time data, not 15-min latency", "Custom KPIs your way", "No rip-and-replace"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-slate-300">
+                    <svg className="w-4 h-4 text-teal-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* ROI Calculator Section */}
-      <section id="roi-calculator" className="section scroll-mt-24">
+      <section id="roi-calculator" className="section bg-[#F8F9FA] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-10">
@@ -485,7 +419,7 @@ export default function ConstructionPageClient() {
               className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8"
             >
               {/* Calculator Inputs */}
-              <div className="bg-[#F8F9FA] p-5 sm:p-6 rounded-2xl border border-black/10">
+              <div className="bg-white p-5 sm:p-6 rounded-2xl border border-black/10">
                 <h3 className="text-lg font-bold text-text-primary mb-4">Your Business</h3>
                 <div className="space-y-4">
                   <div>
@@ -587,101 +521,6 @@ export default function ConstructionPageClient() {
         </div>
       </section>
 
-      {/* Procore Differentiation Section */}
-      <section id="procore" className="section bg-[#F8F9FA] scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-                >
-                  Works With Your Stack
-                </motion.p>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
-                >
-                  We Don&apos;t Replace Procore. We Make It Smarter.
-                </motion.h2>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
-                >
-                  <p>
-                    Procore is great at what it does: RFIs, daily logs, drawings, project execution. But your financial data lives in Sage. Your field notes are in Raken. Your spreadsheets are... somewhere.
-                  </p>
-                  <p>
-                    We&apos;re the analytics layer that connects everything. One view of job health that Procore alone can&apos;t provide. Real-time margin, not 15-minute-old data. Cross-system visibility without ripping anything out.
-                  </p>
-                </motion.div>
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
-              >
-                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  What we add to Procore
-                </h3>
-                <ul className="space-y-3 sm:space-y-4">
-                  {[
-                    {
-                      title: "Real-time data",
-                      description: "Procore Analytics has 15-30 minute latency. We connect directly to your systems for live numbers."
-                    },
-                    {
-                      title: "Cross-system analytics",
-                      description: "Procore + Sage + field apps + spreadsheets in one application. No switching between systems."
-                    },
-                    {
-                      title: "Custom KPIs",
-                      description: "Your metrics, your way. Not limited to Procore's pre-built reports."
-                    },
-                    {
-                      title: "Predictive alerts",
-                      description: "See which jobs are trending toward trouble before they get there."
-                    },
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start gap-2 sm:gap-3">
-                      <svg
-                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                        />
-                      </svg>
-                      <div>
-                        <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
-                        <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Free Guides Section */}
       <section id="guides" className="section scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
@@ -777,19 +616,19 @@ export default function ConstructionPageClient() {
               {[
                 {
                   question: "Doesn't Procore already do this?",
-                  answer: "Procore excels at project execution: RFIs, drawings, daily logs. We focus on what happens after. We turn your Procore data into margin insights by connecting it to your accounting system and field apps. Think of us as the analytics layer that makes your Procore investment work harder."
+                  answer: "Procore excels at project execution: RFIs, drawings, daily logs. We're the analytics layer that connects Procore to your accounting system and field apps. Think of us as the visibility that makes your Procore investment work harder. Real-time margin, not 15-minute-old data."
                 },
                 {
                   question: "Our PMs won't use another system.",
-                  answer: "They don't have to. Your PMs keep using Procore and their existing tools. We work with your CFO and controller to surface insights from data that's already being entered. The only change for field staff? Their good work becomes visible to leadership."
+                  answer: "They don't have to. Your PMs keep using Procore and their existing tools. We surface insights from data that's already being entered. The only change for field staff? Their good work becomes visible to leadership."
                 },
                 {
                   question: "Our data is a mess.",
-                  answer: "We hear that from almost every contractor. Here's what we find: your data is better than you think. It's just scattered across eleven systems. We've turned 'messy' job cost exports into margin applications. Part of onboarding is a data audit where we tell you exactly what's possible with what you have."
+                  answer: "We hear that from almost every contractor. Here's what we find: your data is better than you think. It's just scattered across systems. Part of onboarding is a data audit where we tell you exactly what's possible with what you have."
                 },
                 {
-                  question: "We've been burned by technology before.",
-                  answer: "That's why we're a consultancy, not a software company. We don't lock you into a platform or charge per-seat fees. We're accountable for delivering insights, not selling licenses. We start with a 90-day pilot with clear success metrics. If we don't deliver value, you don't continue."
+                  question: "How long does implementation take?",
+                  answer: "Read-only connections in weeks 1-2. First live application by week 3-4. Full visibility by week 8-12. We read data, we don't write to your systems. Zero production impact. Works with Procore, Sage, Vista, QuickBooks, and field apps."
                 },
               ].map((faq, index) => (
                 <motion.div
@@ -809,48 +648,6 @@ export default function ConstructionPageClient() {
                 </motion.div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Now Section */}
-      <section className="section">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-            >
-              Why Now
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-6 sm:mb-8"
-            >
-              The Window Is Open
-            </motion.h2>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="space-y-4 sm:space-y-6 text-text-secondary text-base sm:text-lg"
-            >
-              <p>
-                Three things are happening at once. PE money is flooding construction, and sponsors want data visibility yesterday. Margins are getting squeezed, so the contractors who know their numbers win work. And AI just made custom analytics affordable for mid-sized firms.
-              </p>
-              <p>
-                The contractors moving now are building advantages that compound. Every job makes the system smarter. Every month of data makes the next decision easier. Their competitors are still arguing about which spreadsheet is right.
-              </p>
-              <p className="text-text-primary font-medium">
-                In 18 months, the contractors with real-time margin visibility will be taking market share from the ones still running on monthly reports and gut feel. Which side do you want to be on?
-              </p>
-            </motion.div>
           </div>
         </div>
       </section>

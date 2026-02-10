@@ -238,6 +238,43 @@ export function reviewSchema(testimonials: Testimonial[]) {
 }
 
 /**
+ * Industry service schema for industry pages
+ * Helps search engines and AI understand what Databender offers per vertical
+ */
+export interface IndustryServiceConfig {
+  name: string;
+  description: string;
+  slug: string;
+  serviceTypes: string[];
+  audience: string;
+}
+
+export function industryServiceSchema(config: IndustryServiceConfig) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: config.name,
+    description: config.description,
+    provider: {
+      "@type": "ProfessionalService",
+      name: "Databender",
+      url: SITE_URL,
+      logo: LOGO_URL,
+    },
+    serviceType: config.serviceTypes,
+    areaServed: {
+      "@type": "Country",
+      name: "United States",
+    },
+    audience: {
+      "@type": "Audience",
+      audienceType: config.audience,
+    },
+    url: `${SITE_URL}/industries/${config.slug}`,
+  };
+}
+
+/**
  * FAQ schema for FAQ sections
  * Generates FAQ rich snippets in search results
  */

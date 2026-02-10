@@ -60,8 +60,8 @@ export default function CREPageClient() {
               <div className="flex items-center justify-center gap-1 sm:gap-2 py-3 overflow-x-auto">
                 {[
                   { id: "brokers", label: "For Brokers" },
-                  { id: "property-managers", label: "For Property Managers" },
-                  { id: "calculator", label: "ROI Calculator" },
+                  { id: "property-managers", label: "For PMs" },
+                  { id: "calculator", label: "ROI" },
                   { id: "faq", label: "FAQ" },
                 ].map((item) => (
                   <button
@@ -259,7 +259,7 @@ export default function CREPageClient() {
             </div>
 
             {/* Three Capabilities in Cards */}
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="grid md:grid-cols-3 gap-6">
               {[
                 {
                   title: "Find the Real Owner",
@@ -315,34 +315,6 @@ export default function CREPageClient() {
                 </motion.div>
               ))}
             </div>
-
-            {/* Case Study Proof */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-teal-500/10 to-teal-500/5 border border-teal-500/20"
-            >
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div>
-                  <h3 className="text-lg font-bold text-text-primary mb-2">Real results from a real client</h3>
-                  <p className="text-text-secondary">
-                    Same owner under ten different names. Different owners sharing the same ID. All sorted out in 14 hours, not months.
-                  </p>
-                </div>
-                <Button variant="secondary" href="/case-studies/army-of-ai-agents" className="whitespace-nowrap">
-                  Read the Case Study
-                </Button>
-              </div>
-            </motion.div>
-
-            {/* Broker CTA */}
-            <div className="text-center mt-10">
-              <Button variant="primary" size="lg" href="/assessments/deal-intelligence">
-                Take the Deal Intelligence Assessment
-              </Button>
-              <p className="text-text-muted text-sm mt-2">5 minutes. See where your deal data stands.</p>
-            </div>
           </div>
         </div>
       </section>
@@ -385,7 +357,7 @@ export default function CREPageClient() {
             </div>
 
             {/* Three Capabilities in Cards */}
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="grid md:grid-cols-3 gap-6">
               {[
                 {
                   title: "Portfolio Visibility",
@@ -441,35 +413,6 @@ export default function CREPageClient() {
                 </motion.div>
               ))}
             </div>
-
-            {/* Before/After */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="grid md:grid-cols-2 gap-6"
-            >
-              <div className="p-6 rounded-xl bg-white border border-black/10">
-                <span className="text-red-400 text-sm font-medium uppercase tracking-wide">Before</span>
-                <p className="text-text-secondary mt-2">
-                  Pull data from each property. Consolidate in Excel. Format in PowerPoint. Fix the errors they find. Send again. Takes two weeks.
-                </p>
-              </div>
-              <div className="p-6 rounded-xl bg-gradient-to-br from-teal-500/10 to-teal-500/5 border border-teal-500/20">
-                <span className="text-teal-500 text-sm font-medium uppercase tracking-wide">After</span>
-                <p className="text-text-secondary mt-2">
-                  Data pulls automatically. Click to generate report. Review polished output. Send to investors. Takes a day.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* PM CTA */}
-            <div className="text-center mt-10">
-              <Button variant="primary" size="lg" href="/assessments/commercial-real-estate">
-                Take the Portfolio Analytics Assessment
-              </Button>
-              <p className="text-text-muted text-sm mt-2">5 minutes. See where your portfolio data stands.</p>
-            </div>
           </div>
         </div>
       </section>
@@ -509,16 +452,12 @@ export default function CREPageClient() {
                   answer: "CoStar is great for market data. Ownership is different. Appraisers cite 'less than 50% accuracy' on CoStar ownership. We verify through entity resolution, not just data aggregation. We tell you who to call, not just who might own it."
                 },
                 {
-                  question: "Reonomy does what you do.",
-                  answer: "Reonomy targets 80% accuracy with AI-only approaches. We hit 95%+ by combining AI with human verification. For a $10M deal, that 15% difference is the difference between reaching the owner and chasing the wrong person."
-                },
-                {
                   question: "Our data is a mess. We're not ready.",
                   answer: "Messy data isn't a barrier. It's where we start. We cleaned 1.69M records from exactly this kind of mess. Data cleanup is our foundation, not your prerequisite."
                 },
                 {
-                  question: "How long until we see value?",
-                  answer: "First applications in 4-6 weeks, reporting automation in 8-12 weeks. We prove value before the big commitment."
+                  question: "How long until we see results?",
+                  answer: "Brokers: first verified owner list in 3-4 weeks. Property managers: first unified application in 3-4 weeks, reporting automation by week 8. We prove value before the big commitment."
                 },
               ].map((faq, index) => (
                 <motion.div
@@ -540,100 +479,30 @@ export default function CREPageClient() {
         </div>
       </section>
 
-      {/* ===== IMPLEMENTATION TIMELINE ===== */}
-      <section className="section bg-[#F8F9FA]">
+      {/* ===== GUIDES ===== */}
+      <section id="guides" className="section bg-[#F8F9FA] scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-2"
-            >
-              What to Expect
-            </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-text-secondary"
-            >
-              See ROI in 30-60 days. Not 12-18 months.
-            </motion.p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="p-6 rounded-xl bg-white border border-black/10"
-            >
-              <h3 className="text-lg font-bold text-text-primary mb-4">For Brokers</h3>
-              <div className="space-y-3">
-                {[
-                  { week: "Week 1-2", task: "Connect data sources, initial ownership analysis" },
-                  { week: "Week 3-4", task: "First verified owner list delivered" },
-                  { week: "Week 5-8", task: "Ongoing pipeline enrichment" },
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <span className="text-teal-500 font-semibold text-sm min-w-[70px]">{item.week}</span>
-                    <span className="text-text-secondary text-sm">{item.task}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="p-6 rounded-xl bg-white border border-black/10"
-            >
-              <h3 className="text-lg font-bold text-text-primary mb-4">For Property Managers</h3>
-              <div className="space-y-3">
-                {[
-                  { week: "Week 1-2", task: "System connections (Yardi, AppFolio, etc.)" },
-                  { week: "Week 3-4", task: "First unified application live" },
-                  { week: "Week 5-8", task: "Investor reporting automation" },
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <span className="text-teal-500 font-semibold text-sm min-w-[70px]">{item.week}</span>
-                    <span className="text-text-secondary text-sm">{item.task}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== RESOURCES (Condensed) ===== */}
-      <section id="resources" className="section scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-2"
+              className="text-teal-500 text-sm font-medium mb-2"
             >
               Free Resources
-            </motion.h2>
-            <motion.p
+            </motion.p>
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-text-secondary"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary"
             >
-              Guides and assessments for brokers and property managers
-            </motion.p>
+              Guides for CRE Professionals
+            </motion.h2>
           </div>
 
-          {/* Assessments */}
+          {/* Assessment CTAs */}
           <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-8">
             {creAssessments.map((assessment, index) => (
               <motion.div
@@ -657,9 +526,9 @@ export default function CREPageClient() {
             ))}
           </div>
 
-          {/* Guides Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-            {[...creBrokerGuides.slice(0, 3), ...crePropertyManagerGuides.slice(0, 3)].map((guide, index) => (
+          {/* 3 Guides */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[creBrokerGuides[0], crePropertyManagerGuides[0], crePropertyManagerGuides[1]].map((guide, index) => (
               <motion.div
                 key={guide.slug}
                 initial={{ opacity: 0, y: 20 }}

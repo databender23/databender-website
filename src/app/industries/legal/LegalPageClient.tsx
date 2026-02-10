@@ -5,9 +5,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { CTA } from "@/components/sections";
 import { Button } from "@/components/ui";
-import { EmailCaptureForm } from "@/components/forms";
 import { HeroLottie } from "@/components/animations";
-import { legalAudits, legalGuides } from "@/lib/lead-magnets-data";
+import { legalGuides } from "@/lib/lead-magnets-data";
 import { industryContent } from "@/lib/industries-data";
 import {
   calculateROI,
@@ -19,58 +18,22 @@ import {
 
 const LEGAL_LOTTIE_URL = "/animations/legal.json";
 
-// Jump link navigation items
 const navItems = [
   { id: "challenges", label: "Challenges" },
-  { id: "ownership", label: "Ownership" },
-  { id: "document-intelligence", label: "Document AI" },
+  { id: "solutions", label: "Solutions" },
   { id: "roi-calculator", label: "ROI" },
-  { id: "audits", label: "Audits" },
-  { id: "guides", label: "Guides" },
+  { id: "faq", label: "FAQ" },
 ];
 
-// Icon components
-const IconClock = () => (
-  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-);
-
-const IconTrophy = () => (
-  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-);
-
-const IconBrain = () => (
-  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-  </svg>
-);
-
-const IconLayers = () => (
-  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-  </svg>
-);
-
-const iconMap: Record<string, React.FC> = {
-  clock: IconClock,
-  trophy: IconTrophy,
-  brain: IconBrain,
-  layers: IconLayers,
-};
-
 export default function LegalPageClient() {
-  const [selectedAudit, setSelectedAudit] = useState<string | null>(null);
   const content = industryContent["legal"];
   const [activeSection, setActiveSection] = useState("");
 
   // ROI Calculator state
   const [calcInputs, setCalcInputs] = useState({
-    attorneyCount: attorneyOptions[1].value, // Default: 25-50 attorneys
-    billingRate: billingRateOptions[1].value, // Default: $350-450/hour
-    searchHoursPerWeek: searchHoursOptions[1].value, // Default: 4-6 hours/week
+    attorneyCount: attorneyOptions[1].value,
+    billingRate: billingRateOptions[1].value,
+    searchHoursPerWeek: searchHoursOptions[1].value,
   });
 
   const roiResults = calculateROI(calcInputs);
@@ -103,6 +66,10 @@ export default function LegalPageClient() {
     }
   };
 
+  const displayGuides = legalGuides.filter((g) =>
+    ["associate-multiplier", "own-your-ai", "economics-of-legal-ai"].includes(g.slug)
+  );
+
   return (
     <>
       {/* Hero Section */}
@@ -112,7 +79,6 @@ export default function LegalPageClient() {
         <div className="glow-spot glow-spot-teal-subtle glow-spot-md absolute bottom-0 left-1/4 opacity-40" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Lottie Animation - dynamically sized to fit viewport */}
           <HeroLottie
             lottieUrl={LEGAL_LOTTIE_URL}
             className="mb-6"
@@ -122,7 +88,6 @@ export default function LegalPageClient() {
             minSize={200}
           />
 
-          {/* Hero Content */}
           <div className="max-w-3xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -148,42 +113,14 @@ export default function LegalPageClient() {
               Find Any Precedent in Seconds
             </motion.h1>
 
-            <motion.div
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 max-w-2xl mx-auto"
             >
-              <p className="mb-4">
-                AI that searches decades of your firm&apos;s work product. Ask in plain English, get answers with citations.
-              </p>
-              <ul className="text-left space-y-2 text-base sm:text-lg">
-                <li className="flex items-start gap-2">
-                  <span className="text-teal-500 mt-1">✓</span>
-                  <span>$30-50K, not $150-200K. Live in weeks.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-teal-500 mt-1">✓</span>
-                  <span>Runs on your servers. Client data never leaves.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-teal-500 mt-1">✓</span>
-                  <span>You own the code. No per-seat fees, no vendor lock-in.</span>
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25 }}
-              className="bg-teal-500/10 border border-teal-500/20 rounded-xl px-4 py-3 sm:px-6 sm:py-4 mb-6 sm:mb-8 max-w-xl mx-auto"
-            >
-              <p className="text-text-primary text-sm sm:text-base font-medium text-center">
-                Firms recover <span className="text-teal-600">4-6 hours per attorney per week</span> in search time.
-                At $400/hour, that&apos;s <span className="text-teal-600">$80-120K annually</span> for a 40-attorney firm.
-              </p>
-            </motion.div>
+              AI that searches decades of your firm&apos;s work product. Ask in plain English, get answers with citations. Runs on your servers. You own the code.
+            </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -298,244 +235,150 @@ export default function LegalPageClient() {
         </div>
       </section>
 
-      {/* AI Privacy Section */}
-      <section id="ownership" className="section scroll-mt-32">
+      {/* How We Help Section */}
+      <section id="solutions" className="section scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-                >
-                  You Own Everything
-                </motion.p>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
-                >
-                  No Vendor Lock-In. No Recurring Fees.
-                </motion.h2>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
-                >
-                  <p>
-                    Traditional legal tech means paying per seat, forever. Vendor raises
-                    prices? You&apos;re stuck. Vendor kills a feature? Too bad.
-                  </p>
-                  <p>
-                    This is different. Custom AI that runs on your systems. You own
-                    everything. No recurring fees eating your margins. No dependency on
-                    a vendor who controls your data. Designed for ABA 512 compliance from
-                    day one. Client files never leave your building.
-                  </p>
-                </motion.div>
-              </div>
+            <div className="text-center mb-8 sm:mb-10">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
+              >
+                How We Help
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary"
+              >
+                Built for how law firms actually work
+              </motion.h2>
+            </div>
 
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Card 1: Document Intelligence */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-black/10"
+              >
+                <div className="w-10 h-10 rounded-lg bg-teal-500/10 flex items-center justify-center mb-4">
+                  <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                  </svg>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2">Document Intelligence</h3>
+                <p className="text-text-secondary text-sm sm:text-base mb-4">
+                  Your entire history, searchable. Every brief, memo, contract, and deposition indexed and findable in seconds. Ask in plain English, get answers with citations.
+                </p>
+                <ul className="space-y-2 mb-4">
+                  {["Past briefs and motions searchable by topic", "Contract templates and precedents findable", "Research memos and opinions indexed", "Deposition transcripts searchable across hundreds"].map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-text-secondary">
+                      <svg className="w-4 h-4 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-teal-600 text-sm font-medium">
+                  One firm cut research time 60%. Associates find what they need in minutes, not hours.
+                </p>
+              </motion.div>
+
+              {/* Card 2: Knowledge Preservation */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-black/10"
+              >
+                <div className="w-10 h-10 rounded-lg bg-teal-500/10 flex items-center justify-center mb-4">
+                  <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2">Knowledge Preservation</h3>
+                <p className="text-text-secondary text-sm sm:text-base mb-4">
+                  Stop losing expertise when partners retire. 30 years of experience shouldn&apos;t walk out the door. We capture institutional knowledge and make it accessible to every associate from day one.
+                </p>
+                <ul className="space-y-2 mb-4">
+                  {["How partners handled similar issues", "Firm-specific knowledge preserved", "Training that scales across all associates", "Fewer repeat mistakes"].map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-text-secondary">
+                      <svg className="w-4 h-4 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              {/* Card 3: Entity Resolution */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-8 rounded-2xl border border-teal-500/20"
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-black/10"
               >
-                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  What ownership means
-                </h3>
-                <ul className="space-y-3 sm:space-y-4">
-                  {[
-                    {
-                      title: "You own the code",
-                      description: "Not a license. Not a subscription. The actual software is yours."
-                    },
-                    {
-                      title: "Runs on your systems",
-                      description: "Your servers, your control. Client data never leaves your building."
-                    },
-                    {
-                      title: "No per-seat fees",
-                      description: "Add users without adding costs. Your whole firm can use it."
-                    },
-                    {
-                      title: "Works with iManage, NetDocuments",
-                      description: "Connects to your existing DMS. No rip-and-replace. Live in 8-12 weeks."
-                    },
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start gap-2 sm:gap-3">
-                      <svg
-                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                        />
+                <div className="w-10 h-10 rounded-lg bg-teal-500/10 flex items-center justify-center mb-4">
+                  <svg className="w-5 h-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2">Entity Resolution</h3>
+                <p className="text-text-secondary text-sm sm:text-base mb-4">
+                  Know who you&apos;re really dealing with. LLCs owned by trusts managed by other LLCs. We processed 1.69 million records and resolved them to 1.25 million actual owners at a fraction of manual review costs.
+                </p>
+                <ul className="space-y-2 mb-4">
+                  {["Beneficial owners identified", "Related parties mapped", "Corporate hierarchies untangled", "Conflict checks in minutes"].map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-text-secondary">
+                      <svg className="w-4 h-4 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <div>
-                        <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
-                        <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
-                      </div>
+                      {item}
                     </li>
                   ))}
                 </ul>
               </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Document Intelligence Section */}
-      <section id="document-intelligence" className="section bg-[#F8F9FA] scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-                >
-                  Document Intelligence
-                </motion.p>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
-                >
-                  Your Entire History, Searchable
-                </motion.h2>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
-                >
-                  <p>
-                    Your firm has decades of work product. Briefs, memos, contracts, research.
-                    It&apos;s all there somewhere. But when you need it, nobody can find it.
-                    Associates reinvent the wheel instead of building on past work.
-                  </p>
-                  <p>
-                    We built a system where you ask questions in plain English and get answers
-                    with citations <strong className="text-text-primary">in seconds</strong>.
-                    &ldquo;What arguments worked in our last employment case?&rdquo;
-                    The AI pulls the relevant passages from your own work product.
-                  </p>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                  className="mt-6"
-                >
-                  <Button variant="secondary" href="/case-studies/agentic-document-intelligence" className="min-h-[48px]">
-                    See the Case Study
-                  </Button>
-                </motion.div>
-              </div>
-
+              {/* Card 4: Ownership Model (dark themed) */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
+                transition={{ delay: 0.4 }}
+                className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 text-white"
               >
-                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  What becomes searchable
-                </h3>
-                <ul className="space-y-3 sm:space-y-4">
-                  {[
-                    {
-                      title: "Past briefs and motions",
-                      description: "Every argument you've ever made, indexed and searchable by topic."
-                    },
-                    {
-                      title: "Contract templates and precedents",
-                      description: "Find the right clause from past deals. See how similar issues were handled."
-                    },
-                    {
-                      title: "Research memos and opinions",
-                      description: "All that analysis your associates wrote? Now it's findable."
-                    },
-                    {
-                      title: "Deposition transcripts",
-                      description: "Search across hundreds of depositions. Find every mention of a topic."
-                    },
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start gap-2 sm:gap-3">
-                      <svg
-                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        />
+                <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center mb-4">
+                  <svg className="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold mb-2">Ownership Model</h3>
+                <p className="text-slate-300 text-sm sm:text-base mb-4">
+                  One investment. No per-seat fees. No annual renewals. The code is yours. Runs on your servers. Client data never leaves your building. Designed for ABA 512 compliance.
+                </p>
+                <ul className="space-y-2 mb-4">
+                  {["You own the code outright", "No recurring vendor fees", "Works with iManage, NetDocuments", "Live in 8-12 weeks"].map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-slate-300">
+                      <svg className="w-4 h-4 text-teal-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <div>
-                        <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
-                        <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
-                      </div>
+                      {item}
                     </li>
                   ))}
                 </ul>
               </motion.div>
             </div>
-
-            {/* Case Study Result Callout */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="mt-8 sm:mt-10 bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-6 rounded-2xl border border-teal-500/20"
-            >
-              <div className="flex flex-col sm:flex-row items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-teal-500/20 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-lg sm:text-xl font-semibold text-text-primary mb-2">
-                    Regional Firm Cuts Research Time 60%
-                  </p>
-                  <p className="text-text-secondary text-sm sm:text-base mb-3">
-                    A 35-attorney Midwest litigation firm indexed 15 years of work product. Associates who spent
-                    6+ hours weekly on precedent research now find what they need in minutes. New associates reached
-                    full productivity 3x faster. The firm was live in 10 weeks.
-                  </p>
-                  <p className="text-teal-600 text-sm font-medium">
-                    Based on typical client outcomes
-                  </p>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
@@ -665,335 +508,64 @@ export default function LegalPageClient() {
         </div>
       </section>
 
-      {/* Entity Resolution Section */}
-      <section id="entity-resolution" className="section scroll-mt-24">
+      {/* FAQ Section */}
+      <section id="faq" className="section bg-[#F8F9FA] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="order-2 lg:order-1"
-              >
-                <div className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-5 sm:p-8 rounded-2xl border border-teal-500/20">
-                  <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                    What AI reveals
-                  </h3>
-                  <ul className="space-y-3 sm:space-y-4">
-                    {[
-                      {
-                        title: "Beneficial owners identified",
-                        description: "See through shell companies to find the actual people involved."
-                      },
-                      {
-                        title: "Related parties mapped",
-                        description: "Connections between entities that aren't obvious from public records."
-                      },
-                      {
-                        title: "Corporate hierarchies untangled",
-                        description: "Who owns what, through how many layers of holding companies."
-                      },
-                      {
-                        title: "Conflict checks automated",
-                        description: "Run full conflict checks in minutes instead of hours."
-                      },
-                    ].map((item, index) => (
-                      <li key={index} className="flex items-start gap-2 sm:gap-3">
-                        <svg
-                          className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M13 10V3L4 14h7v7l9-11h-7z"
-                          />
-                        </svg>
-                        <div>
-                          <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
-                          <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-
-              <div className="order-1 lg:order-2">
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-                >
-                  Entity Resolution
-                </motion.p>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
-                >
-                  Know Who You&apos;re Really Dealing With
-                </motion.h2>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
-                >
-                  <p>
-                    LLCs owned by trusts managed by other LLCs. The opposing party is a web of entities
-                    and you need to know who&apos;s actually behind it. Due diligence takes forever
-                    when you&apos;re tracing ownership by hand.
-                  </p>
-                  <p>
-                    In one project, we processed <strong className="text-text-primary">1.69 million records</strong> and
-                    resolved them to <strong className="text-text-primary">1.25 million actual owners</strong> at
-                    a fraction of what manual review would have cost. AI that untangles ownership
-                    structures in hours, not weeks.
-                  </p>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                  className="mt-6"
-                >
-                  <Button variant="secondary" href="/case-studies/army-of-ai-agents" className="min-h-[48px]">
-                    See the Case Study
-                  </Button>
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Associate Enablement Section */}
-      <section id="associate-enablement" className="section bg-[#F8F9FA] scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-                >
-                  Associate Enablement
-                </motion.p>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4 sm:mb-6"
-                >
-                  Stop Losing Knowledge When Partners Retire
-                </motion.h2>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-3 sm:space-y-4 text-text-secondary text-base sm:text-lg"
-                >
-                  <p>
-                    A senior partner retires and 30 years of expertise walks out the door.
-                    Associates can&apos;t learn from work they never see. The same mistakes get made,
-                    the same research gets done, because nobody knows what the firm already figured out.
-                  </p>
-                  <p>
-                    We build systems that capture institutional knowledge and make it accessible.
-                    New associates tap into decades of firm experience from day one.
-                    Partners leave, but what they knew stays.
-                  </p>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                  className="mt-6"
-                >
-                  <Button variant="secondary" href="/resources/guides/associate-multiplier" className="min-h-[48px]">
-                    Get the Associate Multiplier Guide
-                  </Button>
-                </motion.div>
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10"
-              >
-                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6">
-                  What associates can access
-                </h3>
-                <ul className="space-y-3 sm:space-y-4">
-                  {[
-                    {
-                      title: "How partners handled similar issues",
-                      description: "See the actual approach taken on past matters, not just the final work product."
-                    },
-                    {
-                      title: "Firm-specific knowledge",
-                      description: "Client preferences, judge tendencies, strategies that worked. The stuff that's never written down."
-                    },
-                    {
-                      title: "Training that scales",
-                      description: "Every associate gets access to your best attorneys' thinking, not just whoever's nearby."
-                    },
-                    {
-                      title: "Fewer repeat mistakes",
-                      description: "When someone figures something out, the whole firm learns. Not just the people in that hallway."
-                    },
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start gap-2 sm:gap-3">
-                      <svg
-                        className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                        />
-                      </svg>
-                      <div>
-                        <span className="font-medium text-text-primary text-sm sm:text-base">{item.title}</span>
-                        <p className="text-text-secondary text-xs sm:text-sm">{item.description}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Custom Audits Section */}
-      <section id="audits" className="section bg-[#F8F9FA] scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10 sm:mb-16">
+          <div className="max-w-3xl mx-auto">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
             >
-              Personalized for Your Firm
+              Common Questions
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-3 sm:mb-4"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-8 sm:mb-10"
             >
-              Request a Custom Audit
+              What firms ask us
             </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto"
-            >
-              We don&apos;t do cookie-cutter assessments. Each audit is tailored to
-              your firm&apos;s specific situation and delivered by consultants who
-              understand legal operations.
-            </motion.p>
-          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            {/* Audit Cards */}
-            <div className="space-y-4 sm:space-y-6">
-              {legalAudits.map((audit, index) => {
-                const IconComponent = iconMap[audit.icon] || IconClock;
-                const isSelected = selectedAudit === audit.slug;
-
-                return (
-                  <motion.div
-                    key={audit.slug}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className={`p-4 sm:p-6 rounded-2xl border cursor-pointer transition-all min-h-[48px] ${
-                      isSelected
-                        ? "bg-teal-500/5 border-teal-500"
-                        : "bg-[#F8F9FA] border-black/10 hover:border-teal-500/30"
-                    }`}
-                    onClick={() => setSelectedAudit(audit.slug)}
-                  >
-                    <div className="flex items-start gap-3 sm:gap-4">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center rounded-xl bg-teal-500/10 text-teal-500">
-                        <IconComponent />
-                      </div>
-                      <div>
-                        <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-1 sm:mb-2">
-                          {audit.title}
-                        </h3>
-                        <p className="text-text-secondary text-sm sm:text-base mb-2 sm:mb-3">
-                          {audit.description}
-                        </p>
-                        <p className="text-xs sm:text-sm text-text-muted">
-                          <span className="font-medium">You&apos;ll receive:</span>{" "}
-                          {audit.deliverable}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+            <div className="space-y-6">
+              {[
+                {
+                  question: "We already have Westlaw/Lexis.",
+                  answer: "Westlaw and Lexis search published law. We search YOUR firm's work product. The briefs, memos, contracts, and research your attorneys have produced over decades. Different problem, different solution."
+                },
+                {
+                  question: "Our data is too messy to index.",
+                  answer: "Everyone says that. We've indexed firms with 15+ years of unorganized work product. The data is better than you think. Part of onboarding is a document audit where we tell you exactly what's possible."
+                },
+                {
+                  question: "What about client confidentiality?",
+                  answer: "Everything runs on your servers. Client data never touches an outside system. No contracts with OpenAI or any cloud AI provider. Complete audit trails on every query. Designed for ABA 512 compliance from day one."
+                },
+                {
+                  question: "How long does implementation take?",
+                  answer: "Document intelligence is live in 8-12 weeks. You're using it while we're still adding documents. Works with iManage, NetDocuments, or whatever you're running."
+                },
+              ].map((faq, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white p-5 sm:p-6 rounded-xl border border-black/10"
+                >
+                  <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2 sm:mb-3">
+                    {faq.question}
+                  </h3>
+                  <p className="text-text-secondary text-sm sm:text-base">
+                    {faq.answer}
+                  </p>
+                </motion.div>
+              ))}
             </div>
-
-            {/* Request Form */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="bg-white p-5 sm:p-8 rounded-2xl border border-black/10 shadow-sm lg:sticky lg:top-24"
-            >
-              <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2">
-                Request Your Audit
-              </h3>
-              <p className="text-text-secondary text-sm sm:text-base mb-4 sm:mb-6">
-                {selectedAudit
-                  ? `Selected: ${legalAudits.find((a) => a.slug === selectedAudit)?.title}`
-                  : "Select an audit type or tell us about your needs"}
-              </p>
-
-              <EmailCaptureForm
-                formType="audit"
-                resourceSlug={selectedAudit || "general"}
-                resourceTitle={
-                  legalAudits.find((a) => a.slug === selectedAudit)?.title ||
-                  "Custom Audit Request"
-                }
-                submitButtonText="Request Audit"
-                showPhoneField
-                showMessageField
-              />
-            </motion.div>
           </div>
         </div>
       </section>
@@ -1026,13 +598,12 @@ export default function LegalPageClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto"
             >
-              Practical insights you can use today. No fluff, no sales pitches, just
-              strategies from firms that have done it.
+              Practical insights you can use today. No fluff, no sales pitches, just strategies from firms that have done it.
             </motion.p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {legalGuides.map((guide, index) => (
+            {displayGuides.map((guide, index) => (
               <motion.div
                 key={guide.slug}
                 initial={{ opacity: 0, y: 20 }}
@@ -1078,120 +649,12 @@ export default function LegalPageClient() {
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="section">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10 sm:mb-16">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-            >
-              What You Get
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary"
-            >
-              The outcomes that matter
-            </motion.h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {content.benefits.map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-5 sm:p-6 rounded-xl bg-gradient-to-br from-teal-500/5 to-teal-500/10 border border-teal-500/20"
-              >
-                <div className="flex items-start gap-2 sm:gap-3">
-                  <svg
-                    className="w-5 h-5 sm:w-6 sm:h-6 text-teal-500 flex-shrink-0 mt-0.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold text-text-primary mb-1">
-                      {benefit.title}
-                    </h3>
-                    <p className="text-text-secondary text-xs sm:text-sm">{benefit.description}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* The Math Changed Section */}
-      <section className="section bg-[#F8F9FA]">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-teal-500 font-medium mb-3 sm:mb-4 tracking-wide uppercase text-sm"
-            >
-              Why Now
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-6 sm:mb-8"
-            >
-              The Math Changed
-            </motion.h2>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="space-y-4 sm:space-y-6 text-text-secondary text-base sm:text-lg"
-            >
-              <p>
-                Custom legal technology used to be out of reach for mid-sized firms.
-                The projects cost too much. The timelines stretched too long. So you
-                settled for software that kind of worked.
-              </p>
-              <p>
-                AI changed that. Senior consultants with AI tools deliver what used to
-                require a team of five. Weeks instead of months. A fraction of the cost.
-                Built around how you already work, so adoption is smooth.
-              </p>
-              <p className="text-text-primary font-medium">
-                The firms moving now are building advantages that compound. Every document
-                makes the system smarter. Every matter makes the next one easier. Their
-                competitors are still evaluating vendors.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <CTA
         title="Let's talk about your firm"
-        description="30 minutes. We'll look at your specific situation and show you what's possible. No pitch deck, no pressure."
+        description="30 minutes. We'll look at your specific situation and show you what's possible. Want a custom audit instead? We do those too."
         primaryCta={{ label: "Schedule a 30-Minute Demo", href: "/contact" }}
-        secondaryCta={{ label: "5-Min Assessment → Get Your AI Roadmap", href: "/assessments/legal" }}
+        secondaryCta={{ label: "5-Min Assessment", href: "/assessments/legal" }}
         variant="gradient"
       />
     </>

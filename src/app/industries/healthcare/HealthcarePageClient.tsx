@@ -14,9 +14,7 @@ const HEALTHCARE_LOTTIE_URL = "/animations/healthcare-industry.json";
 // Jump link navigation items
 const navItems = [
   { id: "problem", label: "The Problem" },
-  { id: "solution", label: "How We Help" },
-  { id: "results", label: "Results" },
-  { id: "privacy", label: "Privacy" },
+  { id: "solution", label: "Solutions" },
   { id: "faq", label: "FAQ" },
   { id: "guides", label: "Guides" },
 ];
@@ -55,7 +53,7 @@ export default function HealthcarePageClient() {
 
   return (
     <>
-      {/* Hero Section - Simplified */}
+      {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden pt-16 md:pt-20">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-teal-500/5" />
         <div className="glow-spot glow-spot-teal glow-spot-lg absolute -top-20 -right-20 opacity-60" />
@@ -108,9 +106,13 @@ export default function HealthcarePageClient() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4"
             >
-              <Button variant="primary" size="lg" href="/contact" className="min-h-[48px]">
+              <Button variant="primary" size="lg" href="/contact" className="w-full sm:w-auto min-h-[48px]">
                 See a Demo
+              </Button>
+              <Button variant="secondary" size="lg" href="/assessments/healthcare-ai-readiness" className="w-full sm:w-auto min-h-[48px]">
+                Take the 5-Min Assessment
               </Button>
             </motion.div>
           </div>
@@ -138,7 +140,7 @@ export default function HealthcarePageClient() {
         </div>
       </nav>
 
-      {/* The Problem Section - Consolidated */}
+      {/* The Problem Section */}
       <section id="problem" className="section scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
@@ -180,7 +182,7 @@ export default function HealthcarePageClient() {
               ))}
             </motion.div>
 
-            {/* Pain Points - Horizontal Cards */}
+            {/* Pain Points */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
                 {
@@ -261,6 +263,11 @@ export default function HealthcarePageClient() {
                       </li>
                     ))}
                   </ul>
+                  <div className="mt-4 p-3 rounded-lg bg-teal-500/10 border border-teal-500/20">
+                    <p className="text-sm text-teal-600 font-medium">
+                      One 12-location practice went from 15-minute protocol lookups to 30 seconds. 3,000+ documents searchable from day one.
+                    </p>
+                  </div>
                 </div>
                 <div className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-6 rounded-xl border border-teal-500/20">
                   <p className="text-sm text-teal-600 font-medium mb-2">What becomes searchable</p>
@@ -270,6 +277,7 @@ export default function HealthcarePageClient() {
                     <li>• Payer requirements by procedure</li>
                     <li>• Formulary and product information</li>
                     <li>• Training materials and SOPs</li>
+                    <li>• Works with Epic, Cerner, athenahealth, and 40+ others</li>
                   </ul>
                 </div>
               </div>
@@ -326,147 +334,7 @@ export default function HealthcarePageClient() {
         </div>
       </section>
 
-      {/* Results Section - Mini Case Study + ROI */}
-      <section id="results" className="section scroll-mt-32">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-10"
-            >
-              <p className="text-teal-500 font-medium mb-3 tracking-wide uppercase text-sm">
-                Results
-              </p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary">
-                From 15 Minutes to 30 Seconds
-              </h2>
-            </motion.div>
-
-            {/* Case Study Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-gradient-to-br from-teal-500/10 to-teal-500/5 p-6 sm:p-8 rounded-2xl border border-teal-500/20 mb-8"
-            >
-              <p className="text-text-secondary text-base sm:text-lg mb-6">
-                A 12-location specialty practice had 20 years of clinical knowledge scattered across shared drives and key people&apos;s memories. We turned 3,000+ documents into a searchable knowledge base. Now protocol lookups take 30 seconds. New hires get answers from day one.
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {[
-                  { stat: "30 sec", label: "Protocol lookups (was 15 min)" },
-                  { stat: "3,000+", label: "Documents searchable" },
-                  { stat: "Day 1", label: "New hire productivity" },
-                  { stat: "4-6 mo", label: "Typical payback" },
-                ].map((item, index) => (
-                  <div key={index} className="text-center">
-                    <p className="text-xl sm:text-2xl font-bold text-teal-600">{item.stat}</p>
-                    <p className="text-text-secondary text-xs sm:text-sm">{item.label}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* ROI Box */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-white p-6 rounded-xl border border-black/10"
-            >
-              <h3 className="text-lg font-semibold text-text-primary mb-3">The ROI math</h3>
-              <p className="text-text-secondary text-sm mb-4">
-                Take your denial rate, multiply by claims. If document intelligence cuts denials by 15%, payback is months, not years. Add time savings: 13 hours per physician per week on PA, 5+ hours per staff member on document hunting. At scale, that&apos;s FTE-level capacity without adding headcount.
-              </p>
-              <Button variant="secondary" size="sm" href="/contact">
-                Get Your Numbers
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Privacy Section - Consolidated */}
-      <section id="privacy" className="section bg-[#F8F9FA] scroll-mt-32">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                <p className="text-teal-500 font-medium mb-3 tracking-wide uppercase text-sm">
-                  Privacy & Compliance
-                </p>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4">
-                  42% of Breaches Come from Vendors. Yours Won&apos;t.
-                </h2>
-                <p className="text-text-secondary mb-4">
-                  Most AI tools want your patient data in their cloud. We do it differently. Everything runs on your servers. Patient information never leaves your building.
-                </p>
-                <p className="text-text-primary font-medium">
-                  HIPAA compliant is the minimum. Your PHI never touches an outside system.
-                </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="bg-white p-6 rounded-xl border border-black/10"
-              >
-                <ul className="space-y-4">
-                  {[
-                    { title: "Runs on your systems", desc: "AI on your computers. Data never touches outside servers." },
-                    { title: "No extra vendor agreements", desc: "No new contracts with AI companies." },
-                    { title: "Complete audit trail", desc: "Every query logged. See who searched what." },
-                    { title: "Works with Epic, Cerner, athenahealth, and 40+ others", desc: "Connects to your existing EHR. No rip-and-replace." },
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
-                      <div>
-                        <span className="font-medium text-text-primary text-sm">{item.title}</span>
-                        <p className="text-text-secondary text-xs">{item.desc}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
-
-            {/* PE-Backed Callout */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="mt-10 p-6 rounded-xl bg-white border border-black/10"
-            >
-              <div className="flex flex-col md:flex-row md:items-center gap-4">
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-text-primary mb-1">PE-Backed? We Get It.</h3>
-                  <p className="text-text-secondary text-sm">
-                    Portfolio-wide visibility without the 18-month integration. Different PMS at every location? We give you one unified view. EBITDA improvements you can measure. Exit-ready reporting.
-                  </p>
-                </div>
-                <Button variant="secondary" size="sm" href="/resources/guides/pe-healthcare-operations">
-                  PE Operations Guide
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section - Simplified */}
+      {/* FAQ Section */}
       <section id="faq" className="section scroll-mt-32">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
@@ -491,16 +359,16 @@ export default function HealthcarePageClient() {
                   a: "Epic provides excellent tools for Epic data. We work with everything else: faxes, PDFs, external records, payer documents, policy manuals. The 97% of healthcare information that lives outside your EHR.",
                 },
                 {
-                  q: "\"We're too small for this\"",
-                  a: "We work with organizations from 5 locations to 50. The technology that was enterprise-only two years ago now costs a fraction. Pricing scales with your size.",
-                },
-                {
                   q: "\"How do we know the AI is accurate?\"",
                   a: "Every answer includes links to source documents. Staff verify before acting. AI accelerates the search, humans make decisions. No black boxes.",
                 },
                 {
-                  q: "\"Our staff won't adopt new technology\"",
-                  a: "It's a search box. Staff type a question, get an answer. As simple as Google. Most teams are using it within days.",
+                  q: "\"What about HIPAA compliance?\"",
+                  a: "Everything runs on your servers. Patient data never touches an outside system. No new vendor agreements with AI companies. Complete audit trails on every query. HIPAA compliant is the minimum.",
+                },
+                {
+                  q: "\"We have multiple locations with different systems\"",
+                  a: "That's exactly who we built this for. Different PMS at every location? We give you one unified view. Portfolio-wide visibility without the 18-month integration. Works with Epic, Cerner, athenahealth, and 40+ others.",
                 },
               ].map((item, index) => (
                 <motion.div
@@ -541,8 +409,8 @@ export default function HealthcarePageClient() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {healthcareGuides.map((guide, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {healthcareGuides.slice(0, 3).map((guide, index) => (
                 <motion.div
                   key={guide.slug}
                   initial={{ opacity: 0, y: 20 }}
@@ -569,11 +437,27 @@ export default function HealthcarePageClient() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Assessment CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="mt-8 text-center"
+            >
+              <p className="text-text-secondary text-sm mb-3">
+                Not sure where to start? Find out in 5 minutes.
+              </p>
+              <Button variant="secondary" size="md" href="/assessments/healthcare-ai-readiness">
+                Take the Healthcare AI Readiness Assessment
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* CTA - Single Focus */}
+      {/* CTA */}
       <CTA
         title="See what this looks like for you"
         description="30 minutes. We'll look at your situation and show you what's possible. No pitch deck."
