@@ -185,7 +185,7 @@ This is the DataBender marketing website built with Next.js 16 (App Router), Rea
   - `case-studies/` - Shared case study components
   - `case-study-diagrams/` - Interactive diagram system for case studies
 - `src/lib/` - Data and utilities:
-  - `services-data.ts` - Service definitions and content
+  - `services-data.ts` - Service definitions and content (4 services: Get Clarity, See What's Happening, Put AI to Work, Build What You Need)
   - `industries-data.ts` - Industry pages data
   - `case-studies-data.ts` - Case study definitions and testimonials
   - `blog-data.ts` - Blog post content and metadata
