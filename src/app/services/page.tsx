@@ -15,7 +15,7 @@ const servicesFAQs: FAQItem[] = [
   },
   {
     question: "What industries do you work with?",
-    answer: "We work with mid-market companies across multiple industries including manufacturing, healthcare, legal services, financial services, and professional services. Our approach adapts to industry-specific challenges while leveraging cross-industry best practices in data management and AI implementation."
+    answer: "We work with mid-market companies across multiple industries including manufacturing, healthcare, legal services, financial services, and professional services. Our approach adapts to industry-specific challenges while applying cross-industry best practices in data management and AI."
   },
   {
     question: "How is Databender different from other consultancies?",
@@ -24,13 +24,13 @@ const servicesFAQs: FAQItem[] = [
 ];
 
 export const metadata: Metadata = {
-  title: "Data & AI Services | Strategy, Analytics & Automation | Databender",
+  title: "Data & AI Services | Purpose-Built Solutions | Databender",
   description:
-    "Transform your data into business results with Databender's three core services: Data & AI Strategy for building your foundation, Analytics & BI for actionable insights, and AI Services for intelligent automation. Enterprise-grade solutions for mid-market companies.",
+    "Get clarity. See what's happening. Put AI to work. Build what you need. Purpose-built data and AI solutions that fit your exact workflow. No bloatware, no compromises.",
   openGraph: {
-    title: "Data & AI Services | Strategy, Analytics & Automation | Databender",
+    title: "Data & AI Services | Purpose-Built Solutions | Databender",
     description:
-      "Transform your data into business results with Databender's three core services: Data & AI Strategy, Analytics & BI, and AI Services for intelligent automation.",
+      "Purpose-built data and AI solutions that fit your exact workflow. Get clarity, see what's happening, put AI to work, build what you need.",
     type: "website",
     images: [
       {
@@ -43,9 +43,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Data & AI Services | Strategy, Analytics & Automation | Databender",
+    title: "Data & AI Services | Purpose-Built Solutions | Databender",
     description:
-      "Transform your data into business results with Databender's three core services: Data & AI Strategy, Analytics & BI, and AI Services for intelligent automation.",
+      "Purpose-built data and AI solutions that fit your exact workflow. Get clarity, see what's happening, put AI to work, build what you need.",
     images: ["https://databender.co/opengraph-image"],
   },
   alternates: {

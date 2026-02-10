@@ -52,7 +52,7 @@ export const manufacturingTemplate: IndustryTemplate = {
     { issue: "Quality escapes", impact: "Defects caught at customer, not production" },
   ],
   totalCostStatementTemplate:
-    "For a {companySize} manufacturer, even a 1% improvement in yield or a 5% reduction in scrap represents significant six-figure annual savings.",
+    "For a {companySize} manufacturer, even a 1% improvement in yield or a 5% reduction in scrap represents six-figure annual savings.",
 
   // Solution
   opportunityHeadline: "A Unified View of Your Operations",
@@ -94,7 +94,7 @@ export const manufacturingTemplate: IndustryTemplate = {
     "A 1% improvement in yield or scrap rate typically pays for the entire system in the first year.",
 
   // Questions
-  questionsIntro: "Before we talk, it might be worth considering:",
+  questionsIntro: "Before we talk, ask yourself:",
   questions: [
     "How long does it take to get true cost per unit across all products?",
     "Do you know which products are actually profitable after all overhead?",
@@ -113,7 +113,7 @@ export const manufacturingTemplate: IndustryTemplate = {
 
   // Templates
   introHookTemplate:
-    "Your operations generate data constantly—from the shop floor to the ERP. But turning that data into actionable insights still requires weeks of manual consolidation. That was acceptable when the alternative was multi-million dollar enterprise platforms. It's not acceptable anymore.",
+    "Your operations generate data constantly. From the shop floor to the ERP. But turning that data into useful insights still requires weeks of manual consolidation. That was acceptable when the alternative was multi-million dollar enterprise platforms. It's not acceptable anymore.",
   keyInsightTemplate:
-    "Modern data tools have made sophisticated manufacturing analytics accessible to mid-sized companies. The visibility gap between you and the Fortune 500 is closing fast.",
+    "Modern data tools have made manufacturing analytics accessible to mid-sized companies. The visibility gap between you and the Fortune 500 is closing fast.",
 };

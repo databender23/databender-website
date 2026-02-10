@@ -113,7 +113,7 @@ export const healthcareTemplate: IndustryTemplate = {
 
   // Templates
   introHookTemplate:
-    "Your organization generates enormous amounts of data every day. But turning that data into actionable insights still requires weeks of analyst time and multiple system exports. That was acceptable when the alternative was million-dollar enterprise platforms. It's not acceptable anymore.",
+    "Your organization generates enormous amounts of data every day. But turning that data into useful insights still requires weeks of analyst time and multiple system exports. That was acceptable when the alternative was million-dollar enterprise platforms. It's not acceptable anymore.",
   keyInsightTemplate:
-    "AI and modern data tools have made sophisticated analytics accessible to organizations of any size. The gap between what PE-backed platforms can see and what you can see is closing fast.",
+    "AI and modern data tools have made powerful analytics accessible to organizations of any size. The gap between what PE-backed platforms can see and what you can see is closing fast.",
 };

@@ -443,21 +443,67 @@ function CostCalculator({ page }: { page: ProspectPage }) {
   const isInView = useInView(ref, { once: true });
   const [step, setStep] = useState(0);
 
-  // Extract attorney count from companySize (e.g., "80 attorneys" → 80)
-  const attorneyMatch = page.companySize.match(/(\d+)/);
-  const attorneyCount = attorneyMatch ? parseInt(attorneyMatch[1], 10) : 50;
+  // Parse company size - could be "80 attorneys", "$45M revenue", "12 locations", etc.
+  const sizeMatch = page.companySize.match(/(\d+)/);
+  const sizeNumber = sizeMatch ? parseInt(sizeMatch[1], 10) : 50;
 
-  // Calculations
-  const hoursPerWeek = 10; // midpoint of 8-12
+  // Check if it's a revenue figure (contains $ or M/K)
+  const isRevenue = /\$|revenue/i.test(page.companySize);
+  const revenueInMillions = isRevenue ? (page.companySize.includes('M') ? sizeNumber : sizeNumber / 1000) : 0;
+
+  // Industry-specific calculations
+  const isKnowledgeWork = ["legal", "accounting"].includes(page.industry);
   const weeksPerYear = 48;
-  const avgHourlyRate = 300; // blended rate
-  const duplicateResearchCost = attorneyCount * hoursPerWeek * weeksPerYear * avgHourlyRate;
 
-  const interruptionsPerWeek = 3;
-  const interruptionCost = 600; // midpoint of $400-800
-  const partnerInterruptionsCost = attorneyCount * interruptionsPerWeek * weeksPerYear * interruptionCost * 0.3; // 30% are partners
+  // Knowledge work: associates × hours/week × rate (excluding partners/seniors)
+  const totalHeadcount = sizeNumber;
+  const seniorCount = Math.round(totalHeadcount * 0.3); // ~30% are partners/seniors
+  const associateCount = totalHeadcount - seniorCount; // ~70% are associates
+  const hoursPerWeek = 2;
+  const avgHourlyRate = page.industry === "legal" ? 300 : 200; // Legal bills higher
+  const duplicateResearchCost = associateCount * hoursPerWeek * weeksPerYear * avgHourlyRate;
 
-  const totalAnnualCost = duplicateResearchCost + partnerInterruptionsCost;
+  // Senior/partner interruptions for knowledge work
+  const seniorHourlyRate = page.industry === "legal" ? 800 : 500;
+  const seniorInterruptionsCost = seniorCount * 1 * seniorHourlyRate * weeksPerYear;
+
+  // Revenue-based industries: % of revenue lost
+  const revenueLossPercentMap: Record<string, number> = {
+    healthcare: 0.03, // 3% revenue leakage
+    manufacturing: 0.02, // 2% margin leakage
+    construction: 0.025, // 2.5% unbilled change orders
+    cre: 0.02, // 2% from inefficiencies
+    "wholesale-distribution": 0.03, // 3% margin leakage
+  };
+  const revenueLossPercent = revenueLossPercentMap[page.industry] || 0.02;
+
+  const revenueLossCost = revenueInMillions * 1000000 * revenueLossPercent;
+  const manualReportingHours = 30; // hours/month
+  const analystRate = 75;
+  const manualReportingCost = manualReportingHours * 12 * analystRate;
+
+  // Total based on industry type
+  const totalAnnualCost = isKnowledgeWork
+    ? duplicateResearchCost + seniorInterruptionsCost
+    : isRevenue
+      ? revenueLossCost + manualReportingCost
+      : duplicateResearchCost; // Fallback for location-based
+
+  // Industry-specific labels
+  const employeeLabelMap: Record<string, string> = {
+    legal: "attorneys",
+    accounting: "staff",
+    healthcare: "staff",
+    manufacturing: "employees",
+    construction: "employees",
+    cre: "team members",
+    "wholesale-distribution": "employees",
+    dental: "staff",
+    general: "employees",
+  };
+  const employeeLabel = employeeLabelMap[page.industry] || "employees";
+
+  const seniorLabel = page.industry === "legal" ? "partners" : "senior staff";
 
   useEffect(() => {
     if (!isInView) return;
@@ -491,24 +537,47 @@ function CostCalculator({ page }: { page: ProspectPage }) {
         <p className="text-sm font-medium text-text-muted mb-6 text-center">Conservative estimate for {page.companyName}</p>
 
         <div className="space-y-4 font-mono text-sm">
-          {/* Line 1: Duplicate research */}
+          {/* Line 1: Primary cost driver */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: step >= 1 ? 1 : 0, x: step >= 1 ? 0 : -20 }}
             className="flex items-center justify-between py-2 border-b border-dashed border-gray-200"
           >
-            <span className="text-text-secondary">{attorneyCount} attorneys × 10 hrs/week × 48 weeks × $300/hr</span>
-            <span className="font-bold text-text-primary">{formatCurrency(duplicateResearchCost)}</span>
+            {isKnowledgeWork ? (
+              <>
+                <span className="text-text-secondary">{associateCount} {employeeLabel} × {hoursPerWeek} hrs/week × 48 weeks × ${avgHourlyRate}/hr</span>
+                <span className="font-bold text-text-primary">{formatCurrency(duplicateResearchCost)}</span>
+              </>
+            ) : isRevenue ? (
+              <>
+                <span className="text-text-secondary">${revenueInMillions}M revenue × {(revenueLossPercent * 100).toFixed(0)}% leakage</span>
+                <span className="font-bold text-text-primary">{formatCurrency(revenueLossCost)}</span>
+              </>
+            ) : (
+              <>
+                <span className="text-text-secondary">{totalHeadcount} {employeeLabel} × {hoursPerWeek} hrs/week × 48 weeks × ${avgHourlyRate}/hr</span>
+                <span className="font-bold text-text-primary">{formatCurrency(duplicateResearchCost)}</span>
+              </>
+            )}
           </motion.div>
 
-          {/* Line 2: Partner interruptions */}
+          {/* Line 2: Secondary cost driver */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: step >= 2 ? 1 : 0, x: step >= 2 ? 0 : -20 }}
             className="flex items-center justify-between py-2 border-b border-dashed border-gray-200"
           >
-            <span className="text-text-secondary">Partner interruptions (est.)</span>
-            <span className="font-bold text-text-primary">+ {formatCurrency(partnerInterruptionsCost)}</span>
+            {isKnowledgeWork ? (
+              <>
+                <span className="text-text-secondary">~{seniorCount} {seniorLabel} × 1 hr/week × ${seniorHourlyRate}/hr × 48 weeks</span>
+                <span className="font-bold text-text-primary">+ {formatCurrency(seniorInterruptionsCost)}</span>
+              </>
+            ) : (
+              <>
+                <span className="text-text-secondary">Manual reporting: {manualReportingHours} hrs/month × 12 months × ${analystRate}/hr</span>
+                <span className="font-bold text-text-primary">+ {formatCurrency(manualReportingCost)}</span>
+              </>
+            )}
           </motion.div>
 
           {/* Line 3: Divider with equals */}
@@ -750,8 +819,9 @@ function ProspectContent({ page }: { page: ProspectPage }) {
             >
               <div className="rounded-2xl overflow-hidden shadow-xl border border-black/5">
                 <SearchJourneyAnimation
-                  searchQuery="MedTech Partners earnout"
-                  dmsName={page.currentTools.find(t => t.category === "Document Management")?.tools.split(" ")[0] || "iManage"}
+                  searchQuery={page.searchQuery}
+                  dmsName={page.dmsName}
+                  industry={page.industry}
                 />
               </div>
             </motion.div>
@@ -879,15 +949,7 @@ function ProspectContent({ page }: { page: ProspectPage }) {
               <div className="rounded-2xl overflow-hidden shadow-xl border border-black/5">
                 <KnowledgeHubAnimation
                   companyName={page.companyName.split(" ")[0]}
-                  practiceAreas={
-                    page.industry === "legal"
-                      ? ["Real Estate", "Corporate M&A", "Employment", "Trusts & Estates"]
-                      : page.industry === "healthcare"
-                      ? ["Clinical Ops", "Revenue Cycle", "Compliance", "Quality"]
-                      : page.industry === "manufacturing"
-                      ? ["Production", "Supply Chain", "Quality", "Maintenance"]
-                      : ["Operations", "Finance", "Sales", "HR"]
-                  }
+                  practiceAreas={page.practiceAreas}
                 />
               </div>
             </div>
@@ -1104,6 +1166,35 @@ function ProspectContent({ page }: { page: ProspectPage }) {
         </div>
       </motion.section>
 
+      {/* ===== ABOUT DATABENDER ===== */}
+      <section className="py-12 bg-white border-t border-border">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left">
+            <p className="text-text-muted text-sm">
+              Want to learn more about who we are?
+            </p>
+            <div className="flex items-center gap-4">
+              <Link
+                href="/about"
+                className="text-sm text-text-secondary hover:text-teal-500 transition-colors underline underline-offset-2"
+              >
+                About Databender
+              </Link>
+              <span className="text-border">•</span>
+              <Link
+                href="/services"
+                className="text-sm text-text-secondary hover:text-teal-500 transition-colors underline underline-offset-2"
+              >
+                Our Services
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== TESTIMONIALS CAROUSEL ===== */}
+      <TestimonialsCarousel onSectionView={() => trackSectionView("testimonials")} />
+
       {/* ===== CASE STUDIES ===== */}
       <motion.section
         className="py-20 bg-white"
@@ -1208,35 +1299,6 @@ function ProspectContent({ page }: { page: ProspectPage }) {
           </motion.div>
         </div>
       </motion.section>
-
-      {/* ===== TESTIMONIALS CAROUSEL ===== */}
-      <TestimonialsCarousel onSectionView={() => trackSectionView("testimonials")} />
-
-      {/* ===== ABOUT DATABENDER ===== */}
-      <section className="py-12 bg-white border-t border-border">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left">
-            <p className="text-text-muted text-sm">
-              Want to learn more about who we are?
-            </p>
-            <div className="flex items-center gap-4">
-              <Link
-                href="/about"
-                className="text-sm text-text-secondary hover:text-teal-500 transition-colors underline underline-offset-2"
-              >
-                About Databender
-              </Link>
-              <span className="text-border">•</span>
-              <Link
-                href="/"
-                className="text-sm text-text-secondary hover:text-teal-500 transition-colors underline underline-offset-2"
-              >
-                Our Services
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

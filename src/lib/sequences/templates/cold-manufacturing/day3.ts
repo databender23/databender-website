@@ -1,7 +1,7 @@
 /**
  * Day 3 Cold Manufacturing Email Template
  *
- * Follow-up with specific stat about manual reporting time
+ * Follow-up: plant managers get 10+ hours/week back, support 20% more volume
  * Plain-text style for better deliverability
  */
 
@@ -37,9 +37,11 @@ export function getDay3ColdManufacturingTemplate(params: ColdManufacturingParams
 
   <p>Following up on my note about operational visibility.</p>
 
-  <p>Here's what we've found: manufacturers typically don't realize how much time their best people spend on manual reporting. Plant managers spending 10+ hours a week just assembling data. That's time that could go toward actually improving operations.</p>
+  <p>Here's something that surprises most plant managers: they're spending 10+ hours a week just assembling reports. Pulling from the ERP, the MES, quality logs, Excel files. That's a quarter of their week gone before they do anything with the data.</p>
 
-  <p>The fix isn't a massive ERP overhaul. It's connecting what you already have so the data flows automatically. One senior consultant with AI delivers what used to require a team of 5. And you own the result. No ongoing licensing fees.</p>
+  <p>What if that reporting happened automatically? Your plant managers get that time back and spend it on what they're actually good at: improving operations. Manufacturers tell me they can support 20% more volume without adding headcount once the data stops being a bottleneck.</p>
+
+  <p>No ERP overhaul needed. You connect what you already have. You own the result. No ongoing licensing fees.</p>
 
   <p>Would a 15-minute call be useful to explore whether this applies to ${company}?</p>
 
@@ -57,9 +59,11 @@ export function getDay3ColdManufacturingTemplate(params: ColdManufacturingParams
 
 Following up on my note about operational visibility.
 
-Here's what we've found: manufacturers typically don't realize how much time their best people spend on manual reporting. Plant managers spending 10+ hours a week just assembling data. That's time that could go toward actually improving operations.
+Here's something that surprises most plant managers: they're spending 10+ hours a week just assembling reports. Pulling from the ERP, the MES, quality logs, Excel files. That's a quarter of their week gone before they do anything with the data.
 
-The fix isn't a massive ERP overhaul. It's connecting what you already have so the data flows automatically. One senior consultant with AI delivers what used to require a team of 5. And you own the result. No ongoing licensing fees.
+What if that reporting happened automatically? Your plant managers get that time back and spend it on what they're actually good at: improving operations. Manufacturers tell me they can support 20% more volume without adding headcount once the data stops being a bottleneck.
+
+No ERP overhaul needed. You connect what you already have. You own the result. No ongoing licensing fees.
 
 Would a 15-minute call be useful to explore whether this applies to ${company}?
 

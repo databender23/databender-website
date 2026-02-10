@@ -71,6 +71,12 @@ const IconCpu = () => (
   </svg>
 );
 
+const IconCode = () => (
+  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+  </svg>
+);
+
 const iconMap: Record<string, React.FC> = {
   database: IconDatabase,
   link: IconLink,
@@ -82,6 +88,7 @@ const iconMap: Record<string, React.FC> = {
   lightbulb: IconLightbulb,
   book: IconBook,
   cpu: IconCpu,
+  code: IconCode,
 };
 
 interface Props {
@@ -93,6 +100,7 @@ const LOTTIE_URLS: Record<string, string> = {
   "data-ai-strategy": "/animations/data-management.json",
   "analytics-bi": "/animations/analytics-bi.json",
   "ai-services": "/animations/ai-services.json",
+  "custom-software": "/animations/custom-software.json",
 };
 
 // Animation speeds per service
@@ -100,6 +108,7 @@ const ANIMATION_SPEEDS: Record<string, number> = {
   "data-ai-strategy": 1.3,
   "analytics-bi": 0.5,
   "ai-services": 1,
+  "custom-software": 1,
 };
 
 // Animation crop percentages per service (crops from top)
@@ -107,6 +116,7 @@ const ANIMATION_CROPS: Record<string, number> = {
   "data-ai-strategy": 12,
   "analytics-bi": 12,
   "ai-services": 12,
+  "custom-software": 12,
 };
 
 export default function ServicePageClient({ service }: Props) {
@@ -222,7 +232,7 @@ export default function ServicePageClient({ service }: Props) {
               transition={{ duration: 0.5 }}
               className="text-teal-500 font-medium mb-4 tracking-wide uppercase text-sm"
             >
-              Services
+              {service.shortTitle}
             </motion.p>
 
             <motion.h1

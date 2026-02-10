@@ -94,7 +94,7 @@ export const generalTemplate: IndustryTemplate = {
     "The ROI math isn't close. If it saves your team just 10 hours per week, it pays for itself in year one.",
 
   // Questions
-  questionsIntro: "Before we talk, it might be worth considering:",
+  questionsIntro: "Before we talk, ask yourself:",
   questions: [
     "How many hours per week does your team spend pulling data and building reports?",
     "When was the last time a decision waited because nobody could get the right numbers?",

@@ -1,7 +1,7 @@
 /**
  * Day 3 Cold Legal Email Template
  *
- * Follow-up with specific stat/proof on the economics shift
+ * Follow-up with specific outcomes: less fragmentation, better win rates
  * Plain-text style for better deliverability
  */
 
@@ -35,13 +35,13 @@ export function getDay3ColdLegalTemplate(params: ColdLegalParams): EmailTemplate
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Following up on my note about the economics shift in legal tech.</p>
+  <p>Following up on my note about associate productivity.</p>
 
-  <p>Here's what's changed: AI has made senior talent 3-5x more productive. One experienced consultant now delivers what used to require a team of five. The cost savings flow directly to you.</p>
+  <p>Here's what firms are getting right now: a single system that connects their DMS, billing, and matter management. New matter comes in, relevant past work shows up automatically. No toggling between five systems. No asking around the office hoping someone remembers.</p>
 
-  <p>The firms getting ahead aren't buying another SaaS platform. They're building purpose-built systems that fit their workflow. No configuration headaches. No per-seat fees eating into margins.</p>
+  <p>The result? Associates spend time on legal work, not searching. Pitches include real data on past wins (firms report 31% better win rates when they can). And when a senior partner leaves, the institutional knowledge doesn't walk out the door.</p>
 
-  <p>How many different systems do your people touch in a typical matter? That fragmentation is solvable now. It wasn't two years ago.</p>
+  <p>These purpose-built systems cost a fraction of what SaaS platforms charge. And you own them outright. No per-seat fees eating into margins.</p>
 
   <p>Worth 15 minutes to see if this applies to ${company}?</p>
 
@@ -57,13 +57,13 @@ export function getDay3ColdLegalTemplate(params: ColdLegalParams): EmailTemplate
 
   const textBody = `Hi ${firstName},
 
-Following up on my note about the economics shift in legal tech.
+Following up on my note about associate productivity.
 
-Here's what's changed: AI has made senior talent 3-5x more productive. One experienced consultant now delivers what used to require a team of five. The cost savings flow directly to you.
+Here's what firms are getting right now: a single system that connects their DMS, billing, and matter management. New matter comes in, relevant past work shows up automatically. No toggling between five systems. No asking around the office hoping someone remembers.
 
-The firms getting ahead aren't buying another SaaS platform. They're building purpose-built systems that fit their workflow. No configuration headaches. No per-seat fees eating into margins.
+The result? Associates spend time on legal work, not searching. Pitches include real data on past wins (firms report 31% better win rates when they can). And when a senior partner leaves, the institutional knowledge doesn't walk out the door.
 
-How many different systems do your people touch in a typical matter? That fragmentation is solvable now. It wasn't two years ago.
+These purpose-built systems cost a fraction of what SaaS platforms charge. And you own them outright. No per-seat fees eating into margins.
 
 Worth 15 minutes to see if this applies to ${company}?
 

@@ -100,8 +100,8 @@ export default function ContactClient() {
     <>
       <Hero
         subtitle="Contact Us"
-        title="Let's talk about your data"
-        description="Schedule a 30-minute call or send us a message. We'll talk about your situation and whether we can help."
+        title="Let's talk about what's possible"
+        description="Schedule a 30-minute call or send us a message. Tell us what perfect looks like. We'll tell you how fast we can build it."
       />
 
       <section className="section">

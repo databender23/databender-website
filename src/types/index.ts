@@ -5,7 +5,7 @@ export interface Service {
   shortTitle: string;
   description: string;
   icon: string;
-  category: "data-ai-strategy" | "analytics-bi" | "ai-services";
+  category: "data-ai-strategy" | "analytics-bi" | "ai-services" | "custom-software";
   isFlagship?: boolean;
 }
 

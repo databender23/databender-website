@@ -4,9 +4,9 @@ import { JsonLd } from "@/components/seo";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Our Process | How We Solve Problems Your Competitors Can't",
+  title: "Our Process | Rethink What's Possible | Databender",
   description:
-    "Agentic AI changes what's economically feasible. 125x cost savings, 31% better predictions. See how our 4-phase approach delivers real outcomes in regulated industries.",
+    "Custom software that used to take months ships in weeks. See how our 4-phase approach builds purpose-built solutions you own outright. 125x cost savings, 31% better predictions.",
   keywords: [
     "data consulting process",
     "AI implementation methodology",
@@ -16,17 +16,17 @@ export const metadata: Metadata = {
     "AI project management",
   ],
   openGraph: {
-    title: "Our Process | How We Solve Problems Your Competitors Can't",
+    title: "Our Process | Rethink What's Possible | Databender",
     description:
-      "Agentic AI changes what's economically feasible. 125x cost savings, 31% better predictions. See how our 4-phase approach delivers real outcomes in regulated industries.",
+      "Custom software that used to take months ships in weeks. Our 4-phase approach builds purpose-built solutions you own outright.",
     type: "website",
     url: "https://databender.co/our-process",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Our Process | How We Solve Problems Your Competitors Can't",
+    title: "Our Process | Rethink What's Possible | Databender",
     description:
-      "Agentic AI changes what's economically feasible. 125x cost savings, 31% better predictions. See how our 4-phase approach delivers real outcomes in regulated industries.",
+      "Custom software that used to take months ships in weeks. Our 4-phase approach builds purpose-built solutions you own outright.",
     images: ["https://databender.co/opengraph-image"],
   },
   alternates: {

@@ -16,7 +16,7 @@ import {
 const servicesFAQs: FAQItem[] = [
   {
     question: "What services does Databender offer?",
-    answer: "Databender offers three core services that work together: Data & AI Strategy (building your data foundation), Analytics & BI (applications and reporting that reveal insights), and AI Services (intelligent automation and AI agents). You can engage us for one service or combine all three for a complete data transformation."
+    answer: "Databender offers four core services: Get Clarity (data strategy and foundations), See What's Happening (analytics and real-time visibility), Put AI to Work (AI agents and automation), and Build What You Need (custom software that replaces bloated SaaS). You can start with one or combine them. Most clients start where it hurts most."
   },
   {
     question: "How long do projects typically take?",
@@ -24,7 +24,7 @@ const servicesFAQs: FAQItem[] = [
   },
   {
     question: "What industries do you work with?",
-    answer: "We work with mid-market companies across multiple industries including manufacturing, healthcare, legal services, financial services, and professional services. Our approach adapts to industry-specific challenges while leveraging cross-industry best practices in data management and AI implementation."
+    answer: "We work with mid-market companies across multiple industries including manufacturing, healthcare, legal services, financial services, and professional services. Our approach adapts to industry-specific challenges while applying cross-industry best practices in data management and AI."
   },
   {
     question: "How is Databender different from other consultancies?",
@@ -58,6 +58,11 @@ const ServiceIcon = ({ icon }: { icon: string }) => {
     book: (
       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+      </svg>
+    ),
+    code: (
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
       </svg>
     ),
   };
@@ -104,7 +109,7 @@ export default function ServicesPageClient() {
               transition={{ delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
             >
-              Everything you need to turn data into results
+              What would your perfect solution look like?
             </motion.h1>
 
             <motion.p
@@ -113,7 +118,7 @@ export default function ServicesPageClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
-              From cleaning up scattered systems to AI that works. We build complete solutions, not pieces.
+              Stop configuring software that wasn&apos;t designed for you. We build purpose-built solutions that fit exactly how your team works.
             </motion.p>
 
             <motion.div
@@ -361,8 +366,8 @@ export default function ServicesPageClient() {
 
       {/* CTA */}
       <CTA
-        title="Ready to see what's possible?"
-        description="30 minutes. We'll talk about your situation and see if we can help."
+        title="Ready to rethink what's possible?"
+        description="30 minutes. Tell us what your perfect solution looks like. We'll tell you how fast we can build it."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "Take Assessment First", href: "/assessments/data-ai-readiness" }}
         variant="gradient"

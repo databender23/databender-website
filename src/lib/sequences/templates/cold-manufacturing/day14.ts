@@ -35,9 +35,9 @@ export function getDay14ColdManufacturingTemplate(params: ColdManufacturingParam
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>I've sent a few notes about operational visibility and custom solutions. Haven't heard back, so the timing probably isn't right.</p>
+  <p>I've sent a few notes about this. Haven't heard back, so the timing probably isn't right.</p>
 
-  <p>No worries. I'll keep you on my radar for relevant insights about how manufacturers are connecting their systems without the enterprise price tag.</p>
+  <p>No worries. If it's ever useful: manufacturers your size are answering "where's my order?" in seconds, catching quality issues in hours instead of weeks, and supporting 20% more volume without adding headcount. All without replacing their ERP or paying for bloated software.</p>
 
   <p>If anything changes, my inbox is open.</p>
 
@@ -53,9 +53,9 @@ export function getDay14ColdManufacturingTemplate(params: ColdManufacturingParam
 
   const textBody = `Hi ${firstName},
 
-I've sent a few notes about operational visibility and custom solutions. Haven't heard back, so the timing probably isn't right.
+I've sent a few notes about this. Haven't heard back, so the timing probably isn't right.
 
-No worries. I'll keep you on my radar for relevant insights about how manufacturers are connecting their systems without the enterprise price tag.
+No worries. If it's ever useful: manufacturers your size are answering "where's my order?" in seconds, catching quality issues in hours instead of weeks, and supporting 20% more volume without adding headcount. All without replacing their ERP or paying for bloated software.
 
 If anything changes, my inbox is open.
 

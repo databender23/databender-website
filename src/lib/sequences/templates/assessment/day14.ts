@@ -37,9 +37,9 @@ function getCaseStudyContent(industry?: string): CaseStudyContent {
         challenge:
           "was struggling with price transparency data. Multiple file formats, inconsistent naming conventions, and no way to compare rates across payers. Their finance team was spending 20+ hours a week just trying to make sense of it.",
         solution: [
-          "Consolidated and normalized pricing files from 12 different payers into a unified data model",
-          "Built automated comparison applications that update as new files are published",
-          "Created payer negotiation tools showing exactly where rates were below market",
+          "Pricing files from 12 different payers consolidated into a single, unified data model they own",
+          "Automated comparison applications that update on their own as new files are published",
+          "Payer negotiation tools that show exactly where rates fall below market",
         ],
         result:
           "Within 6 months, they improved margins on their top 50 procedures by 8-12% and eliminated nearly all manual reconciliation work.",
@@ -55,14 +55,14 @@ function getCaseStudyContent(industry?: string): CaseStudyContent {
         challenge:
           "was hemorrhaging institutional knowledge. Partners retiring, associates moving on, and years of work product scattered across network drives, email archives, and document management systems. Finding relevant precedents meant asking around or spending hours searching.",
         solution: [
-          "Implemented a knowledge management system with semantic search across all document repositories",
-          "Built automated tagging that categorized documents by practice area, client type, and matter type",
-          "Created a research assistant that could surface relevant internal precedents in seconds",
+          "Semantic search across all document repositories, so attorneys find relevant work in seconds",
+          "Automated tagging that categorizes documents by practice area, client type, and matter type",
+          "An internal research assistant that surfaces relevant precedents instantly",
         ],
         result:
           "Associates recovered an average of 3 billable hours per week previously spent on internal searches. More importantly, they stopped reinventing work that had already been done.",
         closingThought:
-          "The key insight: the firm had decades of valuable work product. They just needed a way to make it discoverable. The AI didn't create new knowledge - it unlocked what was already there.",
+          "The key insight: the firm already had decades of valuable work product. They just needed it to be discoverable. The AI didn't create new knowledge. It unlocked what was already there.",
       };
 
     case "manufacturing":
@@ -73,14 +73,14 @@ function getCaseStudyContent(industry?: string): CaseStudyContent {
         challenge:
           "was flying blind on their sales pipeline. CRM data was inconsistent, lead sources weren't tracked properly, and nobody could answer basic questions about which marketing efforts actually drove revenue. The sales team trusted their gut over the data.",
         solution: [
-          "Cleaned and enriched CRM data with missing company information and standardized industry codes",
-          "Built lead scoring models based on actual conversion patterns, not assumptions",
-          "Created visibility into the full customer journey from first touch to closed deal",
+          "CRM data cleaned and enriched with missing company information and standardized industry codes",
+          "Lead scoring models built on actual conversion patterns, not assumptions",
+          "Full visibility into the customer journey from first touch to closed deal",
         ],
         result:
           "Lead-to-opportunity conversion improved 22% in the first quarter. More importantly, marketing finally had data to prove which channels deserved more investment.",
         closingThought:
-          "The transformation wasn't about new tools. It was about trusting the data enough to act on it. Once the sales team saw the scoring model predict winners accurately, everything changed.",
+          "The shift wasn't about new tools. It was about trusting the data enough to act on it. Once the sales team saw the scoring model predict winners accurately, everything changed.",
       };
 
     default:
@@ -91,9 +91,9 @@ function getCaseStudyContent(industry?: string): CaseStudyContent {
         challenge:
           "was drowning in spreadsheets. Every department had their own version of the truth. Monthly reporting took a week. By the time leadership saw the numbers, they were already outdated. Decisions were made on intuition because the data couldn't be trusted.",
         solution: [
-          "Built automated data pipelines replacing manual spreadsheet workflows",
-          "Created a single source of truth with real-time custom applications for each department",
-          "Implemented data quality checks that caught issues before they became problems",
+          "Automated data pipelines replaced manual spreadsheet workflows",
+          "A single source of truth with real-time custom applications for each department",
+          "Data quality checks that catch issues before they become problems",
         ],
         result:
           "They eliminated 15+ hours per week of manual data work and cut monthly close from 7 days to 2. Leadership finally had numbers they could act on in real-time.",
@@ -139,7 +139,7 @@ export function getDay14AssessmentTemplate(params: Day14AssessmentParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                We wanted to share a quick story that might resonate with some of the challenges you mentioned in your assessment.
+                I wanted to share a quick story that might resonate with some of the challenges from your assessment.
               </p>
 
               <!-- Case Study Box -->
@@ -154,7 +154,7 @@ export function getDay14AssessmentTemplate(params: Day14AssessmentParams): Seque
                     </p>
 
                     <p style="margin: 0 0 16px; color: #1a1a1a; font-size: 15px; font-weight: 600;">
-                      What We Did
+                      What Changed
                     </p>
                     <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 20px;">
                       ${content.solution
@@ -194,7 +194,7 @@ export function getDay14AssessmentTemplate(params: Day14AssessmentParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                If any of this resonates, we'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
+                If any of this resonates, I'd be happy to discuss what a similar approach might look like for your situation. No obligation, just a conversation about what's possible.
               </p>
 
               <!-- CTA Button -->
@@ -219,7 +219,7 @@ export function getDay14AssessmentTemplate(params: Day14AssessmentParams): Seque
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -240,7 +240,7 @@ export function getDay14AssessmentTemplate(params: Day14AssessmentParams): Seque
   const textBody = `
 Hi ${firstName},
 
-We wanted to share a quick story that might resonate with some of the challenges you mentioned in your assessment.
+I wanted to share a quick story that might resonate with some of the challenges from your assessment.
 
 ---
 
@@ -248,7 +248,7 @@ THE CHALLENGE
 
 ${content.companyType} ${content.challenge}
 
-WHAT WE DID
+WHAT CHANGED
 
 ${content.solution.map((item) => `- ${item}`).join("\n")}
 
@@ -264,7 +264,7 @@ ${content.closingThought}
 
 Sound familiar?
 
-If any of this resonates, we'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
+If any of this resonates, I'd be happy to discuss what a similar approach might look like for your situation. No obligation, just a conversation about what's possible.
 
 Schedule a call: ${calendarUrl}
 
@@ -272,7 +272,7 @@ Best,
 Grant
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

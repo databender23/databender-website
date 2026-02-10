@@ -37,9 +37,9 @@ export function getDay14ColdLegalTemplate(params: ColdLegalParams): EmailTemplat
 
   <p>Haven't heard back, so the timing probably isn't right. No worries.</p>
 
-  <p>The economics of custom legal tech are shifting fast. When you're ready to stop fighting with off-the-shelf tools, we can talk.</p>
+  <p>If it's ever useful: firms like yours are getting associates to bill more, keeping institutional knowledge from walking out the door, and winning more pitches with real data. All without adding headcount or paying for SaaS seats nobody uses.</p>
 
-  <p>Door's open.</p>
+  <p>Door's open whenever it makes sense.</p>
 
   <p>--<br>
   Grant</p>
@@ -55,9 +55,9 @@ export function getDay14ColdLegalTemplate(params: ColdLegalParams): EmailTemplat
 
 Haven't heard back, so the timing probably isn't right. No worries.
 
-The economics of custom legal tech are shifting fast. When you're ready to stop fighting with off-the-shelf tools, we can talk.
+If it's ever useful: firms like yours are getting associates to bill more, keeping institutional knowledge from walking out the door, and winning more pitches with real data. All without adding headcount or paying for SaaS seats nobody uses.
 
-Door's open.
+Door's open whenever it makes sense.
 
 --
 Grant

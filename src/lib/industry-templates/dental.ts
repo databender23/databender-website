@@ -67,7 +67,7 @@ export const dentalTemplate: IndustryTemplate = {
     "Per-location P&L updated daily, not monthly",
     "Provider productivity benchmarked fairly across locations",
     "Treatment acceptance rates tracked and compared",
-    "No-show patterns identified with actionable drivers",
+    "No-show patterns identified with root cause analysis",
     "Supply cost variance flagged automatically",
     "Payer contract performance visible for renegotiation leverage",
     "Chair utilization optimized across the schedule",
@@ -102,7 +102,7 @@ export const dentalTemplate: IndustryTemplate = {
     "A 2% improvement in treatment acceptance across the platform typically pays for the entire system in the first year.",
 
   // Questions
-  questionsIntro: "Before we talk, it might be worth considering:",
+  questionsIntro: "Before we talk, ask yourself:",
   questions: [
     "How long does it take to get a true P&L by location?",
     "Can you benchmark provider productivity fairly across locations today?",
@@ -122,7 +122,7 @@ export const dentalTemplate: IndustryTemplate = {
 
   // Templates
   introHookTemplate:
-    "Your DSO generates thousands of data points every day across every location. But turning that data into actionable insights still requires weeks of analyst time and endless spreadsheet wrangling. That was tolerable when you had 5 locations. At 20, 30, 50? It's holding you back.",
+    "Your DSO generates thousands of data points every day across every location. But turning that data into useful intelligence still requires weeks of analyst time and endless spreadsheet wrangling. That was tolerable when you had 5 locations. At 20, 30, 50? It's holding you back.",
   keyInsightTemplate:
-    "Modern data tools have made sophisticated multi-location analytics accessible to DSOs of any size. The visibility gap between large platforms with dedicated data teams and growing DSOs like yours is closing fast.",
+    "Modern data tools have made powerful multi-location analytics accessible to DSOs of any size. The visibility gap between large platforms with dedicated data teams and growing DSOs like yours is closing fast.",
 };

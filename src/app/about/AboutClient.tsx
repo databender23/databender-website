@@ -33,7 +33,7 @@ export default function AboutClient() {
                 transition={{ delay: 0.1 }}
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
               >
-                Senior expertise. AI-powered speed.
+                Rethink what's possible.
               </motion.h1>
 
               <motion.p
@@ -42,7 +42,7 @@ export default function AboutClient() {
                 transition={{ delay: 0.2 }}
                 className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
               >
-                Databender is a data analytics and AI consultancy that makes enterprise-grade capabilities accessible to growing businesses. Direct founder involvement on every engagement. Senior expertise from day one.
+                Most growing companies are stuck choosing between software that doesn&apos;t fit and custom builds they can&apos;t afford. We changed that equation. Purpose-built data and AI solutions, delivered in weeks, that you own outright.
               </motion.p>
 
               <motion.div
@@ -265,7 +265,7 @@ export default function AboutClient() {
               transition={{ delay: 0.1 }}
               className="text-text-secondary text-base sm:text-lg mb-6 sm:mb-8 italic"
             >
-              We take an AI-first approach to everything we do with a heavy touch from experts. Enterprise quality and hyper-customized solutions at a fraction of the cost of traditional firms.
+              Stop asking &quot;what can we afford?&quot; and start asking &quot;what would perfect look like?&quot; We build purpose-built solutions that fit exactly how your team works. No bloat, no compromises.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -283,8 +283,8 @@ export default function AboutClient() {
 
       {/* CTA */}
       <CTA
-        title="Ready to see what's possible?"
-        description="30 minutes. We'll talk about your situation and see if we can help."
+        title="Ready to rethink what's possible?"
+        description="30 minutes. Tell us what your perfect solution looks like. We'll show you how fast we can build it."
         primaryCta={{ label: "Schedule a Call", href: "/contact" }}
         secondaryCta={{ label: "Take Assessment", href: "/assessments/data-ai-readiness" }}
         variant="gradient"

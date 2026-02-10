@@ -37,9 +37,9 @@ export function getDay14ColdHealthcareTemplate(params: ColdHealthcareParams): Em
 
   <p>Haven't heard back, so I'll assume the timing isn't right. No worries.</p>
 
-  <p>The short version of what we do: custom healthcare analytics at a fraction of what it used to cost. Weeks instead of months. You own it, no per-seat fees.</p>
+  <p>If it's ever useful: groups like yours are getting real margin visibility across every location, catching problems before board meetings instead of after, and giving PE investors the reporting they actually want. HIPAA-compliant, no per-seat fees, and you own the result.</p>
 
-  <p>If that ever becomes relevant, just reply to this thread. Happy to pick it up whenever.</p>
+  <p>Just reply to this thread whenever it makes sense. Happy to pick it up.</p>
 
   <p>--<br>
   Grant</p>
@@ -55,9 +55,9 @@ export function getDay14ColdHealthcareTemplate(params: ColdHealthcareParams): Em
 
 Haven't heard back, so I'll assume the timing isn't right. No worries.
 
-The short version of what we do: custom healthcare analytics at a fraction of what it used to cost. Weeks instead of months. You own it, no per-seat fees.
+If it's ever useful: groups like yours are getting real margin visibility across every location, catching problems before board meetings instead of after, and giving PE investors the reporting they actually want. HIPAA-compliant, no per-seat fees, and you own the result.
 
-If that ever becomes relevant, just reply to this thread. Happy to pick it up whenever.
+Just reply to this thread whenever it makes sense. Happy to pick it up.
 
 --
 Grant

@@ -59,7 +59,7 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                We wanted to share an observation that runs counter to what most people assume about AI adoption in legal.
+                I wanted to share an observation that runs counter to what most people assume about AI adoption in legal.
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
@@ -71,7 +71,7 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
                 <tr>
                   <td style="padding: 24px;">
                     <p style="margin: 0 0 16px; color: #1A9988; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-                      What we are seeing
+                      What I'm seeing
                     </p>
                     <p style="margin: 0; color: #1a1a1a; font-size: 18px; font-weight: 600; line-height: 1.4;">
                       Firms under 50 attorneys are implementing AI 3x faster than AmLaw 100 firms on average
@@ -129,7 +129,7 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
                 <tr>
                   <td style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center;">
                     <p style="margin: 0; color: #1a1a1a; font-size: 15px; line-height: 1.6; font-style: italic;">
-                      "The most successful implementations we see start with a specific, bounded use case - not a firm-wide transformation. Document review, contract analysis, or research assistance. Prove value there, then expand."
+                      "The most successful implementations I see start with a specific, bounded use case - not a firm-wide transformation. Document review, contract analysis, or research assistance. Prove value there, then expand."
                     </p>
                   </td>
                 </tr>
@@ -146,7 +146,7 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                We are happy to discuss which use cases typically deliver the fastest ROI and what security architecture makes sense for legal environments. Confidential conversation - no pressure.
+                I'm happy to discuss which use cases typically deliver the fastest ROI and what security architecture makes sense for legal environments. Confidential conversation, no pressure.
               </p>
 
               <!-- CTA Button -->
@@ -171,7 +171,7 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -191,11 +191,11 @@ export function getDay7GuideLegalTemplate(params: Day7GuideLegalParams): Sequenc
 
   const textBody = `Hi ${firstName},
 
-We wanted to share an observation that runs counter to what most people assume about AI adoption in legal.
+I wanted to share an observation that runs counter to what most people assume about AI adoption in legal.
 
 Conventional wisdom says large firms have the advantage. More resources, dedicated IT teams, vendor relationships. But the data tells a different story.
 
-WHAT WE ARE SEEING:
+WHAT I'M SEEING:
 Firms under 50 attorneys are implementing AI 3x faster than AmLaw 100 firms on average
 
 Why? It comes down to three structural advantages smaller firms possess:
@@ -209,7 +209,7 @@ Large firms are often locked into enterprise contracts and complex integrations.
 3. ON-PREMISE AND PRIVATE CLOUD OPTIONS
 Contrary to perception, sophisticated AI solutions can now run entirely within your infrastructure. Client data never leaves your control - addressing the security concerns that rightfully make attorneys cautious about cloud-based AI tools.
 
-"The most successful implementations we see start with a specific, bounded use case - not a firm-wide transformation. Document review, contract analysis, or research assistance. Prove value there, then expand."
+"The most successful implementations I see start with a specific, bounded use case - not a firm-wide transformation. Document review, contract analysis, or research assistance. Prove value there, then expand."
 
 The firms getting this right are not trying to boil the ocean. They pick one high-value use case, deploy it thoughtfully with proper security controls, and build confidence from there.
 
@@ -217,7 +217,7 @@ The firms getting this right are not trying to boil the ocean. They pick one hig
 
 Curious what a practical first step might look like for your firm?
 
-We are happy to discuss which use cases typically deliver the fastest ROI and what security architecture makes sense for legal environments. Confidential conversation - no pressure.
+I'm happy to discuss which use cases typically deliver the fastest ROI and what security architecture makes sense for legal environments. Confidential conversation, no pressure.
 
 Schedule a discussion: ${calendarUrl}
 
@@ -225,7 +225,7 @@ Best,
 Grant
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

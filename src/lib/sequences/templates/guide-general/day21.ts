@@ -62,11 +62,11 @@ export function getDay21GuideGeneralTemplate(params: Day21GuideGeneralParams): S
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                We've sent a few emails since you downloaded <strong>${guideTitle}</strong> a few weeks ago. We know inboxes get crowded, so we wanted to let you know this will be our last direct follow-up for now.
+                I've sent a few emails since you downloaded <strong>${guideTitle}</strong> a few weeks ago. I know inboxes get crowded, so I wanted to let you know this will be my last direct follow-up for now.
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                If any of the topics we've touched on are still relevant to what you're working on${companyContext}, we're always happy to have a conversation. No pressure, no pitch - just a chance to talk through what you're facing and see if there's a way we can help.
+                If any of the topics I've touched on are still relevant to what you're working on${companyContext}, I'm always happy to have a conversation. No pressure, no pitch. Just a chance to talk through what you're facing and see if there's a way I can help.
               </p>
 
               <!-- CTA Button -->
@@ -87,7 +87,7 @@ export function getDay21GuideGeneralTemplate(params: Day21GuideGeneralParams): S
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                Going forward, you'll continue to receive our newsletter with practical insights on data and AI - the kind of content we wish someone had shared with us when we were navigating these challenges. It's typically once or twice a month, with real ideas you can act on.
+                Going forward, you'll get our newsletter with practical insights on data and AI. The kind of stuff I wish someone had shared with me when I was navigating these challenges. Typically once or twice a month, with real ideas you can act on.
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
@@ -110,7 +110,7 @@ export function getDay21GuideGeneralTemplate(params: Day21GuideGeneralParams): S
                 <tr>
                   <td style="background-color: #f8f9fa; padding: 16px 20px; border-radius: 8px;">
                     <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
-                      <strong style="color: #4a4a4a;">P.S.</strong> If timing isn't right now but might be in a few months, just reply and let us know. We'll make a note to check back in then.
+                      <strong style="color: #4a4a4a;">P.S.</strong> If timing isn't right now but might be in a few months, just reply and let me know. I'll make a note to check back in then.
                     </p>
                   </td>
                 </tr>
@@ -122,7 +122,7 @@ export function getDay21GuideGeneralTemplate(params: Day21GuideGeneralParams): S
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -143,9 +143,9 @@ export function getDay21GuideGeneralTemplate(params: Day21GuideGeneralParams): S
   const textBody = `
 Hi ${firstName},
 
-We've sent a few emails since you downloaded "${guideTitle}" a few weeks ago. We know inboxes get crowded, so we wanted to let you know this will be our last direct follow-up for now.
+I've sent a few emails since you downloaded "${guideTitle}" a few weeks ago. I know inboxes get crowded, so I wanted to let you know this will be my last direct follow-up for now.
 
-If any of the topics we've touched on are still relevant to what you're working on${companyContext}, we're always happy to have a conversation. No pressure, no pitch - just a chance to talk through what you're facing and see if there's a way we can help.
+If any of the topics I've touched on are still relevant to what you're working on${companyContext}, I'm always happy to have a conversation. No pressure, no pitch. Just a chance to talk through what you're facing and see if there's a way I can help.
 
 Schedule a call when convenient: ${calendarUrl}
 
@@ -153,7 +153,7 @@ Schedule a call when convenient: ${calendarUrl}
 
 WHAT HAPPENS NEXT
 
-Going forward, you'll continue to receive our newsletter with practical insights on data and AI - the kind of content we wish someone had shared with us when we were navigating these challenges. It's typically once or twice a month, with real ideas you can act on.
+Going forward, you'll get our newsletter with practical insights on data and AI. The kind of stuff I wish someone had shared with me when I was navigating these challenges. Typically once or twice a month, with real ideas you can act on.
 
 Of course, if that's not useful for you, you can unsubscribe anytime with one click.
 
@@ -164,10 +164,10 @@ Wishing you and the team${companyContext} all the best.
 Best,
 Grant
 
-P.S. If timing isn't right now but might be in a few months, just reply and let us know. We'll make a note to check back in then.
+P.S. If timing isn't right now but might be in a few months, just reply and let me know. I'll make a note to check back in then.
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

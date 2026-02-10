@@ -97,7 +97,7 @@ function buildHtmlEmail(
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 12px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="${unsubscribeUrl}" style="color: #9ca3af; text-decoration: underline;">Unsubscribe</a>
@@ -120,7 +120,7 @@ function buildTextEmail(body: string, unsubscribeUrl: string): string {
   return `${body}
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 
 Unsubscribe: ${unsubscribeUrl}`;
 }

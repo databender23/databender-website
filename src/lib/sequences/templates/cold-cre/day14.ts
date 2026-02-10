@@ -35,11 +35,11 @@ export function getDay14ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Sent a few notes about portfolio analytics. Haven't heard back, so timing probably isn't right.</p>
+  <p>Sent a few notes about this. Haven't heard back, so timing probably isn't right.</p>
 
-  <p>The short version if it's ever useful: custom portfolio visibility that used to cost $200K+ now runs $30K-$75K. Weeks, not months. You own the result.</p>
+  <p>If it's ever useful: portfolio managers like you are generating investor reports in minutes instead of days, catching missed rent escalations automatically, and seeing every property in one view regardless of what systems they run. You own the result, no subscriptions.</p>
 
-  <p>If priorities shift or this becomes relevant, the door's open.</p>
+  <p>If priorities shift, the door's open.</p>
 
   <p>--<br>
   Grant</p>
@@ -53,11 +53,11 @@ export function getDay14ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 
   const textBody = `Hi ${firstName},
 
-Sent a few notes about portfolio analytics. Haven't heard back, so timing probably isn't right.
+Sent a few notes about this. Haven't heard back, so timing probably isn't right.
 
-The short version if it's ever useful: custom portfolio visibility that used to cost $200K+ now runs $30K-$75K. Weeks, not months. You own the result.
+If it's ever useful: portfolio managers like you are generating investor reports in minutes instead of days, catching missed rent escalations automatically, and seeing every property in one view regardless of what systems they run. You own the result, no subscriptions.
 
-If priorities shift or this becomes relevant, the door's open.
+If priorities shift, the door's open.
 
 --
 Grant

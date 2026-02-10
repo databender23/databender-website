@@ -4,35 +4,195 @@ import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { DiagramBackground } from "./DiagramBackground";
 
+type Industry = "legal" | "healthcare" | "dental" | "manufacturing" | "cre" | "accounting" | "construction" | "wholesale-distribution" | "general";
+
 interface SearchJourneyAnimationProps {
   searchQuery?: string;
   dmsName?: string;
+  industry?: Industry;
 }
 
-// Search results that MATCH the keywords but are still wrong/irrelevant
-const IRRELEVANT_DMS_RESULTS = [
-  { name: "MedTech_NDA_Signed.pdf", why: "Wrong document type" },
-  { name: "MedTech_Partners_LOI_v2.docx", why: "Letter of intent, not PSA" },
-  { name: "Earnout_Template_Generic.xlsx", why: "Blank template" },
-  { name: "MedTech_Due_Diligence_Checklist.pdf", why: "DD docs, not deal terms" },
-  { name: "MedTech_Board_Presentation.pptx", why: "Internal presentation" },
-];
-
-const IRRELEVANT_EMAILS = [
-  { subject: "RE: MedTech closing dinner", from: "Admin", time: "2023", why: "Social planning" },
-  { subject: "MedTech Partners - NDA status", from: "Paralegal", time: "2023", why: "Admin thread" },
-  { subject: "FW: earnout calculation questions", from: "Tom B.", time: "2021", why: "Different deal" },
-  { subject: "MedTech call tomorrow 3pm", from: "Sarah M.", time: "2023", why: "Calendar invite" },
-];
+// Industry-specific content
+const INDUSTRY_CONTENT: Record<Industry, {
+  title: string;
+  dmsResults: { name: string; why: string }[];
+  emails: { subject: string; from: string; time: string; why: string }[];
+  askPerson: { name: string; context: string };
+  busyReason: string;
+}> = {
+  legal: {
+    title: "The Search for Precedent",
+    dmsResults: [
+      { name: "MedTech_NDA_Signed.pdf", why: "Wrong document type" },
+      { name: "MedTech_Partners_LOI_v2.docx", why: "Letter of intent, not PSA" },
+      { name: "Earnout_Template_Generic.xlsx", why: "Blank template" },
+      { name: "MedTech_Due_Diligence_Checklist.pdf", why: "DD docs, not deal terms" },
+      { name: "MedTech_Board_Presentation.pptx", why: "Internal presentation" },
+    ],
+    emails: [
+      { subject: "RE: MedTech closing dinner", from: "Admin", time: "2023", why: "Social planning" },
+      { subject: "MedTech Partners - NDA status", from: "Paralegal", time: "2023", why: "Admin thread" },
+      { subject: "FW: earnout calculation questions", from: "Tom B.", time: "2021", why: "Different deal" },
+      { subject: "MedTech call tomorrow 3pm", from: "Sarah M.", time: "2023", why: "Calendar invite" },
+    ],
+    askPerson: { name: "Sarah", context: "She handled that MedTech deal..." },
+    busyReason: "In court until 4pm",
+  },
+  dental: {
+    title: "The Search for Data",
+    dmsResults: [
+      { name: "Location_123_Monthly_Report.xlsx", why: "Wrong location" },
+      { name: "Provider_Productivity_Template.xlsx", why: "Blank template" },
+      { name: "Treatment_Acceptance_2022.pdf", why: "Outdated data" },
+      { name: "Dentrix_Export_Raw.csv", why: "Unprocessed data dump" },
+      { name: "Board_Meeting_Slides.pptx", why: "Summary only, no details" },
+    ],
+    emails: [
+      { subject: "RE: Provider schedule changes", from: "Office Mgr", time: "2024", why: "Scheduling thread" },
+      { subject: "FW: Treatment acceptance numbers?", from: "Regional", time: "2023", why: "Different period" },
+      { subject: "Monthly close reminder", from: "Accounting", time: "2024", why: "Admin notice" },
+      { subject: "Provider bonus questions", from: "HR", time: "2024", why: "HR matter" },
+    ],
+    askPerson: { name: "Regional Director", context: "She knows those locations..." },
+    busyReason: "In meetings all day",
+  },
+  healthcare: {
+    title: "The Search for Data",
+    dmsResults: [
+      { name: "Payer_Contract_Template.docx", why: "Generic template" },
+      { name: "Q3_Claims_Summary.xlsx", why: "Wrong quarter" },
+      { name: "Location_Metrics_Draft.pdf", why: "Unfinished report" },
+      { name: "Denial_Code_Reference.pdf", why: "Reference doc, not data" },
+      { name: "Provider_Productivity_2022.xlsx", why: "Outdated" },
+    ],
+    emails: [
+      { subject: "RE: Blue Cross reimbursement question", from: "Billing", time: "2023", why: "Different payer" },
+      { subject: "FW: Location performance review", from: "Regional", time: "2024", why: "Different metric" },
+      { subject: "Denial spike follow-up", from: "RCM Team", time: "2023", why: "Old issue" },
+      { subject: "Monthly ops meeting", from: "Admin", time: "2024", why: "Calendar invite" },
+    ],
+    askPerson: { name: "RCM Director", context: "She tracks all the payer data..." },
+    busyReason: "In a payer meeting",
+  },
+  manufacturing: {
+    title: "The Search for Data",
+    dmsResults: [
+      { name: "Production_Schedule_Template.xlsx", why: "Blank template" },
+      { name: "Cost_Variance_Q2.pdf", why: "Wrong period" },
+      { name: "Quality_Report_Draft.docx", why: "Unfinished" },
+      { name: "ERP_Export_20231215.csv", why: "Unprocessed dump" },
+      { name: "Board_Presentation_OEE.pptx", why: "Summary only" },
+    ],
+    emails: [
+      { subject: "RE: Line 3 downtime", from: "Plant Mgr", time: "2023", why: "Different issue" },
+      { subject: "FW: Cost per unit questions", from: "Finance", time: "2024", why: "Different product" },
+      { subject: "Quality hold notification", from: "QA", time: "2024", why: "Current hold, not history" },
+      { subject: "Monthly close schedule", from: "Controller", time: "2024", why: "Admin notice" },
+    ],
+    askPerson: { name: "Plant Manager", context: "He knows all the production data..." },
+    busyReason: "On the floor with a quality issue",
+  },
+  cre: {
+    title: "The Search for Data",
+    dmsResults: [
+      { name: "Lease_Abstract_Template.docx", why: "Blank template" },
+      { name: "Property_123_NOI_2022.xlsx", why: "Wrong property" },
+      { name: "Investor_Report_Draft.pdf", why: "Unfinished" },
+      { name: "Yardi_Export_Raw.csv", why: "Unprocessed dump" },
+      { name: "Portfolio_Overview_Slides.pptx", why: "Summary only" },
+    ],
+    emails: [
+      { subject: "RE: Tenant renewal status", from: "Leasing", time: "2023", why: "Different tenant" },
+      { subject: "FW: NOI reconciliation", from: "Accounting", time: "2024", why: "Different property" },
+      { subject: "Investor call prep", from: "AM Team", time: "2024", why: "Calendar thread" },
+      { subject: "CAM reconciliation question", from: "PM", time: "2024", why: "Admin item" },
+    ],
+    askPerson: { name: "Asset Manager", context: "She knows that portfolio..." },
+    busyReason: "With investors all day",
+  },
+  accounting: {
+    title: "The Search for Precedent",
+    dmsResults: [
+      { name: "754_Election_Template.docx", why: "Blank template" },
+      { name: "Smith_Family_2021_Return.pdf", why: "Wrong year" },
+      { name: "Partnership_Memo_Draft.docx", why: "Unfinished memo" },
+      { name: "Checkpoint_Research.pdf", why: "External research, not firm work" },
+      { name: "Partner_Meeting_Notes.docx", why: "Meeting notes only" },
+    ],
+    emails: [
+      { subject: "RE: Smith family questions", from: "Admin", time: "2022", why: "Old thread" },
+      { subject: "FW: 754 election timing", from: "Tax Mgr", time: "2023", why: "Different client" },
+      { subject: "Partnership allocation review", from: "Partner", time: "2024", why: "Different matter" },
+      { subject: "Filing deadline reminder", from: "Admin", time: "2024", why: "Admin notice" },
+    ],
+    askPerson: { name: "Senior Manager", context: "She handled that Smith engagement..." },
+    busyReason: "With a client until 5pm",
+  },
+  construction: {
+    title: "The Search for Data",
+    dmsResults: [
+      { name: "Change_Order_Template.xlsx", why: "Blank template" },
+      { name: "Johnson_Project_Budget_v2.xlsx", why: "Outdated version" },
+      { name: "Subcontractor_Invoice_Batch.pdf", why: "Invoices, not status" },
+      { name: "Procore_Export_20240115.csv", why: "Unprocessed dump" },
+      { name: "Owner_Meeting_Slides.pptx", why: "Summary only" },
+    ],
+    emails: [
+      { subject: "RE: Johnson CO #15 status", from: "PM", time: "2024", why: "Different CO" },
+      { subject: "FW: Cost to complete questions", from: "Controller", time: "2024", why: "Different project" },
+      { subject: "Subcontractor payment schedule", from: "AP", time: "2024", why: "Payment thread" },
+      { subject: "Weekly job meeting", from: "Admin", time: "2024", why: "Calendar invite" },
+    ],
+    askPerson: { name: "Project Manager", context: "He knows that job inside out..." },
+    busyReason: "At the job site all day",
+  },
+  "wholesale-distribution": {
+    title: "The Search for Data",
+    dmsResults: [
+      { name: "Customer_Profitability_Template.xlsx", why: "Blank template" },
+      { name: "Inventory_Turns_Q2.pdf", why: "Wrong quarter" },
+      { name: "Pricing_Matrix_Draft.xlsx", why: "Unfinished" },
+      { name: "NetSuite_Export_Raw.csv", why: "Unprocessed dump" },
+      { name: "Sales_Meeting_Slides.pptx", why: "Summary only" },
+    ],
+    emails: [
+      { subject: "RE: ABC Corp margin question", from: "Sales", time: "2024", why: "Different customer" },
+      { subject: "FW: Inventory reorder levels", from: "Ops", time: "2024", why: "Different SKUs" },
+      { subject: "Pricing exception approval", from: "Sales Mgr", time: "2024", why: "One-off deal" },
+      { subject: "Monthly inventory review", from: "Warehouse", time: "2024", why: "Scheduled meeting" },
+    ],
+    askPerson: { name: "Sales VP", context: "She knows all the customer history..." },
+    busyReason: "Traveling with a key account",
+  },
+  general: {
+    title: "The Search for Answers",
+    dmsResults: [
+      { name: "Report_Template_2024.xlsx", why: "Blank template" },
+      { name: "Q3_Metrics_Summary.pdf", why: "Wrong period" },
+      { name: "Analysis_Draft_v2.docx", why: "Unfinished" },
+      { name: "System_Export_Raw.csv", why: "Unprocessed dump" },
+      { name: "Board_Presentation.pptx", why: "Summary only" },
+    ],
+    emails: [
+      { subject: "RE: Data request follow-up", from: "Analyst", time: "2024", why: "Different request" },
+      { subject: "FW: Metrics question", from: "Finance", time: "2024", why: "Different metric" },
+      { subject: "Monthly review prep", from: "Manager", time: "2024", why: "Meeting thread" },
+      { subject: "Report deadline reminder", from: "Admin", time: "2024", why: "Admin notice" },
+    ],
+    askPerson: { name: "Senior Analyst", context: "She built the last report..." },
+    busyReason: "In meetings until 4pm",
+  },
+};
 
 /**
  * Animation 1: Search Journey (Frustration Flow)
- * Partner searches for precedent → frustration cascade → gives up
+ * User searches for data → frustration cascade → gives up
  * Shows specific pain points at each step
  */
 export function SearchJourneyAnimation({
   searchQuery = "MedTech Partners earnout",
   dmsName = "iManage",
+  industry = "legal",
 }: SearchJourneyAnimationProps) {
   const prefersReducedMotion = useReducedMotion();
   const [phase, setPhase] = useState(0);
@@ -42,6 +202,11 @@ export function SearchJourneyAnimation({
   const [hoursWaited, setHoursWaited] = useState(0);
   const [cycle, setCycle] = useState(0);
   const timersRef = useRef<NodeJS.Timeout[]>([]);
+
+  // Get industry-specific content
+  const content = INDUSTRY_CONTENT[industry] || INDUSTRY_CONTENT.general;
+  const dmsResults = content.dmsResults;
+  const emailResults = content.emails;
 
   // Clear timers on unmount
   useEffect(() => {
@@ -65,8 +230,8 @@ export function SearchJourneyAnimation({
 
     if (prefersReducedMotion) {
       setPhase(6);
-      setVisibleResults(IRRELEVANT_DMS_RESULTS.length);
-      setVisibleEmails(IRRELEVANT_EMAILS.length);
+      setVisibleResults(dmsResults.length);
+      setVisibleEmails(emailResults.length);
       setHoursWaited(3);
       return;
     }
@@ -82,7 +247,7 @@ export function SearchJourneyAnimation({
     addTimer(() => setPhase(1), 1500);
 
     // Show DMS results one by one
-    IRRELEVANT_DMS_RESULTS.forEach((_, i) => {
+    dmsResults.forEach((_, i) => {
       addTimer(() => setVisibleResults(i + 1), 1800 + i * 300);
     });
 
@@ -90,7 +255,7 @@ export function SearchJourneyAnimation({
     addTimer(() => setPhase(2), 4000);
 
     // Show email results one by one
-    IRRELEVANT_EMAILS.forEach((_, i) => {
+    emailResults.forEach((_, i) => {
       addTimer(() => setVisibleEmails(i + 1), 4300 + i * 350);
     });
 
@@ -123,7 +288,7 @@ export function SearchJourneyAnimation({
       <div className="p-4 md:p-6">
         {/* Title */}
         <h3 className="text-lg font-semibold text-white/80 mb-4 text-center">
-          The Search for Precedent
+          {content.title}
         </h3>
 
         {/* Search query display */}
@@ -150,7 +315,7 @@ export function SearchJourneyAnimation({
             {/* Fixed height container for DMS results */}
             <div className="bg-black/20 rounded-lg p-3 h-[300px] overflow-hidden">
               <div className="space-y-2">
-                {IRRELEVANT_DMS_RESULTS.map((result, i) => (
+                {dmsResults.map((result, i) => (
                   <div
                     key={i}
                     className={`text-xs bg-black/20 rounded px-2 py-1.5 transition-opacity duration-300 ${visibleResults > i ? "opacity-100" : "opacity-0"}`}
@@ -183,7 +348,7 @@ export function SearchJourneyAnimation({
             {/* Fixed height container for email results */}
             <div className="bg-black/20 rounded-lg p-3 h-[300px] overflow-hidden">
               <div className="space-y-2">
-                {IRRELEVANT_EMAILS.map((email, i) => (
+                {emailResults.map((email, i) => (
                   <div
                     key={i}
                     className={`text-xs bg-black/20 rounded px-2 py-1.5 transition-opacity duration-300 ${visibleEmails > i ? "opacity-100" : "opacity-0"}`}
@@ -206,17 +371,17 @@ export function SearchJourneyAnimation({
           </div>
         </div>
 
-        {/* Bottom section: Ask Sarah → Wait → Give up - fixed height */}
-        <div className="mt-4 bg-black/30 rounded-lg p-4 h-[72px] flex items-center">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full">
-            {/* Ask Sarah */}
+        {/* Bottom section: Ask Sarah → Wait → Give up - responsive height */}
+        <div className="mt-4 bg-black/30 rounded-lg p-4 min-h-[72px] md:h-[72px] flex items-center">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 w-full">
+            {/* Ask person */}
             <div className={`flex items-center gap-3 transition-opacity duration-300 ${phase >= 3 ? "opacity-100" : "opacity-0"}`}>
-              <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0">
                 <PersonIcon />
               </div>
               <div>
-                <p className="text-white text-sm font-medium">Ask Sarah</p>
-                <p className="text-gray-400 text-xs">She handled that MedTech deal...</p>
+                <p className="text-white text-sm font-medium">Ask {content.askPerson.name}</p>
+                <p className="text-gray-400 text-xs hidden sm:block">{content.askPerson.context}</p>
               </div>
             </div>
 
@@ -229,7 +394,7 @@ export function SearchJourneyAnimation({
                 <p className="text-gray-400 text-xs">
                   <span className="text-green-400">✓ Sent</span>
                   {" • "}
-                  <span className="text-amber-400">In court until 4pm</span>
+                  <span className="text-amber-400">{content.busyReason}</span>
                 </p>
                 <p className={`text-gray-500 text-xs mt-1 transition-opacity duration-300 ${phase === 4 ? "opacity-100" : "opacity-0"}`}>
                   Waiting{".".repeat(waitingDots)}
@@ -237,19 +402,22 @@ export function SearchJourneyAnimation({
               </div>
             </div>
 
-            {/* Hours passing */}
-            <div className={`flex items-center gap-2 transition-opacity duration-300 ${phase >= 5 ? "opacity-100" : "opacity-0"}`}>
-              <ClockIcon />
-              <div className="text-center">
-                <p className="text-red-400 text-lg font-bold">{hoursWaited || 0}+ hrs</p>
-                <p className="text-gray-500 text-xs">waiting</p>
+            {/* Hours passing + Give up - row on mobile */}
+            <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              {/* Hours passing */}
+              <div className={`flex items-center gap-2 transition-opacity duration-300 ${phase >= 5 ? "opacity-100" : "opacity-0"}`}>
+                <ClockIcon />
+                <div className="text-center">
+                  <p className="text-red-400 text-base sm:text-lg font-bold">{hoursWaited || 0}+ hrs</p>
+                  <p className="text-gray-500 text-xs">waiting</p>
+                </div>
               </div>
-            </div>
 
-            {/* Give up */}
-            <div className={`bg-red-500/20 border border-red-500/30 rounded-lg px-4 py-2 transition-all duration-300 ${phase >= 6 ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
-              <p className="text-red-400 text-sm font-medium">Just write it from scratch</p>
-              <p className="text-red-400/60 text-xs">Deadline&apos;s tomorrow anyway...</p>
+              {/* Give up */}
+              <div className={`bg-red-500/20 border border-red-500/30 rounded-lg px-3 sm:px-4 py-2 transition-all duration-300 flex-1 sm:flex-none ${phase >= 6 ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
+                <p className="text-red-400 text-xs sm:text-sm font-medium">Just write it from scratch</p>
+                <p className="text-red-400/60 text-[10px] sm:text-xs">Deadline&apos;s tomorrow anyway...</p>
+              </div>
             </div>
           </div>
         </div>

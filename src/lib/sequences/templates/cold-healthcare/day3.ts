@@ -1,7 +1,7 @@
 /**
  * Day 3 Cold Healthcare Email Template
  *
- * Follow up with specific stat/proof - data integration challenge
+ * Follow-up: ops team stops chasing data and starts improving operations
  * Plain-text style for better deliverability
  */
 
@@ -35,11 +35,13 @@ export function getDay3ColdHealthcareTemplate(params: ColdHealthcareParams): Ema
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Following up on my note about analytics economics.</p>
+  <p>Following up on my note about margin visibility.</p>
 
-  <p>Here's what I see with growing healthcare groups: every acquisition brings a different PM system. Eaglesoft here, Dentrix there, maybe Open Dental at the newest location. The data exists, but pulling it together for a board deck takes weeks of manual work.</p>
+  <p>Here's what growing groups deal with: every acquisition brings a different PM system. Eaglesoft here, Dentrix there, maybe Open Dental at the newest location. Your ops team spends more time chasing data than improving operations. Board decks take weeks of manual assembly.</p>
 
-  <p>One senior consultant with the right AI tools can now build unified analytics across all those systems in 4-6 weeks. HIPAA-compliant from day one. Real-time visibility by location, provider, and payer. And you own the whole thing.</p>
+  <p>Imagine your team opening one dashboard and seeing real-time P&L by location, provider, and payer. Across all systems. HIPAA-compliant from day one. They stop assembling spreadsheets and start spotting the locations that need attention.</p>
+
+  <p>That takes 4 to 6 weeks to build. You own it. No subscriptions.</p>
 
   <p>Worth a 15-minute call to see if this applies to ${company}?</p>
 
@@ -55,11 +57,13 @@ export function getDay3ColdHealthcareTemplate(params: ColdHealthcareParams): Ema
 
   const textBody = `Hi ${firstName},
 
-Following up on my note about analytics economics.
+Following up on my note about margin visibility.
 
-Here's what I see with growing healthcare groups: every acquisition brings a different PM system. Eaglesoft here, Dentrix there, maybe Open Dental at the newest location. The data exists, but pulling it together for a board deck takes weeks of manual work.
+Here's what growing groups deal with: every acquisition brings a different PM system. Eaglesoft here, Dentrix there, maybe Open Dental at the newest location. Your ops team spends more time chasing data than improving operations. Board decks take weeks of manual assembly.
 
-One senior consultant with the right AI tools can now build unified analytics across all those systems in 4-6 weeks. HIPAA-compliant from day one. Real-time visibility by location, provider, and payer. And you own the whole thing.
+Imagine your team opening one dashboard and seeing real-time P&L by location, provider, and payer. Across all systems. HIPAA-compliant from day one. They stop assembling spreadsheets and start spotting the locations that need attention.
+
+That takes 4 to 6 weeks to build. You own it. No subscriptions.
 
 Worth a 15-minute call to see if this applies to ${company}?
 

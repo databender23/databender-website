@@ -16,7 +16,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://databender.co'),
   title: {
-    default: "Databender | Senior Expertise. AI-Powered Speed.",
+    default: "Databender | Rethink What's Possible.",
     template: "%s | Databender",
   },
   description:
@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Databender",
-    title: "Databender | Senior Expertise. AI-Powered Speed.",
+    title: "Databender | Rethink What's Possible.",
     description:
       "Custom data and AI solutions at a fraction of the old cost. What used to take months now takes weeks.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Databender | Senior Expertise. AI-Powered Speed.",
+    title: "Databender | Rethink What's Possible.",
     description:
       "Custom data and AI solutions at a fraction of the old cost. What used to take months now takes weeks.",
   },

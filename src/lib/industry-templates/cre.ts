@@ -94,7 +94,7 @@ export const creTemplate: IndustryTemplate = {
     "Reducing investor reporting time by 50% and catching one underperformer early pays for the system.",
 
   // Questions
-  questionsIntro: "Before we talk, it might be worth considering:",
+  questionsIntro: "Before we talk, ask yourself:",
   questions: [
     "How long does it take to produce a complete investor report?",
     "Do you have a single view of lease expirations across the portfolio?",
@@ -115,5 +115,5 @@ export const creTemplate: IndustryTemplate = {
   introHookTemplate:
     "Your portfolio generates valuable data every day—rent rolls, lease terms, operating expenses. But turning that data into strategic insight still requires weeks of manual consolidation. That was acceptable when enterprise tools cost millions. It's not acceptable anymore.",
   keyInsightTemplate:
-    "Modern data tools have made sophisticated portfolio analytics accessible to growing CRE firms. The visibility gap between you and the institutional players is closing fast.",
+    "Modern data tools have made portfolio analytics accessible to growing CRE firms. The visibility gap between you and the institutional players is closing fast.",
 };

@@ -1,7 +1,7 @@
 /**
  * Day 7 Cold Legal Email Template
  *
- * Case study/social proof with ownership differentiator
+ * Case study: what a 40-attorney firm achieved with their Firm Intelligence Platform
  * Plain-text style for better deliverability
  */
 
@@ -37,11 +37,11 @@ export function getDay7ColdLegalTemplate(params: ColdLegalParams): EmailTemplate
 
   <p>One more note on this.</p>
 
-  <p>We recently helped a 40-attorney firm build what they call their "Firm Intelligence Platform." Connects their DMS, billing, and matter management. When a new matter comes in, relevant past work surfaces automatically. Associates find precedent 70% faster.</p>
+  <p>A 40-attorney firm recently launched what they call their "Firm Intelligence Platform." Here's what changed for them: associates find precedent 70% faster. New matters automatically surface related past work. Partners stop fielding the same research questions.</p>
 
-  <p>The project took 8 weeks. They own the code. No subscription. When a partner retires next year, that institutional knowledge stays in the system.</p>
+  <p>The bigger win? A senior partner is retiring next year. His 30 years of institutional knowledge is already in the system. The firm isn't losing it when he walks out the door.</p>
 
-  <p>This kind of work used to cost $200K and take 6+ months. We delivered it for a fraction of that because one senior consultant with AI can now do what used to require a team.</p>
+  <p>The whole project took 8 weeks and cost a fraction of what traditional vendors quoted. The firm owns the code. No subscription, no per-seat fees.</p>
 
   <p>Curious what this could look like for ${company}? You'd work directly with me, not junior consultants.</p>
 
@@ -59,11 +59,11 @@ export function getDay7ColdLegalTemplate(params: ColdLegalParams): EmailTemplate
 
 One more note on this.
 
-We recently helped a 40-attorney firm build what they call their "Firm Intelligence Platform." Connects their DMS, billing, and matter management. When a new matter comes in, relevant past work surfaces automatically. Associates find precedent 70% faster.
+A 40-attorney firm recently launched what they call their "Firm Intelligence Platform." Here's what changed for them: associates find precedent 70% faster. New matters automatically surface related past work. Partners stop fielding the same research questions.
 
-The project took 8 weeks. They own the code. No subscription. When a partner retires next year, that institutional knowledge stays in the system.
+The bigger win? A senior partner is retiring next year. His 30 years of institutional knowledge is already in the system. The firm isn't losing it when he walks out the door.
 
-This kind of work used to cost $200K and take 6+ months. We delivered it for a fraction of that because one senior consultant with AI can now do what used to require a team.
+The whole project took 8 weeks and cost a fraction of what traditional vendors quoted. The firm owns the code. No subscription, no per-seat fees.
 
 Curious what this could look like for ${company}? You'd work directly with me, not junior consultants.
 

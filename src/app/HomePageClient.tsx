@@ -56,6 +56,12 @@ const CogIcon = () => (
   </svg>
 );
 
+const CodeIcon = () => (
+  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+  </svg>
+);
+
 
 // Animated Counter Component
 function AnimatedCounter({
@@ -123,7 +129,7 @@ function TheShiftSection() {
             viewport={{ once: true }}
             className="text-teal-500 font-medium mb-4 tracking-wide text-sm"
           >
-            The New Economics
+            What&apos;s Changed
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -132,7 +138,7 @@ function TheShiftSection() {
             transition={{ delay: 0.1 }}
             className="text-3xl md:text-4xl font-bold text-text-primary mb-4"
           >
-            Custom solutions at a fraction of the old cost
+            Custom software is no longer a luxury
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -141,7 +147,7 @@ function TheShiftSection() {
             transition={{ delay: 0.2 }}
             className="text-text-secondary text-lg"
           >
-            What used to require offshore teams and months now takes weeks. Better fit. Zero overhead. You own it.
+            The old tradeoff (custom vs. affordable) doesn&apos;t exist anymore. Purpose-built solutions, delivered in weeks. You own every line.
           </motion.p>
         </div>
 
@@ -595,32 +601,39 @@ export default function HomePageClient() {
       icon: <AIIcon />,
       href: "/services/ai-services",
     },
+    {
+      title: "Software That Actually Fits",
+      description:
+        "Not another SaaS subscription you'll outgrow. Custom applications built for your exact workflow. Delivered in weeks. Yours to own.",
+      icon: <CodeIcon />,
+      href: "/services",
+    },
   ];
 
   const differentiators = [
     {
-      title: "Senior Expertise, AI Velocity",
+      title: "Your Vision, Built Exactly",
       description:
-        "Human strategy and judgment. AI handles the repetitive work. What used to require a team now takes one expert with the right tools.",
-      icon: <UsersIcon />,
+        "No more settling for 70% fit. Describe what perfect looks like. We'll build it. Every feature exists because you need it.",
+      icon: <LightbulbIcon />,
     },
     {
-      title: "Build First, Not Configure",
+      title: "Weeks to ROI",
       description:
-        "We don't spend months configuring off-the-shelf. We craft software that fits your business, not the other way around.",
+        "Enterprise projects drag on for months. Ours ship in weeks. Working software, real results, before the first quarterly review.",
       icon: <CogIcon />,
     },
     {
       title: "Regulated-Ready",
       description:
-        "HIPAA, GDPR, SOC 2 from day one. Healthcare, legal, finance. We know what auditors look for.",
+        "HIPAA, GDPR, SOC 2 built in from day one. Not bolted on after the fact. Healthcare, legal, finance. We know what auditors look for.",
       icon: <ShieldIcon />,
     },
     {
-      title: "Founder-Led Attention",
+      title: "Own It Outright",
       description:
-        "You work directly with experienced practitioners, not junior consultants following scripts. Your project gets senior-level thinking from day one.",
-      icon: <LightbulbIcon />,
+        "Your code. Your data. No SaaS fees that climb every year, no vendor lock-in, no asking permission to change your own system.",
+      icon: <UsersIcon />,
     },
   ];
 
@@ -673,7 +686,7 @@ export default function HomePageClient() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-text-primary mb-4"
             >
-              Precision Solutions. Shipped Yesterday.
+              Rethink what&apos;s possible.
             </motion.h1>
 
             <motion.p
@@ -682,7 +695,7 @@ export default function HomePageClient() {
               transition={{ duration: 0.5, delay: 0.15 }}
               className="text-teal-600 font-semibold text-lg md:text-xl mb-4"
             >
-              Expert builders. AI-powered delivery.
+              Stop settling for tools that almost fit.
             </motion.p>
 
             <motion.p
@@ -691,9 +704,9 @@ export default function HomePageClient() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-text-secondary text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto"
             >
-              For growing companies tired of software that doesn&apos;t fit. Purpose-built solutions that automate the tedious, augment your team, and keep working while you sleep.
+              Your data holds the answers. Your software should actually ask the right questions. We turn messy data into clear decisions, build AI that runs in production, and replace bloated software with tools you own outright.
               <br className="hidden sm:block" />
-              <em className="block mt-4 text-sm md:text-base">Your specs. Weeks to delivery. No enterprise bloat.</em>
+              <em className="block mt-4 text-sm md:text-base">Not &quot;what can we afford?&quot; but &quot;what would perfect look like?&quot;</em>
             </motion.p>
 
             <motion.div
@@ -731,9 +744,9 @@ export default function HomePageClient() {
       {/* 3. What We Build Section */}
       <Features
         subtitle="What We Build"
-        title="Tailored systems that actually fit"
+        title="Purpose-built software and systems for how you actually work"
         features={capabilities}
-        columns={3}
+        columns={4}
       />
 
       {/* 3. The Tactical Advantage */}
@@ -793,8 +806,8 @@ export default function HomePageClient() {
 
       {/* 7. Final CTA */}
       <CTA
-        title="Ready to build something that actually fits?"
-        description="30 minutes. We'll talk about your situation and see what's possible."
+        title="Ready to rethink what's possible?"
+        description="30 minutes. Tell us what your perfect solution looks like. We'll tell you how fast we can build it."
         primaryCta={{ label: "Schedule Consultation", href: "/contact" }}
         secondaryCta={{ label: "Take Assessment First", href: "/assessments/data-ai-readiness" }}
         variant="gradient"

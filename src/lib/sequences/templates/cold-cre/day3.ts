@@ -1,7 +1,7 @@
 /**
  * Day 3 Cold CRE Email Template
  *
- * Follow-up on first email - lease intelligence and expiration tracking
+ * Follow-up: investor reporting in minutes, lease terms extracted automatically
  * Plain-text style for better deliverability
  */
 
@@ -37,9 +37,11 @@ export function getDay3ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 
   <p>Following up on portfolio visibility.</p>
 
-  <p>How long does it take to pull together investor reporting? One portfolio manager we work with spent 3 days per quarter on that before we built them a system that does it in 15 minutes. One-time cost, they own it, and it pulls from all their data sources automatically.</p>
+  <p>How long does your team spend on investor reporting? One portfolio manager was burning 3 days per quarter pulling numbers from Yardi, lease PDFs, and Excel trackers. Now they generate those reports in 15 minutes. Same data, same accuracy, but the system pulls from every source automatically.</p>
 
-  <p>The shift here: AI has made senior talent 3-5x more productive. So custom solutions that fit your exact workflow are now cheaper and faster than wrestling with expensive off-the-shelf software that only gets you 70% of the way there.</p>
+  <p>The other thing that changed: lease terms get extracted from PDFs automatically. Rent escalations, renewal dates, CAM caps. No more missing a $40K/year escalation buried in a 90-page lease. The system catches it.</p>
+
+  <p>One-time cost, you own the result. No per-seat fees or vendor lock-in.</p>
 
   <p>Would 15 minutes be useful to see if this applies to ${company}?</p>
 
@@ -57,9 +59,11 @@ export function getDay3ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 
 Following up on portfolio visibility.
 
-How long does it take to pull together investor reporting? One portfolio manager we work with spent 3 days per quarter on that before we built them a system that does it in 15 minutes. One-time cost, they own it, and it pulls from all their data sources automatically.
+How long does your team spend on investor reporting? One portfolio manager was burning 3 days per quarter pulling numbers from Yardi, lease PDFs, and Excel trackers. Now they generate those reports in 15 minutes. Same data, same accuracy, but the system pulls from every source automatically.
 
-The shift here: AI has made senior talent 3-5x more productive. So custom solutions that fit your exact workflow are now cheaper and faster than wrestling with expensive off-the-shelf software that only gets you 70% of the way there.
+The other thing that changed: lease terms get extracted from PDFs automatically. Rent escalations, renewal dates, CAM caps. No more missing a $40K/year escalation buried in a 90-page lease. The system catches it.
+
+One-time cost, you own the result. No per-seat fees or vendor lock-in.
 
 Would 15 minutes be useful to see if this applies to ${company}?
 

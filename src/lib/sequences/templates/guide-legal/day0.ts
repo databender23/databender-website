@@ -87,7 +87,7 @@ export function getDay0GuideLegalTemplate(params: Day0GuideLegalParams): Sequenc
               </table>
 
               <p style="margin: 24px 0; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                This guide addresses the questions we hear most often from law firm leaders navigating AI and knowledge management decisions. We have tried to provide practical, usable guidance rather than vendor hype.
+                This guide addresses the questions I hear most often from law firm leaders navigating AI and knowledge management decisions. Practical, usable guidance rather than vendor hype.
               </p>
 
               <!-- Security Note -->
@@ -108,7 +108,7 @@ export function getDay0GuideLegalTemplate(params: Day0GuideLegalParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                We are happy to discuss the specific challenges you are facing and share what we have seen work at other firms. No sales pressure - just a candid conversation about what makes sense for your situation.
+                I'm happy to discuss the specific challenges you're facing and share what I've seen work at other firms. No sales pressure, just a candid conversation about what makes sense for your situation.
               </p>
 
               <!-- CTA Button -->
@@ -125,7 +125,7 @@ export function getDay0GuideLegalTemplate(params: Day0GuideLegalParams): Sequenc
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;" />
 
               <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6; font-style: italic;">
-                P.S. Have questions about the guide content? Just reply to this email. We read and respond to every message personally.
+                P.S. Have questions about the guide content? Just reply to this email. I read and respond to every message personally.
               </p>
             </td>
           </tr>
@@ -134,7 +134,7 @@ export function getDay0GuideLegalTemplate(params: Day0GuideLegalParams): Sequenc
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -160,7 +160,7 @@ DOWNLOAD YOUR GUIDE: ${downloadUrl}
 
 Or read online: ${contentUrl}
 
-This guide addresses the questions we hear most often from law firm leaders navigating AI and knowledge management decisions. We have tried to provide practical, usable guidance rather than vendor hype.
+This guide addresses the questions I hear most often from law firm leaders navigating AI and knowledge management decisions. Practical, usable guidance rather than vendor hype.
 
 A note on confidentiality: We understand the sensitive nature of legal work. Any conversations we have about your firm's data practices remain strictly confidential.
 
@@ -168,16 +168,16 @@ A note on confidentiality: We understand the sensitive nature of legal work. Any
 
 Have questions about applying this to your firm${companyText}?
 
-We are happy to discuss the specific challenges you are facing and share what we have seen work at other firms. No sales pressure - just a candid conversation about what makes sense for your situation.
+I'm happy to discuss the specific challenges you're facing and share what I've seen work at other firms. No sales pressure, just a candid conversation about what makes sense for your situation.
 
 Schedule a discussion: ${calendarUrl}
 
 ---
 
-P.S. Have questions about the guide content? Just reply to this email. We read and respond to every message personally.
+P.S. Have questions about the guide content? Just reply to this email. I read and respond to every message personally.
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

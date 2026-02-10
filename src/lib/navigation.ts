@@ -5,9 +5,10 @@ export const mainNavigation: NavItem[] = [
     label: "Services",
     href: "/services",
     children: [
-      { label: "Data & AI Strategy", href: "/services/data-ai-strategy" },
-      { label: "Analytics & BI", href: "/services/analytics-bi" },
-      { label: "AI & Automation", href: "/services/ai-services" },
+      { label: "Get Clarity", href: "/services/data-ai-strategy" },
+      { label: "See What's Happening", href: "/services/analytics-bi" },
+      { label: "Put AI to Work", href: "/services/ai-services" },
+      { label: "Build What You Need", href: "/services/custom-software" },
     ],
   },
   {
@@ -43,10 +44,10 @@ export const mainNavigation: NavItem[] = [
 
 export const footerNavigation = {
   services: [
-    { label: "Data & AI Strategy", href: "/services/data-ai-strategy" },
-    { label: "Analytics & BI", href: "/services/analytics-bi" },
-    { label: "AI & Automation", href: "/services/ai-services" },
-    { label: "All Services", href: "/services" },
+    { label: "Get Clarity", href: "/services/data-ai-strategy" },
+    { label: "See What's Happening", href: "/services/analytics-bi" },
+    { label: "Put AI to Work", href: "/services/ai-services" },
+    { label: "Build What You Need", href: "/services/custom-software" },
   ],
   industries: [
     { label: "Healthcare", href: "/industries/healthcare" },

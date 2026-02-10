@@ -63,7 +63,7 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                We hope you found the <strong>${guideTitle}</strong> useful. We wanted to follow up with a specific observation that comes up in nearly every conversation we have with law firm leaders.
+                I hope you found the <strong>${guideTitle}</strong> useful. I wanted to follow up with a specific observation that comes up in nearly every conversation I have with law firm leaders.
               </p>
 
               <!-- Insight Box -->
@@ -74,14 +74,14 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
                       The hidden cost of institutional knowledge
                     </p>
                     <p style="margin: 0; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                      Most firms have decades of valuable work product - briefs, contracts, research memos, deal documents. The problem is not that this knowledge does not exist. It is that finding it is often harder than recreating it from scratch.
+                      Most firms have decades of valuable work product - briefs, contracts, research memos, deal documents. The problem isn't that this knowledge doesn't exist. It's that finding it is often harder than recreating it from scratch.
                     </p>
                   </td>
                 </tr>
               </table>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                The pattern we see repeatedly:
+                The pattern I see repeatedly:
               </p>
 
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 0 0 24px 0;">
@@ -106,7 +106,7 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
                     <span style="color: #1A9988; font-size: 16px;">&#8226;</span>
                   </td>
                   <td style="padding: 0 0 12px 8px; color: #4a4a4a; font-size: 15px; line-height: 1.5;">
-                    Work gets recreated because it is faster than finding the original
+                    Work gets recreated because it's faster than finding the original
                   </td>
                 </tr>
                 <tr>
@@ -137,11 +137,11 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;" />
 
               <p style="margin: 0 0 16px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                <strong>Does this resonate with what you are seeing${companyContext}?</strong>
+                <strong>Does this resonate with what you're seeing${companyContext}?</strong>
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                We would be glad to share what we have seen work at firms addressing this challenge. No pitch - just a conversation about whether there is a practical path forward for your situation.
+                I'd be glad to share what I've seen work at firms addressing this challenge. No pitch, just a conversation about whether there's a practical path forward for your situation.
               </p>
 
               <!-- CTA Button -->
@@ -166,7 +166,7 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -186,17 +186,17 @@ export function getDay2GuideLegalTemplate(params: Day2GuideLegalParams): Sequenc
 
   const textBody = `Hi ${firstName},
 
-We hope you found the ${guideTitle} useful. We wanted to follow up with a specific observation that comes up in nearly every conversation we have with law firm leaders.
+I hope you found the ${guideTitle} useful. I wanted to follow up with a specific observation that comes up in nearly every conversation I have with law firm leaders.
 
 THE HIDDEN COST OF INSTITUTIONAL KNOWLEDGE
 
-Most firms have decades of valuable work product - briefs, contracts, research memos, deal documents. The problem is not that this knowledge does not exist. It is that finding it is often harder than recreating it from scratch.
+Most firms have decades of valuable work product - briefs, contracts, research memos, deal documents. The problem isn't that this knowledge doesn't exist. It's that finding it is often harder than recreating it from scratch.
 
-The pattern we see repeatedly:
+The pattern I see repeatedly:
 
 - Associates spend hours searching network drives, email archives, and document management systems
 - Partners rely on memory and personal networks to locate relevant precedents
-- Work gets recreated because it is faster than finding the original
+- Work gets recreated because it's faster than finding the original
 - When partners retire, their institutional knowledge leaves with them
 
 "Studies suggest knowledge workers spend 20-30% of their time searching for information. In law firms, where time is billed in six-minute increments, this represents substantial unrealized value."
@@ -205,9 +205,9 @@ The good news: modern semantic search technology can make your existing knowledg
 
 ---
 
-Does this resonate with what you are seeing${companyContext}?
+Does this resonate with what you're seeing${companyContext}?
 
-We would be glad to share what we have seen work at firms addressing this challenge. No pitch - just a conversation about whether there is a practical path forward for your situation.
+I'd be glad to share what I've seen work at firms addressing this challenge. No pitch, just a conversation about whether there's a practical path forward for your situation.
 
 Schedule a confidential discussion: ${calendarUrl}
 
@@ -215,7 +215,7 @@ Best,
 Grant
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

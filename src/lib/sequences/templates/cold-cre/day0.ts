@@ -1,7 +1,7 @@
 /**
  * Day 0 Cold CRE Email Template
  *
- * Initial outreach about portfolio intelligence
+ * Initial outreach: portfolio visibility across all properties, investor reporting on demand
  * Plain-text style for better deliverability
  */
 
@@ -35,11 +35,11 @@ export function getDay0ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Can you see performance across your entire portfolio in one view? Or does pulling that together mean manual work across accounting, lease files, and property systems?</p>
+  <p>Can you see performance across your entire portfolio right now? Or does pulling that together mean someone spending days in accounting, lease files, and property systems?</p>
 
-  <p>The economics of custom portfolio analytics have shifted. What used to cost $200K+ can now be done for $30K-$75K in weeks. You own the result. No per-seat fees.</p>
+  <p>Property managers with growing portfolios are building one view that covers every property, regardless of what software each one runs. Investor reports that used to take days now take minutes. Missed rent escalations get caught automatically. And the system belongs to you, not a vendor charging per seat.</p>
 
-  <p>Property managers with growing portfolios don't need more spreadsheets. They need unified visibility that doesn't require enterprise budgets to build.</p>
+  <p>This kind of visibility costs a fraction of what it did two years ago. Weeks to build, not months.</p>
 
   <p>Worth a quick call to see if this is relevant for ${company}?</p>
 
@@ -57,11 +57,11 @@ export function getDay0ColdCRETemplate(params: ColdCREParams): EmailTemplate {
 
   const textBody = `Hi ${firstName},
 
-Can you see performance across your entire portfolio in one view? Or does pulling that together mean manual work across accounting, lease files, and property systems?
+Can you see performance across your entire portfolio right now? Or does pulling that together mean someone spending days in accounting, lease files, and property systems?
 
-The economics of custom portfolio analytics have shifted. What used to cost $200K+ can now be done for $30K-$75K in weeks. You own the result. No per-seat fees.
+Property managers with growing portfolios are building one view that covers every property, regardless of what software each one runs. Investor reports that used to take days now take minutes. Missed rent escalations get caught automatically. And the system belongs to you, not a vendor charging per seat.
 
-Property managers with growing portfolios don't need more spreadsheets. They need unified visibility that doesn't require enterprise budgets to build.
+This kind of visibility costs a fraction of what it did two years ago. Weeks to build, not months.
 
 Worth a quick call to see if this is relevant for ${company}?
 

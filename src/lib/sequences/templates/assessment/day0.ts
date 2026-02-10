@@ -123,7 +123,7 @@ export function getDay0AssessmentTemplate(params: Day0AssessmentParams): EmailTe
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                We'd be happy to walk through your assessment results and share specific recommendations for improving your ${lowestCategory.toLowerCase()} capabilities. No sales pitch, just practical advice.
+                I'd love to walk through your results and talk about what stronger ${lowestCategory.toLowerCase()} could actually look like in practice. No sales pitch, just practical advice.
               </p>
 
               <!-- CTA Button -->
@@ -140,7 +140,7 @@ export function getDay0AssessmentTemplate(params: Day0AssessmentParams): EmailTe
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;" />
 
               <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6; font-style: italic;">
-                P.S. Have questions about your results? Just reply to this email. We read and respond to every message personally.
+                P.S. Have questions about your results? Just reply to this email. I read and respond to every message personally.
               </p>
             </td>
           </tr>
@@ -149,7 +149,7 @@ export function getDay0AssessmentTemplate(params: Day0AssessmentParams): EmailTe
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 12px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="${unsubscribeUrl}" style="color: #9ca3af; text-decoration: underline;">Unsubscribe</a>
@@ -178,16 +178,16 @@ Biggest Opportunity: ${lowestCategory}
 
 Want to discuss your results?
 
-We'd be happy to walk through your assessment results and share specific recommendations for improving your ${lowestCategory.toLowerCase()} capabilities. No sales pitch, just practical advice.
+I'd love to walk through your results and talk about what stronger ${lowestCategory.toLowerCase()} could actually look like in practice. No sales pitch, just practical advice.
 
 Schedule a call: ${calendarUrl}
 
 ---
 
-P.S. Have questions about your results? Just reply to this email. We read and respond to every message personally.
+P.S. Have questions about your results? Just reply to this email. I read and respond to every message personally.
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 
 Unsubscribe: ${unsubscribeUrl}
   `;

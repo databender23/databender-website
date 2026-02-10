@@ -65,7 +65,7 @@ A: AI-powered data consulting - we clean messy data, build analytics and dashboa
 A: Healthcare, legal, energy, manufacturing, and financial services - especially regulated industries where data quality and compliance matter. We understand HIPAA, SOC 2, and industry-specific requirements.
 
 **Q: How is DataBender different from other data consultancies?**
-A: Senior expertise with AI-powered speed. Custom solutions at a fraction of the old cost. What used to require offshore teams and months now takes weeks. We use AI internally to work faster, then pass those savings to clients.
+A: Rethink what's possible. Custom solutions at a fraction of the old cost. What used to require offshore teams and months now takes weeks. We use AI internally to work faster, then pass those savings to clients.
 
 **Q: What size companies do you work with?**
 A: Mid-market companies - typically $10M-$500M revenue. Large enough to have real data challenges, small enough that we can move fast without enterprise bureaucracy.

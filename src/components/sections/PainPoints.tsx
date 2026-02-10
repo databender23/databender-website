@@ -203,7 +203,7 @@ export default function PainPoints({
           >
             You&apos;re not alone.{" "}
             <span className="text-teal-600 font-medium">
-              We help companies like yours fix this.
+              And it doesn&apos;t have to stay this way.
             </span>
           </motion.p>
         </div>

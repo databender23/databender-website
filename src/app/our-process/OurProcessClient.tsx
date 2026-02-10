@@ -41,7 +41,7 @@ const processPhases: ProcessPhase[] = [
   {
     number: "02",
     title: "Architect",
-    subtitle: "We design what's actually possible",
+    subtitle: "We design what perfect looks like",
     description:
       "Once we understand your reality, we design solutions that fit. Not every problem needs AI. Not every AI problem needs a data warehouse. We recommend approaches based on your constraints, team capabilities, and what will actually get adopted. No vendor loyalty, no one-size-fits-all templates.",
     proofPoint: {
@@ -77,7 +77,7 @@ const processPhases: ProcessPhase[] = [
   {
     number: "04",
     title: "Evolve",
-    subtitle: "We ensure it keeps working",
+    subtitle: "We make sure it keeps working",
     description:
       "Go-live isn't goodbye. The best AI systems learn from outcomes. We monitor performance, catch data quality issues early, and continuously improve based on real results. When our lead scoring model showed 31% better results, it was because we built feedback loops that learned from every conversion.",
     proofPoint: {
@@ -192,7 +192,7 @@ export default function OurProcessClient() {
               transition={{ delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary mb-4 sm:mb-6"
             >
-              We solve problems your competitors can&apos;t
+              What if the perfect solution was within reach?
             </motion.h1>
 
             <motion.p
@@ -201,7 +201,7 @@ export default function OurProcessClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-4"
             >
-              Agentic AI changes what&apos;s economically feasible. Problems that would take 50 analysts months to solve? We solve them in hours. Data that seemed impossible to clean? We make it a competitive advantage.
+              The old constraints don&apos;t apply anymore. Custom software that used to take months ships in weeks. Solutions that used to require a full team now take one expert with the right tools. The question isn&apos;t &quot;what can we afford?&quot; It&apos;s &quot;what would perfect look like?&quot;
             </motion.p>
 
             <motion.p
@@ -244,7 +244,7 @@ export default function OurProcessClient() {
                 Why We&apos;re Different
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-6">
-                AI changes what&apos;s possible
+                The rules changed. Most firms haven&apos;t noticed.
               </h2>
             </motion.div>
 
@@ -256,13 +256,13 @@ export default function OurProcessClient() {
               className="space-y-6 text-text-secondary text-lg leading-relaxed"
             >
               <p>
-                Most data projects fail because they start with technology instead of understanding. But even projects that start right often fail at scale. The manual effort required to clean messy data, resolve conflicting records, or extract insights from documents makes them economically unfeasible.
+                Companies have been choosing between expensive custom builds and off-the-shelf software that almost fits. They pay for 100 features and use 10. They spend months configuring platforms that were never designed for their workflow.
               </p>
               <p>
-                <span className="text-text-primary font-medium">Agentic AI changes that equation.</span> We deploy AI agents that reason through complexity: 10 agents working in parallel on entity resolution, vision AI reading documents like a human, models that learn from every outcome. Problems that would cost $25,000 in manual review cost $200 with our approach.
+                <span className="text-text-primary font-medium">That tradeoff is over.</span> We build purpose-built solutions that match your exact needs. AI agents handle the heavy lifting (entity resolution, document processing, pattern recognition) while experienced humans make the judgment calls. What used to cost $25,000 in manual review costs $200 with our approach.
               </p>
               <p>
-                This isn&apos;t about replacing humans with AI. It&apos;s about making previously impossible projects possible. The judgment calls stay human. The grunt work becomes automated. The result? Enterprise-quality delivery at a fraction of traditional costs.
+                The result? You get exactly what you need, built in weeks, and you own it. No SaaS fees that grow every year. No vendor lock-in. No asking permission to change your own system.
               </p>
             </motion.div>
 
@@ -313,7 +313,7 @@ export default function OurProcessClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-lg max-w-2xl mx-auto"
             >
-              Every engagement follows the same structure, but every solution is tailored to your specific situation and constraints.
+              Every engagement follows the same structure, but every solution is purpose-built for your specific situation and constraints.
             </motion.p>
           </div>
 
@@ -449,7 +449,7 @@ export default function OurProcessClient() {
               transition={{ delay: 0.1 }}
               className="text-text-secondary text-lg max-w-2xl mx-auto"
             >
-              Most data projects fail. Ours don&apos;t. Here&apos;s why.
+              Purpose-built beats off-the-shelf. Here&apos;s what that looks like in practice.
             </motion.p>
           </div>
 
@@ -541,8 +541,8 @@ export default function OurProcessClient() {
 
       {/* CTA */}
       <CTA
-        title="Let's talk about your challenge"
-        description="30 minutes. We'll discuss your situation and whether our approach makes sense for what you're trying to accomplish. No pitch deck, just conversation."
+        title="Ready to rethink what's possible?"
+        description="30 minutes. Tell us what your perfect solution looks like. We'll tell you how fast we can build it. No pitch deck, just conversation."
         primaryCta={{ label: "Schedule a Call", href: "/contact" }}
         secondaryCta={{ label: "Take Free Assessment", href: "/assessments/data-ai-readiness" }}
         variant="gradient"

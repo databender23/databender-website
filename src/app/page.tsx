@@ -4,9 +4,9 @@ import { JsonLd } from "@/components/seo";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Custom Data & AI Solutions for Growing Companies | Databender",
+  title: "Rethink What's Possible | Custom Data & AI Solutions | Databender",
   description:
-    "Purpose-built data and AI solutions at a fraction of the old cost. Senior consultants with AI-powered delivery build custom analytics, automation, and AI agents in weeks. Healthcare, legal, manufacturing specialists.",
+    "Stop paying for 100 features to use 10. Purpose-built data and AI solutions, delivered in weeks, that you own outright. Healthcare, legal, manufacturing specialists.",
   keywords: [
     "custom data solutions",
     "AI consulting",
@@ -15,20 +15,20 @@ export const metadata: Metadata = {
     "AI agents",
     "analytics consulting",
     "HIPAA compliant AI",
-    "enterprise AI solutions",
+    "purpose-built software",
   ],
   openGraph: {
-    title: "Custom Data & AI Solutions for Growing Companies | Databender",
+    title: "Rethink What's Possible | Custom Data & AI Solutions | Databender",
     description:
-      "Purpose-built data and AI solutions at a fraction of the old cost. Senior consultants with AI-powered delivery build custom analytics, automation, and AI agents in weeks.",
+      "Stop paying for 100 features to use 10. Purpose-built data and AI solutions, delivered in weeks, that you own outright.",
     type: "website",
     url: "https://databender.co",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Custom Data & AI Solutions for Growing Companies | Databender",
+    title: "Rethink What's Possible | Custom Data & AI Solutions | Databender",
     description:
-      "Purpose-built data and AI solutions at a fraction of the old cost. Senior consultants with AI-powered delivery build custom analytics, automation, and AI agents in weeks.",
+      "Stop paying for 100 features to use 10. Purpose-built data and AI solutions, delivered in weeks, that you own outright.",
   },
   alternates: {
     canonical: "https://databender.co",

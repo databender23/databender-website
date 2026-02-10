@@ -4,9 +4,9 @@ import { JsonLd } from "@/components/seo";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Contact Databender | Schedule a Free Consultation",
+  title: "Contact Databender | Let's Talk About What's Possible",
   description:
-    "Schedule a free 30-minute consultation to discuss your data and AI challenges. Get expert guidance with no obligations.",
+    "Tell us what your perfect solution looks like. 30-minute conversation, no obligations. Purpose-built data and AI solutions, delivered in weeks.",
   keywords: [
     "data consulting contact",
     "AI consulting inquiry",
@@ -15,17 +15,17 @@ export const metadata: Metadata = {
     "business intelligence consultation",
   ],
   openGraph: {
-    title: "Contact Databender | Schedule a Free Consultation",
+    title: "Contact Databender | Let's Talk About What's Possible",
     description:
-      "Schedule a free 30-minute consultation to discuss your data and AI challenges. Get expert guidance with no obligations.",
+      "Tell us what your perfect solution looks like. 30-minute conversation, no obligations. Purpose-built data and AI solutions, delivered in weeks.",
     type: "website",
     url: "https://databender.co/contact",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact Databender | Schedule a Free Consultation",
+    title: "Contact Databender | Let's Talk About What's Possible",
     description:
-      "Schedule a free 30-minute consultation to discuss your data and AI challenges. Get expert guidance with no obligations.",
+      "Tell us what your perfect solution looks like. 30-minute conversation, no obligations. Purpose-built data and AI solutions, delivered in weeks.",
     images: ["https://databender.co/opengraph-image"],
   },
   alternates: {

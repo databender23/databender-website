@@ -1,7 +1,7 @@
 /**
  * Day 0 Cold Legal Email Template
  *
- * Hook with pain point + economics shift
+ * Hook with outcome: associates find precedent in minutes, not hours
  * Plain-text style for better deliverability
  */
 
@@ -35,11 +35,11 @@ export function getDay0ColdLegalTemplate(params: ColdLegalParams): EmailTemplate
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>How much time do your associates spend searching for precedent that partners already solved? At most mid-sized firms, it's one day per week. Sometimes more.</p>
+  <p>What if your associates could find relevant precedent in minutes instead of hours? At most mid-sized firms, they're spending a full day per week searching for work that partners already solved. That's billable time evaporating.</p>
 
-  <p>Law firms are running on systems built for how work was done 10 years ago. The economics have shifted. Custom solutions that actually fit your workflow are now faster and cheaper than wrestling with off-the-shelf legal tech.</p>
+  <p>Firms like yours are building internal search systems that surface past work the moment a new matter comes in. Associates bill more. Partners stop re-answering the same questions. The knowledge stays in the firm, even when people leave.</p>
 
-  <p>What used to cost $200K+ can now be done for $30K-$75K in weeks. You own the result. No per-seat licensing.</p>
+  <p>These systems cost a fraction of what they did two years ago, and you own the result outright. No per-seat licensing.</p>
 
   <p>Is this something ${company} has looked into?</p>
 
@@ -57,11 +57,11 @@ export function getDay0ColdLegalTemplate(params: ColdLegalParams): EmailTemplate
 
   const textBody = `Hi ${firstName},
 
-How much time do your associates spend searching for precedent that partners already solved? At most mid-sized firms, it's one day per week. Sometimes more.
+What if your associates could find relevant precedent in minutes instead of hours? At most mid-sized firms, they're spending a full day per week searching for work that partners already solved. That's billable time evaporating.
 
-Law firms are running on systems built for how work was done 10 years ago. The economics have shifted. Custom solutions that actually fit your workflow are now faster and cheaper than wrestling with off-the-shelf legal tech.
+Firms like yours are building internal search systems that surface past work the moment a new matter comes in. Associates bill more. Partners stop re-answering the same questions. The knowledge stays in the firm, even when people leave.
 
-What used to cost $200K+ can now be done for $30K-$75K in weeks. You own the result. No per-seat licensing.
+These systems cost a fraction of what they did two years ago, and you own the result outright. No per-seat licensing.
 
 Is this something ${company} has looked into?
 

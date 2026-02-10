@@ -47,12 +47,12 @@ export const legalTemplate: IndustryTemplate = {
 
   // Cost
   inefficiencies: [
-    { issue: "Duplicate research", impact: "8-12 hours per week per attorney" },
+    { issue: "Duplicate research", impact: "2-3 hours per week per attorney" },
     { issue: "Partner interruptions", impact: "$400-800 per interruption in lost productivity" },
     { issue: "New attorney ramp-up", impact: "6-12 months to full productivity" },
   ],
   totalCostStatementTemplate:
-    "Conservative estimate for a {companySize} firm: $500K-$1M annually in lost productivity. That's before counting the business development opportunities missed because nobody could quickly pull relevant experience.",
+    "Conservative estimate for a {companySize} firm: the math adds up fast. That's before counting the business development opportunities missed because nobody could quickly pull relevant experience.",
 
   // Solution
   opportunityHeadline: "A Firm Intelligence Layer",
@@ -94,7 +94,7 @@ export const legalTemplate: IndustryTemplate = {
     "The ROI math isn't close. Even a 10% reduction in wasted search time pays for the entire system in year one.",
 
   // Questions
-  questionsIntro: "Before we talk, it might be worth considering:",
+  questionsIntro: "Before we talk, ask yourself:",
   questions: [
     "How many hours per week do your attorneys spend searching for information that probably exists somewhere?",
     "What happens to 30 years of institutional knowledge when your most senior partners retire?",
@@ -113,7 +113,7 @@ export const legalTemplate: IndustryTemplate = {
 
   // Templates
   introHookTemplate:
-    "Your attorneys are spending 2-3 hours per day searching for information that already exists somewhere in the firm. That was acceptable when the alternative was expensive enterprise software and 18-month implementations. It's not acceptable anymore.",
+    "Your attorneys are spending 2+ hours per week searching for information that already exists somewhere in the firm. That was acceptable when the alternative was expensive enterprise software and 18-month implementations. It's not acceptable anymore.",
   keyInsightTemplate:
     "AI has made senior onshore talent 3-5x more productive. The economics shifted fast. Mid-sized firms can now afford solutions that only AmLaw 100 firms could justify two years ago.",
 };

@@ -4,9 +4,9 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Healthcare Data & AI Solutions | HIPAA-Compliant Analytics",
+  title: "Healthcare AI That Stays in Your Building | Databender",
   description:
-    "HIPAA-compliant AI solutions for healthcare organizations. On-premise document intelligence, clinical analytics, EHR integration, and patient data management. Your data never leaves your building.",
+    "Protocol lookups in 30 seconds, not 15 minutes. New hires productive in weeks. 5+ hours back per person per week. On-premise AI that your compliance team will approve.",
   keywords: [
     "healthcare AI",
     "HIPAA compliant analytics",
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     "healthcare knowledge management",
   ],
   openGraph: {
-    title: "Healthcare Data & AI Solutions | HIPAA-Compliant Analytics",
+    title: "Healthcare AI That Stays in Your Building | Databender",
     description:
-      "HIPAA-compliant AI solutions for healthcare organizations. On-premise document intelligence, clinical analytics, and EHR integration. Your data never leaves your building.",
+      "Protocol lookups in 30 seconds. New hires productive in weeks. 5+ hours back per person per week. On-premise AI your compliance team will approve.",
     type: "website",
     images: [
       {
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Healthcare Data & AI Solutions | HIPAA-Compliant Analytics",
+    title: "Healthcare AI That Stays in Your Building | Databender",
     description:
-      "HIPAA-compliant AI solutions for healthcare organizations. On-premise document intelligence, clinical analytics, and EHR integration. Your data never leaves your building.",
+      "Protocol lookups in 30 seconds. New hires productive in weeks. 5+ hours back per person per week. On-premise AI your compliance team will approve.",
     images: ["https://databender.co/opengraph-image"],
   },
   alternates: {

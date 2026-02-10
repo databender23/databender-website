@@ -61,7 +61,7 @@ export function getDay7GuideGeneralTemplate(params: Day7GuideGeneralParams): Seq
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                We wanted to share something that rarely comes up in conversations about data strategy, but it's often the biggest factor in whether organizations move forward or stay stuck.
+                I wanted to share something that rarely comes up in conversations about data strategy, but it's often the biggest factor in whether organizations move forward or stay stuck.
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
@@ -127,7 +127,7 @@ export function getDay7GuideGeneralTemplate(params: Day7GuideGeneralParams): Seq
               </table>
 
               <p style="margin: 24px 0; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                The good news: these problems are solvable. Not with some massive transformation project, but with focused improvements in the areas that matter most. The trick is knowing where to start.
+                The good news: these problems are solvable. Not with some massive transformation project or expensive off-the-shelf platform. With focused improvements in the areas that matter most. The trick is knowing where to start.
               </p>
 
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;" />
@@ -137,7 +137,7 @@ export function getDay7GuideGeneralTemplate(params: Day7GuideGeneralParams): Seq
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                If you'd like to talk through what this looks like${companyContext}, we're happy to share what we've seen work in similar situations. No pitch - just a chance to think through the problem together.
+                If you'd like to talk through what this looks like${companyContext}, I'm happy to share what I've seen work in similar situations. No pitch, just a chance to think through the problem together.
               </p>
 
               <!-- CTA Button -->
@@ -162,7 +162,7 @@ export function getDay7GuideGeneralTemplate(params: Day7GuideGeneralParams): Seq
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -183,7 +183,7 @@ export function getDay7GuideGeneralTemplate(params: Day7GuideGeneralParams): Seq
   const textBody = `
 Hi ${firstName},
 
-We wanted to share something that rarely comes up in conversations about data strategy, but it's often the biggest factor in whether organizations move forward or stay stuck.
+I wanted to share something that rarely comes up in conversations about data strategy, but it's often the biggest factor in whether organizations move forward or stay stuck.
 
 It's the hidden cost of data inefficiency.
 
@@ -207,13 +207,13 @@ Think about your team's last month. How many hours were spent on data cleanup, m
 
 ---
 
-The good news: these problems are solvable. Not with some massive transformation project, but with focused improvements in the areas that matter most. The trick is knowing where to start.
+The good news: these problems are solvable. Not with some massive transformation project or expensive off-the-shelf platform. With focused improvements in the areas that matter most. The trick is knowing where to start.
 
 ---
 
 Worth a conversation?
 
-If you'd like to talk through what this looks like${companyContext}, we're happy to share what we've seen work in similar situations. No pitch - just a chance to think through the problem together.
+If you'd like to talk through what this looks like${companyContext}, I'm happy to share what I've seen work in similar situations. No pitch, just a chance to think through the problem together.
 
 Schedule a call: ${calendarUrl}
 
@@ -221,7 +221,7 @@ Best,
 Grant
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

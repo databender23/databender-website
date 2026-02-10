@@ -62,7 +62,7 @@ export function getDay14GuideGeneralTemplate(params: Day14GuideGeneralParams): S
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                We wanted to share a quick story that might resonate with some of what you're dealing with.
+                I wanted to share a quick story that might resonate with some of what you're dealing with.
               </p>
 
               <!-- Case Study Box -->
@@ -128,7 +128,7 @@ export function getDay14GuideGeneralTemplate(params: Day14GuideGeneralParams): S
               </table>
 
               <p style="margin: 24px 0; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                The interesting thing: the technology wasn't complicated. What made the difference was understanding which problems to solve first and building solutions that people would actually use.
+                The interesting thing: the technology wasn't complicated. What made the difference was understanding which problems to solve first and building solutions they own and actually use. Not renting another platform. Building something that fits.
               </p>
 
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;" />
@@ -138,7 +138,7 @@ export function getDay14GuideGeneralTemplate(params: Day14GuideGeneralParams): S
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                If any of this resonates with what you're experiencing${companyContext}, we'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
+                If any of this resonates with what you're experiencing${companyContext}, I'd be happy to discuss what a similar approach might look like for your situation. No obligation, just a conversation about what's possible.
               </p>
 
               <!-- CTA Button -->
@@ -163,7 +163,7 @@ export function getDay14GuideGeneralTemplate(params: Day14GuideGeneralParams): S
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -184,7 +184,7 @@ export function getDay14GuideGeneralTemplate(params: Day14GuideGeneralParams): S
   const textBody = `
 Hi ${firstName},
 
-We wanted to share a quick story that might resonate with some of what you're dealing with.
+I wanted to share a quick story that might resonate with some of what you're dealing with.
 
 ---
 
@@ -207,13 +207,13 @@ They eliminated 15+ hours per week of manual data work. Monthly close went from 
 
 ---
 
-The interesting thing: the technology wasn't complicated. What made the difference was understanding which problems to solve first and building solutions that people would actually use.
+The interesting thing: the technology wasn't complicated. What made the difference was understanding which problems to solve first and building solutions they own and actually use. Not renting another platform. Building something that fits.
 
 ---
 
 Sound familiar?
 
-If any of this resonates with what you're experiencing${companyContext}, we'd be happy to discuss what a similar approach might look like for your situation. No obligation - just a conversation about what's possible.
+If any of this resonates with what you're experiencing${companyContext}, I'd be happy to discuss what a similar approach might look like for your situation. No obligation, just a conversation about what's possible.
 
 Schedule a call: ${calendarUrl}
 
@@ -221,7 +221,7 @@ Best,
 Grant
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

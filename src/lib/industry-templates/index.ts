@@ -12,6 +12,8 @@ import { dentalTemplate } from "./dental";
 import { manufacturingTemplate } from "./manufacturing";
 import { creTemplate } from "./cre";
 import { accountingTemplate } from "./accounting";
+import { constructionTemplate } from "./construction";
+import { wholesaleDistributionTemplate } from "./wholesale-distribution";
 import { generalTemplate } from "./general";
 
 export * from "./types";
@@ -23,6 +25,8 @@ export const industryTemplates: Record<string, IndustryTemplate> = {
   manufacturing: manufacturingTemplate,
   cre: creTemplate,
   accounting: accountingTemplate,
+  construction: constructionTemplate,
+  "wholesale-distribution": wholesaleDistributionTemplate,
   general: generalTemplate,
 };
 

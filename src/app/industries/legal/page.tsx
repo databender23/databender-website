@@ -4,9 +4,9 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Data & AI Solutions for Law Firms | Legal Industry",
+  title: "AI for Law Firms That Stays on Your Servers | Databender",
   description:
-    "Privacy-first AI solutions for law firms. Document intelligence, due diligence automation, and legal research tools that protect attorney-client privilege. All data stays on your servers.",
+    "Associates bill more hours. Partners keep their knowledge in the firm. Due diligence in days, not weeks. Privacy-first AI that your ethics committee will actually approve.",
   keywords: [
     "legal AI",
     "law firm AI",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     "law firm data security",
   ],
   openGraph: {
-    title: "Data & AI Solutions for Law Firms | Legal Industry",
+    title: "AI for Law Firms That Stays on Your Servers | Databender",
     description:
-      "Privacy-first AI solutions for law firms. Document intelligence, due diligence automation, and legal research tools that protect attorney-client privilege.",
+      "Associates bill more hours. Partners keep their knowledge in the firm. Due diligence in days, not weeks. Privacy-first AI your ethics committee will approve.",
     type: "website",
     url: "https://databender.co/industries/legal",
     images: [
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Data & AI Solutions for Law Firms | Legal Industry",
+    title: "AI for Law Firms That Stays on Your Servers | Databender",
     description:
-      "Privacy-first AI solutions for law firms. Document intelligence, due diligence automation, and legal research tools that protect attorney-client privilege.",
+      "Associates bill more hours. Partners keep their knowledge in the firm. Due diligence in days, not weeks. Privacy-first AI your ethics committee will approve.",
     images: ["https://databender.co/opengraph-image"],
   },
   alternates: {

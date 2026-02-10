@@ -43,51 +43,110 @@ export const prospects: ProspectInput[] = [
     createdDate: "2026-01-26",
     softExpirationDays: 30,
   },
+  {
+    slug: "much-shelist-2026",
+    password: "much",
+    companyName: "Much Shelist, P.C.",
+    industry: "legal",
+    companySize: "93 attorneys",
+    companyLocation: "Chicago, IL",
+    contactName: "Courtney Mayster",
+    contactTitle: "Managing Partner",
+    leadership: "Courtney Mayster, Managing Partner; Steven Schwartz, CFO/COO",
+    recentNews: [
+      "Expanded to Orange County with new West Coast office",
+      "Full-service firm with Corporate, Real Estate, Litigation, Tax, and IP practices",
+      "Geographic expansion accelerating growth strategy",
+    ],
+    createdDate: "2026-01-26",
+    softExpirationDays: 30,
+  },
 
   // ========================================
-  // HEALTHCARE PROSPECTS
+  // DENTAL PROSPECTS (uses dental template)
   // ========================================
-  // {
-  //   slug: "example-health-2026",
-  //   password: "examplehealth",
-  //   companyName: "Example Health Partners",
-  //   industry: "healthcare",
-  //   companySize: "12 locations",
-  //   companyLocation: "Denver, CO",
-  //   contactName: "Jane Smith",
-  //   contactTitle: "COO",
-  //   createdDate: "2026-01-26",
-  // },
+  {
+    slug: "smile-partners-2026",
+    password: "smile",
+    companyName: "Smile Partners USA",
+    industry: "dental",
+    companySize: "100+ locations",
+    companyLocation: "Troy, MI",
+    contactName: "Dave Gaspar",
+    contactTitle: "CEO",
+    leadership: "Dave Gaspar, CEO",
+    recentNews: [
+      "Received investment from BlackRock/Hollyport PE in February 2025",
+      "Expanded to 100+ office locations across multiple states",
+      "Accelerating growth strategy with PE partnership",
+    ],
+    createdDate: "2026-01-26",
+    softExpirationDays: 30,
+  },
 
   // ========================================
   // MANUFACTURING PROSPECTS
   // ========================================
-  // {
-  //   slug: "example-mfg-2026",
-  //   password: "examplemfg",
-  //   companyName: "Example Manufacturing Co",
-  //   industry: "manufacturing",
-  //   companySize: "$45M revenue",
-  //   companyLocation: "Indianapolis, IN",
-  //   contactName: "Bob Johnson",
-  //   contactTitle: "VP Operations",
-  //   createdDate: "2026-01-26",
-  // },
+  {
+    slug: "brava-2026",
+    password: "brava",
+    companyName: "Brava Roof Tile",
+    industry: "manufacturing",
+    companySize: "$30M revenue",
+    companyLocation: "Washington, IA",
+    contactName: "Adam Brantman",
+    contactTitle: "CEO",
+    leadership: "Adam Brantman, CEO; Andrew Ahrens, CMO",
+    recentNews: [
+      "Acquired by Golden Gate Capital in November 2024",
+      "Leading manufacturer of composite roofing tiles",
+      "Expanding sustainable building products portfolio",
+    ],
+    createdDate: "2026-01-26",
+    softExpirationDays: 30,
+  },
 
   // ========================================
   // COMMERCIAL REAL ESTATE PROSPECTS
   // ========================================
-  // {
-  //   slug: "example-cre-2026",
-  //   password: "examplecre",
-  //   companyName: "Example Property Group",
-  //   industry: "cre",
-  //   companySize: "25 properties",
-  //   companyLocation: "Austin, TX",
-  //   contactName: "Sarah Williams",
-  //   contactTitle: "Managing Partner",
-  //   createdDate: "2026-01-26",
-  // },
+  {
+    slug: "nai-hiffman-2026",
+    password: "hiffman",
+    companyName: "NAI Hiffman",
+    industry: "cre",
+    companySize: "800+ properties",
+    companyLocation: "Chicago, IL",
+    contactName: "John Heiberger",
+    contactTitle: "CEO",
+    leadership: "John Heiberger, CEO; Michael Flynn, COO; Ann Wallin, CFO",
+    recentNews: [
+      "New CEO John Heiberger joined January 2024",
+      "Manages 100-130M sq ft across 28 states",
+      "Launched Hiffman National expansion initiative",
+    ],
+    createdDate: "2026-01-26",
+    softExpirationDays: 30,
+  },
+
+  // ========================================
+  // CONSTRUCTION PROSPECTS
+  // ========================================
+  // No audits ready yet - add when available
+
+  // ========================================
+  // WHOLESALE DISTRIBUTION PROSPECTS
+  // ========================================
+  // No audits ready yet - add when available
+
+  // ========================================
+  // ACCOUNTING PROSPECTS
+  // ========================================
+  // No audits ready yet - add when available
+
+  // ========================================
+  // HEALTHCARE PROSPECTS (non-dental)
+  // ========================================
+  // No audits ready yet - add when available
 ];
 
 /**

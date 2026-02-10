@@ -63,11 +63,11 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                We have sent you a few emails since you downloaded <strong>${guideTitle}</strong> a few weeks ago. We know inboxes get crowded - especially in legal where you are managing client communications, opposing counsel, and internal matters all at once.
+                I've sent you a few emails since you downloaded <strong>${guideTitle}</strong> a few weeks ago. I know inboxes get crowded, especially in legal where you're managing client communications, opposing counsel, and internal matters all at once.
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                This will be our last follow-up for now. We wanted to let you know the door is always open if the topics we discussed become a priority down the road.
+                This will be my last follow-up for now. The door is always open if the topics we discussed become a priority down the road.
               </p>
 
               <!-- Option Box -->
@@ -78,7 +78,7 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
                       If you would like to connect
                     </p>
                     <p style="margin: 0; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                      We are happy to have a confidential conversation about knowledge management, AI readiness, or data strategy whenever timing makes sense for your firm${companyContext}. No pressure, no pitch - just an honest discussion about what is realistic and worthwhile.
+                      I'm happy to have a confidential conversation about knowledge management, AI readiness, or data strategy whenever timing makes sense for your firm${companyContext}. No pressure, no pitch. Just an honest discussion about what's realistic and worthwhile.
                     </p>
                   </td>
                 </tr>
@@ -105,7 +105,7 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
                       Staying in touch
                     </p>
                     <p style="margin: 0; color: #4a4a4a; font-size: 14px; line-height: 1.6;">
-                      Going forward, you will receive our monthly insights email - practical perspectives on data and AI for professional services firms. We focus on what is actually working, not vendor hype. Of course, you can unsubscribe anytime if it is not useful.
+                      Going forward, you'll get our monthly insights email with practical perspectives on data and AI for professional services firms. I focus on what's actually working, not vendor hype. You can unsubscribe anytime if it's not useful.
                     </p>
                   </td>
                 </tr>
@@ -125,7 +125,7 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
                 <tr>
                   <td style="padding: 16px 20px; border-left: 3px solid #e5e7eb;">
                     <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
-                      <strong style="color: #4a4a4a;">P.S.</strong> If timing is not right now but might be in a few months - perhaps after a busy litigation period or once budget planning begins - just reply and let us know. We will follow up then rather than now.
+                      <strong style="color: #4a4a4a;">P.S.</strong> If timing isn't right now but might be in a few months (perhaps after a busy litigation period or once budget planning begins), just reply and let me know. I'll follow up then rather than now.
                     </p>
                   </td>
                 </tr>
@@ -137,7 +137,7 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -157,15 +157,15 @@ export function getDay21GuideLegalTemplate(params: Day21GuideLegalParams): Seque
 
   const textBody = `Hi ${firstName},
 
-We have sent you a few emails since you downloaded ${guideTitle} a few weeks ago. We know inboxes get crowded - especially in legal where you are managing client communications, opposing counsel, and internal matters all at once.
+I've sent you a few emails since you downloaded ${guideTitle} a few weeks ago. I know inboxes get crowded, especially in legal where you're managing client communications, opposing counsel, and internal matters all at once.
 
-This will be our last follow-up for now. We wanted to let you know the door is always open if the topics we discussed become a priority down the road.
+This will be my last follow-up for now. The door is always open if the topics we discussed become a priority down the road.
 
 ---
 
 IF YOU WOULD LIKE TO CONNECT
 
-We are happy to have a confidential conversation about knowledge management, AI readiness, or data strategy whenever timing makes sense for your firm${companyContext}. No pressure, no pitch - just an honest discussion about what is realistic and worthwhile.
+I'm happy to have a confidential conversation about knowledge management, AI readiness, or data strategy whenever timing makes sense for your firm${companyContext}. No pressure, no pitch. Just an honest discussion about what's realistic and worthwhile.
 
 Schedule when convenient: ${calendarUrl}
 
@@ -173,7 +173,7 @@ Schedule when convenient: ${calendarUrl}
 
 STAYING IN TOUCH
 
-Going forward, you will receive our monthly insights email - practical perspectives on data and AI for professional services firms. We focus on what is actually working, not vendor hype. Of course, you can unsubscribe anytime if it is not useful.
+Going forward, you'll get our monthly insights email with practical perspectives on data and AI for professional services firms. I focus on what's actually working, not vendor hype. You can unsubscribe anytime if it's not useful.
 
 ---
 
@@ -182,10 +182,10 @@ Thank you for taking the time to explore these topics. Wishing you and the team$
 Best regards,
 Grant
 
-P.S. If timing is not right now but might be in a few months - perhaps after a busy litigation period or once budget planning begins - just reply and let us know. We will follow up then rather than now.
+P.S. If timing isn't right now but might be in a few months (perhaps after a busy litigation period or once budget planning begins), just reply and let me know. I'll follow up then rather than now.
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

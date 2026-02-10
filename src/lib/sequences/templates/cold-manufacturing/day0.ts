@@ -1,7 +1,7 @@
 /**
  * Day 0 Cold Manufacturing Email Template
  *
- * Initial outreach - economics shift + pain point hook
+ * Initial outreach: answer "where's my order?" in 30 seconds, support more volume without adding headcount
  * Plain-text style for better deliverability
  */
 
@@ -35,11 +35,11 @@ export function getDay0ColdManufacturingTemplate(params: ColdManufacturingParams
 <body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a;">
   <p>Hi ${firstName},</p>
 
-  <p>Can you see production efficiency and quality metrics in one view? Or does your team pull from 5 different systems to get the full picture?</p>
+  <p>When a customer calls and asks "where's my order?", how long does it take your team to answer? At most manufacturers your size, it's a scavenger hunt across the ERP, shop floor, and shipping.</p>
 
-  <p>Most manufacturers have operational data that could drive real improvements. But it's trapped in separate systems. Custom integration and automation used to cost a fortune. That's changed.</p>
+  <p>What if that answer took 30 seconds? One screen, real-time, across every system you already run.</p>
 
-  <p>The economics of custom software shifted dramatically in the last 18 months. What used to cost $200K+ can now be done for $30K-$75K in weeks. Purpose-built solutions are now affordable enough to actually do something about it.</p>
+  <p>Manufacturers are getting there now without ripping out their ERP or buying another platform they'll use 10% of. Purpose-built systems that connect what you already have. You own the result, no ongoing licensing fees. And the cost is a fraction of what this kind of work ran even two years ago.</p>
 
   <p>Is this something ${company} is dealing with, or have you already solved it?</p>
 
@@ -57,11 +57,11 @@ export function getDay0ColdManufacturingTemplate(params: ColdManufacturingParams
 
   const textBody = `Hi ${firstName},
 
-Can you see production efficiency and quality metrics in one view? Or does your team pull from 5 different systems to get the full picture?
+When a customer calls and asks "where's my order?", how long does it take your team to answer? At most manufacturers your size, it's a scavenger hunt across the ERP, shop floor, and shipping.
 
-Most manufacturers have operational data that could drive real improvements. But it's trapped in separate systems. Custom integration and automation used to cost a fortune. That's changed.
+What if that answer took 30 seconds? One screen, real-time, across every system you already run.
 
-The economics of custom software shifted dramatically in the last 18 months. What used to cost $200K+ can now be done for $30K-$75K in weeks. Purpose-built solutions are now affordable enough to actually do something about it.
+Manufacturers are getting there now without ripping out their ERP or buying another platform they'll use 10% of. Purpose-built systems that connect what you already have. You own the result, no ongoing licensing fees. And the cost is a fraction of what this kind of work ran even two years ago.
 
 Is this something ${company} is dealing with, or have you already solved it?
 

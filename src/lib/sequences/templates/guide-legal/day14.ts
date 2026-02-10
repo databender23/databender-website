@@ -59,7 +59,7 @@ export function getDay14GuideLegalTemplate(params: Day14GuideLegalParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 16px; line-height: 1.6;">
-                We wanted to share a story that illustrates what we discussed in the guide. This is a real engagement - details adjusted to protect confidentiality.
+                I wanted to share a story that illustrates what we discussed in the guide. This is a real engagement, with details adjusted to protect confidentiality.
               </p>
 
               <!-- Case Study Box -->
@@ -79,7 +79,7 @@ export function getDay14GuideLegalTemplate(params: Day14GuideLegalParams): Seque
                       The Challenge
                     </p>
                     <p style="margin: 0 0 20px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                      Associates routinely spent hours searching for relevant precedents. The firm's document management system search was keyword-based and returned hundreds of results for any general query. Partners knew the work existed somewhere but could not point people to it efficiently. When senior partners retired, their institutional knowledge effectively disappeared.
+                      Associates routinely spent hours searching for relevant precedents. The firm's document management system search was keyword-based and returned hundreds of results for any general query. Partners knew the work existed somewhere but couldn't point people to it efficiently. When senior partners retired, their institutional knowledge effectively disappeared.
                     </p>
 
                     <!-- The Approach -->
@@ -129,7 +129,7 @@ export function getDay14GuideLegalTemplate(params: Day14GuideLegalParams): Seque
                 <tr>
                   <td style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center;">
                     <p style="margin: 0; color: #1a1a1a; font-size: 15px; line-height: 1.6; font-style: italic;">
-                      "The AI did not create new knowledge - it unlocked what was already there. That is the part people often miss. Your firm's decades of work product is a competitive asset, if you can access it."
+                      "The AI didn't create new knowledge. It unlocked what was already there. That's the part people often miss. Your firm's decades of work product is a competitive asset, if you can access it."
                     </p>
                   </td>
                 </tr>
@@ -142,7 +142,7 @@ export function getDay14GuideLegalTemplate(params: Day14GuideLegalParams): Seque
               </p>
 
               <p style="margin: 0 0 24px; color: #4a4a4a; font-size: 15px; line-height: 1.6;">
-                If the challenges here resonate with what your firm is experiencing, we would be glad to discuss what a similar approach might look like for your situation. Every firm is different, but the underlying patterns are often similar.
+                If the challenges here resonate with what your firm is experiencing, I'd be glad to discuss what a similar approach might look like for your situation. Every firm is different, but the underlying patterns are often similar.
               </p>
 
               <!-- CTA Button -->
@@ -167,7 +167,7 @@ export function getDay14GuideLegalTemplate(params: Day14GuideLegalParams): Seque
           <tr>
             <td style="padding: 24px 40px; background-color: #f8f9fa; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; color: #6b7280; font-size: 13px; text-align: center;">
-                Databender - Senior expertise. AI-powered speed.
+                Databender - Rethink what's possible.
               </p>
               <p style="margin: 8px 0 0; color: #9ca3af; font-size: 12px; text-align: center;">
                 <a href="https://databender.co" style="color: #9ca3af; text-decoration: none;">databender.co</a>
@@ -187,7 +187,7 @@ export function getDay14GuideLegalTemplate(params: Day14GuideLegalParams): Seque
 
   const textBody = `Hi ${firstName},
 
-We wanted to share a story that illustrates what we discussed in the guide. This is a real engagement - details adjusted to protect confidentiality.
+I wanted to share a story that illustrates what we discussed in the guide. This is a real engagement, with details adjusted to protect confidentiality.
 
 ---
 
@@ -197,7 +197,7 @@ THE FIRM
 A 40-attorney firm with three practice areas: commercial litigation, corporate transactions, and employment law. In business for 25+ years, with substantial work product accumulated across network drives, a document management system, and partner email archives.
 
 THE CHALLENGE
-Associates routinely spent hours searching for relevant precedents. The firm's document management system search was keyword-based and returned hundreds of results for any general query. Partners knew the work existed somewhere but could not point people to it efficiently. When senior partners retired, their institutional knowledge effectively disappeared.
+Associates routinely spent hours searching for relevant precedents. The firm's document management system search was keyword-based and returned hundreds of results for any general query. Partners knew the work existed somewhere but couldn't point people to it efficiently. When senior partners retired, their institutional knowledge effectively disappeared.
 
 THE APPROACH
 - Semantic search layer: Implemented AI-powered search across all document repositories. Attorneys describe what they need in plain language; the system finds relevant documents based on meaning, not just keywords.
@@ -209,13 +209,13 @@ After six months of use, the firm measured the impact. Associates recovered an a
 
 ---
 
-"The AI did not create new knowledge - it unlocked what was already there. That is the part people often miss. Your firm's decades of work product is a competitive asset, if you can access it."
+"The AI didn't create new knowledge. It unlocked what was already there. That's the part people often miss. Your firm's decades of work product is a competitive asset, if you can access it."
 
 ---
 
 Sound familiar?
 
-If the challenges here resonate with what your firm is experiencing, we would be glad to discuss what a similar approach might look like for your situation. Every firm is different, but the underlying patterns are often similar.
+If the challenges here resonate with what your firm is experiencing, I'd be glad to discuss what a similar approach might look like for your situation. Every firm is different, but the underlying patterns are often similar.
 
 Schedule a discussion: ${calendarUrl}
 
@@ -223,7 +223,7 @@ Best,
 Grant
 
 ---
-Databender - Senior expertise. AI-powered speed.
+Databender - Rethink what's possible.
 databender.co
 
 Unsubscribe: ${unsubscribeUrl}

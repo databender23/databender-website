@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-export const alt = "Databender - Senior Expertise. AI-Powered Speed.";
+export const alt = "Databender - Rethink What's Possible.";
 export const size = {
   width: 1200,
   height: 630,

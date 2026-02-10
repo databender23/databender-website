@@ -41,7 +41,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-text-secondary mb-6 max-w-md">
-              Senior expertise. AI-powered speed.
+              Rethink what's possible.
             </p>
             <div className="flex gap-4">
               <a
