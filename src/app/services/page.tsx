@@ -7,7 +7,7 @@ import { faqSchema, breadcrumbSchema, type FAQItem } from "@/lib/schema";
 const servicesFAQs: FAQItem[] = [
   {
     question: "What services does Databender offer?",
-    answer: "Databender offers three core services that work together: Data & AI Strategy (building your data foundation), Analytics & BI (applications and reporting that reveal insights), and AI Services (intelligent automation and AI agents). You can engage us for one service or combine all three for a complete data transformation."
+    answer: "Databender offers four core services: Get Clarity (data strategy and foundations), See What's Happening (analytics and real-time visibility), Put AI to Work (AI agents and automation), and Build What You Need (custom software that replaces bloated SaaS). Start where it hurts most, or combine them."
   },
   {
     question: "How long do projects typically take?",

@@ -4,9 +4,9 @@ import { JsonLd } from "@/components/seo";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Industries We Serve | Healthcare, Legal, Manufacturing & More",
+  title: "Industries | Healthcare, Legal, Manufacturing & More",
   description:
-    "Databender brings proven data and AI solutions to healthcare, legal, real estate, and manufacturing. Cross-industry experience means tested approaches, not experiments.",
+    "Purpose-built data and AI for healthcare, legal, manufacturing, construction, CRE, and distribution. Compliance-ready solutions that remove work, not add it.",
   keywords: [
     "healthcare data consulting",
     "legal AI solutions",
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     "regulated industry AI",
   ],
   openGraph: {
-    title: "Industries We Serve | Healthcare, Legal, Manufacturing & More",
+    title: "Industries | Healthcare, Legal, Manufacturing & More",
     description:
-      "Databender brings proven data and AI solutions to healthcare, legal, real estate, and manufacturing. Cross-industry experience means tested approaches, not experiments.",
+      "Purpose-built data and AI for healthcare, legal, manufacturing, construction, CRE, and distribution. Compliance-ready solutions that remove work, not add it.",
     type: "website",
     url: "https://databender.co/industries",
     images: [
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Industries We Serve | Healthcare, Legal, Manufacturing & More",
+    title: "Industries | Healthcare, Legal, Manufacturing & More",
     description:
-      "Databender brings proven data and AI solutions to healthcare, legal, real estate, and manufacturing.",
+      "Purpose-built data and AI for healthcare, legal, manufacturing, construction, CRE, and distribution.",
     images: ["https://databender.co/opengraph-image"],
   },
   alternates: {

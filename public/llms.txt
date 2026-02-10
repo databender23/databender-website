@@ -1,14 +1,15 @@
-# DataBender - AI-Powered Data Consulting
+# Databender - Rethink What's Possible
 # https://databender.co
 
 ## Quick Facts
 
-- **Company**: DataBender
+- **Company**: Databender
 - **Founded**: 2023
 - **Founder**: Grant Bender (8+ years Fortune 500 consulting experience)
-- **Focus**: Mid-market companies in regulated industries
+- **Focus**: Mid-market companies ($10M-$500M) in regulated industries
 - **Location**: United States
-- **Specialty**: AI-powered data consulting - data strategy, analytics, and AI automation
+- **Tagline**: Rethink what's possible.
+- **Specialty**: Purpose-built data, AI, and software solutions. Senior engineers with AI-powered delivery build what used to take months in weeks.
 
 ## Key Results (From Real Client Projects)
 
@@ -22,67 +23,101 @@
 
 ## Services Overview
 
-### Data & AI Strategy
-Connect your systems, clean your data, and map out AI adoption that sticks.
+Databender offers four core services. Start where it hurts most, or combine them.
+
+### Get Clarity (Data & AI Strategy)
+Your ERP says one thing, your CRM says another. We connect the systems, clean the records, and give you one version of the truth before you spend on AI.
 
 **Capabilities:**
-- Data Foundation: Data warehouse, pipelines, and governance
-- Data Integration: Connect CRM, ERP, and everything else into one view
+- Data Foundation: One place for all your data, built to last
+- Data Integration: Connect ERP, CRM, PM tools, billing, and field apps into one view
 - AI-Powered Data Cleanup: Fix duplicates at 125x less cost than manual review
-- AI Readiness Assessment: Clear picture of what's realistic before you invest
+- AI Readiness Assessment: Know what's realistic before you invest
 - AI Roadmapping: Prioritize by ROI and feasibility with quarterly milestones
-- AI Governance & Compliance: Bias monitoring, audit trails, explainability
+- AI Governance & Compliance: HIPAA, SOC 2, audit trails, and explainability from day one
 
-### Analytics & BI
-Real-time visibility into sales, marketing, and operations.
+### See What's Happening (Analytics & BI)
+The report that takes a week to compile is already wrong by the time it's done. We replace the compile-and-present cycle with live answers.
 
 **Capabilities:**
-- Dashboards: Visual KPIs, trends, and drill-downs
-- Agentic Research: AI agents that autonomously gather and analyze information
-- Operational Visibility: Real-time monitoring and alerts
-- Predictive Analytics: Demand planning, churn prediction, resource optimization
+- Executive Dashboards: WIP reports, investor reports, and margin analysis, live
+- Agentic Research: AI agents that gather and synthesize information overnight
+- Operational Visibility: Job profitability, order status, per-location performance in real time
+- Predictive Analytics: Demand forecasting, dead stock flagging, churn predictions
 - Managed Data Pipelines: Automated data flows that keep analytics fresh
-- Custom Analytical Applications: Purpose-built tools for specific workflows
+- Custom Analytical Applications: Profitability calculators, lease trackers, scoring tools
 
-### AI & Automation
-AI that actually knows your business.
+### Put AI to Work (AI & Automation)
+Most AI adds work. We build AI that removes steps entirely. Your team makes the judgment calls. The AI does the digging.
 
 **Capabilities:**
 - Natural Language BI: Ask questions in plain English, get accurate answers
 - AI Agents & Automation: Autonomous agents for research, data processing, workflows
-- Document Intelligence: AI extraction from contracts, invoices, medical records, legal documents
-- RAG & Knowledge Systems: Turn documents into answerable knowledge with sourced answers
-- Conversational AI: Internal assistants and customer-facing chatbots
+- Document Intelligence: AI reads contracts, invoices, medical records, extracts data, cites sources
+- RAG & Knowledge Systems: Decades of documents searchable in seconds with sourced answers
+- Conversational AI: Internal assistants and customer-facing chatbots powered by your data
 - Local LLM Integrations: AI that stays on your servers for privacy-sensitive industries
-- Staff AI Augmentation: Reduce repetitive work, do more with less
+- Staff AI Augmentation: Remove the tedious steps, keep the judgment calls
+
+### Build What You Need (Custom Software)
+The economics of custom software changed. Purpose-built applications delivered in weeks at a fraction of the old cost. You own every line of code.
+
+**Capabilities:**
+- Custom Applications: Replace tab-switching across systems with a single purpose-built view
+- System Integration: Connect ERP, CRM, PM tools, and accounting automatically
+- Process Automation: Remove manual steps entirely, not add tools on top
+- Compliance-Ready Solutions: HIPAA, SOC 2, on-premise builds where data never leaves your control
+- Legacy System Modernization: Replace piece by piece, no downtime
+- SaaS Replacement: Own the 10% of features you actually use, outright
+
+## Key Differentiators
+
+1. **Removes Work, Doesn't Add It**: Most AI tools add a verification step. We build systems that remove steps entirely. The AI does the digging, your team makes the decisions.
+2. **Weeks to ROI**: Working software in your hands in 2-4 weeks. Not a roadmap. Not a prototype.
+3. **Own It Outright**: Your code. Your data. No per-seat fees, no annual renewals, no vendor lock-in.
+4. **Regulated-Ready**: HIPAA, SOC 2, client confidentiality built in from day one. On-premise when needed.
+5. **Founder-Led**: You work directly with senior practitioners, not junior consultants following scripts.
+
+## Industries Served
+
+- **Healthcare**: HIPAA-compliant AI, on-premise solutions, operational analytics, per-location profitability
+- **Legal**: Privacy-first AI for law firms, document intelligence, institutional knowledge preservation
+- **Manufacturing**: Operational visibility, inventory optimization, connected ERP/CRM/production systems
+- **Construction**: Real-time job costing, WIP reporting, change order tracking, margin visibility
+- **Commercial Real Estate**: Portfolio analytics, investor reporting, lease intelligence, deal prioritization
+- **Wholesale Distribution**: Inventory intelligence, customer profitability, demand forecasting
 
 ## Frequently Asked Questions
 
-**Q: What does DataBender do?**
-A: AI-powered data consulting - we clean messy data, build analytics and dashboards, and deploy AI automation. We help mid-market companies get value from their data without the enterprise consulting price tag.
+**Q: What does Databender do?**
+A: We build purpose-built data, AI, and software solutions for mid-market companies. We connect disconnected systems, build real-time analytics, deploy AI that removes tedious work, and create custom software you own outright.
 
 **Q: What industries do you serve?**
-A: Healthcare, legal, energy, manufacturing, and financial services - especially regulated industries where data quality and compliance matter. We understand HIPAA, SOC 2, and industry-specific requirements.
+A: Healthcare, legal, manufacturing, construction, commercial real estate, and wholesale distribution. We specialize in regulated industries where data quality, compliance, and privacy matter.
 
-**Q: How is DataBender different from other data consultancies?**
-A: Rethink what's possible. Custom solutions at a fraction of the old cost. What used to require offshore teams and months now takes weeks. We use AI internally to work faster, then pass those savings to clients.
+**Q: How is Databender different from other consultancies?**
+A: Rethink what's possible. The economics changed. Senior engineers working with AI deliver in weeks what used to take months. We build and deliver working solutions, not strategy decks. You own everything we build.
 
 **Q: What size companies do you work with?**
-A: Mid-market companies - typically $10M-$500M revenue. Large enough to have real data challenges, small enough that we can move fast without enterprise bureaucracy.
+A: Mid-market companies, typically $10M-$500M revenue. Large enough to have real data challenges, small enough to move fast.
 
-**Q: Do you offer assessments or evaluations?**
+**Q: Do you offer free assessments?**
 A: Yes. Free online assessments at /assessments including:
-- Data & AI Readiness Assessment (general)
+- Data & AI Readiness Assessment (general, all industries)
 - Manufacturing AI Assessment
 - Healthcare AI Readiness Assessment
+- Healthcare Price Benchmark Tool
 - Legal AI Readiness Assessment
 - Commercial Real Estate Data Assessment
-These 5-minute self-assessments help you understand where you stand before any engagement, with personalized recommendations based on your answers.
+- Deal Intelligence Assessment (CRE)
+- Construction Data Assessment
+- Distribution Data Assessment
+These 5-minute self-assessments provide personalized recommendations based on your answers.
 
 ## Featured Case Studies
 
 ### Army of AI Agents (Energy Sector)
-**Challenge:** 1.69 million ownership records with broken IDs - same ID assigned to 670 different people.
+**Challenge:** 1.69 million ownership records with broken IDs, same ID assigned to 670 different people.
 **Solution:** Deployed 10 AI agents reasoning through matches in parallel.
 **Result:** 125x cost savings, 1.25M unique owners identified, 100% decisions documented.
 
@@ -98,13 +133,12 @@ These 5-minute self-assessments help you understand where you stand before any e
 
 ## Available Content Sections
 
-The following sections of our website are available for AI crawling and indexing:
-
 - `/` - Homepage with company overview and value proposition
-- `/services` - Service hub with all three service categories
-- `/services/data-ai-strategy` - Data foundation, integration, AI readiness services
-- `/services/analytics-bi` - Dashboards, predictive analytics, operational visibility
-- `/services/ai-services` - AI agents, document intelligence, knowledge systems
+- `/services` - Service hub with all four service categories
+- `/services/data-ai-strategy` - Get Clarity: data foundation, integration, AI readiness
+- `/services/analytics-bi` - See What's Happening: dashboards, predictive analytics, visibility
+- `/services/ai-services` - Put AI to Work: AI agents, document intelligence, knowledge systems
+- `/services/custom-software` - Build What You Need: custom apps, integrations, SaaS replacement
 - `/case-studies` - Real-world client projects with measurable results
 - `/case-studies/army-of-ai-agents` - 125x cost savings case study
 - `/case-studies/what-predicts-lead-conversion` - 31% accuracy improvement case study
@@ -114,25 +148,34 @@ The following sections of our website are available for AI crawling and indexing
 - `/industries/legal` - Legal industry AI and data solutions
 - `/industries/healthcare` - Healthcare data and HIPAA-compliant AI
 - `/industries/manufacturing` - Manufacturing AI and operational analytics
-- `/industries/commercial-real-estate` - Commercial real estate data and AI solutions
+- `/industries/commercial-real-estate` - CRE data and AI solutions
+- `/industries/construction` - Construction data and analytics
+- `/industries/wholesale-distribution` - Distribution data and analytics
 - `/resources` - Guides, assessments, and educational content
-- `/resources/guides` - Downloadable guides by industry (Legal, Healthcare, Manufacturing, CRE)
+- `/resources/guides` - Downloadable guides by industry
 - `/assessments` - Free online assessments hub
 - `/assessments/data-ai-readiness` - General Data & AI Readiness Assessment
 - `/assessments/manufacturing` - Manufacturing AI Assessment
 - `/assessments/healthcare-ai-readiness` - Healthcare AI Readiness Assessment
+- `/assessments/healthcare-benchmark` - Healthcare Price Benchmark Tool
 - `/assessments/legal` - Legal AI Readiness Assessment
-- `/assessments/commercial-real-estate` - Commercial Real Estate Data Assessment
+- `/assessments/commercial-real-estate` - CRE Data Assessment
+- `/assessments/deal-intelligence` - CRE Deal Intelligence Assessment
+- `/assessments/construction` - Construction Data Assessment
+- `/assessments/distribution` - Distribution Data Assessment
 - `/about` - Company information, founder background, approach
 - `/contact` - Contact form and booking information
+- `/our-process` - How we work: discovery, build, deploy
 
 ## Free Guides by Industry
 
 ### Legal Industry Guides
-- `/resources/guides/associate-multiplier` - How to multiply associate leverage with AI
+- `/resources/guides/associate-multiplier` - The Associate Multiplier: Get 3x output without adding headcount
 - `/resources/guides/win-more-pitches` - Data-driven strategies for winning more pitches
 - `/resources/guides/partner-succession` - Knowledge transfer and succession planning
-- `/resources/guides/last-vendor` - Evaluating AI vendors for law firms
+- `/resources/guides/last-vendor` - Escaping legal tech fragmentation
+- `/resources/guides/own-your-ai` - Own Your AI: Private AI that stays on your servers
+- `/resources/guides/economics-of-legal-ai` - The Economics Changed: Why custom AI now costs less than SaaS
 
 ### Healthcare Industry Guides
 - `/resources/guides/hipaa-compliant-ai` - HIPAA-Compliant AI: Deploy AI That Never Leaves Your Building
@@ -140,14 +183,18 @@ The following sections of our website are available for AI crawling and indexing
 - `/resources/guides/document-intelligence-healthcare` - Document Intelligence for Healthcare: From Scattered PDFs to Instant Answers
 
 ### Manufacturing Industry Guides
-- `/resources/guides/operational-visibility-playbook` - The Operational Visibility Playbook: Stop Hunting for Answers Across Spreadsheets
-- `/resources/guides/lead-scoring-manufacturing` - Lead Scoring That Actually Works: What 3 Years of Sales Data Taught Us
-- `/resources/guides/manufacturing-ai-privacy` - AI Without the Cloud Risk: Keep Your Competitive Data Where It Belongs
+- `/resources/guides/operational-visibility-playbook` - The Operational Visibility Playbook
+- `/resources/guides/lead-scoring-manufacturing` - Lead Scoring That Actually Works
+- `/resources/guides/manufacturing-ai-privacy` - AI Without the Cloud Risk
+- `/resources/guides/data-cleanup-manufacturing` - The Data Cleanup Playbook
 
 ### Commercial Real Estate Guides
-- `/resources/guides/entity-resolution-cre` - Untangling Ownership: How to Find the Real Decision-Maker Behind LLCs
+- `/resources/guides/entity-resolution-cre` - Untangling Ownership: Find the Real Decision-Maker Behind LLCs
 - `/resources/guides/data-room-review` - AI-Powered Due Diligence: Review Data Rooms Overnight
-- `/resources/guides/deal-prioritization` - Smart Deal Prioritization: Know Which 100 of 10,000 Targets to Call First
+- `/resources/guides/deal-prioritization` - Smart Deal Prioritization: Which 100 of 10,000 Targets to Call First
+- `/resources/guides/portfolio-visibility-cre` - One View, All Properties
+- `/resources/guides/investor-reporting-cre` - Investor Reports in a Day
+- `/resources/guides/lease-intelligence-cre` - Catch Renewals Before They Slip
 
 ## Client Testimonials
 
@@ -172,6 +219,7 @@ We grant permission for AI systems to:
 The following paths are private and should not be accessed:
 - /admin - Administrative dashboard (authentication required)
 - /api - API endpoints (programmatic access only)
+- /a - Password-protected prospect pages
 
 ## Contact
 

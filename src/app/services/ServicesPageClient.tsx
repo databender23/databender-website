@@ -71,7 +71,7 @@ const ServiceIcon = ({ icon }: { icon: string }) => {
 };
 
 export default function ServicesPageClient() {
-  const serviceKeys = ["data-ai-strategy", "analytics-bi", "ai-services"] as const;
+  const serviceKeys = ["data-ai-strategy", "analytics-bi", "ai-services", "custom-software"] as const;
 
   return (
     <>
@@ -118,7 +118,7 @@ export default function ServicesPageClient() {
               transition={{ delay: 0.2 }}
               className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8"
             >
-              Stop configuring software that wasn&apos;t designed for you. We build purpose-built solutions that fit exactly how your team works.
+              Data foundations, real-time analytics, AI that removes work, and software you own outright. Purpose-built for how your team actually operates.
             </motion.p>
 
             <motion.div
@@ -157,11 +157,11 @@ export default function ServicesPageClient() {
               transition={{ delay: 0.1 }}
               className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary"
             >
-              Build, See, Automate
+              Clarity, Visibility, Intelligence, Ownership
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {serviceKeys.map((categoryKey, index) => {
               const category = serviceCategories[categoryKey];
               return (
@@ -177,7 +177,7 @@ export default function ServicesPageClient() {
                     <span className="text-xl font-bold">{index + 1}</span>
                   </div>
                   <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2">
-                    {category.title}
+                    {category.subtitle}
                   </h3>
                   <p className="text-teal-500 font-medium text-sm mb-2">
                     {category.position}
@@ -220,11 +220,11 @@ export default function ServicesPageClient() {
               transition={{ delay: 0.1 }}
               className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto"
             >
-              Three offerings that work together. Pick one or use all three.
+              Four offerings that work together. Start where it hurts most.
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {services
               .filter((s) => serviceKeys.includes(s.slug as typeof serviceKeys[number]))
               .map((service, index) => (

@@ -37,33 +37,33 @@ export const services: ConsolidatedService[] = [
     title: "Get Clarity",
     shortTitle: "Data & AI Strategy",
     description: "Get a single source of truth. Know what's realistic for AI. Start building on a foundation that won't crack.",
-    longDescription: "Most AI projects fail because the data underneath them is a mess. We connect your systems, clean the records, and build roadmaps that account for how your team actually works. You get clarity before you spend.",
+    longDescription: "Your ERP says one thing, your CRM says another, and the spreadsheet your controller maintains says something else entirely. We connect the systems, clean the records, and give you one version of the truth before you spend on AI.",
     icon: "database",
     category: "data-ai-strategy",
     subServices: [
       {
         title: "Data Foundation",
-        description: "One place for all your data, built so you're not redoing it in a year. The infrastructure that makes everything else possible.",
+        description: "Five systems. Five versions of the same customer record. We build one foundation that connects them all. Your team stops reconciling and starts deciding.",
         icon: "database",
       },
       {
         title: "Data Integration",
-        description: "Connect CRM, ERP, and everything else into one view. Your team gets answers instead of switching tabs.",
+        description: "Your ERP, CRM, project management, billing, and field tools weren't built to share data. We make them. One view of your business instead of fifteen browser tabs.",
         icon: "link",
       },
       {
         title: "AI-Powered Data Cleanup",
-        description: "Fix duplicates, standardize formats, resolve conflicting records at 80-90% less cost than manual review. The cleanup learns from your corrections.",
+        description: "Duplicate customers, inconsistent vendor records, addresses that don't match. We've cleaned millions of records at a fraction of the cost of doing it by hand. The system learns from your corrections and gets smarter over time.",
         icon: "sparkles",
       },
       {
         title: "AI Readiness Assessment",
-        description: "Know exactly what's realistic before you invest. You get a clear picture of your data, your team's readiness, and where the quick wins are.",
+        description: "Your team tried ChatGPT. It hallucinated. Now leadership is skeptical. We show you where AI actually works for your business and where it doesn't. No hype. Just a clear picture of what's realistic.",
         icon: "eye",
       },
       {
         title: "AI Roadmapping",
-        description: "Stop guessing which AI projects will pay off. We prioritize by ROI and feasibility, then map out what gets delivered each quarter.",
+        description: "Stop guessing which AI project to fund first. We prioritize by ROI and feasibility, then map out what gets delivered each quarter. Your board gets a plan they can track.",
         icon: "trending-up",
       },
       {
@@ -73,16 +73,16 @@ export const services: ConsolidatedService[] = [
       },
     ],
     benefits: [
-      { title: "Single Source of Truth", description: "All your data in one place. Consistent. Reliable. Done arguing about whose spreadsheet is right." },
-      { title: "Avoid Costly Mistakes", description: "Know what's realistic before you spend. No failed pilots, no wasted investment." },
-      { title: "Clear Roadmap", description: "A path from where you are to AI-enabled operations, with quarterly milestones and real accountability." },
+      { title: "One Version of the Truth", description: "Your team stops reconciling spreadsheets and starts making decisions. One number. One source. No more arguments about whose data is right." },
+      { title: "AI That Actually Works", description: "Most AI pilots fail because the data underneath is a mess. Fix the foundation first and the AI projects that follow actually deliver." },
+      { title: "Clear Roadmap", description: "Not a 50-page report that sits on a shelf. A prioritized plan your board can track, with quarterly milestones and clear ROI targets." },
     ],
     targetAudience: {
       profiles: [
-        "Growing companies with data scattered across multiple systems that need a unified foundation",
-        "Organizations preparing for AI adoption who want to avoid costly missteps",
-        "Companies with messy or duplicated data affecting business decisions",
-        "Teams tired of manual data cleanup and looking for sustainable solutions",
+        "Your team checks three systems to answer one question and still isn't sure they have the right number",
+        "You tried an AI pilot and it failed because the data underneath was a mess",
+        "Board meetings run on spreadsheets that someone spent two days manually compiling",
+        "Duplicate records, inconsistent formats, and data entry errors are costing you real money",
       ],
     },
     faqs: [
@@ -91,16 +91,16 @@ export const services: ConsolidatedService[] = [
         answer: "You'll have a usable roadmap in 4-6 weeks. Not a thick report that sits on a shelf. A prioritized plan with quarterly milestones your team can actually execute.",
       },
       {
-        question: "What if our data is scattered across many different systems?",
-        answer: "You'll finally get a single view. We've connected 15+ systems into unified views for other clients. The right architecture upfront means adding new sources later is straightforward.",
+        question: "We have data in 5+ systems. Can you actually unify that?",
+        answer: "That's the most common starting point. ERP, CRM, project management, billing, field tools. We've connected 15+ systems into unified views. The right architecture upfront means adding new sources later is straightforward. Your team keeps every tool they currently use.",
       },
       {
-        question: "Do we need to replace our existing systems?",
-        answer: "Almost never. Your team keeps the tools they know. We connect and build on top of what you have, so you gain new visibility without the disruption of ripping and replacing.",
+        question: "Our last AI project didn't deliver. Why would this be different?",
+        answer: "Most AI projects fail because they skip the foundation. The model is fine. The data underneath it isn't. We fix the data first, then build AI on top of something solid. That's why the projects that follow actually work.",
       },
       {
         question: "How do you handle data quality issues?",
-        answer: "One client had 1.69 million messy records. We resolved them at 80-90% less cost than manual review. Our AI-powered cleanup learns from your corrections, so the system gets smarter over time.",
+        answer: "One client had 1.69 million messy records. Duplicates, conflicting addresses, inconsistent formats. We resolved them at 80-90% less cost than manual review. The AI-powered cleanup learns from your corrections, so the problem gets smaller over time instead of bigger.",
       },
     ],
     processSteps: [
@@ -135,70 +135,70 @@ export const services: ConsolidatedService[] = [
     title: "See What's Happening",
     shortTitle: "Analytics & BI",
     description: "See what's happening across your business right now. Ask questions in plain English. Get answers in seconds.",
-    longDescription: "Your team shouldn't wait days for a report that's already outdated. We build real-time visibility into sales, marketing, and operations. Anyone can ask questions in plain English and get answers instantly.",
+    longDescription: "The report that takes a week to compile is already wrong by the time it's done. We replace the compile-and-present cycle with live answers. Ask a question, get the answer. Seconds, not days.",
     icon: "chart-bar",
     category: "analytics-bi",
     subServices: [
       {
-        title: "Applications",
-        description: "Your questions, answered visually. See what's happening across your business at a glance. KPIs, trends, and drill-downs that update in real time.",
+        title: "Executive Dashboards",
+        description: "The WIP report that took a week. The quarterly investor report that took 60 hours. The margin analysis that required spreadsheet archaeology. All of it, live. Updated without anyone touching a spreadsheet.",
         icon: "chart-bar",
       },
       {
         title: "Agentic Research",
-        description: "Hours of research, done in minutes. AI agents that autonomously gather and synthesize information from multiple sources, then deliver a summary you can act on.",
+        description: "Due diligence, competitor analysis, market research. AI agents gather and synthesize information from multiple sources overnight. Your team reviews a summary instead of spending days compiling one.",
         icon: "sparkles",
       },
       {
         title: "Operational Visibility",
-        description: "Real-time views into daily operations. Know what's happening now, not what happened last month. Live monitoring and alerts.",
+        description: "Know which jobs are profitable today, not after the quarterly close. See order status, production capacity, delivery timelines, and per-location performance without calling three departments.",
         icon: "eye",
       },
       {
         title: "Predictive Analytics",
-        description: "See what's coming before it happens. Demand forecasts, churn predictions, and resource planning you can actually trust, powered by your data.",
+        description: "Demand forecasting that's better than 'last year plus 10%.' Inventory optimization that flags dead stock before it eats your working capital. Churn predictions that give you time to act.",
         icon: "trending-up",
       },
       {
         title: "Managed Data Pipelines",
-        description: "Reliable, automated data flows that keep your analytics fresh. We build and maintain the pipelines so you can focus on insights, not infrastructure.",
+        description: "Your analytics are only as good as the data feeding them. We build and maintain the pipelines that keep everything fresh and accurate, so your team trusts the numbers without checking the source.",
         icon: "link",
       },
       {
         title: "Custom Analytical Applications",
-        description: "Purpose-built tools for your specific workflows. From interactive calculators to specialized reporting apps, analytics designed around how your team actually works.",
+        description: "Profitability calculators, lease renewal trackers, change order monitors, customer scoring tools. Purpose-built analytics designed around the specific questions your business needs to answer.",
         icon: "cpu",
       },
     ],
     benefits: [
-      { title: "Real-Time Visibility", description: "Know what's happening now, not last month." },
-      { title: "Self-Service Answers", description: "Anyone can get answers without waiting for IT." },
-      { title: "Predictive Power", description: "See what's coming before it happens." },
+      { title: "Kill the Report Cycle", description: "The weekly report your team spends a day compiling? It updates itself. The data that took three phone calls to track down? It's on the screen." },
+      { title: "Anyone Can Ask", description: "Your controller shouldn't be the only person who can answer margin questions. Plain English queries, instant answers, no SQL required." },
+      { title: "See It Before It Hits", description: "At-risk orders before they're late. Inventory problems before they're stockouts. Cash flow gaps before they're emergencies." },
     ],
     targetAudience: {
       profiles: [
-        "Companies making decisions on outdated spreadsheets and monthly reports",
-        "Teams waiting days for IT to pull basic business data",
-        "Organizations that want their people asking questions, not building reports",
-        "Leaders who need real-time visibility into operations, not historical snapshots",
+        "Board meetings run on spreadsheets someone spent two days manually compiling, and half the room questions the numbers",
+        "Your team can't answer 'what's our margin on this job?' without checking three systems and making a phone call",
+        "Quarterly reporting takes weeks of consolidation across multiple PM, accounting, or billing systems",
+        "Inventory, backlog, or cash flow surprises keep hitting because the data is always a month behind",
       ],
     },
     faqs: [
       {
-        question: "Can anyone on our team ask questions in plain English?",
-        answer: "Yes. Anyone can ask 'What were sales last quarter?' or 'Which customers are at risk?' and get instant, accurate answers. No SQL, no technical skills, no waiting for IT.",
+        question: "Our data lives in 5+ systems. Can you actually connect all of that?",
+        answer: "That's the most common scenario. ERP, CRM, project management, billing, field apps, spreadsheets. We connect them into one view. Your team keeps every tool they use today and gains visibility they never had.",
       },
       {
-        question: "How quickly can we get an application running?",
-        answer: "First applications go live in 2-4 weeks. Something useful, in your hands, fast. Then we iterate based on what questions your team actually asks.",
+        question: "How quickly can we see results?",
+        answer: "First dashboards go live in 2-4 weeks. Not a prototype. Something your team uses every day. We start with the questions that matter most, then expand based on what your team actually asks.",
       },
       {
-        question: "What happens when our business needs change?",
-        answer: "Your analytics grow with you. Adding new data sources, metrics, or views is straightforward because we build flexible foundations from the start. No rebuilding when your business evolves.",
+        question: "We've tried BI tools before and nobody used them. What's different?",
+        answer: "Most BI projects fail because they're built around the data, not around the questions. We start with the decisions your team makes every day and work backward. When the dashboard answers the question someone was about to spend an hour on, they use it.",
       },
       {
-        question: "Can this connect to our existing tools?",
-        answer: "If your data lives somewhere, we can connect it. CRMs, ERPs, spreadsheets, databases, APIs. You keep what works and gain visibility you didn't have before.",
+        question: "Does this replace our existing reporting?",
+        answer: "It replaces the manual work behind it. The person who spends a day every week compiling that report gets their day back. The report still exists. It just updates itself.",
       },
     ],
     processSteps: [
@@ -233,7 +233,7 @@ export const services: ConsolidatedService[] = [
     title: "Put AI to Work",
     shortTitle: "AI & Automation",
     description: "Agents that work while you sleep. Documents that read themselves. Years of files, searchable in seconds.",
-    longDescription: "AI that actually knows your business. Agents that handle research and workflows overnight. Document intelligence that pulls structured data from contracts and records. Knowledge systems that turn years of files into answers your team finds in seconds.",
+    longDescription: "Most AI adds work. Generate a draft, then review it for hallucinations. That's not saving time. That's adding a step. We build AI that removes steps entirely. Your team makes the judgment calls. The AI does the digging.",
     icon: "sparkles",
     category: "ai-services",
     subServices: [
@@ -254,7 +254,7 @@ export const services: ConsolidatedService[] = [
       },
       {
         title: "AI Enablement",
-        description: "AI built around your workflows, not the other way around. From document processing to decision automation, purpose-built for how you actually work.",
+        description: "AI built around your workflows, not bolted on top of them. We find the steps your team dreads and remove them. What's left is the work that actually requires human judgment.",
         icon: "cpu",
       },
       {
@@ -274,26 +274,26 @@ export const services: ConsolidatedService[] = [
       },
       {
         title: "Document Intelligence",
-        description: "Contracts, invoices, medical records, legal documents. AI reads them, extracts the data, and structures it. At scale. Without the manual review.",
+        description: "A lawyer shouldn't re-read a contract to verify the AI didn't hallucinate. Our document systems extract structured data, cite the source, and flag what needs human attention. Your team reviews the exceptions, not every page.",
         icon: "book",
       },
       {
         title: "Staff AI Augmentation",
-        description: "Your team does more with less. We redesign processes to cut the repetitive work, so your people focus on the work that actually matters.",
+        description: "We don't give your team another tool to manage. We remove the steps they shouldn't be doing in the first place. The research, the data gathering, the compiling. Gone. What's left is the work that actually needs a human.",
         icon: "lightbulb",
       },
     ],
     benefits: [
-      { title: "Plain English Queries", description: "Anyone asks, everyone gets answers. No technical skills required." },
-      { title: "Privacy-First AI", description: "Your sensitive data stays on your servers. Full stop." },
-      { title: "Knowledge at Scale", description: "Decades of expertise, accessible to every person on your team." },
+      { title: "Removes Work, Doesn't Add It", description: "No verification loops. No reviewing AI output on top of your actual work. The tedious steps disappear. Your team focuses on the decisions that matter." },
+      { title: "Privacy-First AI", description: "Your sensitive data stays on your servers. Full stop. No external APIs, no cloud exposure, no compliance headaches." },
+      { title: "Knowledge at Scale", description: "Decades of expertise, accessible to every person on your team. Ask a question, get the answer with the source document attached." },
     ],
     targetAudience: {
       profiles: [
-        "Companies with valuable knowledge trapped in documents, emails, and people's heads",
-        "Organizations in regulated industries needing AI that keeps data on-premises",
-        "Teams drowning in repetitive tasks that could be automated",
-        "Businesses ready to put AI to work but unsure where to start",
+        "You've tried AI tools and your team ended up verifying everything the AI produced",
+        "Valuable knowledge is trapped in documents, emails, and people's heads with no way to search it",
+        "Regulated industry where data can't leave your servers but you still need AI capabilities",
+        "Your team spends hours on research, data gathering, and compiling that should be automated",
       ],
     },
     faqs: [
@@ -303,7 +303,7 @@ export const services: ConsolidatedService[] = [
       },
       {
         question: "What's the difference between off-the-shelf and custom AI?",
-        answer: "ChatGPT doesn't know your business. Purpose-built AI is trained on your documents, your processes, your terminology. It gives accurate, relevant answers because it actually understands your context. That's the difference between a party trick and a tool your team relies on.",
+        answer: "Generic AI makes your team verify everything it produces. It hallucinates, it guesses, it doesn't know your business. Purpose-built AI is trained on your documents with your context. It cites sources, flags uncertainty, and gives answers your team can trust without re-doing the work. That's the difference between adding a step and removing one.",
       },
       {
         question: "How long before we see results?",
@@ -346,29 +346,29 @@ export const services: ConsolidatedService[] = [
     title: "Build What You Need",
     shortTitle: "Custom Software",
     description: "Stop renting software you could own. Custom applications built for your exact workflow. Delivered in weeks. Yours forever.",
-    longDescription: "The economics of custom software changed. What used to cost $200K+ and take a year now costs a fraction and ships in weeks. Senior engineers working with AI build purpose-built applications that fit your business exactly. No per-seat licensing. No annual renewals. You own every line of code.",
+    longDescription: "The economics of custom software changed. What used to take a year and a massive budget now ships in weeks at a fraction of the cost. Purpose-built for your business. No per-seat licensing. No annual renewals. You own every line of code.",
     icon: "code",
     category: "custom-software",
     subServices: [
       {
         title: "Custom Applications",
-        description: "Internal tools, customer portals, workflow apps built for exactly how your team works. Not adapted from someone else's template.",
+        description: "Your team logs into four systems to answer one question. We build the single view that replaces the tab-switching, the copy-paste, and the 'let me check and get back to you.'",
         icon: "code",
       },
       {
-        title: "Data Pipelines & Integration",
-        description: "Automated data flows that connect your systems and keep everything in sync. No more manual exports and copy-paste between tools.",
+        title: "System Integration",
+        description: "Your ERP, CRM, PM tools, and accounting software weren't built to talk to each other. We make them. Automated data flows that keep everything in sync without the manual exports.",
         icon: "link",
       },
       {
         title: "Process Automation",
-        description: "The repetitive work your team does every day, automated. Approvals, notifications, data entry, report generation. Done without human intervention.",
+        description: "The weekly report that takes a day to compile. The approval chain that lives in email. The data entry someone does by hand every morning. We don't add a tool on top. We remove the step entirely.",
         icon: "cpu",
       },
       {
-        title: "API Development",
-        description: "Connect your systems to each other and to the outside world. Custom APIs that let your tools talk to each other the way they should have from the start.",
-        icon: "link",
+        title: "Compliance-Ready Solutions",
+        description: "HIPAA, SOC 2, client confidentiality requirements that rule out cloud-based tools? We build on-premise and private-cloud solutions. Your data never leaves your control.",
+        icon: "shield",
       },
       {
         title: "Legacy System Modernization",
@@ -377,27 +377,35 @@ export const services: ConsolidatedService[] = [
       },
       {
         title: "SaaS Replacement",
-        description: "That $50K/year subscription with features you don't use? We build the 10% you actually need, purpose-built for your workflow. One-time cost. You own it outright.",
+        description: "You're paying enterprise prices for the 10% of features you actually use. We build that 10%, purpose-built for your workflow. One-time cost. You own it outright.",
         icon: "lightbulb",
       },
     ],
     benefits: [
       { title: "Own It Outright", description: "Your code. Your data. No per-seat fees, no annual renewals, no vendor holding your business hostage." },
       { title: "Weeks, Not Quarters", description: "Working software in your hands in 2-4 weeks. Not a roadmap. Not a prototype. Software your team uses." },
-      { title: "Perfect Fit", description: "Every feature exists because your business needs it. Nothing you don't. 100% fit instead of the usual 70%." },
+      { title: "Fewer Steps, Not More Tools", description: "We don't add software your team has to learn. We remove the steps they shouldn't be doing. The end result is less work, not a new workflow to manage." },
     ],
     targetAudience: {
       profiles: [
-        "Companies paying for enterprise software they've outgrown or never fully used",
-        "Teams drowning in workarounds because their tools don't quite fit",
-        "Organizations tired of per-seat licensing costs that climb every year",
-        "Businesses that need internal tools but can't justify six-figure development budgets",
+        "Your team spends hours every week pulling data from one system and re-entering it in another",
+        "You've outgrown basic tools but enterprise solutions cost six figures and take 18 months to implement",
+        "Compliance requirements (HIPAA, client confidentiality, SOC 2) rule out most off-the-shelf AI and cloud tools",
+        "You're paying per-seat licensing across multiple platforms that each solve 70% of the problem",
       ],
     },
     faqs: [
       {
         question: "How can custom software cost less than SaaS?",
-        answer: "AI made senior engineers 3-5x more productive. That productivity gain flows directly to you as lower costs. A custom app that would have cost $200K two years ago now costs $30K-$75K. One-time. Compare that to $50K+ per year in SaaS licensing that never stops.",
+        answer: "AI made senior engineers dramatically more productive. That gain flows directly to you as lower costs and faster timelines. A custom app that used to require a massive budget and a year of development now ships in weeks at a fraction of the old price. One-time. Compare that to SaaS licensing that never stops climbing.",
+      },
+      {
+        question: "What about HIPAA, SOC 2, or client confidentiality?",
+        answer: "We build compliance in from day one. For healthcare, that means solutions where patient data never leaves your servers. For law firms, client work product stays under your roof. For regulated industries, we build to the standard your compliance team requires. Not as an afterthought. As the starting point.",
+      },
+      {
+        question: "What if we already have systems in place?",
+        answer: "Good. We build around what works. Your ERP stays. Your PM tool stays. Your CRM stays. We fill the gaps between them and connect the pieces so your team stops logging into four systems to answer one question.",
       },
       {
         question: "What happens after the project is done?",
@@ -406,10 +414,6 @@ export const services: ConsolidatedService[] = [
       {
         question: "How do you deliver so fast?",
         answer: "Senior engineers working with AI handle the repetitive parts of development. That means more time on the parts that matter: understanding your business, designing the right solution, and making sure it actually works for your team. The quality goes up while the timeline comes down.",
-      },
-      {
-        question: "What if we already have some systems in place?",
-        answer: "Good. We build around what works. Your team keeps the tools they know. We fill the gaps and connect the pieces. No rip-and-replace unless that's what makes sense for your business.",
       },
     ],
     processSteps: [
@@ -473,14 +477,14 @@ export const serviceCategories = {
 };
 
 export const serviceDecisionHelper = [
-  { problem: "Want one place for all your data, not fifteen", service: "data-ai-strategy" },
-  { problem: "Need to know what's realistic for AI before spending", service: "data-ai-strategy" },
-  { problem: "Want answers now, not after someone pulls a report", service: "analytics-bi" },
-  { problem: "Need to see what's happening today, not last month", service: "analytics-bi" },
-  { problem: "Want AI doing the repetitive work so your team doesn't have to", service: "ai-services" },
-  { problem: "Need decades of knowledge searchable in seconds", service: "ai-services" },
-  { problem: "Paying for SaaS features you don't use and want something that actually fits", service: "custom-software" },
-  { problem: "Need internal tools but can't justify a six-figure development budget", service: "custom-software" },
+  { problem: "Your team checks three systems and still isn't sure they have the right number", service: "data-ai-strategy" },
+  { problem: "Your last AI project failed because the data underneath was a mess", service: "data-ai-strategy" },
+  { problem: "Someone on your team spends a day every week compiling a report that's outdated by Friday", service: "analytics-bi" },
+  { problem: "You can't answer basic margin or profitability questions without spreadsheet archaeology", service: "analytics-bi" },
+  { problem: "Your team tried AI tools and ended up verifying everything the AI produced", service: "ai-services" },
+  { problem: "Decades of knowledge trapped in documents and people's heads with no way to search it", service: "ai-services" },
+  { problem: "Your team logs into four systems to answer one question", service: "custom-software" },
+  { problem: "Compliance rules out most cloud tools but you still need the capability", service: "custom-software" },
 ];
 
 export function getServiceBySlug(slug: string): ConsolidatedService | undefined {

@@ -5,9 +5,9 @@ import { reviewSchema, breadcrumbSchema } from "@/lib/schema";
 import { testimonials } from "@/lib/case-studies-data";
 
 export const metadata: Metadata = {
-  title: "Case Studies | Real Data & AI Results from Databender Projects",
+  title: "Case Studies | Real Data & AI Results | Databender",
   description:
-    "See real results from Databender data and AI projects: 125x cost savings through AI agents, 31% higher prediction accuracy with ML, and operational visibility for manufacturers. Filter by industry or solution type.",
+    "125x cost savings with AI agents. 31% higher prediction accuracy. Real results from real projects. See how we build solutions that deliver.",
   keywords: [
     "data consulting case studies",
     "AI project results",
@@ -17,17 +17,17 @@ export const metadata: Metadata = {
     "AI implementation examples",
   ],
   openGraph: {
-    title: "Case Studies | Real Data & AI Results from Databender Projects",
+    title: "Case Studies | Real Data & AI Results | Databender",
     description:
-      "See real results from Databender data and AI projects: 125x cost savings through AI agents, 31% higher prediction accuracy with ML, and operational visibility for manufacturers.",
+      "125x cost savings with AI agents. 31% higher prediction accuracy. Real results from real projects. See how we build solutions that deliver.",
     type: "website",
     url: "https://databender.co/case-studies",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Case Studies | Real Data & AI Results from Databender Projects",
+    title: "Case Studies | Real Data & AI Results | Databender",
     description:
-      "See real results from Databender data and AI projects: 125x cost savings through AI agents, 31% higher prediction accuracy with ML, and operational visibility for manufacturers.",
+      "125x cost savings with AI agents. 31% higher prediction accuracy. Real results from real projects. See how we build solutions that deliver.",
     images: ["https://databender.co/opengraph-image"],
   },
   alternates: {

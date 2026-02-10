@@ -24,11 +24,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${service.title} | Databender Services`,
-    description: service.description,
+    title: `${service.title} | ${service.shortTitle} | Databender`,
+    description: service.longDescription,
     openGraph: {
-      title: service.title,
-      description: service.description,
+      title: `${service.title} | ${service.shortTitle} | Databender`,
+      description: service.longDescription,
       type: "website",
       images: [
         {
@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: service.title,
-      description: service.description,
+      title: `${service.title} | ${service.shortTitle} | Databender`,
+      description: service.longDescription,
       images: ["https://databender.co/opengraph-image"],
     },
     alternates: {

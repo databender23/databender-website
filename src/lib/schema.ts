@@ -17,7 +17,7 @@ export function organizationSchema() {
     url: SITE_URL,
     logo: LOGO_URL,
     description:
-      "Custom data and AI solutions at a fraction of the old cost. Senior consultants with AI-powered delivery build what used to take months in weeks. Data strategy, analytics, and automation for growing companies.",
+      "Purpose-built data, AI, and software solutions for mid-market companies. We connect disconnected systems, build real-time analytics, deploy AI that removes work, and create custom software you own outright.",
     sameAs: ["https://www.linkedin.com/company/databender/"],
     address: {
       "@type": "PostalAddress",
@@ -28,12 +28,14 @@ export function organizationSchema() {
       name: "United States",
     },
     serviceType: [
-      "Data Consulting",
-      "AI Data Cleanup",
+      "Data Strategy",
       "Business Intelligence",
-      "Data Analytics",
+      "AI Automation",
+      "Custom Software Development",
       "Data Integration",
-      "AI Insights",
+      "AI Data Cleanup",
+      "Document Intelligence",
+      "HIPAA Compliant AI",
     ],
     priceRange: "$$",
   };
